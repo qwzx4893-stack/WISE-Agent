@@ -1,0 +1,673 @@
+[
+  {
+    "name": "busybox",
+    "version": "1.36.0",
+    "category": "Execution",
+    "description": "Single-binary toolbox bundling tiny implementations of dozens of standard Unix utilities (sh, ls, cp, grep, tar, …) — useful inside the sandbox when full coreutils aren't installed.",
+    "capabilities": [
+      "list files",
+      "copy/move files",
+      "compress archives",
+      "search text",
+      "run minimal shell"
+    ],
+    "use_cases": [
+      "Run common Unix utilities inside a minimal rootfs",
+      "Recover from a broken /bin via a single binary"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "BusyBox sub-command + args"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Captured stdout/stderr from BusyBox.",
+    "implementation_type": "cli",
+    "cli_command": "busybox {args}",
+    "cli_binary": "busybox",
+    "dependencies": [
+      "busybox-static"
+    ],
+    "timeout": 60,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "BusyBox contributors",
+    "source": "https://busybox.net/"
+  },
+  {
+    "name": "toybox",
+    "version": "0.8.10",
+    "category": "Execution",
+    "description": "Public-domain BSD-style alternative to BusyBox that bundles a long list of POSIX utilities into one tiny binary. Used for cheap shell utilities inside the sandbox.",
+    "capabilities": [
+      "list files",
+      "copy/move files",
+      "search text",
+      "decompress archives",
+      "run minimal shell"
+    ],
+    "use_cases": [
+      "Provide POSIX utilities in a stripped-down rootfs",
+      "Run CI helpers without depending on coreutils"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "ToyBox sub-command + args"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Captured stdout/stderr from ToyBox.",
+    "implementation_type": "cli",
+    "cli_command": "toybox {args}",
+    "cli_binary": "toybox",
+    "dependencies": [
+      "toybox"
+    ],
+    "timeout": 60,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Rob Landley",
+    "source": "https://landley.net/toybox/"
+  },
+  {
+    "name": "libarchive",
+    "version": "3.6.2",
+    "category": "Execution",
+    "description": "bsdtar / bsdcpio command-line front-ends to libarchive. Read and write tar, cpio, 7z, ISO, zip, ar and more from a single tool.",
+    "capabilities": [
+      "extract archive",
+      "create archive",
+      "inspect archive contents",
+      "convert archive formats"
+    ],
+    "use_cases": [
+      "Pull files out of nested archives",
+      "Repackage tarballs into 7z without extra tools"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "bsdtar / bsdcpio arguments"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "bsdtar/bsdcpio stdout/stderr.",
+    "implementation_type": "cli",
+    "cli_command": "bsdtar {args}",
+    "cli_binary": "bsdtar",
+    "dependencies": [
+      "libarchive-tools"
+    ],
+    "timeout": 300,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "libarchive contributors",
+    "source": "https://www.libarchive.org/"
+  },
+  {
+    "name": "7z",
+    "version": "16.02",
+    "category": "Execution",
+    "description": "7-Zip CLI for high-ratio archive compression and extraction (.7z, .zip, .tar, .gz, .bz2, .xz, …) with strong AES-256 encryption.",
+    "capabilities": [
+      "compress files",
+      "extract archives",
+      "list archive entries",
+      "encrypt archive"
+    ],
+    "use_cases": [
+      "Compress large directories with high ratio",
+      "Extract password-protected archives"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "7z arguments (e.g. 'a out.7z folder/')"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "7z stdout/stderr.",
+    "implementation_type": "cli",
+    "cli_command": "7z {args}",
+    "cli_binary": "7z",
+    "dependencies": [
+      "p7zip-full"
+    ],
+    "timeout": 600,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Igor Pavlov",
+    "source": "https://www.7-zip.org/"
+  },
+  {
+    "name": "ripgrep",
+    "version": "13.0.0",
+    "category": "Execution",
+    "description": "ripgrep (rg) — line-oriented recursive search that respects .gitignore. Drop-in replacement for grep -r, much faster on large trees.",
+    "capabilities": [
+      "search text",
+      "filter by glob",
+      "show line numbers",
+      "search binary files"
+    ],
+    "use_cases": [
+      "Search a large repository for a symbol",
+      "Find configuration values across many files"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "rg arguments (pattern, paths, flags)"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Matching lines with file paths.",
+    "implementation_type": "cli",
+    "cli_command": "rg {args}",
+    "cli_binary": "rg",
+    "dependencies": [
+      "ripgrep"
+    ],
+    "timeout": 120,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Andrew Gallant",
+    "source": "https://github.com/BurntSushi/ripgrep"
+  },
+  {
+    "name": "sed",
+    "version": "4.9",
+    "category": "Execution",
+    "description": "GNU stream editor for filtering and transforming text — substitution, deletion, insertion via address ranges and regex.",
+    "capabilities": [
+      "substitute text",
+      "delete lines",
+      "insert lines",
+      "filter input"
+    ],
+    "use_cases": [
+      "Bulk rename pattern in source files",
+      "Strip noisy lines from logs"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "sed arguments / script"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Transformed stream.",
+    "implementation_type": "cli",
+    "cli_command": "sed {args}",
+    "cli_binary": "sed",
+    "dependencies": [
+      "sed"
+    ],
+    "timeout": 60,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "GNU Project",
+    "source": "https://www.gnu.org/software/sed/"
+  },
+  {
+    "name": "awk",
+    "version": "5.1.0",
+    "category": "Execution",
+    "description": "GNU awk (gawk) — pattern-directed scanning and processing language for structured text. Ideal for column extraction and small one-liner reports.",
+    "capabilities": [
+      "extract columns",
+      "compute aggregates",
+      "filter records",
+      "format output"
+    ],
+    "use_cases": [
+      "Sum numbers in a CSV column",
+      "Reformat tabular log output"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "awk arguments / script"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Computed/transformed text.",
+    "implementation_type": "cli",
+    "cli_command": "awk {args}",
+    "cli_binary": "awk",
+    "dependencies": [
+      "gawk"
+    ],
+    "timeout": 60,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "GNU Project",
+    "source": "https://www.gnu.org/software/gawk/"
+  },
+  {
+    "name": "file",
+    "version": "5.45",
+    "category": "Execution",
+    "description": "Identify file types by content using libmagic — distinguishes ELF, PE, archives, images, source-code, etc.",
+    "capabilities": [
+      "detect file type",
+      "identify magic numbers",
+      "report MIME type"
+    ],
+    "use_cases": [
+      "Triage unknown attachments before opening",
+      "Verify a download is actually a tarball"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "Path or paths to inspect"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Per-file type description.",
+    "implementation_type": "cli",
+    "cli_command": "file {args}",
+    "cli_binary": "file",
+    "dependencies": [
+      "file"
+    ],
+    "timeout": 30,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Ian Darwin et al.",
+    "source": "https://www.darwinsys.com/file/"
+  },
+  {
+    "name": "binwalk",
+    "version": "2.3.4",
+    "category": "Security",
+    "description": "Binwalk — firmware analysis tool that scans binary blobs for embedded files, signatures, opcode patterns and entropy anomalies.",
+    "capabilities": [
+      "scan firmware",
+      "detect embedded archives",
+      "compute entropy",
+      "extract recognised payloads"
+    ],
+    "use_cases": [
+      "Reverse-engineer router firmware",
+      "Spot embedded JPEGs/ZIPs in unknown blobs"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "binwalk arguments (target file + flags)"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Signature scan + extraction report.",
+    "implementation_type": "cli",
+    "cli_command": "binwalk {args}",
+    "cli_binary": "binwalk",
+    "dependencies": [
+      "binwalk"
+    ],
+    "timeout": 600,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "ReFirm Labs",
+    "source": "https://github.com/ReFirmLabs/binwalk"
+  },
+  {
+    "name": "radare2",
+    "version": "5.9.0",
+    "category": "Security",
+    "description": "radare2 — open-source reverse-engineering framework: disassembler, debugger, hex editor, binary diff and patcher in one CLI.",
+    "capabilities": [
+      "disassemble binary",
+      "debug program",
+      "analyse functions",
+      "patch executable",
+      "diff binaries"
+    ],
+    "use_cases": [
+      "Reverse-engineer a stripped Linux ELF",
+      "Inspect malware in a controlled sandbox"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "r2 arguments / target binary"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Interactive r2 transcript / batch output.",
+    "implementation_type": "cli",
+    "cli_command": "r2 {args}",
+    "cli_binary": "r2",
+    "dependencies": [
+      "radare2"
+    ],
+    "timeout": 600,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "pancake",
+    "source": "https://rada.re/"
+  },
+  {
+    "name": "apktool",
+    "version": "2.9.3",
+    "category": "Security",
+    "description": "Apktool — decompile, modify and rebuild Android APKs (resources + smali). Essential for security audits and patching.",
+    "capabilities": [
+      "decompile apk",
+      "rebuild apk",
+      "edit smali",
+      "extract resources"
+    ],
+    "use_cases": [
+      "Audit a third-party APK for telemetry",
+      "Patch resources in a closed-source app"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "apktool arguments (d/b/if + paths)"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "apktool stdout/stderr.",
+    "implementation_type": "cli",
+    "cli_command": "apktool {args}",
+    "cli_binary": "apktool",
+    "dependencies": [
+      "apktool"
+    ],
+    "timeout": 600,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "iBotPeaches & Connor Tumbleson",
+    "source": "https://apktool.org/"
+  },
+  {
+    "name": "jadx",
+    "version": "1.5.0",
+    "category": "Security",
+    "description": "JADX — decompile Android dex/apk to readable Java. Has both a CLI (jadx) and a GUI (jadx-gui); we use the CLI inside the sandbox.",
+    "capabilities": [
+      "decompile dex",
+      "decompile apk",
+      "show resources",
+      "produce java"
+    ],
+    "use_cases": [
+      "Read decompiled Java for an APK",
+      "Bulk-convert dex files to .java for grepping"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "jadx arguments (target apk/dex + flags)"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Decompiled sources written to disk.",
+    "implementation_type": "cli",
+    "cli_command": "jadx {args}",
+    "cli_binary": "jadx",
+    "dependencies": [
+      "jadx"
+    ],
+    "timeout": 900,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Skylot",
+    "source": "https://github.com/skylot/jadx"
+  },
+  {
+    "name": "apksigner",
+    "version": "0.9",
+    "category": "Security",
+    "description": "Android apksigner — sign and verify APK signatures (v1, v2, v3). Used for build pipelines and signature audits.",
+    "capabilities": [
+      "sign apk",
+      "verify apk signature",
+      "rotate signing key"
+    ],
+    "use_cases": [
+      "Verify an APK matches its signing certificate",
+      "Sign a rebuilt APK after apktool"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "apksigner arguments (sign/verify + paths)"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Signature report.",
+    "implementation_type": "cli",
+    "cli_command": "apksigner {args}",
+    "cli_binary": "apksigner",
+    "dependencies": [
+      "apksigner"
+    ],
+    "timeout": 300,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Google AOSP",
+    "source": "https://developer.android.com/studio/command-line/apksigner"
+  },
+  {
+    "name": "zipalign",
+    "version": "33.0.3",
+    "category": "Execution",
+    "description": "zipalign — align uncompressed ZIP entries on 4-byte boundaries (required for Android APK release builds).",
+    "capabilities": [
+      "align apk",
+      "verify alignment",
+      "optimise apk"
+    ],
+    "use_cases": [
+      "Align an APK before signing for release",
+      "Verify a published APK is properly aligned"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "zipalign arguments (-v 4 in.apk out.apk)"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Aligned APK + status.",
+    "implementation_type": "cli",
+    "cli_command": "zipalign {args}",
+    "cli_binary": "zipalign",
+    "dependencies": [
+      "zipalign"
+    ],
+    "timeout": 300,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Google AOSP",
+    "source": "https://developer.android.com/studio/command-line/zipalign"
+  },
+  {
+    "name": "frida",
+    "version": "16.2.1",
+    "category": "Security",
+    "description": "Frida CLI tools (frida, frida-trace, frida-ps) — dynamic instrumentation toolkit for hooking and tracing Android/iOS/Linux apps.",
+    "capabilities": [
+      "hook function",
+      "trace API calls",
+      "list running processes",
+      "inject script"
+    ],
+    "use_cases": [
+      "Trace native API calls in a running app",
+      "Hook an Android method to inspect arguments"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "frida CLI arguments"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Frida script transcript.",
+    "implementation_type": "cli",
+    "cli_command": "frida {args}",
+    "cli_binary": "frida",
+    "dependencies": [
+      "frida-tools"
+    ],
+    "timeout": 600,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "author": "Ole André V. Ravnås",
+    "source": "https://frida.re/"
+  },
+  {
+    "name": "dex2jar",
+    "version": "2.4",
+    "category": "Security",
+    "description": "dex2jar (d2j-dex2jar.sh) — convert Android .dex / .apk into .jar so traditional Java decompilers can read them.",
+    "capabilities": [
+      "convert dex to jar",
+      "extract classes",
+      "support for apk input"
+    ],
+    "use_cases": [
+      "Pipeline dex → jar → Java source",
+      "Mass-extract classes from APK collections"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "type": "string",
+          "description": "d2j-dex2jar.sh arguments"
+        }
+      },
+      "required": [
+        "args"
+      ]
+    },
+    "output_format": "Generated .jar plus log.",
+    "implementation_type": "cli",
+    "cli_command": "d2j-dex2jar.sh {args}",
+    "cli_binary": "d2j-dex2jar.sh",
+    "dependencies": [
+      "dex2jar"
+    ],
+    "timeout": 600,
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "author": "Bob Pan",
+    "source": "https://github.com/pxb1988/dex2jar"
+  }
+]

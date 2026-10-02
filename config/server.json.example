@@ -1,0 +1,24 @@
+{
+  "_comment": "Sample server config. Copy to config/server.json and edit. Environment variables (AGENT_API_HOST, AGENT_API_PORT, AGENT_CORS_ORIGINS, AGENT_RATE_LIMIT_CHAT_CAPACITY, AGENT_RATE_LIMIT_CHAT_REFILL_PER_SEC, AGENT_RATE_LIMIT_EXECUTE_CAPACITY, AGENT_RATE_LIMIT_EXECUTE_REFILL_PER_SEC, AGENT_MAX_REQUEST_BYTES, AGENT_MAX_EXECUTE_BYTES) override these values.",
+  "host": "127.0.0.1",
+  "port": 5000,
+  "cors_origins": [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://localhost:8765",
+    "http://127.0.0.1:8765"
+  ],
+  "max_request_bytes": 1048576,
+  "max_execute_bytes": 66560,
+  "tts_engine": "indextts",
+  "tts_reference_audio": "assets/voice/wise_indextts_reference_canonical.wav",
+  "tts_clone_language": "ar",
+  "tts_indextts_gpt_checkpoint": "assets/voice/models/wise-indextts-2.5-gpt.pth",
+  "stt_engine": "whisper_cpu",
+  "stt_model": "base",
+  "stt_language": "auto",
+  "rate_limit": {
+    "chat":    {"capacity": 30, "refill_per_sec": 0.5},
+    "execute": {"capacity": 10, "refill_per_sec": 0.16666666666666666}
+  }
+}

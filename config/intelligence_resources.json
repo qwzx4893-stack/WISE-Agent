@@ -1,0 +1,1374 @@
+{
+  "schema_version": 1,
+  "source_sha256": "cb2dfce6da1317a4c3ec3b4cb985f3dbb7022624fa34fb46f33d5d698e01b4fc",
+  "entries": [
+    {
+      "name": "OpenStreetMap",
+      "group": "open_data",
+      "description": "OpenStreetMap",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openstreetmap"
+    },
+    {
+      "name": "Overpass Turbo",
+      "group": "open_data",
+      "description": "Overpass Turbo",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "overpass-turbo"
+    },
+    {
+      "name": "Overpass API",
+      "group": "open_data",
+      "description": "Overpass API",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "overpass-api"
+    },
+    {
+      "name": "Wayback Machine",
+      "group": "open_data",
+      "description": "Wayback Machine",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "wayback-machine"
+    },
+    {
+      "name": "Common Crawl",
+      "group": "open_data",
+      "description": "Common Crawl",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "common-crawl"
+    },
+    {
+      "name": "Wikidata",
+      "group": "open_data",
+      "description": "Wikidata",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "wikidata"
+    },
+    {
+      "name": "Google Dataset Search",
+      "group": "open_data",
+      "description": "Google Dataset Search",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "google-dataset-search"
+    },
+    {
+      "name": "GDELT",
+      "group": "open_data",
+      "description": "GDELT",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gdelt"
+    },
+    {
+      "name": "Event Registry",
+      "group": "open_data",
+      "description": "Event Registry",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "event-registry"
+    },
+    {
+      "name": "Media Cloud",
+      "group": "open_data",
+      "description": "Media Cloud",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "media-cloud"
+    },
+    {
+      "name": "OCCRP Aleph",
+      "group": "open_data",
+      "description": "OCCRP Aleph",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "occrp-aleph"
+    },
+    {
+      "name": "OpenCorporates",
+      "group": "open_data",
+      "description": "OpenCorporates",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opencorporates"
+    },
+    {
+      "name": "OpenSanctions",
+      "group": "open_data",
+      "description": "OpenSanctions",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opensanctions"
+    },
+    {
+      "name": "World Bank Open Data",
+      "group": "open_data",
+      "description": "World Bank Open Data",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "world-bank-open-data"
+    },
+    {
+      "name": "Data.gov",
+      "group": "open_data",
+      "description": "Data.gov",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "data-gov"
+    },
+    {
+      "name": "Academic Torrents",
+      "group": "open_data",
+      "description": "Academic Torrents",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "academic-torrents"
+    },
+    {
+      "name": "TfL Open Data API",
+      "group": "vision",
+      "description": "TfL Open Data API وJamCam endpoint لبيانات كاميرات الطرق العامة في لندن.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "tfl-open-data-api"
+    },
+    {
+      "name": "Streamlink",
+      "group": "vision",
+      "description": "Streamlink لسحب خلاصات عامة مسموحة.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "streamlink"
+    },
+    {
+      "name": "FFmpeg",
+      "group": "vision",
+      "description": "FFmpeg للتحويل والتسجيل واستخراج الإطارات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "ffmpeg"
+    },
+    {
+      "name": "OpenCV",
+      "group": "vision",
+      "description": "OpenCV والتوثيق لمعالجة الفيديو والصور.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opencv"
+    },
+    {
+      "name": "OpenCV Zoo",
+      "group": "vision",
+      "description": "OpenCV Zoo لنماذج الرؤية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opencv-zoo"
+    },
+    {
+      "name": "YuNet",
+      "group": "vision",
+      "description": "YuNet لكشف الوجوه.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "yunet"
+    },
+    {
+      "name": "SFace",
+      "group": "vision",
+      "description": "SFace لاستخراج السمات والمطابقة المحلية المصرح بها.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "sface"
+    },
+    {
+      "name": "MobileFaceNet TF",
+      "group": "vision",
+      "description": "MobileFaceNet TF نموذج خفيف لاستخراج السمات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "mobilefacenet-tf"
+    },
+    {
+      "name": "ONNX Runtime",
+      "group": "vision",
+      "description": "ONNX Runtime لتشغيل نماذج ONNX.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "onnx-runtime"
+    },
+    {
+      "name": "Tesseract OCR",
+      "group": "vision",
+      "description": "Tesseract OCR لاستخراج النص من الصور.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "tesseract-ocr"
+    },
+    {
+      "name": "ExifTool",
+      "group": "vision",
+      "description": "ExifTool لقراءة البيانات الوصفية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "exiftool"
+    },
+    {
+      "name": "InVID-WeVerify",
+      "group": "vision",
+      "description": "InVID-WeVerify للتحقق من الصور والفيديو.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "invid-weverify"
+    },
+    {
+      "name": "Forensically",
+      "group": "vision",
+      "description": "Forensically للتحليل البصري؛ يراجع الترخيص عند الدمج الداخلي.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "forensically"
+    },
+    {
+      "name": "Scrapy",
+      "group": "web_automation",
+      "description": "Scrapy إطار زحف Python.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "scrapy"
+    },
+    {
+      "name": "Playwright",
+      "group": "web_automation",
+      "description": "Playwright أتمتة المتصفح والاختبارات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "playwright"
+    },
+    {
+      "name": "Selenium",
+      "group": "web_automation",
+      "description": "Selenium أتمتة المتصفح.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "selenium"
+    },
+    {
+      "name": "Apache Nutch",
+      "group": "web_automation",
+      "description": "Apache Nutch زاحف ويب مفتوح المصدر.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "apache-nutch"
+    },
+    {
+      "name": "Heritrix",
+      "group": "web_automation",
+      "description": "Heritrix زاحف أرشفة من Internet Archive.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "heritrix"
+    },
+    {
+      "name": "Changedetection.io",
+      "group": "web_automation",
+      "description": "Changedetection.io مراقبة تغيّر صفحات الويب.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "changedetection-io"
+    },
+    {
+      "name": "RSS/Atom feeds",
+      "group": "web_automation",
+      "description": "RSS/Atom feeds لمراقبة المصادر التي توفر خلاصات رسمية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "rss-atom-feeds"
+    },
+    {
+      "name": "Whisper.cpp",
+      "group": "media",
+      "description": "Whisper.cpp تفريغ الصوت محليًا.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "whisper-cpp"
+    },
+    {
+      "name": "Vosk",
+      "group": "media",
+      "description": "Vosk تعرف على الكلام دون اتصال.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "vosk"
+    },
+    {
+      "name": "Piper",
+      "group": "media",
+      "description": "Piper تحويل النص إلى كلام محليًا.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "piper"
+    },
+    {
+      "name": "Apache Tika",
+      "group": "media",
+      "description": "Apache Tika استخراج النص والبيانات الوصفية من المستندات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "apache-tika"
+    },
+    {
+      "name": "OCRmyPDF",
+      "group": "media",
+      "description": "OCRmyPDF إضافة OCR إلى ملفات PDF.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "ocrmypdf"
+    },
+    {
+      "name": "ImageMagick",
+      "group": "media",
+      "description": "ImageMagick معالجة الصور.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "imagemagick"
+    },
+    {
+      "name": "Qdrant",
+      "group": "knowledge",
+      "description": "Qdrant قاعدة بحث متجهي.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "qdrant"
+    },
+    {
+      "name": "Milvus",
+      "group": "knowledge",
+      "description": "Milvus قاعدة بيانات متجهية مفتوحة المصدر.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "milvus"
+    },
+    {
+      "name": "Chroma",
+      "group": "knowledge",
+      "description": "Chroma تخزين واسترجاع embeddings.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "chroma"
+    },
+    {
+      "name": "SQLite",
+      "group": "knowledge",
+      "description": "SQLite قاعدة بيانات محلية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "sqlite"
+    },
+    {
+      "name": "DuckDB",
+      "group": "knowledge",
+      "description": "DuckDB تحليل CSV وJSON وParquet.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "duckdb"
+    },
+    {
+      "name": "OpenSearch",
+      "group": "knowledge",
+      "description": "OpenSearch فهرسة وبحث وتحليل سجلات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opensearch"
+    },
+    {
+      "name": "MinIO",
+      "group": "knowledge",
+      "description": "MinIO تخزين كائنات متوافق مع S3.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "minio"
+    },
+    {
+      "name": "OpenMetadata",
+      "group": "knowledge",
+      "description": "OpenMetadata تتبع مصدر البيانات وبياناتها الوصفية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openmetadata"
+    },
+    {
+      "name": "Paperless-ngx",
+      "group": "knowledge",
+      "description": "Paperless-ngx أرشفة المستندات والبحث فيها.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "paperless-ngx"
+    },
+    {
+      "name": "Recoll",
+      "group": "knowledge",
+      "description": "Recoll بحث محلي في الملفات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "recoll"
+    },
+    {
+      "name": "Ollama",
+      "group": "agents",
+      "description": "Ollama تشغيل نماذج محلية؛ يتحقق من ترخيص كل نموذج.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "ollama"
+    },
+    {
+      "name": "llama.cpp",
+      "group": "agents",
+      "description": "llama.cpp تشغيل نماذج اللغة بكفاءة محلية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "llama-cpp"
+    },
+    {
+      "name": "Open WebUI",
+      "group": "agents",
+      "description": "Open WebUI واجهة محلية للنماذج والملفات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "open-webui"
+    },
+    {
+      "name": "LangGraph",
+      "group": "agents",
+      "description": "LangGraph بناء سير عمل ووكلاء ذوي حالة.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "langgraph"
+    },
+    {
+      "name": "AutoGen",
+      "group": "agents",
+      "description": "AutoGen تنسيق وكلاء متعددين؛ يتحقق من إصدار المشروع والترخيص.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "autogen"
+    },
+    {
+      "name": "CrewAI",
+      "group": "agents",
+      "description": "CrewAI تنسيق أدوار الوكلاء.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "crewai"
+    },
+    {
+      "name": "Letta",
+      "group": "agents",
+      "description": "Letta ذاكرة طويلة الأمد للوكلاء.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "letta"
+    },
+    {
+      "name": "OpenHands",
+      "group": "agents",
+      "description": "OpenHands مساعد تطوير برمجي مفتوح المصدر؛ يراجع الترخيص قبل الاستخدام التجاري.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openhands"
+    },
+    {
+      "name": "Aider",
+      "group": "agents",
+      "description": "Aider برمجة بمساعدة نموذج لغوي.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "aider"
+    },
+    {
+      "name": "n8n",
+      "group": "automation",
+      "description": "n8n تدفقات أتمتة؛ يراجع الترخيص لأنه Source-Available وليس OSS تقليديًا في كل الإصدارات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "n8n"
+    },
+    {
+      "name": "Node-RED",
+      "group": "automation",
+      "description": "Node-RED تدفقات حدثية وربط APIs.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "node-red"
+    },
+    {
+      "name": "Apache Airflow",
+      "group": "automation",
+      "description": "Apache Airflow جدولة خطوط البيانات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "apache-airflow"
+    },
+    {
+      "name": "Temporal",
+      "group": "automation",
+      "description": "Temporal تنفيذ سير عمل موثوق؛ يراجع إصدار Community والترخيص.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "temporal"
+    },
+    {
+      "name": "Home Assistant",
+      "group": "automation",
+      "description": "Home Assistant أتمتة الأجهزة والخدمات المحلية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "home-assistant"
+    },
+    {
+      "name": "Cron/systemd timers",
+      "group": "automation",
+      "description": "Cron/systemd timers جدولة محلية بسيطة.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cron-systemd-timers"
+    },
+    {
+      "name": "Docker Engine",
+      "group": "security",
+      "description": "Docker Engine حاويات وعزل للخدمات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "docker-engine"
+    },
+    {
+      "name": "Podman",
+      "group": "security",
+      "description": "Podman حاويات دون daemon مركزي.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "podman"
+    },
+    {
+      "name": "Firejail",
+      "group": "security",
+      "description": "Firejail تقليل صلاحيات التطبيقات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "firejail"
+    },
+    {
+      "name": "gVisor",
+      "group": "security",
+      "description": "gVisor عزل إضافي للحاويات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gvisor"
+    },
+    {
+      "name": "OpenBao",
+      "group": "security",
+      "description": "OpenBao إدارة الأسرار مفتوحة المصدر.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openbao"
+    },
+    {
+      "name": "Open Policy Agent",
+      "group": "security",
+      "description": "Open Policy Agent سياسات وصول وتنفيذ.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "open-policy-agent"
+    },
+    {
+      "name": "Keycloak",
+      "group": "security",
+      "description": "Keycloak هوية وصلاحيات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "keycloak"
+    },
+    {
+      "name": "Authelia",
+      "group": "security",
+      "description": "Authelia بوابة مصادقة.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "authelia"
+    },
+    {
+      "name": "Restic",
+      "group": "security",
+      "description": "Restic نسخ احتياطي مشفر.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "restic"
+    },
+    {
+      "name": "OpenTelemetry",
+      "group": "security",
+      "description": "OpenTelemetry تتبع واستشعار عمليات الأدوات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opentelemetry"
+    },
+    {
+      "name": "Auditd",
+      "group": "security",
+      "description": "Auditd تدقيق أحداث Linux.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "auditd"
+    },
+    {
+      "name": "Prometheus",
+      "group": "monitoring",
+      "description": "Prometheus قياس وتنبيهات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "prometheus"
+    },
+    {
+      "name": "Grafana",
+      "group": "monitoring",
+      "description": "Grafana لوحات مراقبة.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "grafana"
+    },
+    {
+      "name": "Netdata",
+      "group": "monitoring",
+      "description": "Netdata مراقبة فورية.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "netdata"
+    },
+    {
+      "name": "Uptime Kuma",
+      "group": "monitoring",
+      "description": "Uptime Kuma مراقبة توفر الخدمات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "uptime-kuma"
+    },
+    {
+      "name": "ntopng",
+      "group": "monitoring",
+      "description": "ntopng تحليل استهلاك الشبكة؛ يتحقق من حدود نسخة Community.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "ntopng"
+    },
+    {
+      "name": "WireGuard",
+      "group": "monitoring",
+      "description": "WireGuard شبكة VPN مفتوحة المصدر.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "wireguard"
+    },
+    {
+      "name": "psutil",
+      "group": "monitoring",
+      "description": "psutil مراقبة موارد النظام عبر Python.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "psutil"
+    },
+    {
+      "name": "OSINT Framework",
+      "group": "osint",
+      "description": "فهرس لمصادر وأدوات البحث المفتوحة",
+      "url": "https://osintframework.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "osint-framework"
+    },
+    {
+      "name": "Bellingcat Online Investigation Toolkit",
+      "group": "osint",
+      "description": "منهجيات وأدوات التحقق والتحقيق مفتوح المصدر",
+      "url": "https://bellingcat.gitbook.io/toolkit",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "bellingcat-online-investigation-toolkit"
+    },
+    {
+      "name": "OSINT4ALL",
+      "group": "osint",
+      "description": "مجموعة موارد وأدوات OSINT؛ يثبت المستودع المحدد قبل الاعتماد عليه",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "osint4all"
+    },
+    {
+      "name": "Maltego CE",
+      "group": "osint",
+      "description": "نسخة مجتمعية لتحليل العلاقات؛ يجب التحقق من شروط الإصدار والاستخدام",
+      "url": "https://maltego.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "maltego-ce"
+    },
+    {
+      "name": "SpiderFoot",
+      "group": "osint",
+      "description": "أتمتة جمع معلومات OSINT من مصادر عامة",
+      "url": "https://github.com/smicallef/spiderfoot",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "spiderfoot"
+    },
+    {
+      "name": "IntelO",
+      "group": "osint",
+      "description": "منصة OSINT لجمع وتحليل مؤشرات عامة",
+      "url": "https://github.com/PassiveBlogger/IntelO",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "intelo"
+    },
+    {
+      "name": "DataSploit",
+      "group": "osint",
+      "description": "إثراء بيانات النطاقات والبريد وعناوين IP من مصادر عامة",
+      "url": "https://github.com/DataSploit/datasploit",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "datasploit"
+    },
+    {
+      "name": "OpenRefine",
+      "group": "osint",
+      "description": "تنظيف البيانات وإزالة التكرار وتوحيد الكيانات",
+      "url": "https://openrefine.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openrefine"
+    },
+    {
+      "name": "Gephi",
+      "group": "osint",
+      "description": "تحليل ورسم الشبكات والعلاقات",
+      "url": "https://gephi.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gephi"
+    },
+    {
+      "name": "Neo4j Community",
+      "group": "osint",
+      "description": "قاعدة بيانات رسومية لبناء الرسم المعرفي",
+      "url": "https://neo4j.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "neo4j-community"
+    },
+    {
+      "name": "Apache AGE",
+      "group": "osint",
+      "description": "امتداد رسومي لـ PostgreSQL",
+      "url": "https://age.apache.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "apache-age"
+    },
+    {
+      "name": "Amass",
+      "group": "infrastructure",
+      "description": "اكتشاف أصول ونطاقات مرتبطة بنطاق مملوك أو مصرح به",
+      "url": "https://github.com/owasp-amass/amass",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "amass"
+    },
+    {
+      "name": "theHarvester",
+      "group": "infrastructure",
+      "description": "جمع أسماء النطاقات والبريد والمضيفين من المصادر العامة",
+      "url": "https://github.com/laramies/theHarvester",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "theharvester"
+    },
+    {
+      "name": "Subfinder",
+      "group": "infrastructure",
+      "description": "اكتشاف النطاقات الفرعية السلبية",
+      "url": "https://github.com/projectdiscovery/subfinder",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "subfinder"
+    },
+    {
+      "name": "httpx",
+      "group": "infrastructure",
+      "description": "فحص استجابة HTTP للأصول المصرح بها",
+      "url": "https://github.com/projectdiscovery/httpx",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "httpx"
+    },
+    {
+      "name": "Nmap",
+      "group": "infrastructure",
+      "description": "اكتشاف الخدمات على أنظمة يملكها المستخدم أو لديه تصريح بفحصها",
+      "url": "https://nmap.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "nmap"
+    },
+    {
+      "name": "OWASP ZAP",
+      "group": "infrastructure",
+      "description": "اختبار أمان تطبيقات الويب المملوكة أو المصرح بها",
+      "url": "https://zaproxy.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "owasp-zap"
+    },
+    {
+      "name": "urlscan.io",
+      "group": "infrastructure",
+      "description": "تحليل صفحات وروابط عامة، مع احترام سياسة الخدمة",
+      "url": "https://urlscan.io",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "urlscan-io"
+    },
+    {
+      "name": "ProjectDiscovery Nuclei",
+      "group": "infrastructure",
+      "description": "فحوصات قوالب أمنية على أهداف مصرح بها",
+      "url": "https://github.com/projectdiscovery/nuclei",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "projectdiscovery-nuclei"
+    },
+    {
+      "name": "BGPView",
+      "group": "infrastructure",
+      "description": "معلومات BGP وASN وعناوين الشبكات العامة",
+      "url": "https://bgpview.io",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "bgpview"
+    },
+    {
+      "name": "MISP",
+      "group": "threat_intelligence",
+      "description": "إدارة ومشاركة مؤشرات التهديد",
+      "url": "https://misp-project.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "misp"
+    },
+    {
+      "name": "OpenCTI",
+      "group": "threat_intelligence",
+      "description": "منصة استخبارات تهديدات ورسم علاقات",
+      "url": "https://github.com/OpenCTI-Platform/opencti",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opencti"
+    },
+    {
+      "name": "TheHive",
+      "group": "threat_intelligence",
+      "description": "إدارة حالات واستجابة للحوادث",
+      "url": "https://github.com/TheHive-Project/TheHive",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "thehive"
+    },
+    {
+      "name": "Cortex",
+      "group": "threat_intelligence",
+      "description": "تحليل مؤشرات التهديد عبر محللات قابلة للتوسعة",
+      "url": "https://github.com/TheHive-Project/Cortex",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cortex"
+    },
+    {
+      "name": "Yeti",
+      "group": "threat_intelligence",
+      "description": "تنظيم مؤشرات التهديد والكيانات والسياق",
+      "url": "https://github.com/yeti-platform/yeti",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "yeti"
+    },
+    {
+      "name": "Wazuh",
+      "group": "threat_intelligence",
+      "description": "مراقبة الأنظمة واكتشاف السلوكيات الأمنية",
+      "url": "https://wazuh.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "wazuh"
+    },
+    {
+      "name": "Zeek",
+      "group": "threat_intelligence",
+      "description": "مراقبة الشبكات وتحويل الحركة إلى سجلات تحليلية",
+      "url": "https://zeek.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "zeek"
+    },
+    {
+      "name": "Suricata",
+      "group": "threat_intelligence",
+      "description": "IDS/IPS وتحليل حركة الشبكة",
+      "url": "https://suricata.io",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "suricata"
+    },
+    {
+      "name": "Arkime",
+      "group": "threat_intelligence",
+      "description": "فهرسة جلسات الشبكة للتحقيق الجنائي المصرح",
+      "url": "https://arkime.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "arkime"
+    },
+    {
+      "name": "Wireshark",
+      "group": "threat_intelligence",
+      "description": "تحليل حزم الشبكة",
+      "url": "https://wireshark.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "wireshark"
+    },
+    {
+      "name": "OpenSearch Security Analytics",
+      "group": "threat_intelligence",
+      "description": "تحليل السجلات والتنبيهات الأمنية",
+      "url": "https://opensearch.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "opensearch-security-analytics"
+    },
+    {
+      "name": "YARA",
+      "group": "threat_intelligence",
+      "description": "قواعد مطابقة الملفات والبرمجيات المشبوهة",
+      "url": "https://github.com/VirusTotal/yara",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "yara"
+    },
+    {
+      "name": "Sigma",
+      "group": "threat_intelligence",
+      "description": "قواعد كشف محمولة لسجلات الأمن",
+      "url": "https://github.com/SigmaHQ/sigma",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "sigma"
+    },
+    {
+      "name": "STIX/TAXII",
+      "group": "threat_intelligence",
+      "description": "تبادل منظم لمعلومات التهديدات",
+      "url": "https://oasis-open.github.io/cti-documentation",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "stix-taxii"
+    },
+    {
+      "name": "Autopsy",
+      "group": "forensics",
+      "description": "منصة تحقيق جنائي رقمي",
+      "url": "https://sleuthkit.org/autopsy",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "autopsy"
+    },
+    {
+      "name": "The Sleuth Kit",
+      "group": "forensics",
+      "description": "أدوات تحليل أنظمة الملفات والأدلة",
+      "url": "https://sleuthkit.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "the-sleuth-kit"
+    },
+    {
+      "name": "Timesketch",
+      "group": "forensics",
+      "description": "تحليل الخطوط الزمنية للأحداث",
+      "url": "https://github.com/google/timesketch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "timesketch"
+    },
+    {
+      "name": "Plaso",
+      "group": "forensics",
+      "description": "استخراج آثار زمنية من الأدلة الرقمية",
+      "url": "https://github.com/log2timeline/plaso",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "plaso"
+    },
+    {
+      "name": "Velociraptor",
+      "group": "forensics",
+      "description": "جمع أدلة ومؤشرات من الأجهزة المصرح بها",
+      "url": "https://github.com/Velocidex/velociraptor",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "velociraptor"
+    },
+    {
+      "name": "GRR Rapid Response",
+      "group": "forensics",
+      "description": "استجابة وتحقيق عن بُعد في بيئات مملوكة",
+      "url": "https://github.com/google/grr",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "grr-rapid-response"
+    },
+    {
+      "name": "Dradis CE",
+      "group": "forensics",
+      "description": "تنظيم أدلة وتقارير التحقيق",
+      "url": "https://dradisframework.com/ce",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "dradis-ce"
+    },
+    {
+      "name": "Ghidra",
+      "group": "reverse_engineering",
+      "description": "هندسة عكسية وتحليل الملفات التنفيذية",
+      "url": "https://github.com/NationalSecurityAgency/ghidra",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "ghidra"
+    },
+    {
+      "name": "Radare2",
+      "group": "reverse_engineering",
+      "description": "تحليل ثنائي وهندسة عكسية",
+      "url": "https://rada.re/n",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "radare2"
+    },
+    {
+      "name": "Cutter",
+      "group": "reverse_engineering",
+      "description": "واجهة رسومية لـ Rizin للتحليل العكسي",
+      "url": "https://cutter.re",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cutter"
+    },
+    {
+      "name": "JADX",
+      "group": "reverse_engineering",
+      "description": "تفكيك تطبيقات Android إلى كود قابل للقراءة",
+      "url": "https://github.com/skylot/jadx",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "jadx"
+    },
+    {
+      "name": "Cuckoo Sandbox",
+      "group": "reverse_engineering",
+      "description": "تحليل سلوك الملفات داخل بيئة معزولة",
+      "url": "https://cuckoosandbox.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cuckoo-sandbox"
+    },
+    {
+      "name": "CAPEv2",
+      "group": "reverse_engineering",
+      "description": "مكونات تحليل سلوك البرمجيات الخبيثة؛ يراجع المستودع الرسمي قبل النشر",
+      "url": "https://github.com/kevoreilly/capemon",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "capev2"
+    },
+    {
+      "name": "Semgrep",
+      "group": "reverse_engineering",
+      "description": "تحليل ساكن للكود واكتشاف أنماط أمنية",
+      "url": "https://semgrep.dev",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "semgrep"
+    },
+    {
+      "name": "CyberChef",
+      "group": "reverse_engineering",
+      "description": "تحويل وتحليل وفك ترميزات البيانات محليًا",
+      "url": "https://github.com/gchq/CyberChef",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cyberchef"
+    },
+    {
+      "name": "QGIS",
+      "group": "geospatial",
+      "description": "نظم معلومات جغرافية وتحليل طبقات ومواقع",
+      "url": "https://qgis.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "qgis"
+    },
+    {
+      "name": "MapLibre GL JS",
+      "group": "geospatial",
+      "description": "عرض خرائط تفاعلية مفتوحة المصدر",
+      "url": "https://maplibre.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "maplibre-gl-js"
+    },
+    {
+      "name": "GDAL",
+      "group": "geospatial",
+      "description": "معالجة البيانات الجغرافية والصور المكانية",
+      "url": "https://gdal.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gdal"
+    },
+    {
+      "name": "Copernicus Data Space Ecosystem",
+      "group": "geospatial",
+      "description": "الوصول إلى بيانات Sentinel العامة وفق الشروط",
+      "url": "https://dataspace.copernicus.eu",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "copernicus-data-space-ecosystem"
+    },
+    {
+      "name": "Have I Been Pwned",
+      "group": "exposure_monitoring",
+      "description": "التحقق من بريد أو نطاق يملكه المستخدم عبر الواجهة الرسمية؛ لا يوفر قاعدة تنزيل عامة للتسريبات.",
+      "url": "https://haveibeenpwned.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "have-i-been-pwned"
+    },
+    {
+      "name": "HIBP Domain Search",
+      "group": "exposure_monitoring",
+      "description": "مراقبة نطاق تملكه المؤسسة بعد إثبات ملكيته.",
+      "url": "https://haveibeenpwned.com/DomainSearch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "hibp-domain-search"
+    },
+    {
+      "name": "HIBP API",
+      "group": "exposure_monitoring",
+      "description": "ربط التنبيهات بخدمة Supergent وفق شروط API، مع عدم تخزين كلمات المرور أو البيانات المسربة.",
+      "url": "https://haveibeenpwned.com/API/v3",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "hibp-api"
+    },
+    {
+      "name": "HIBP Pwned Passwords",
+      "group": "exposure_monitoring",
+      "description": "فحص كلمة المرور محليًا باستخدام k-anonymity؛ لا تُرسل كلمة المرور نفسها إلى الخدمة.",
+      "url": "https://haveibeenpwned.com/Passwords",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "hibp-pwned-passwords"
+    },
+    {
+      "name": "CISA Known Exploited Vulnerabilities",
+      "group": "exposure_monitoring",
+      "description": "ربط الحوادث بالثغرات المستغلة فعليًا وترتيب أولويات الإصلاح.",
+      "url": "https://cisa.gov/known-exploited-vulnerabilities-catalog",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cisa-known-exploited-vulnerabilities"
+    },
+    {
+      "name": "CISA Cyber Hygiene Services",
+      "group": "exposure_monitoring",
+      "description": "خدمات دفاعية لمراقبة أصول المؤسسة والتعرضات المعروفة.",
+      "url": "https://cisa.gov/cyber-hygiene-services",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cisa-cyber-hygiene-services"
+    },
+    {
+      "name": "NVD",
+      "group": "exposure_monitoring",
+      "description": "بيانات CVE ودرجات الخطورة لتقييم الأنظمة والبرامج.",
+      "url": "https://nvd.nist.gov",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "nvd"
+    },
+    {
+      "name": "CERT/CC Vulnerability Notes",
+      "group": "exposure_monitoring",
+      "description": "ملاحظات وتحليلات ثغرات عامة من جهة تنسيق موثوقة.",
+      "url": "https://kb.cert.org/vuls",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "cert-cc-vulnerability-notes"
+    },
+    {
+      "name": "MITRE ATT&CK",
+      "group": "exposure_monitoring",
+      "description": "ربط مؤشرات الحوادث بتكتيكات وتقنيات المهاجمين وبناء قواعد كشف.",
+      "url": "https://attack.mitre.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "mitre-att-ck"
+    },
+    {
+      "name": "MISP Galaxies and Feeds",
+      "group": "exposure_monitoring",
+      "description": "استخبارات تهديدات ومؤشرات قابلة للمشاركة دون تخزين بيانات شخصية مسروقة.",
+      "url": "https://misp-project.org/feeds",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "misp-galaxies-and-feeds"
+    },
+    {
+      "name": "Abuse.ch",
+      "group": "exposure_monitoring",
+      "description": "مؤشرات تهديد عامة للبرمجيات الخبيثة والتصيد والبوتنتات.",
+      "url": "https://abuse.ch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "abuse-ch"
+    },
+    {
+      "name": "URLhaus",
+      "group": "exposure_monitoring",
+      "description": "روابط برمجيات خبيثة مع بيانات مناسبة للكشف والحظر.",
+      "url": "https://urlhaus.abuse.ch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "urlhaus"
+    },
+    {
+      "name": "MalwareBazaar",
+      "group": "exposure_monitoring",
+      "description": "عينات ومؤشرات برمجيات خبيثة للاستخدام الدفاعي داخل مختبر معزول.",
+      "url": "https://bazaar.abuse.ch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "malwarebazaar"
+    },
+    {
+      "name": "Feodo Tracker",
+      "group": "exposure_monitoring",
+      "description": "مؤشرات خوادم تحكم مرتبطة بعائلات برمجيات خبيثة.",
+      "url": "https://feodotracker.abuse.ch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "feodo-tracker"
+    },
+    {
+      "name": "Spamhaus DROP/EDROP",
+      "group": "exposure_monitoring",
+      "description": "قوائم حظر للبنى التحتية الضارة.",
+      "url": "https://spamhaus.org/drop",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "spamhaus-drop-edrop"
+    },
+    {
+      "name": "PhishTank",
+      "group": "exposure_monitoring",
+      "description": "مؤشرات مواقع تصيد للتحقق والحظر.",
+      "url": "https://phishtank.org",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "phishtank"
+    },
+    {
+      "name": "OpenPhish Community",
+      "group": "exposure_monitoring",
+      "description": "تغذية دفاعية لمواقع التصيد؛ يتحقق من شروط الاستخدام قبل الأتمتة.",
+      "url": "https://openphish.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openphish-community"
+    },
+    {
+      "name": "AlienVault OTX",
+      "group": "exposure_monitoring",
+      "description": "مشاركة مؤشرات تهديد عامة وتحليلها.",
+      "url": "https://otx.alienvault.com",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "alienvault-otx"
+    },
+    {
+      "name": "CIRCL MISP Feeds",
+      "group": "exposure_monitoring",
+      "description": "تغذية استخبارات تهديدات من مركز استجابة للحوادث.",
+      "url": "https://circl.lu/services/misp-malware-information-sharing-platform",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "circl-misp-feeds"
+    },
+    {
+      "name": "FIRST EPSS",
+      "group": "exposure_monitoring",
+      "description": "تقدير احتمال استغلال CVE للمساعدة في ترتيب المعالجة.",
+      "url": "https://first.org/epss",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "first-epss"
+    },
+    {
+      "name": "OpenSSF Scorecard",
+      "group": "exposure_monitoring",
+      "description": "تقييم ممارسات أمان مشاريع البرمجيات مفتوحة المصدر.",
+      "url": "https://github.com/ossf/scorecard",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "openssf-scorecard"
+    },
+    {
+      "name": "GitHub Secret Scanning Guidance",
+      "group": "exposure_monitoring",
+      "description": "منع تسرب مفاتيح API والأسرار من المستودعات التي تملكها.",
+      "url": "https://docs.github.com/code-security/secret-scanning",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "github-secret-scanning-guidance"
+    },
+    {
+      "name": "Gitleaks",
+      "group": "exposure_monitoring",
+      "description": "كشف الأسرار داخل المستودعات والملفات محليًا.",
+      "url": "https://github.com/gitleaks/gitleaks",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gitleaks"
+    },
+    {
+      "name": "TruffleHog",
+      "group": "exposure_monitoring",
+      "description": "فحص المستودعات بحثًا عن مفاتيح وأسرار مكشوفة؛ يستخدم على أصول مصرح بها.",
+      "url": "https://github.com/trufflesecurity/trufflehog",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "trufflehog"
+    },
+    {
+      "name": "Detect Secrets",
+      "group": "exposure_monitoring",
+      "description": "منع إدخال أسرار إلى Git عبر فحوصات محلية.",
+      "url": "https://github.com/Yelp/detect-secrets",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "detect-secrets"
+    },
+    {
+      "name": "LeakWatch",
+      "group": "exposure_monitoring",
+      "description": "مراقبة مؤشرات تعرض عامة؛ يتحقق من حالة المشروع وترخيصه قبل الدمج.",
+      "url": "https://github.com/woj-ciech/LeakWatch",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "leakwatch"
+    },
+    {
+      "name": "Meta Content Library & API",
+      "group": "social_research",
+      "description": "بحث في المحتوى العام على Facebook وInstagram وThreads، بما في ذلك منشورات وتعليقات ومقاييس متاحة للبحث. وصول بحثي مضبوط؛ يتطلب عادة أهلية وطلبًا وموافقة، وليس مخزنًا عامًا للتنزيل.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "meta-content-library-api"
+    },
+    {
+      "name": "Telemetr / Telemetr.io",
+      "group": "social_research",
+      "description": "تحليلات تاريخية لقنوات Telegram العامة، مثل النمو والمشاهدات والتصنيفات والإعلانات حيثما يسمح المصدر. خدمة خارجية وليست OSS؛ تستخدم فقط عبر API الرسمي ووفق شروطه، دون جمع محتوى خاص أو تجاوز قيود Telegram.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "telemetr-telemetr-io"
+    },
+    {
+      "name": "GDELT Project",
+      "group": "social_research",
+      "description": "مراقبة الأخبار العالمية متعددة اللغات، واستخراج الأشخاص والمنظمات والأماكن والأحداث والروابط والصور. بيانات عامة مجانية مع شروط الاستخدام؛ تُحفظ في الستاك مرة واحدة فقط، ويُوسّع الموصل ليشمل تدفقات Social Media in the News عند توفرها.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gdelt-project"
+    },
+    {
+      "name": "GDELT Social Media in the News",
+      "group": "social_research",
+      "description": "روابط منشورات أو صفحات اجتماعية تظهر داخل التغطية الإخبارية، بدل ادعاء توفير أرشيف كامل لكل منصة. بيانات مشتقة من التغطية الإخبارية؛ لا تعني وصولًا مباشرًا إلى المحتوى الخاص أو كامل منشورات المنصات.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "gdelt-social-media-in-the-news"
+    },
+    {
+      "name": "OSoMe — Observatory on Social Media",
+      "group": "social_research",
+      "description": "مجموعات بيانات وأدوات لدراسة الشبكات الاجتماعية، البوتات، الانتشار، وحملات التأثير والمعلومات المنسقة. بعض البيانات مفتوح، وبعضها مقيد للباحثين أو متاح عبر Zenodo؛ يتحقق من ترخيص كل مجموعة قبل إدخالها.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "osome-observatory-on-social-media"
+    },
+    {
+      "name": "MediaWell Dataset Library",
+      "group": "social_research",
+      "description": "فهرس لمصادر ومجموعات بيانات وأدوات حول التضليل والمعلومات المضللة ومنصات التواصل. دليل للعثور على datasets، وليس قاعدة بيانات تسريبات؛ يراجع مصدر كل مجموعة وترخيصها.",
+      "url": "",
+      "review_status": "SOURCE_REVIEW_REQUIRED",
+      "id": "mediawell-dataset-library"
+    },
+    {
+      "name": "drivenlisten.com",
+      "group": "public_media",
+      "description": "User-requested public website. Availability and terms must be checked; no API or open-source status is assumed.",
+      "url": "https://drivenlisten.com",
+      "review_status": "AVAILABILITY_UNVERIFIED",
+      "id": "drivenlisten-com"
+    }
+  ]
+}

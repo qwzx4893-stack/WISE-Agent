@@ -1,0 +1,548 @@
+[
+  {
+    "name": "django-pro",
+    "version": "1.0.0",
+    "description": "Django Pro is an expert agent for Django web framework development. It provides production-ready code generation, ORM optimization, security best practices, deployment configurations, and comprehensive Django knowledge.",
+    "use_cases": [
+      "Django development",
+      "ORM optimization",
+      "API development with DRF",
+      "Django security hardening",
+      "Production deployment"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Django development task description"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (generate/optimize/review/deploy)",
+          "default": "generate"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Generated Django code, configuration, or recommendations.",
+    "capabilities": [
+      "django",
+      "python",
+      "web framework",
+      "ORM",
+      "API",
+      "DRF",
+      "production",
+      "security"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c 'import django; print(django.get_version())' && django-admin {action} '{task}'",
+    "dependencies": [
+      "python3",
+      "django"
+    ],
+    "timeout": 300,
+    "author": "Django",
+    "source": "https://github.com/django/django"
+  },
+  {
+    "name": "nextjs-expert",
+    "version": "1.0.0",
+    "description": "Next.js Expert is an AI agent specialized in building full-stack web applications with Next.js. It provides App Router guidance, server component optimization, API route development, and deployment strategies for Vercel.",
+    "use_cases": [
+      "Next.js development",
+      "App Router architecture",
+      "Server components",
+      "API routes",
+      "SSR/SSG optimization"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Next.js development task"
+        },
+        "type": {
+          "type": "string",
+          "description": "Task type (component/page/api/config)",
+          "default": "component"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Generated Next.js code or configuration.",
+    "capabilities": [
+      "nextjs",
+      "react",
+      "full-stack",
+      "App Router",
+      "SSR",
+      "SSG",
+      "Vercel",
+      "TypeScript"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "npx create-next-app@latest --example {type} -- {task}",
+    "dependencies": [
+      "nextjs-expert",
+      "nodejs"
+    ],
+    "timeout": 300,
+    "author": "Next.js",
+    "source": "https://github.com/vercel/next.js"
+  },
+  {
+    "name": "react-patterns",
+    "version": "1.0.0",
+    "description": "React Patterns is a comprehensive library of battle-tested React design patterns and best practices. It provides hooks patterns, component composition, state management strategies, performance optimization, and advanced React concepts.",
+    "use_cases": [
+      "React design patterns",
+      "Hooks composition",
+      "State management",
+      "Performance optimization",
+      "Component architecture"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Pattern name (compound/hoc/render-props/custom-hook/context)"
+        },
+        "requirements": {
+          "type": "string",
+          "description": "Component requirements"
+        }
+      },
+      "required": [
+        "pattern"
+      ]
+    },
+    "output_format": "Pattern implementation code and explanation.",
+    "capabilities": [
+      "react",
+      "patterns",
+      "hooks",
+      "components",
+      "state",
+      "performance",
+      "TypeScript"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "timeout": 120,
+    "author": "React Patterns",
+    "source": "https://github.com/react-patterns/react-patterns",
+    "dependencies": []
+  },
+  {
+    "name": "tailwind-design-system",
+    "version": "1.0.0",
+    "description": "Tailwind Design System is an AI-powered tool for generating consistent, customizable design systems with Tailwind CSS. It creates component libraries, theme configurations, and design tokens based on brand requirements.",
+    "use_cases": [
+      "Design system creation",
+      "Tailwind CSS configuration",
+      "Component library generation",
+      "Theme customization",
+      "Design tokens"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "type": "string",
+          "description": "Brand guidelines or description"
+        },
+        "components": {
+          "type": "string",
+          "description": "Required components (button/card/modal/nav)",
+          "default": "all"
+        },
+        "output": {
+          "type": "string",
+          "description": "Output format (config/components/both)",
+          "default": "both"
+        }
+      },
+      "required": [
+        "brand"
+      ]
+    },
+    "output_format": "Tailwind configuration and component code.",
+    "capabilities": [
+      "tailwind",
+      "CSS",
+      "design system",
+      "components",
+      "theming",
+      "brand",
+      "UI"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "tailwind-ds generate '{brand}' --components {components} --output {output}",
+    "dependencies": [
+      "tailwind-design-system",
+      "nodejs"
+    ],
+    "timeout": 180,
+    "author": "Tailwind DS",
+    "source": "https://github.com/tailwind-ds/tailwind-design-system"
+  },
+  {
+    "name": "shadcn-ui",
+    "version": "1.0.0",
+    "description": "shadcn/ui is a modern component collection and code distribution platform for building beautiful, accessible React applications. It integrates by copying source code into your project, giving full control and customization.",
+    "use_cases": [
+      "UI component library",
+      "React components",
+      "Accessible design",
+      "Customizable components",
+      "Radix UI"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "type": "string",
+          "description": "Component name (button/dialog/dropdown/form/table)"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (add/list/init)",
+          "default": "add"
+        }
+      },
+      "required": [
+        "component"
+      ]
+    },
+    "output_format": "Component source code for manual integration.",
+    "capabilities": [
+      "UI",
+      "components",
+      "React",
+      "accessibility",
+      "Radix",
+      "Tailwind",
+      "customizable"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "npx shadcn@latest {action} {component}",
+    "dependencies": [
+      "nodejs",
+      "react",
+      "tailwindcss"
+    ],
+    "timeout": 120,
+    "author": "shadcn",
+    "source": "https://github.com/shadcn-ui/ui"
+  },
+  {
+    "name": "sveltekit",
+    "version": "1.0.0",
+    "description": "SvelteKit is a full-stack web framework for building high-performance applications with Svelte. It provides file-based routing, server-side rendering, API endpoints, and seamless deployment adapters for various platforms.",
+    "use_cases": [
+      "Svelte development",
+      "Full-stack applications",
+      "File-based routing",
+      "SSR/CSR",
+      "API development"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Development task description"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (create/build/dev/preview)",
+          "default": "create"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Generated SvelteKit application code or build output.",
+    "capabilities": [
+      "svelte",
+      "sveltekit",
+      "full-stack",
+      "SSR",
+      "routing",
+      "API",
+      "static"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "npm create svelte@latest {task}",
+    "dependencies": [
+      "nodejs",
+      "svelte",
+      "@sveltejs/kit"
+    ],
+    "timeout": 300,
+    "author": "Svelte",
+    "source": "https://github.com/sveltejs/kit"
+  },
+  {
+    "name": "astro",
+    "version": "1.0.0",
+    "description": "Astro is a modern static site builder and web framework for creating content-rich websites. It delivers zero-JavaScript by default with partial hydration, supporting React, Vue, Svelte, and other frameworks in islands architecture.",
+    "use_cases": [
+      "Static site generation",
+      "Content websites",
+      "Islands architecture",
+      "Multi-framework support",
+      "Markdown/MDX"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Project name or task"
+        },
+        "template": {
+          "type": "string",
+          "description": "Template (basics/blog/starlight)",
+          "default": "basics"
+        },
+        "framework": {
+          "type": "string",
+          "description": "UI framework (react/vue/svelte/none)",
+          "default": "none"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Generated Astro project structure.",
+    "capabilities": [
+      "astro",
+      "static",
+      "SSG",
+      "islands",
+      "multi-framework",
+      "Markdown",
+      "performance"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "npm create astro@latest {task} -- --template {template} --framework {framework}",
+    "dependencies": [
+      "nodejs",
+      "astro"
+    ],
+    "timeout": 300,
+    "author": "Astro",
+    "source": "https://github.com/withastro/astro"
+  },
+  {
+    "name": "react-native-architecture",
+    "version": "1.0.0",
+    "description": "React Native Architecture is an expert agent for designing scalable mobile applications with React Native. It provides architectural patterns, navigation structures, state management strategies, and native module integration guidance.",
+    "use_cases": [
+      "React Native architecture",
+      "Mobile app design",
+      "Navigation patterns",
+      "State management",
+      "Native modules"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "app_type": {
+          "type": "string",
+          "description": "Application type description"
+        },
+        "requirements": {
+          "type": "string",
+          "description": "Feature requirements"
+        },
+        "platforms": {
+          "type": "string",
+          "description": "Target platforms (ios/android/both)",
+          "default": "both"
+        }
+      },
+      "required": [
+        "app_type"
+      ]
+    },
+    "output_format": "Architectural recommendations and starter code.",
+    "capabilities": [
+      "react-native",
+      "mobile",
+      "architecture",
+      "iOS",
+      "Android",
+      "cross-platform",
+      "navigation",
+      "state"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "timeout": 180,
+    "author": "React Native Architecture",
+    "source": "https://github.com/react-native-architecture/rna",
+    "dependencies": []
+  },
+  {
+    "name": "flutter-expert",
+    "version": "1.0.0",
+    "description": "Flutter Expert is an AI agent specialized in building beautiful, natively compiled applications with Flutter. It provides widget architecture, state management solutions, custom animations, and platform-specific integrations.",
+    "use_cases": [
+      "Flutter development",
+      "Cross-platform apps",
+      "Widget design",
+      "State management",
+      "Custom animations"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Development task description"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (create/widget/state/animation)",
+          "default": "create"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Generated Flutter code or project structure.",
+    "capabilities": [
+      "flutter",
+      "dart",
+      "mobile",
+      "cross-platform",
+      "widgets",
+      "state",
+      "animations",
+      "iOS"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "flutter create {task}",
+    "dependencies": [
+      "flutter",
+      "dart"
+    ],
+    "timeout": 300,
+    "author": "Flutter",
+    "source": "https://github.com/flutter/flutter"
+  },
+  {
+    "name": "maestro",
+    "version": "1.0.0",
+    "description": "Maestro is a mobile UI testing framework that automates testing of iOS and Android applications. It uses YAML-based flow definitions to simulate user interactions, validate UI states, and perform end-to-end testing with exceptional reliability.",
+    "use_cases": [
+      "Mobile UI testing",
+      "iOS testing",
+      "Android testing",
+      "E2E testing",
+      "UI automation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "flow": {
+          "type": "string",
+          "description": "YAML flow definition or path to flow file"
+        },
+        "app": {
+          "type": "string",
+          "description": "Path to app file (.apk/.app)"
+        },
+        "device": {
+          "type": "string",
+          "description": "Target device ID",
+          "default": "auto"
+        }
+      },
+      "required": [
+        "flow",
+        "app"
+      ]
+    },
+    "output_format": "Test execution results and logs.",
+    "capabilities": [
+      "mobile testing",
+      "UI testing",
+      "iOS",
+      "Android",
+      "automation",
+      "E2E",
+      "YAML"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "maestro test {flow} --app {app}",
+    "dependencies": [
+      "maestro",
+      "java"
+    ],
+    "timeout": 600,
+    "author": "Maestro",
+    "source": "https://github.com/mobile-dev-inc/maestro"
+  }
+]

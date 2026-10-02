@@ -1,0 +1,527 @@
+[
+  {
+    "name": "content-creator",
+    "version": "1.0.0",
+    "description": "Content Creator is a versatile content generation toolkit for social media, blogs, newsletters, and marketing materials. It provides templates, scheduling, and multi-platform publishing capabilities.",
+    "use_cases": [
+      "Social media content",
+      "Blog writing",
+      "Newsletter creation",
+      "Marketing copy",
+      "Content scheduling"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Content type (social/blog/newsletter/marketing)"
+        },
+        "topic": {
+          "type": "string",
+          "description": "Content topic or prompt"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Target platform",
+          "default": "generic"
+        }
+      },
+      "required": [
+        "type",
+        "topic"
+      ]
+    },
+    "output_format": "Generated content ready for publishing.",
+    "capabilities": [
+      "content",
+      "social media",
+      "blogging",
+      "marketing",
+      "automation"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "content-creator generate --type {type} --topic '{topic}' --platform {platform}",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 180,
+    "source": "https://github.com/content/creator"
+  },
+  {
+    "name": "content-marketer",
+    "version": "1.0.0",
+    "description": "Content Marketer is a strategic content marketing toolkit for planning, executing, and measuring content campaigns. It includes editorial calendar management, topic clustering, and performance analytics.",
+    "use_cases": [
+      "Content strategy",
+      "Editorial planning",
+      "Topic clustering",
+      "Campaign tracking",
+      "Performance analytics"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (plan/calendar/cluster/analyze)"
+        },
+        "params": {
+          "type": "string",
+          "description": "Action parameters JSON",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Content marketing insights or plan.",
+    "capabilities": [
+      "content marketing",
+      "strategy",
+      "planning",
+      "analytics",
+      "campaigns"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "content-marketer {action} --params '{params}'",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 180,
+    "source": "https://github.com/content/marketer"
+  },
+  {
+    "name": "podcast-generation",
+    "version": "1.0.0",
+    "description": "Podcast Generation toolkit creates AI-powered podcasts from text content. It generates realistic voiceovers, adds background music, and produces ready-to-publish podcast episodes with show notes.",
+    "use_cases": [
+      "AI podcast creation",
+      "Text-to-podcast conversion",
+      "Voice generation",
+      "Audio content",
+      "Automated podcasting"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Podcast script text file"
+        },
+        "voice": {
+          "type": "string",
+          "description": "Voice profile",
+          "default": "default"
+        },
+        "output": {
+          "type": "string",
+          "description": "Output audio file",
+          "default": "podcast.mp3"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "Generated podcast audio file.",
+    "capabilities": [
+      "podcast",
+      "audio",
+      "ai voice",
+      "text-to-speech",
+      "content"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "podcast-generate --script {script} --voice {voice} --output {output}",
+    "dependencies": [
+      "python3",
+      "elevenlabs",
+      "pydub"
+    ],
+    "timeout": 600,
+    "source": "https://github.com/podcast/generation"
+  },
+  {
+    "name": "social-content",
+    "version": "1.0.0",
+    "description": "Social Content toolkit provides comprehensive social media management including content creation, scheduling, engagement tracking, and analytics across multiple platforms.",
+    "use_cases": [
+      "Social media management",
+      "Content scheduling",
+      "Engagement tracking",
+      "Multi-platform posting",
+      "Analytics"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (post/schedule/analyze/engage)"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Social platform"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content or parameters JSON"
+        }
+      },
+      "required": [
+        "action",
+        "platform",
+        "content"
+      ]
+    },
+    "output_format": "Post confirmation or analytics data.",
+    "capabilities": [
+      "social media",
+      "scheduling",
+      "analytics",
+      "engagement",
+      "multi-platform"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "social-cli {action} --platform {platform} --content '{content}'",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 120,
+    "source": "https://github.com/social/content"
+  },
+  {
+    "name": "startup-analyst",
+    "version": "1.0.0",
+    "description": "Startup Analyst provides comprehensive startup evaluation tools including market sizing, competitor analysis, financial modeling, and valuation. It helps assess startup viability and investment potential.",
+    "use_cases": [
+      "Startup evaluation",
+      "Market analysis",
+      "Competitor research",
+      "Financial modeling",
+      "Valuation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "string",
+          "description": "Startup name or description"
+        },
+        "analysis": {
+          "type": "string",
+          "description": "Analysis type (market/competition/financial/valuation/all)",
+          "default": "all"
+        }
+      },
+      "required": [
+        "company"
+      ]
+    },
+    "output_format": "Startup analysis report with metrics and recommendations.",
+    "capabilities": [
+      "startup",
+      "analysis",
+      "valuation",
+      "market research",
+      "investment"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "startup-analyze '{company}' --type {analysis}",
+    "dependencies": [
+      "python3",
+      "pandas",
+      "numpy"
+    ],
+    "timeout": 300,
+    "source": "https://github.com/startup/analyst"
+  },
+  {
+    "name": "product-manager-toolkit",
+    "version": "1.0.0",
+    "description": "Product Manager Toolkit provides essential tools for product management including PRD templates, roadmap planning, feature prioritization, user story mapping, and competitive analysis.",
+    "use_cases": [
+      "Product management",
+      "PRD creation",
+      "Roadmap planning",
+      "Feature prioritization",
+      "User stories"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (prd/roadmap/prioritize/stories/competitive)"
+        },
+        "params": {
+          "type": "string",
+          "description": "Parameters JSON",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Product management artifact or analysis.",
+    "capabilities": [
+      "product management",
+      "prd",
+      "roadmap",
+      "prioritization",
+      "user stories"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "pm-toolkit {action} --params '{params}'",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 180,
+    "source": "https://github.com/product/manager-toolkit"
+  },
+  {
+    "name": "sales-automator",
+    "version": "1.0.0",
+    "description": "Sales Automator provides comprehensive sales automation tools including lead scoring, email sequences, follow-up scheduling, CRM integration, and pipeline management.",
+    "use_cases": [
+      "Sales automation",
+      "Lead management",
+      "Email sequences",
+      "Pipeline tracking",
+      "CRM integration"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (score/send/schedule/pipeline)"
+        },
+        "data": {
+          "type": "string",
+          "description": "Lead or campaign data JSON"
+        }
+      },
+      "required": [
+        "action",
+        "data"
+      ]
+    },
+    "output_format": "Sales action confirmation or analytics.",
+    "capabilities": [
+      "sales",
+      "automation",
+      "crm",
+      "email",
+      "pipeline"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "sales-automator {action} --data '{data}'",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 180,
+    "source": "https://github.com/sales/automator"
+  },
+  {
+    "name": "legal-advisor",
+    "version": "1.0.0",
+    "description": "Legal Advisor provides AI-powered legal guidance and document analysis. It reviews contracts, identifies risks, suggests clauses, and provides legal information across multiple jurisdictions.",
+    "use_cases": [
+      "Contract review",
+      "Legal research",
+      "Risk assessment",
+      "Compliance checking",
+      "Document analysis"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (review/research/risk/compliance)"
+        },
+        "document": {
+          "type": "string",
+          "description": "Document text or file path"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "description": "Legal jurisdiction",
+          "default": "US"
+        }
+      },
+      "required": [
+        "action",
+        "document"
+      ]
+    },
+    "output_format": "Legal analysis with findings and recommendations.",
+    "capabilities": [
+      "legal",
+      "contracts",
+      "compliance",
+      "risk",
+      "research"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "legal-advisor {action} '{document}' --jurisdiction {jurisdiction}",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 300,
+    "source": "https://github.com/legal/advisor"
+  },
+  {
+    "name": "launch-strategy",
+    "version": "1.0.0",
+    "description": "Launch Strategy toolkit provides comprehensive go-to-market planning for product launches. It includes launch calendars, channel strategies, press kit generation, and success metrics tracking.",
+    "use_cases": [
+      "Product launch",
+      "Go-to-market strategy",
+      "Launch planning",
+      "Press kit creation",
+      "Success metrics"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "string",
+          "description": "Product name and description"
+        },
+        "date": {
+          "type": "string",
+          "description": "Target launch date (YYYY-MM-DD)",
+          "default": ""
+        },
+        "channels": {
+          "type": "string",
+          "description": "Target channels (comma-separated)",
+          "default": "all"
+        }
+      },
+      "required": [
+        "product"
+      ]
+    },
+    "output_format": "Launch strategy document with timeline and checklist.",
+    "capabilities": [
+      "launch",
+      "strategy",
+      "go-to-market",
+      "planning",
+      "marketing"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "launch-strategy create '{product}' --date {date} --channels {channels}",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 180,
+    "source": "https://github.com/launch/strategy"
+  },
+  {
+    "name": "competitive-landscape",
+    "version": "1.0.0",
+    "description": "Competitive Landscape analyzer provides comprehensive competitor research and market positioning tools. It tracks competitors, analyzes market share, identifies differentiation opportunities, and monitors industry trends.",
+    "use_cases": [
+      "Competitor analysis",
+      "Market research",
+      "Positioning strategy",
+      "Trend monitoring",
+      "SWOT analysis"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "string",
+          "description": "Your company or product"
+        },
+        "competitors": {
+          "type": "string",
+          "description": "Competitor names (comma-separated)",
+          "default": ""
+        },
+        "industry": {
+          "type": "string",
+          "description": "Industry or market segment"
+        }
+      },
+      "required": [
+        "company",
+        "industry"
+      ]
+    },
+    "output_format": "Competitive landscape report with SWOT and positioning.",
+    "capabilities": [
+      "competitive",
+      "analysis",
+      "market research",
+      "swot",
+      "positioning"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "competitive-analyze '{company}' --industry '{industry}' --competitors '{competitors}'",
+    "dependencies": [
+      "python3",
+      "pandas"
+    ],
+    "timeout": 300,
+    "source": "https://github.com/competitive/landscape"
+  }
+]

@@ -1,0 +1,641 @@
+{
+  "_comment": "Curated map from Agent OS tool manifest names to real install channels. Consulted by ToolInstaller before its automatic heuristics. Each entry: {type: pip|apt|npm|github_release|binary_zip|skill|skip, ...}. Keep this file in version control; sandbox/known_missing.json is generated from it.",
+  "django-pro": {
+    "type": "pip",
+    "package": "django"
+  },
+  "scikit-learn": {
+    "type": "pip",
+    "package": "scikit-learn"
+  },
+  "plotly": {
+    "type": "pip",
+    "package": "plotly"
+  },
+  "web3-py": {
+    "type": "pip",
+    "package": "web3"
+  },
+  "titanoboa": {
+    "type": "pip",
+    "package": "titanoboa"
+  },
+  "mythril": {
+    "type": "pip",
+    "package": "mythril",
+    "prerequisites": [
+      {
+        "type": "pip",
+        "package": "solc-select"
+      }
+    ]
+  },
+  "slither": {
+    "type": "pip",
+    "package": "slither-analyzer",
+    "prerequisites": [
+      {
+        "type": "pip",
+        "package": "solc-select"
+      },
+      {
+        "type": "pip",
+        "package": "crytic-compile"
+      }
+    ]
+  },
+  "semgrep": {
+    "type": "pip",
+    "package": "semgrep",
+    "prerequisites": [
+      {
+        "type": "apt",
+        "package": "libtree-sitter0"
+      }
+    ]
+  },
+  "exa-search": {
+    "type": "pip",
+    "package": "exa-py"
+  },
+  "tavily-web": {
+    "type": "pip",
+    "package": "tavily-python"
+  },
+  "firecrawl-scraper": {
+    "type": "pip",
+    "package": "firecrawl-py"
+  },
+  "apify-ultimate-scraper": {
+    "type": "pip",
+    "package": "apify-client"
+  },
+  "mem0": {
+    "type": "pip",
+    "package": "mem0ai"
+  },
+  "langfuse": {
+    "type": "pip",
+    "package": "langfuse"
+  },
+  "stability-ai": {
+    "type": "pip",
+    "package": "stability-sdk"
+  },
+  "fal-platform": {
+    "type": "pip",
+    "package": "fal-client"
+  },
+  "videodb": {
+    "type": "pip",
+    "package": "videodb"
+  },
+  "stripe-automation": {
+    "type": "pip",
+    "package": "stripe"
+  },
+  "twilio-communications": {
+    "type": "pip",
+    "package": "twilio"
+  },
+  "supabase": {
+    "type": "pip",
+    "package": "supabase"
+  },
+  "snowflake-development": {
+    "type": "pip",
+    "package": "snowflake-connector-python"
+  },
+  "neon-postgres": {
+    "type": "pip",
+    "package": "psycopg2-binary"
+  },
+  "data-scientist": {
+    "type": "pip",
+    "package": "pandas"
+  },
+  "web3-testing": {
+    "type": "pip",
+    "package": "eth-tester"
+  },
+  "etherscan-api": {
+    "type": "pip",
+    "package": "etherscan-python"
+  },
+  "defi-llama-api": {
+    "type": "pip",
+    "package": "defillama"
+  },
+  "varlock": {
+    "type": "pip",
+    "package": "varlock"
+  },
+  "postgresql": {
+    "type": "apt",
+    "package": "postgresql-client"
+  },
+  "redis": {
+    "type": "apt",
+    "package": "redis-tools"
+  },
+  "nmap_scan": {
+    "type": "apt",
+    "package": "nmap"
+  },
+  "dast-ffuf": {
+    "type": "apt",
+    "package": "ffuf"
+  },
+  "burp-suite-testing": {
+    "type": "apt_optional",
+    "package": "burpsuite",
+    "note": "GUI tool, install on host only."
+  },
+  "metasploit-framework": {
+    "type": "apt_optional",
+    "package": "metasploit-framework",
+    "note": "Heavy install; run only on dedicated security boxes."
+  },
+  "echidna": {
+    "type": "github_release",
+    "repo": "crytic/echidna",
+    "asset": "echidna-*-Linux-*.tar.gz",
+    "binary": "echidna",
+    "prerequisites": [
+      {
+        "type": "pip",
+        "package": "slither-analyzer"
+      },
+      {
+        "type": "pip",
+        "package": "crytic-compile"
+      }
+    ]
+  },
+  "medusa": {
+    "type": "skill",
+    "note": "Use Medusa via its npm `create-medusa-app` workflow inside skills."
+  },
+  "ethers-js": {
+    "type": "npm",
+    "package": "ethers"
+  },
+  "n8n": {
+    "type": "npm",
+    "package": "n8n"
+  },
+  "drizzle-orm-expert": {
+    "type": "npm",
+    "package": "drizzle-orm"
+  },
+  "prisma-expert": {
+    "type": "npm",
+    "package": "prisma"
+  },
+  "nestjs-expert": {
+    "type": "npm",
+    "package": "@nestjs/cli"
+  },
+  "shadcn-ui": {
+    "type": "npm",
+    "package": "shadcn"
+  },
+  "sveltekit": {
+    "type": "npm",
+    "package": "@sveltejs/kit"
+  },
+  "tailwind-design-system": {
+    "type": "npm",
+    "package": "tailwindcss"
+  },
+  "bullmq": {
+    "type": "npm",
+    "package": "bullmq"
+  },
+  "expo-deployment": {
+    "type": "npm",
+    "package": "eas-cli"
+  },
+  "flutter-expert": {
+    "type": "skill",
+    "note": "Persona/role — fulfilled by skill prompts; install Flutter SDK manually if needed."
+  },
+  "stagehand-browser-cli": {
+    "type": "npm",
+    "package": "@browserbasehq/stagehand"
+  },
+  "github-automation": {
+    "type": "apt",
+    "package": "gh"
+  },
+  "github-actions-generator": {
+    "type": "apt",
+    "package": "gh"
+  },
+  "cloudflare-workers-expert": {
+    "type": "npm",
+    "package": "wrangler"
+  },
+  "aws-serverless": {
+    "type": "pip",
+    "package": "aws-sam-cli"
+  },
+  "azure-functions": {
+    "type": "npm",
+    "package": "azure-functions-core-tools"
+  },
+  "kubernetes-architect": {
+    "type": "skill",
+    "note": "Persona/role — fulfilled by skill prompts; kubectl ships separately."
+  },
+  "terraform-specialist": {
+    "type": "skill",
+    "note": "Persona/role — fulfilled by skill prompts; terraform ships separately."
+  },
+  "foundry": {
+    "type": "github_release",
+    "repo": "foundry-rs/foundry",
+    "asset": "foundry_*_linux_amd64.tar.gz",
+    "binary": "forge"
+  },
+  "aderyn": {
+    "type": "github_release",
+    "repo": "Cyfrin/aderyn",
+    "asset": "aderyn-x86_64-unknown-linux-gnu.tar.xz",
+    "binary": "aderyn"
+  },
+  "gitleaks": {
+    "type": "github_release",
+    "repo": "gitleaks/gitleaks",
+    "asset": "gitleaks_*_linux_x64.tar.gz",
+    "binary": "gitleaks"
+  },
+  "trufflehog": {
+    "type": "github_release",
+    "repo": "trufflesecurity/trufflehog",
+    "asset": "trufflehog_*_linux_amd64.tar.gz",
+    "binary": "trufflehog"
+  },
+  "snyk": {
+    "type": "npm",
+    "package": "snyk"
+  },
+  "k6-load-testing": {
+    "type": "github_release",
+    "repo": "grafana/k6",
+    "asset": "k6-*-linux-amd64.tar.gz",
+    "binary": "k6"
+  },
+  "nuclei": {
+    "type": "github_release",
+    "repo": "projectdiscovery/nuclei",
+    "asset": "nuclei_*_linux_amd64.zip",
+    "binary": "nuclei"
+  },
+  "maestro": {
+    "type": "github_release",
+    "repo": "mobile-dev-inc/maestro",
+    "asset": "maestro.zip",
+    "binary": "maestro"
+  },
+  "goose": {
+    "type": "github_release",
+    "repo": "block/goose",
+    "asset": "goose-x86_64-unknown-linux-gnu.tar.gz",
+    "binary": "goose"
+  },
+  "temporal": {
+    "type": "github_release",
+    "repo": "temporalio/cli",
+    "asset": "temporal_cli_*_linux_amd64.tar.gz",
+    "binary": "temporal"
+  },
+  "inngest": {
+    "type": "github_release",
+    "repo": "inngest/inngest",
+    "asset": "inngest_*_linux_amd64.tar.gz",
+    "binary": "inngest"
+  },
+  "agent-builder": {
+    "type": "skill",
+    "note": "Conceptual capability — fulfilled by ThinkingEngine + adapters, no separate binary."
+  },
+  "agent-orchestrator": {
+    "type": "skill",
+    "note": "Provided by core.workflow / AgentsTeam; no installable package."
+  },
+  "ai-agents-architect": {
+    "type": "skill",
+    "note": "Prompt-engineering pattern, not a CLI."
+  },
+  "multi-agent-patterns": {
+    "type": "skill"
+  },
+  "dispatching-parallel-agents": {
+    "type": "skill"
+  },
+  "godel-agent": {
+    "type": "skill"
+  },
+  "openmanus": {
+    "type": "skill"
+  },
+  "opencode": {
+    "type": "skill"
+  },
+  "claw-code": {
+    "type": "skill"
+  },
+  "nanoclaw": {
+    "type": "skill"
+  },
+  "openclaw": {
+    "type": "skill"
+  },
+  "zeroclaw": {
+    "type": "skill"
+  },
+  "memubot": {
+    "type": "skill"
+  },
+  "vexor": {
+    "type": "skill"
+  },
+  "solodit-mcp": {
+    "type": "skill",
+    "note": "Reachable through MCP layer (§2 implementation)."
+  },
+  "blockchain-developer": {
+    "type": "skill"
+  },
+  "solidity-security": {
+    "type": "skill"
+  },
+  "web-security-testing": {
+    "type": "skill"
+  },
+  "devops-troubleshooter": {
+    "type": "skill"
+  },
+  "competitive-landscape": {
+    "type": "skill"
+  },
+  "content-creator": {
+    "type": "skill"
+  },
+  "content-marketer": {
+    "type": "skill"
+  },
+  "crypto-bd-agent": {
+    "type": "skill"
+  },
+  "discord-automation": {
+    "type": "skill",
+    "note": "Use the discord adapter (core/adapters/discord.py)."
+  },
+  "slack": {
+    "type": "skill",
+    "note": "Use the slack adapter (core/adapters/slack.py)."
+  },
+  "telegram-automation": {
+    "type": "skill",
+    "note": "Use python-telegram-bot via skills layer."
+  },
+  "jira-automation": {
+    "type": "skill",
+    "note": "Use jira REST via core/adapters."
+  },
+  "launch-strategy": {
+    "type": "skill"
+  },
+  "legal-advisor": {
+    "type": "skill"
+  },
+  "podcast-generation": {
+    "type": "skill"
+  },
+  "pricing-strategy": {
+    "type": "skill"
+  },
+  "product-manager-toolkit": {
+    "type": "skill"
+  },
+  "programmatic-seo": {
+    "type": "skill"
+  },
+  "quant-analyst": {
+    "type": "skill"
+  },
+  "revops": {
+    "type": "skill"
+  },
+  "risk-manager": {
+    "type": "skill"
+  },
+  "sales-automator": {
+    "type": "skill"
+  },
+  "seo-content-writer": {
+    "type": "skill"
+  },
+  "seo-technical": {
+    "type": "skill"
+  },
+  "social-content": {
+    "type": "skill"
+  },
+  "spark-optimization": {
+    "type": "skill"
+  },
+  "startup-analyst": {
+    "type": "skill"
+  },
+  "backtesting-frameworks": {
+    "type": "skill"
+  },
+  "dbt-transformation-patterns": {
+    "type": "skill"
+  },
+  "prometheus-configuration": {
+    "type": "skill"
+  },
+  "defi-protocol-templates": {
+    "type": "skill"
+  },
+  "emblemai-crypto-wallet": {
+    "type": "skill"
+  },
+  "plaid-fintech": {
+    "type": "skill"
+  },
+  "alpha-vantage": {
+    "type": "skill",
+    "note": "Commercial market-data API; reach it through web_fetch with a key."
+  },
+  "searxng": {
+    "type": "skill",
+    "note": "Self-hosted search engine; deploy via docker, not a CLI."
+  },
+  "webtoapp": {
+    "type": "skill"
+  },
+  "busybox": {
+    "type": "apt",
+    "package": "busybox-static"
+  },
+  "toybox": {
+    "type": "apt",
+    "package": "toybox"
+  },
+  "libarchive": {
+    "type": "apt",
+    "package": "libarchive-tools"
+  },
+  "7z": {
+    "type": "apt",
+    "package": "p7zip-full"
+  },
+  "ripgrep": {
+    "type": "apt",
+    "package": "ripgrep"
+  },
+  "sed": {
+    "type": "apt",
+    "package": "sed"
+  },
+  "awk": {
+    "type": "apt",
+    "package": "gawk"
+  },
+  "file": {
+    "type": "apt",
+    "package": "file"
+  },
+  "binwalk": {
+    "type": "apt",
+    "package": "binwalk"
+  },
+  "radare2": {
+    "type": "github_release",
+    "repo": "radareorg/radare2",
+    "asset": "radare2_*_amd64.deb",
+    "binary": "r2",
+    "note": "Debian package; install via dpkg -i. Use github_release because radare2 is not in Debian stable."
+  },
+  "apktool": {
+    "type": "apt",
+    "package": "apktool"
+  },
+  "apksigner": {
+    "type": "apt",
+    "package": "apksigner"
+  },
+  "zipalign": {
+    "type": "apt",
+    "package": "zipalign"
+  },
+  "frida": {
+    "type": "pip",
+    "package": "frida-tools"
+  },
+  "jadx": {
+    "type": "github_release",
+    "repo": "skylot/jadx",
+    "asset": "jadx-*.zip",
+    "binary": "jadx",
+    "note": "Java required; the launcher is a shell script that invokes lib/jadx.jar."
+  },
+  "dex2jar": {
+    "type": "github_release",
+    "repo": "pxb1988/dex2jar",
+    "asset": "dex-tools-*.zip",
+    "binary": "d2j-dex2jar.sh",
+    "note": "Shell-script wrapper; needs a JRE on PATH."
+  },
+  "docker": {
+    "type": "apt",
+    "package": "docker.io",
+    "note": "Pro Mode only. Container runtime; needs daemon access."
+  },
+  "docker-compose": {
+    "type": "apt",
+    "package": "docker-compose",
+    "note": "Pro Mode only."
+  },
+  "wine": {
+    "type": "apt",
+    "package": "wine",
+    "note": "Pro Mode only. Run Windows .exe headless via xvfb-run wine <app>."
+  },
+  "winetricks": {
+    "type": "apt",
+    "package": "winetricks",
+    "note": "Pro Mode only. Helper to install Windows libs into a Wine prefix."
+  },
+  "xvfb": {
+    "type": "apt",
+    "package": "xvfb",
+    "note": "Virtual framebuffer for headless GUI execution."
+  },
+  "xvfb-run": {
+    "type": "apt",
+    "package": "xvfb",
+    "note": "Wrapper script ships with the xvfb package."
+  },
+  "playwright": {
+    "type": "pip",
+    "package": "playwright",
+    "note": "Pro Mode only. After install run `playwright install` to fetch browsers."
+  },
+  "playwright-browsers": {
+    "type": "shell",
+    "run": "playwright install --with-deps chromium",
+    "note": "Pro Mode only; downloads ~300 MB of browser binaries."
+  },
+  "kubectl": {
+    "type": "github_release",
+    "repo": "kubernetes/kubernetes",
+    "asset": "kubectl",
+    "binary": "kubectl",
+    "fast_path_url": "https://dl.k8s.io/release/stable.txt",
+    "note": "Pro Mode only."
+  },
+  "k9s": {
+    "type": "github_release",
+    "repo": "derailed/k9s",
+    "asset": "k9s_Linux_amd64.tar.gz",
+    "binary": "k9s",
+    "note": "Pro Mode only."
+  },
+  "helm": {
+    "type": "github_release",
+    "repo": "helm/helm",
+    "asset": "helm-*-linux-amd64.tar.gz",
+    "binary": "helm",
+    "note": "Pro Mode only."
+  },
+  "terraform": {
+    "type": "github_release",
+    "repo": "hashicorp/terraform",
+    "asset": "terraform_*_linux_amd64.zip",
+    "binary": "terraform",
+    "note": "Pro Mode only. Hashicorp also publishes via apt."
+  },
+  "terragrunt": {
+    "type": "github_release",
+    "repo": "gruntwork-io/terragrunt",
+    "asset": "terragrunt_linux_amd64",
+    "binary": "terragrunt",
+    "note": "Pro Mode only."
+  },
+  "blender": {
+    "type": "apt",
+    "package": "blender",
+    "note": "Pro Mode only. Run headless via `blender --background --python script.py`."
+  },
+  "qemu-system": {
+    "type": "apt",
+    "package": "qemu-system",
+    "note": "Pro Mode only. VM-level sandboxing."
+  }
+}

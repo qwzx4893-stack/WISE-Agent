@@ -1,0 +1,1147 @@
+# Config
+
+<read-more></read-more>
+
+## General
+
+### `preset`
+
+Use `preset` option or `NITRO_PRESET` environment variable for custom **production** preset.
+
+Preset for development mode is always `nitro_dev` and default `node_server` for production building a standalone Node.js server.
+
+The preset will automatically be detected when the `preset` option is not set and running in known environments.
+
+```ts
+export default defineNitroConfig({
+  preset: "cloudflare_pages", // deploy to Cloudflare Pages
+});
+```
+
+### `debug`
+
+- Default: `false` (`true` when `DEBUG` environment variable is set)
+Enable debug mode for verbose logging and additional development information.
+
+```ts
+export default defineNitroConfig({
+  debug: true,
+});
+```
+
+### `logLevel`
+
+- Default: `3` (`1` when the testing environment is detected)
+Log verbosity level. See [consola](https://github.com/unjs/consola?tab=readme-ov-file#log-level) for more information.
+
+```ts
+export default defineNitroConfig({
+  logLevel: 4, // verbose logging
+});
+```
+
+### `runtimeConfig`
+
+- Default: `{ nitro: { ... }, ...yourOptions }`
+Server runtime configuration.
+
+**Note:** `nitro` namespace is reserved.
+
+```ts
+export default defineNitroConfig({
+  runtimeConfig: {
+    apiSecret: "default-secret", // override with NITRO_API_SECRET
+  },
+});
+```
+
+### `compatibilityDate`
+
+Deployment providers introduce new features that Nitro presets can leverage, but some of them need to be explicitly opted into.
+
+Set it to latest tested date in `YYYY-MM-DD` format to leverage latest preset features.
+
+If this configuration is not provided, Nitro will use `"latest"` behavior by default.
+
+```ts
+export default defineNitroConfig({
+  compatibilityDate: "2025-01-01",
+});
+```
+
+### `static`
+
+- Default: `false`
+Enable static site generation mode.
+
+```ts
+export default defineNitroConfig({
+  static: true, // prerender all routes
+});
+```
+
+## Features
+
+### `features`
+
+- Default: `{}`
+Enable built-in features.
+
+#### `runtimeHooks`
+
+- Default: auto-detected (enabled if there is at least one nitro plugin)
+Enable runtime hooks for request and response.
+
+#### `websocket`
+
+- Default: `false`
+Enable WebSocket support.
+
+```ts
+export default defineNitroConfig({
+  features: {
+    runtimeHooks: true,
+    websocket: true, // enable WebSocket support
+  },
+});
+```
+
+### `experimental`
+
+- Default: `{}`
+Enable experimental features.
+
+#### `openAPI`
+
+- Default: `false`
+Enable `/_scalar`, `/_swagger` and `/_openapi.json` endpoints.
+
+<note>
+
+Prefer using the top-level [`openAPI`](#openapi) option for configuration.
+</note>
+
+#### `typescriptBundlerResolution`
+
+Enable TypeScript bundler module resolution. See [TypeScript#51669](https://github.com/microsoft/TypeScript/pull/51669).
+
+#### `asyncContext`
+
+Enable native async context support for `useRequest()`.
+
+#### `sourcemapMinify`
+
+Set to `false` to disable experimental sourcemap minification.
+
+#### `envExpansion`
+
+Allow env expansion in runtime config. See [#2043](https://github.com/nitrojs/nitro/pull/2043).
+
+#### `database`
+
+Enable experimental database support. See [Database](/docs/database).
+
+#### `tasks`
+
+Enable experimental tasks support. See [Tasks](/docs/tasks).
+
+#### `tsconfigPaths`
+
+- Default: `true`
+Infer path aliases from `tsconfig.json`.
+
+```ts
+export default defineNitroConfig({
+  experimental: {
+    typescriptBundlerResolution: true,
+    asyncContext: true,
+    envExpansion: true,
+    database: true,
+    tasks: true,
+  },
+});
+```
+
+### `openAPI`
+
+Top-level OpenAPI configuration.
+
+You can pass an object to modify your OpenAPI specification:
+
+```js
+openAPI: {
+  meta: {
+    title: 'My Awesome Project',
+    description: 'This might become the next big thing.',
+    version: '1.0'
+  }
+}
+```
+
+These routes are disabled by default in production. To enable them, use the `production` key.
+`"runtime"` allows middleware usage, and `"prerender"` is the most efficient because the JSON response is constant.
+
+```js
+openAPI: {
+    // IMPORTANT: make sure to protect OpenAPI routes if necessary!
+    production: "runtime", // or "prerender"
+}
+```
+
+If you like to customize the Scalar integration, you can [pass a configuration object](https://github.com/scalar/scalar) like this:
+
+```js
+openAPI: {
+  ui: {
+    scalar: {
+      theme: 'purple'
+    }
+  }
+}
+```
+
+Or if you want to customize the endpoints:
+
+```js
+openAPI: {
+  route: "/_docs/openapi.json",
+  ui: {
+    scalar: {
+      route: "/_docs/scalar"
+    },
+    swagger: {
+      route: "/_docs/swagger"
+    }
+  }
+}
+```
+
+### `future`
+
+- Default: `{}`
+New features pending for a major version to avoid breaking changes.
+
+#### `nativeSWR`
+
+Uses built-in SWR functionality (using caching layer and storage) for Netlify and Vercel presets instead of falling back to ISR behavior.
+
+```ts
+export default defineNitroConfig({
+  future: {
+    nativeSWR: true,
+  },
+});
+```
+
+### `storage`
+
+- Default: `{}`
+Storage configuration, read more in the [Storage Layer](/docs/storage) section.
+
+```ts
+export default defineNitroConfig({
+  storage: {
+    redis: {
+      driver: "redis",
+      url: "redis://localhost:6379",
+    },
+  },
+});
+```
+
+### `devStorage`
+
+- Default: `{}`
+Storage configuration overrides for development mode.
+
+```ts
+export default defineNitroConfig({
+  devStorage: {
+    redis: {
+      driver: "fs",
+      base: "./data/redis", // use filesystem in development
+    },
+  },
+});
+```
+
+### `database`
+
+Database connection configurations. Requires `experimental.database: true`.
+
+```ts
+database: {
+  default: {
+    connector: "sqlite",
+    options: { name: "db" }
+  }
+}
+```
+
+### `devDatabase`
+
+Database connection configuration overrides for development mode.
+
+```ts
+export default defineNitroConfig({
+  devDatabase: {
+    default: {
+      connector: "sqlite",
+      options: { name: "db-dev" }, // separate dev database
+    },
+  },
+});
+```
+
+### `renderer`
+
+- Type: `false` | `{ handler?: string, static?: boolean, template?: string }`
+Points to main render entry (file should export an event handler as default).
+
+```ts
+export default defineNitroConfig({
+  renderer: {
+    handler: "~/renderer", // path to the render handler
+  },
+});
+```
+
+### `serveStatic`
+
+- Type: `boolean` | `'node'` | `'deno'` | `'inline'`
+- Default: depends on the deployment preset used.
+Serve `public/` assets in production.
+
+**Note:** It is highly recommended that your edge CDN (Nginx, Apache, Cloud) serves the `.output/public/` directory instead to enable compression and higher level caching.
+
+```ts
+export default defineNitroConfig({
+  serveStatic: "node", // serve static assets using Node.js
+});
+```
+
+### `noPublicDir`
+
+- Default: `false`
+If enabled, disables `.output/public` directory creation. Skips copying `public/` dir and also disables pre-rendering.
+
+```ts
+export default defineNitroConfig({
+  noPublicDir: true, // skip public directory output
+});
+```
+
+### `publicAssets`
+
+Public asset directories to serve in development and bundle in production.
+
+If a `public/` directory is detected, it will be added by default, but you can add more by yourself too!
+
+It's possible to set Cache-Control headers for assets using the `maxAge` option:
+
+```ts
+  publicAssets: [
+    {
+      baseURL: "images",
+      dir: "public/images",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    },
+  ],
+```
+
+The config above generates the following header in the assets under `public/images/` folder:
+
+`cache-control: public, max-age=604800, immutable`
+
+The `dir` option is where your files live on your file system; the `baseURL` option is the folder they will be accessible from when served/bundled.
+
+### `compressPublicAssets`
+
+- Default: `{ gzip: false, brotli: false, zstd: false }`
+If enabled, Nitro will generate a pre-compressed (gzip, brotli, and/or zstd) version of supported types of public assets and prerendered routes
+larger than 1024 bytes into the public directory. Default compression levels are used. Using this option you can support zero overhead asset compression without using a CDN.
+
+```ts
+export default defineNitroConfig({
+  compressPublicAssets: {
+    gzip: true,
+    brotli: true, // enable gzip and brotli pre-compression
+  },
+});
+```
+
+### `serverAssets`
+
+Assets can be accessed in server logic and bundled in production. [Read more](/docs/assets#server-assets).
+
+```ts
+export default defineNitroConfig({
+  serverAssets: [
+    {
+      baseName: "templates",
+      dir: "./templates", // bundle templates/ as server assets
+    },
+  ],
+});
+```
+
+### `modules`
+
+- Default: `[]`
+An array of Nitro modules. Modules can be a string (path), a module object with a `setup` function, or a function.
+
+```ts
+export default defineNitroConfig({
+  modules: [
+    "./modules/my-module.ts",
+    (nitro) => {
+      nitro.hooks.hook("compiled", () => { /* ... */ });
+    },
+  ],
+});
+```
+
+### `plugins`
+
+- Default: `[]`
+An array of paths to nitro plugins. They will be executed by order on the first initialization.
+
+Note that Nitro auto-registers the plugins in the `plugins/` directory, [learn more](/docs/plugins).
+
+```ts
+export default defineNitroConfig({
+  plugins: [
+    "~/plugins/my-plugin.ts",
+  ],
+});
+```
+
+### `tasks`
+
+- Default: `{}`
+Task definitions. Each key is a task name with a `handler` path and optional `description`.
+
+```ts
+tasks: {
+  'db:migrate': {
+    handler: './tasks/db-migrate',
+    description: 'Run database migrations'
+  }
+}
+```
+
+### `scheduledTasks`
+
+- Default: `{}`
+Map of cron expressions to task name(s).
+
+```ts
+scheduledTasks: {
+  '0 * * * *': 'cleanup:temp',
+  '*/5 * * * *': ['health:check', 'metrics:collect']
+}
+```
+
+### `imports`
+
+- Default: `false`
+Auto import options. Set to an object to enable. See [unimport](https://github.com/unjs/unimport) for more information.
+
+```ts
+export default defineNitroConfig({
+  imports: {
+    dirs: ["./utils"], // auto-import from utils/ directory
+  },
+});
+```
+
+### `virtual`
+
+- Default: `{}`
+A map from dynamic virtual import names to their contents or an (async) function that returns it.
+
+```ts
+export default defineNitroConfig({
+  virtual: {
+    "#config": `export default { version: "1.0.0" }`,
+  },
+});
+```
+
+### `ignore`
+
+- Default: `[]`
+Array of glob patterns to ignore when scanning directories.
+
+```ts
+export default defineNitroConfig({
+  ignore: [
+    "routes/_legacy/**", // skip legacy route handlers
+  ],
+});
+```
+
+### `wasm`
+
+- Default: `{}`
+- Type: `false` | `UnwasmPluginOptions`
+WASM support configuration. See [unwasm](https://github.com/unjs/unwasm) for options.
+
+```ts
+export default defineNitroConfig({
+  wasm: {}, // enable WASM import support
+});
+```
+
+## Dev
+
+### `devServer`
+
+- Default: `{ watch: [] }`
+Dev server options. You can use `watch` to make the dev server reload if any file changes in specified paths.
+
+Supports `port`, `hostname`, `watch`, and `runner` options.
+
+```ts
+export default defineNitroConfig({
+  devServer: {
+    port: 3001,
+    watch: ["./server/plugins"],
+  },
+});
+```
+
+### `watchOptions`
+
+Watch options for development mode. See [chokidar](https://github.com/paulmillr/chokidar) for more information.
+
+```ts
+export default defineNitroConfig({
+  watchOptions: {
+    ignored: ["**/node_modules/**", "**/dist/**"],
+  },
+});
+```
+
+### `devProxy`
+
+Proxy configuration for development server.
+
+You can use this option to override development server routes and proxy-pass requests.
+
+```js
+{
+  devProxy: {
+    '/proxy/test': 'http://localhost:3001',
+    '/proxy/example': { target: 'https://example.com', changeOrigin: true }
+  }
+}
+```
+
+See [httpxy](https://github.com/unjs/httpxy) for all available target options.
+
+## Logging
+
+### `logging`
+
+- Default: `{ compressedSizes: true, buildSuccess: true }`
+Control build logging behavior. Set `compressedSizes` to `false` to skip reporting compressed bundle sizes. Set `buildSuccess` to `false` to suppress the build success message.
+
+```ts
+export default defineNitroConfig({
+  logging: {
+    compressedSizes: false, // skip compressed size reporting
+    buildSuccess: false,
+  },
+});
+```
+
+## Routing
+
+### `baseURL`
+
+Default: `/` (or `NITRO_APP_BASE_URL` environment variable if provided)
+
+Server's main base URL.
+
+```ts
+export default defineNitroConfig({
+  baseURL: "/app/", // serve app under /app/ prefix
+});
+```
+
+### `apiBaseURL`
+
+- Default: `/api`
+Changes the default API base URL prefix.
+
+```ts
+export default defineNitroConfig({
+  apiBaseURL: "/server/api", // api routes under /server/api/
+});
+```
+
+### `handlers`
+
+Server handlers and routes.
+
+If `routes/`, `api/` or `middleware/` directories exist inside the server directory, they will be automatically added to the handlers array.
+
+```ts
+export default defineNitroConfig({
+  handlers: [
+    { route: "/health", handler: "./handlers/health.ts" },
+    { route: "/admin/**", handler: "./handlers/admin.ts", method: "get" },
+  ],
+});
+```
+
+### `devHandlers`
+
+Regular handlers refer to the path of handlers to be imported and transformed by the bundler.
+
+There are situations in that we directly want to provide a handler instance with programmatic usage.
+
+We can use `devHandlers` but note that they are **only available in development mode** and **not in production build**.
+
+```ts
+export default defineNitroConfig({
+  devHandlers: [
+    { route: "/__dev", handler: eventHandler(() => "dev-only route") },
+  ],
+});
+```
+
+### `routes`
+
+- Default: `{}`
+Inline route definitions. A map from route pattern to handler path or handler options.
+
+```ts
+export default defineNitroConfig({
+  routes: {
+    "/hello": "./routes/hello.ts",
+    "/greet": { handler: "./routes/greet.ts", method: "post" },
+  },
+});
+```
+
+### `errorHandler`
+
+- Type: `string` | `string[]`
+Path(s) to custom runtime error handler(s). Replaces nitro's built-in error page.
+
+**Example:**
+
+```js [nitro.config]
+import { defineNitroConfig } from "nitro/config";
+
+export default defineNitroConfig({
+  errorHandler: "~/error",
+});
+```
+
+```js [error.ts]
+export default defineNitroErrorHandler((error, event) => {
+  return new Response('[custom error handler] ' + error.stack, {
+    headers: { 'Content-Type': 'text/plain' }
+  });
+});
+```
+
+### `routeRules`
+
+**🧪 Experimental!**
+
+Route options. It is a map from route pattern (following [rou3](https://github.com/h3js/rou3)) to route options.
+
+When `cache` option is set, handlers matching pattern will be automatically wrapped with `defineCachedEventHandler`.
+
+See the [Cache API](/docs/cache) for all available cache options.
+
+<note>
+
+`swr: true|number` is shortcut for `cache: { swr: true, maxAge: number }`
+</note>
+
+**Example:**
+
+```js
+routeRules: {
+  '/blog/**': { swr: true },
+  '/blog/**': { swr: 600 },
+  '/blog/**': { static: true },
+  '/blog/**': { cache: { /* cache options*/ } },
+  '/assets/**': { headers: { 'cache-control': 's-maxage=0' } },
+  '/api/v1/**': { cors: true, headers: { 'access-control-allow-methods': 'GET' } },
+  '/old-page': { redirect: '/new-page' }, // uses status code 307 (Temporary Redirect)
+  '/old-page2': { redirect: { to:'/new-page2', statusCode: 301 } },
+  '/old-page/**': { redirect: '/new-page/**' },
+  '/proxy/example': { proxy: 'https://example.com' },
+  '/proxy/**': { proxy: '/api/**' },
+  '/admin/**': { basicAuth: { username: 'admin', password: 'secret' } },
+}
+```
+
+### `prerender`
+
+Default:
+
+```ts
+{
+  autoSubfolderIndex: true,
+  concurrency: 1,
+  interval: 0,
+  failOnError: false,
+  crawlLinks: false,
+  ignore: [],
+  routes: [],
+  retry: 3,
+  retryDelay: 500
+}
+```
+
+Prerendered options. Any route specified will be fetched during the build and copied to the `.output/public` directory as a static asset.
+
+Any route (string) that starts with a prefix listed in `ignore` or matches a regular expression or function will be ignored.
+
+If `crawlLinks` option is set to `true`, nitro starts with `/` by default (or all routes in `routes` array) and for HTML pages extracts `<a>` tags and prerender them as well.
+
+You can set `failOnError` option to `true` to stop the CI when Nitro could not prerender a route.
+
+The `interval` and `concurrency` options lets you control the speed of pre-rendering, can be useful to avoid hitting some rate-limit if you call external APIs.
+
+Set `autoSubfolderIndex` lets you control how to generate the files in the `.output/public` directory:
+
+```bash
+# autoSubfolderIndex: true (default)
+/about -> .output/public/about/index.html
+# autoSubfolderIndex: false
+/about -> .output/public/about.html
+```
+
+This option is useful when your hosting provider does not give you an option regarding the trailing slash.
+
+The prerenderer will attempt to render pages 3 times with a delay of 500ms. Use `retry` and `retryDelay` to change this behavior.
+
+## Directories
+
+### `workspaceDir`
+
+Project workspace root directory.
+
+The workspace (e.g. pnpm workspace)  directory is automatically detected when the `workspaceDir` option is not set.
+
+```ts
+export default defineNitroConfig({
+  workspaceDir: "../", // monorepo root
+});
+```
+
+### `rootDir`
+
+Project main directory.
+
+```ts
+export default defineNitroConfig({
+  rootDir: "./src/server",
+});
+```
+
+### `serverDir`
+
+- Default: `false`
+- Type: `boolean` | `"./"` | `"./server"` | `string`
+Server directory for scanning `api/`, `routes/`, `plugins/`, `utils/`, `middleware/`, `assets/`, and `tasks/` folders.
+
+When set to `false`, automatic directory scanning is disabled. Set to `"./"` to use the root directory, or `"./server"` to use a `server/` subdirectory.
+
+```ts
+export default defineNitroConfig({
+  serverDir: "./server", // scan server/ subdirectory
+});
+```
+
+### `scanDirs`
+
+- Default: (source directory when empty array)
+List of directories to scan and auto-register files, such as API routes.
+
+```ts
+export default defineNitroConfig({
+  scanDirs: ["./modules/auth/api", "./modules/billing/api"],
+});
+```
+
+### `apiDir`
+
+- Default: `api`
+Defines a different directory to scan for api route handlers.
+
+```ts
+export default defineNitroConfig({
+  apiDir: "endpoints", // scan endpoints/ instead of api/
+});
+```
+
+### `routesDir`
+
+- Default: `routes`
+Defines a different directory to scan for route handlers.
+
+```ts
+export default defineNitroConfig({
+  routesDir: "pages", // scan pages/ instead of routes/
+});
+```
+
+### `buildDir`
+
+- Default: `node_modules/.nitro`
+Nitro's temporary working directory for generating build-related files.
+
+```ts
+export default defineNitroConfig({
+  buildDir: ".nitro", // use .nitro/ in project root
+});
+```
+
+### `output`
+
+- Default: `{ dir: '.output', serverDir: '.output/server', publicDir: '.output/public' }`
+Output directories for production bundle.
+
+```ts
+export default defineNitroConfig({
+  output: {
+    dir: "dist",
+    serverDir: "dist/server",
+    publicDir: "dist/public",
+  },
+});
+```
+
+## Build
+
+### `builder`
+
+- Type: `"rollup"` | `"rolldown"` | `"vite"`
+- Default: `undefined` (auto-detected)
+Specify the bundler to use for building.
+
+```ts
+export default defineNitroConfig({
+  builder: "vite",
+});
+```
+
+### `rollupConfig`
+
+Additional rollup configuration.
+
+```ts
+export default defineNitroConfig({
+  rollupConfig: {
+    output: { manualChunks: { vendor: ["lodash-es"] } },
+  },
+});
+```
+
+### `rolldownConfig`
+
+Additional rolldown configuration.
+
+```ts
+export default defineNitroConfig({
+  rolldownConfig: {
+    output: { banner: "/* built with nitro */" },
+  },
+});
+```
+
+### `entry`
+
+Bundler entry point.
+
+```ts
+export default defineNitroConfig({
+  entry: "./server/entry.ts", // custom entry file
+});
+```
+
+### `unenv`
+
+[unenv](https://github.com/unjs/unenv/) preset(s) for environment compatibility.
+
+```ts
+export default defineNitroConfig({
+  unenv: {
+    alias: { "my-module": "my-module/web" },
+  },
+});
+```
+
+### `alias`
+
+Path aliases for module resolution.
+
+```ts
+export default defineNitroConfig({
+  alias: {
+    "~utils": "./src/utils",
+    "#shared": "./shared",
+  },
+});
+```
+
+### `minify`
+
+- Default: `false`
+Minify bundle.
+
+```ts
+export default defineNitroConfig({
+  minify: true, // minify production bundle
+});
+```
+
+### `inlineDynamicImports`
+
+- Default: `false`
+Bundle all code into a single file instead of creating separate chunks per route.
+
+When `false`, each route handler becomes a separate chunk loaded on-demand. When `true`, everything is bundled together. Some presets enable this by default.
+
+```ts
+export default defineNitroConfig({
+  inlineDynamicImports: true, // single output file
+});
+```
+
+### `sourcemap`
+
+- Default: `false`
+Enable source map generation. See [options](https://rollupjs.org/configuration-options/#output-sourcemap).
+
+```ts
+export default defineNitroConfig({
+  sourcemap: true, // generate .map files
+});
+```
+
+### `node`
+
+- Default: `true`
+Specify whether the build is used for Node.js or not. If set to `false`, nitro tries to mock Node.js dependencies using [unenv](https://github.com/unjs/unenv) and adjust its behavior.
+
+```ts
+export default defineNitroConfig({
+  node: false, // target non-Node.js runtimes
+});
+```
+
+### `moduleSideEffects`
+
+Default: `['unenv/polyfill/']`
+
+Specifies module imports that have side-effects.
+
+```ts
+export default defineNitroConfig({
+  moduleSideEffects: ["unenv/polyfill/", "reflect-metadata"],
+});
+```
+
+### `replace`
+
+Build-time string replacements.
+
+```ts
+export default defineNitroConfig({
+  replace: {
+    "process.env.APP_VERSION": JSON.stringify("1.0.0"),
+  },
+});
+```
+
+### `commonJS`
+
+Specifies additional configuration for the rollup CommonJS plugin.
+
+```ts
+export default defineNitroConfig({
+  commonJS: {
+    requireReturnsDefault: "auto",
+  },
+});
+```
+
+### `exportConditions`
+
+Custom export conditions for module resolution.
+
+```ts
+export default defineNitroConfig({
+  exportConditions: ["worker", "production"],
+});
+```
+
+### `noExternals`
+
+- Default: `false`
+Prevent specific packages from being externalized. Set to `true` to bundle all dependencies, or pass an array of package names/patterns.
+
+```ts
+export default defineNitroConfig({
+  noExternals: true, // bundle all dependencies
+});
+```
+
+### `traceDeps`
+
+- Default: `[]`
+Additional dependencies to trace and include in the build output.
+
+```ts
+export default defineNitroConfig({
+  traceDeps: ["sharp", "better-sqlite3"],
+});
+```
+
+### `oxc`
+
+OXC options for rolldown builds. Includes `minify` and `transform` sub-options.
+
+```ts
+export default defineNitroConfig({
+  oxc: {
+    minify: { compress: true, mangle: true },
+  },
+});
+```
+
+## Advanced
+
+### `dev`
+
+- Default: `true` for development and `false` for production.
+**⚠️ Caution! This is an advanced configuration. Things can go wrong if misconfigured.**
+
+```ts
+export default defineNitroConfig({
+  dev: true, // force development mode behavior
+});
+```
+
+### `typescript`
+
+Default: `{ strict: true, generateRuntimeConfigTypes: false, generateTsConfig: false }`
+
+TypeScript configuration options including `strict`, `generateRuntimeConfigTypes`, `generateTsConfig`, `tsConfig`, `generatedTypesDir`, and `tsconfigPath`.
+
+```ts
+export default defineNitroConfig({
+  typescript: {
+    strict: true,
+    generateTsConfig: true,
+  },
+});
+```
+
+### `hooks`
+
+**⚠️ Caution! This is an advanced configuration. Things can go wrong if misconfigured.**
+
+nitro hooks. See [hookable](https://github.com/unjs/hookable) for more information.
+
+```ts
+export default defineNitroConfig({
+  hooks: {
+    compiled(nitro) {
+      console.log("Build compiled successfully!");
+    },
+  },
+});
+```
+
+### `commands`
+
+**⚠️ Caution! This is an advanced configuration. Things can go wrong if misconfigured.**
+
+Preview and deploy command hints are usually filled by deployment presets.
+
+```ts
+export default defineNitroConfig({
+  commands: {
+    preview: "node ./server/index.mjs",
+  },
+});
+```
+
+### `devErrorHandler`
+
+**⚠️ Caution! This is an advanced configuration. Things can go wrong if misconfigured.**
+
+A custom error handler function for development errors.
+
+```ts
+export default defineNitroConfig({
+  devErrorHandler: (error, event) => {
+    return new Response(`Dev error: ${error.message}`, { status: 500 });
+  },
+});
+```
+
+### `framework`
+
+- Default: `{ name: "nitro", version: "<current>" }`
+Framework information. Used by presets and build info. Typically set by higher-level frameworks (e.g. Nuxt).
+
+```ts
+export default defineNitroConfig({
+  framework: { name: "my-framework", version: "2.0.0" },
+});
+```
+
+## Preset options
+
+### `firebase`
+
+The options for the firebase functions preset. See [Preset Docs](/deploy/providers/firebase#options)
+
+```ts
+export default defineNitroConfig({
+  firebase: {
+    gen: 2, // use Cloud Functions 2nd gen
+    region: "us-central1",
+  },
+});
+```
+
+### `vercel`
+
+The options for the vercel preset. See [Preset Docs](/deploy/providers/vercel)
+
+```ts
+export default defineNitroConfig({
+  vercel: {
+    config: { runtime: "nodejs20.x" },
+  },
+});
+```
+
+### `cloudflare`
+
+The options for the cloudflare preset. See [Preset Docs](/deploy/providers/cloudflare)
+
+```ts
+export default defineNitroConfig({
+  cloudflare: {
+    wrangler: { compatibility_date: "2025-01-01" },
+  },
+});
+```
+
+### `zephyr`
+
+The options for the zephyr preset. See [Preset Docs](/deploy/providers/zephyr#options)

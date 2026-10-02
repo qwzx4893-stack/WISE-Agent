@@ -1,0 +1,1468 @@
+[
+  {
+    "name": "memory-systems",
+    "version": "1.0.0",
+    "description": "Designs and operates persistent agent memory systems (short-term, long-term, episodic, semantic) on top of a vector store. Provides storage, retrieval, summarization, and forgetting policies.",
+    "use_cases": [
+      "Persistent agent memory",
+      "Conversation memory",
+      "Episodic recall",
+      "Semantic memory",
+      "Memory pruning"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "store | recall | summarize | forget"
+        },
+        "key": {
+          "type": "string",
+          "description": "Memory key / id",
+          "default": ""
+        },
+        "content": {
+          "type": "string",
+          "description": "Content for store/summarize",
+          "default": ""
+        },
+        "query": {
+          "type": "string",
+          "description": "Query for recall",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Stored id, recalled snippets, or summary text.",
+    "capabilities": [
+      "memory",
+      "vector-store",
+      "retrieval",
+      "summarization"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "context-manager",
+    "version": "1.0.0",
+    "description": "Manages the agent's working context window: ranks, deduplicates, and trims context items to fit a token budget while preserving the most relevant signals.",
+    "use_cases": [
+      "Context window management",
+      "Token budget enforcement",
+      "Relevance ranking",
+      "Deduplication"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Context items to manage"
+        },
+        "max_tokens": {
+          "type": "integer",
+          "description": "Token budget",
+          "default": 4000
+        },
+        "strategy": {
+          "type": "string",
+          "description": "rank | dedupe | trim | recency",
+          "default": "rank"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "output_format": "Ordered list of kept context items.",
+    "capabilities": [
+      "context",
+      "ranking",
+      "token-budget"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "context-compression",
+    "version": "1.0.0",
+    "description": "Compresses long contexts (chats, documents, tool outputs) into compact summaries while preserving entities, decisions, and action items.",
+    "use_cases": [
+      "Long-context summarization",
+      "Chat compression",
+      "Tool output compression",
+      "Cost reduction"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Raw text to compress"
+        },
+        "ratio": {
+          "type": "number",
+          "description": "Target compression ratio (0-1)",
+          "default": 0.3
+        },
+        "preserve": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Aspects to preserve (entities, decisions, code)",
+          "default": [
+            "entities",
+            "decisions"
+          ]
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "output_format": "Compressed text plus preserved-entity list.",
+    "capabilities": [
+      "compression",
+      "summarization",
+      "context"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "vector-database-engineer",
+    "version": "1.0.0",
+    "description": "Designs and operates vector databases (Chroma, Qdrant, Pinecone, pgvector). Handles schema design, index choice (HNSW/IVF), upsert pipelines, hybrid search and metadata filters.",
+    "use_cases": [
+      "Vector DB design",
+      "Embedding pipelines",
+      "Hybrid search",
+      "Metadata filtering",
+      "Index tuning"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "create_collection | upsert | query | delete"
+        },
+        "collection": {
+          "type": "string",
+          "description": "Collection name"
+        },
+        "payload": {
+          "type": "string",
+          "description": "JSON payload (vectors, metadata, query)",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action",
+        "collection"
+      ]
+    },
+    "output_format": "Operation result or query hits.",
+    "capabilities": [
+      "vector-db",
+      "embedding",
+      "hybrid-search"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "browser-use",
+    "version": "1.0.0",
+    "description": "Drives a real browser (Chromium via Playwright) to perform multi-step web tasks: form filling, navigation, scraping, screenshotting. Wraps the browser-use Python library.",
+    "use_cases": [
+      "Form filling",
+      "Multi-step web automation",
+      "Web scraping with auth",
+      "Visual verification"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Natural-language task description"
+        },
+        "start_url": {
+          "type": "string",
+          "description": "Initial URL",
+          "default": "about:blank"
+        },
+        "headless": {
+          "type": "boolean",
+          "description": "Run headless",
+          "default": true
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Steps taken plus extracted data or screenshot path.",
+    "capabilities": [
+      "browser",
+      "automation",
+      "scraping"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "python -m browser_use --task {task} --start-url {start_url} --headless {headless}",
+    "dependencies": [
+      "browser-use",
+      "playwright"
+    ],
+    "timeout": 300
+  },
+  {
+    "name": "computer-use-agents",
+    "version": "1.0.0",
+    "description": "Computer-use orchestration: lets the agent see the screen and drive mouse/keyboard to operate desktop apps. Wraps Anthropic-style computer-use loops or open-source equivalents.",
+    "use_cases": [
+      "Desktop automation",
+      "GUI testing",
+      "Cross-application workflows",
+      "Visual reasoning"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Task description"
+        },
+        "max_steps": {
+          "type": "integer",
+          "description": "Maximum action steps",
+          "default": 25
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Final observation plus action trace.",
+    "capabilities": [
+      "computer-use",
+      "screen",
+      "mouse",
+      "keyboard"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "stagehand-browser-cli",
+    "version": "1.0.0",
+    "description": "Stagehand browser controller exposed as a CLI: structured `act`, `extract` and `observe` primitives over Playwright with self-healing selectors.",
+    "use_cases": [
+      "Reliable web automation",
+      "Self-healing scrapers",
+      "Structured data extraction"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "act | extract | observe"
+        },
+        "url": {
+          "type": "string",
+          "description": "Target URL"
+        },
+        "instruction": {
+          "type": "string",
+          "description": "Natural-language step"
+        }
+      },
+      "required": [
+        "action",
+        "url",
+        "instruction"
+      ]
+    },
+    "output_format": "Action result or extracted JSON.",
+    "capabilities": [
+      "browser",
+      "extract",
+      "observe"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "stagehand {action} --url {url} --instruction {instruction}",
+    "dependencies": [
+      "stagehand"
+    ],
+    "timeout": 180
+  },
+  {
+    "name": "deep-research",
+    "version": "1.0.0",
+    "description": "Multi-step research agent: decomposes a question, runs parallel search/scraping, deduplicates evidence and produces a sourced report.",
+    "use_cases": [
+      "Literature reviews",
+      "Market research",
+      "Competitive analysis",
+      "Investigative briefs"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "Research question"
+        },
+        "depth": {
+          "type": "integer",
+          "description": "Recursion depth",
+          "default": 2
+        },
+        "max_sources": {
+          "type": "integer",
+          "description": "Source cap",
+          "default": 25
+        }
+      },
+      "required": [
+        "question"
+      ]
+    },
+    "output_format": "Markdown report with citations.",
+    "capabilities": [
+      "research",
+      "search",
+      "synthesis"
+    ],
+    "category": "Orchestration",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "incident-responder",
+    "version": "1.0.0",
+    "description": "Incident response runbook executor: triages alerts, gathers logs/metrics/traces, proposes mitigations and writes a postmortem skeleton.",
+    "use_cases": [
+      "Production incident triage",
+      "Runbook automation",
+      "Postmortem drafting"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "alert": {
+          "type": "string",
+          "description": "Alert text or ticket id"
+        },
+        "service": {
+          "type": "string",
+          "description": "Affected service",
+          "default": ""
+        },
+        "severity": {
+          "type": "string",
+          "description": "P1 | P2 | P3",
+          "default": "P2"
+        }
+      },
+      "required": [
+        "alert"
+      ]
+    },
+    "output_format": "Triage notes plus suggested mitigations and postmortem template.",
+    "capabilities": [
+      "incident",
+      "runbook",
+      "postmortem"
+    ],
+    "category": "Orchestration",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "devops-troubleshooter",
+    "version": "1.0.0",
+    "description": "Diagnostic helper for DevOps issues: inspects systemd units, container state, network reachability, disk pressure and suggests fixes.",
+    "use_cases": [
+      "On-call diagnosis",
+      "Container troubleshooting",
+      "Network diagnostics",
+      "Disk/IO triage"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Hostname / SSH alias",
+          "default": "localhost"
+        },
+        "symptom": {
+          "type": "string",
+          "description": "Observed symptom"
+        },
+        "scope": {
+          "type": "string",
+          "description": "system | container | network | disk",
+          "default": "system"
+        }
+      },
+      "required": [
+        "symptom"
+      ]
+    },
+    "output_format": "Diagnosis steps and recommended commands.",
+    "capabilities": [
+      "devops",
+      "diagnostics",
+      "linux"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "devops-troubleshoot --host {host} --symptom {symptom} --scope {scope}",
+    "dependencies": [
+      "openssh-client"
+    ],
+    "timeout": 120
+  },
+  {
+    "name": "litellm",
+    "version": "1.0.0",
+    "description": "Unified LLM gateway: invokes any supported provider (OpenAI, Anthropic, Mistral, Cohere, Bedrock, Vertex) with one call signature; supports routing, caching and fallbacks.",
+    "use_cases": [
+      "Multi-provider LLM calls",
+      "Model fallback chains",
+      "Cost-aware routing",
+      "Local proxy"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "description": "litellm model name"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "User prompt"
+        },
+        "max_tokens": {
+          "type": "integer",
+          "description": "Max output tokens",
+          "default": 512
+        }
+      },
+      "required": [
+        "model",
+        "prompt"
+      ]
+    },
+    "output_format": "Model completion text plus usage metadata.",
+    "capabilities": [
+      "llm-gateway",
+      "fallback",
+      "caching"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "litellm --model {model} --prompt {prompt} --max_tokens {max_tokens}",
+    "dependencies": [
+      "litellm"
+    ],
+    "timeout": 120
+  },
+  {
+    "name": "pytest",
+    "version": "1.0.0",
+    "description": "Runs the pytest test suite. Supports markers, keyword filters, coverage, junit and verbose output.",
+    "use_cases": [
+      "Unit testing",
+      "Integration testing",
+      "Coverage runs",
+      "CI gates"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Test path",
+          "default": "."
+        },
+        "k": {
+          "type": "string",
+          "description": "Keyword filter",
+          "default": ""
+        },
+        "extra": {
+          "type": "string",
+          "description": "Extra pytest flags",
+          "default": "-q"
+        }
+      },
+      "required": []
+    },
+    "output_format": "pytest report (passed/failed counts + tracebacks).",
+    "capabilities": [
+      "testing",
+      "coverage",
+      "run tests"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "pytest {extra} -k {k} {path}",
+    "dependencies": [
+      "pytest"
+    ],
+    "timeout": 600,
+    "needs_review": [
+      "capabilities"
+    ]
+  },
+  {
+    "name": "k6-load-testing",
+    "version": "1.0.0",
+    "description": "Runs k6 load tests against HTTP/gRPC endpoints with VU ramping, thresholds and JSON output for trend analysis.",
+    "use_cases": [
+      "Load testing",
+      "Stress testing",
+      "Performance regression",
+      "SLO validation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Path to k6 script (JS)"
+        },
+        "vus": {
+          "type": "integer",
+          "description": "Virtual users",
+          "default": 50
+        },
+        "duration": {
+          "type": "string",
+          "description": "Run duration",
+          "default": "30s"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "k6 summary plus thresholds outcome.",
+    "capabilities": [
+      "load-testing",
+      "performance",
+      "run tests"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "k6 run --vus {vus} --duration {duration} {script}",
+    "dependencies": [
+      "k6"
+    ],
+    "timeout": 1800,
+    "needs_review": [
+      "capabilities"
+    ]
+  },
+  {
+    "name": "test-automator",
+    "version": "1.0.0",
+    "description": "Generates and orchestrates test suites across unit/integration/e2e layers; produces fixtures, parametrization tables and stable selectors.",
+    "use_cases": [
+      "Test scaffolding",
+      "Fixture generation",
+      "End-to-end orchestration",
+      "Selector stabilization"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string",
+          "description": "File or feature to test"
+        },
+        "layer": {
+          "type": "string",
+          "description": "unit | integration | e2e",
+          "default": "unit"
+        },
+        "framework": {
+          "type": "string",
+          "description": "pytest | jest | playwright",
+          "default": "pytest"
+        }
+      },
+      "required": [
+        "target"
+      ]
+    },
+    "output_format": "Generated test files plus run instructions.",
+    "capabilities": [
+      "testing",
+      "automation",
+      "fixture"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "hypothesis",
+    "version": "1.0.0",
+    "description": "Property-based testing with Hypothesis: derives strategies from types, shrinks counterexamples, and integrates with pytest.",
+    "use_cases": [
+      "Property-based testing",
+      "Edge-case discovery",
+      "Stateful machine testing",
+      "Fuzz inputs"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "module": {
+          "type": "string",
+          "description": "Python test module"
+        },
+        "max_examples": {
+          "type": "integer",
+          "description": "Hypothesis max-examples",
+          "default": 100
+        },
+        "deadline": {
+          "type": "string",
+          "description": "Per-example deadline (ms)",
+          "default": "200"
+        }
+      },
+      "required": [
+        "module"
+      ]
+    },
+    "output_format": "pytest+hypothesis report with shrunken counterexamples.",
+    "capabilities": [
+      "property-testing",
+      "fuzzing",
+      "run tests"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "pytest --hypothesis-show-statistics --hypothesis-seed=0 -p hypothesis.extra.cli {module}",
+    "dependencies": [
+      "pytest",
+      "hypothesis"
+    ],
+    "timeout": 600,
+    "needs_review": [
+      "capabilities"
+    ]
+  },
+  {
+    "name": "docker-expert",
+    "version": "1.0.0",
+    "description": "Drives the Docker daemon: build, run, push, inspect containers and images. Includes BuildKit, multi-stage builds, and compose support.",
+    "use_cases": [
+      "Image build",
+      "Container run/inspect",
+      "Compose stacks",
+      "Registry push"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "build | run | ps | logs | push | compose"
+        },
+        "args": {
+          "type": "string",
+          "description": "Additional args",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Docker CLI output.",
+    "capabilities": [
+      "docker",
+      "container",
+      "image"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "docker {action} {args}",
+    "dependencies": [
+      "docker"
+    ],
+    "timeout": 600
+  },
+  {
+    "name": "kubernetes-architect",
+    "version": "1.0.0",
+    "description": "kubectl-based Kubernetes operator: apply manifests, inspect workloads, debug pods, manage namespaces, contexts and helm releases.",
+    "use_cases": [
+      "Manifest apply",
+      "Pod debugging",
+      "Rollouts",
+      "Helm releases",
+      "Namespace ops"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "apply | get | describe | logs | delete | rollout"
+        },
+        "resource": {
+          "type": "string",
+          "description": "Resource (e.g. deploy/api, ns)"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace",
+          "default": "default"
+        }
+      },
+      "required": [
+        "action",
+        "resource"
+      ]
+    },
+    "output_format": "kubectl output.",
+    "capabilities": [
+      "kubernetes",
+      "kubectl",
+      "helm"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "kubectl -n {namespace} {action} {resource}",
+    "dependencies": [
+      "kubectl"
+    ],
+    "timeout": 300
+  },
+  {
+    "name": "terraform-specialist",
+    "version": "1.0.0",
+    "description": "Manages Terraform / OpenTofu infrastructure: init, plan, apply, destroy, fmt, validate. Supports workspaces and remote backends.",
+    "use_cases": [
+      "Infra plan/apply",
+      "Module authoring",
+      "Drift detection",
+      "Backend migration"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "init | plan | apply | destroy | fmt | validate"
+        },
+        "dir": {
+          "type": "string",
+          "description": "Terraform working dir",
+          "default": "."
+        },
+        "vars": {
+          "type": "string",
+          "description": "tfvars file",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Terraform CLI output and resource changes.",
+    "capabilities": [
+      "terraform",
+      "iac",
+      "execution"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "terraform -chdir={dir} {action} -var-file={vars} -no-color",
+    "dependencies": [
+      "terraform"
+    ],
+    "timeout": 1200,
+    "needs_review": [
+      "capabilities"
+    ]
+  },
+  {
+    "name": "cloudflare-workers-expert",
+    "version": "1.0.0",
+    "description": "Build, deploy and tail Cloudflare Workers via Wrangler. Manages KV, R2, D1 and Durable Objects bindings.",
+    "use_cases": [
+      "Worker deploy",
+      "Local dev",
+      "Tail logs",
+      "KV/R2/D1 ops"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "deploy | dev | tail | kv | r2 | d1"
+        },
+        "args": {
+          "type": "string",
+          "description": "Wrangler args",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Wrangler CLI output.",
+    "capabilities": [
+      "cloudflare",
+      "edge",
+      "workers"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "wrangler {action} {args}",
+    "dependencies": [
+      "wrangler"
+    ],
+    "timeout": 300
+  },
+  {
+    "name": "observability-engineer",
+    "version": "1.0.0",
+    "description": "Designs and operates the observability stack (logs, metrics, traces). Integrates OpenTelemetry, Prometheus, Loki, Tempo, Grafana dashboards and SLO tracking.",
+    "use_cases": [
+      "Tracing setup",
+      "Metrics design",
+      "Dashboard authoring",
+      "SLO/SLI tracking"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "design | dashboard | slo | otel"
+        },
+        "service": {
+          "type": "string",
+          "description": "Target service"
+        },
+        "params": {
+          "type": "string",
+          "description": "Extra JSON params",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action",
+        "service"
+      ]
+    },
+    "output_format": "Plan or generated config (YAML/JSON).",
+    "capabilities": [
+      "observability",
+      "otel",
+      "metrics",
+      "tracing"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "prometheus-configuration",
+    "version": "1.0.0",
+    "description": "Validates and reasons about Prometheus configuration: scrape configs, recording/alerting rules, and PromQL queries.",
+    "use_cases": [
+      "Config validation",
+      "Rule lint",
+      "PromQL evaluation",
+      "Scrape design"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "check-config | check-rules | query"
+        },
+        "path": {
+          "type": "string",
+          "description": "File path",
+          "default": "prometheus.yml"
+        },
+        "query": {
+          "type": "string",
+          "description": "PromQL query (action=query)",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "promtool output or PromQL JSON.",
+    "capabilities": [
+      "prometheus",
+      "promql",
+      "alerting"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "promtool {action} {path}",
+    "dependencies": [
+      "prometheus"
+    ],
+    "timeout": 60
+  },
+  {
+    "name": "aws-serverless",
+    "version": "1.0.0",
+    "description": "AWS CLI / SAM driver for serverless workloads: Lambda, API Gateway, DynamoDB, S3, EventBridge, Step Functions.",
+    "use_cases": [
+      "Lambda deploy",
+      "S3 sync",
+      "DynamoDB ops",
+      "EventBridge rules",
+      "Step Functions"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string",
+          "description": "lambda | s3 | dynamodb | events | stepfunctions"
+        },
+        "action": {
+          "type": "string",
+          "description": "Service action"
+        },
+        "args": {
+          "type": "string",
+          "description": "Extra args",
+          "default": ""
+        }
+      },
+      "required": [
+        "service",
+        "action"
+      ]
+    },
+    "output_format": "AWS CLI JSON output.",
+    "capabilities": [
+      "aws",
+      "serverless",
+      "lambda"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "aws {service} {action} {args}",
+    "dependencies": [
+      "awscli"
+    ],
+    "timeout": 300
+  },
+  {
+    "name": "azure-functions",
+    "version": "1.0.0",
+    "description": "Azure CLI driver for Azure Functions and adjacent services (Storage, Cosmos DB, Service Bus, App Insights).",
+    "use_cases": [
+      "Function deploy",
+      "App settings",
+      "Logs",
+      "Cosmos DB ops"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string",
+          "description": "functionapp | storage | cosmosdb | servicebus"
+        },
+        "action": {
+          "type": "string",
+          "description": "Service action"
+        },
+        "args": {
+          "type": "string",
+          "description": "Extra args",
+          "default": ""
+        }
+      },
+      "required": [
+        "service",
+        "action"
+      ]
+    },
+    "output_format": "az CLI JSON output.",
+    "capabilities": [
+      "azure",
+      "functions",
+      "serverless"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "az {service} {action} {args}",
+    "dependencies": [
+      "azure-cli"
+    ],
+    "timeout": 300
+  },
+  {
+    "name": "stripe-automation",
+    "version": "1.0.0",
+    "description": "Stripe CLI driver: customers, subscriptions, prices, webhooks, refunds, listening to events locally.",
+    "use_cases": [
+      "Subscription management",
+      "Webhook listening",
+      "Refunds",
+      "Customer ops"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "customers | subscriptions | prices | webhooks | listen | refunds"
+        },
+        "args": {
+          "type": "string",
+          "description": "Stripe CLI args",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Stripe CLI JSON output.",
+    "capabilities": [
+      "payments",
+      "stripe",
+      "webhook"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "stripe {action} {args}",
+    "dependencies": [
+      "stripe-cli"
+    ],
+    "timeout": 300
+  },
+  {
+    "name": "notion-automation",
+    "version": "1.0.0",
+    "description": "Notion API automation: query/update databases, create pages, append blocks, manage users and search workspace content.",
+    "use_cases": [
+      "Notion DB queries",
+      "Page creation",
+      "Block updates",
+      "Workspace search"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "query | create_page | update_block | search"
+        },
+        "target": {
+          "type": "string",
+          "description": "Database id, page id or query"
+        },
+        "payload": {
+          "type": "string",
+          "description": "JSON payload",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action",
+        "target"
+      ]
+    },
+    "output_format": "Notion API JSON response.",
+    "capabilities": [
+      "notion",
+      "api",
+      "automation"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "jira-automation",
+    "version": "1.0.0",
+    "description": "Jira issue automation: create/update/transition issues, JQL search, link issues, manage sprints and worklogs.",
+    "use_cases": [
+      "Issue creation",
+      "Status transitions",
+      "JQL queries",
+      "Sprint planning"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "create | update | transition | search | sprint"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project key",
+          "default": ""
+        },
+        "payload": {
+          "type": "string",
+          "description": "JSON payload or JQL",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Jira API JSON response.",
+    "capabilities": [
+      "jira",
+      "ticketing",
+      "automation"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "jira {action} --project {project} --payload {payload}",
+    "dependencies": [
+      "jira-cli"
+    ],
+    "timeout": 120
+  },
+  {
+    "name": "hubspot-automation",
+    "version": "1.0.0",
+    "description": "HubSpot CRM automation: contacts, companies, deals, tickets and workflows; supports batch upsert and association management.",
+    "use_cases": [
+      "CRM upsert",
+      "Deal pipeline",
+      "Ticket triage",
+      "Workflow trigger"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "contacts | companies | deals | tickets | workflows"
+        },
+        "method": {
+          "type": "string",
+          "description": "list | get | create | update | batch",
+          "default": "list"
+        },
+        "payload": {
+          "type": "string",
+          "description": "JSON payload",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "HubSpot API JSON response.",
+    "capabilities": [
+      "hubspot",
+      "crm",
+      "automation"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "google-sheets-automation",
+    "version": "1.0.0",
+    "description": "Google Sheets automation via the Sheets API: read/write ranges, batch updates, formulas, formatting and data validation.",
+    "use_cases": [
+      "Range read/write",
+      "Batch updates",
+      "Formula deployment",
+      "Reporting export"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "read | write | batch | format"
+        },
+        "spreadsheet_id": {
+          "type": "string",
+          "description": "Spreadsheet id"
+        },
+        "range": {
+          "type": "string",
+          "description": "A1 range",
+          "default": "Sheet1!A1:Z1000"
+        },
+        "values": {
+          "type": "string",
+          "description": "JSON 2D array for writes",
+          "default": "[]"
+        }
+      },
+      "required": [
+        "action",
+        "spreadsheet_id"
+      ]
+    },
+    "output_format": "Sheets API JSON response.",
+    "capabilities": [
+      "google-sheets",
+      "spreadsheet",
+      "automation"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": true
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "zapier-make-patterns",
+    "version": "1.0.0",
+    "description": "Authoring patterns and integration templates for Zapier and Make (Integromat) workflows: triggers, filters, formatters, branching and error handlers.",
+    "use_cases": [
+      "Zapier zap design",
+      "Make scenario design",
+      "Integration patterns",
+      "Webhook routing"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "type": "string",
+          "description": "zapier | make"
+        },
+        "scenario": {
+          "type": "string",
+          "description": "Scenario description"
+        },
+        "constraints": {
+          "type": "string",
+          "description": "Constraints / requirements",
+          "default": ""
+        }
+      },
+      "required": [
+        "platform",
+        "scenario"
+      ]
+    },
+    "output_format": "Generated zap/scenario JSON plus rationale.",
+    "capabilities": [
+      "zapier",
+      "make",
+      "patterns",
+      "integration"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "memUBot",
+    "version": "1.0.0",
+    "description": "Lightweight memory-orchestration bot that wraps a vector store with on-policy summarization and pruning so an agent can carry concise long-term context between sessions.",
+    "use_cases": [
+      "Maintain compact long-term memory between agent sessions",
+      "Summarize and prune verbose conversation logs",
+      "Search recall over historical agent runs"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "store | recall | summarize | prune"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content for store/summarize",
+          "default": ""
+        },
+        "query": {
+          "type": "string",
+          "description": "Query for recall",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Stored id, recalled snippets, summary text, or prune stats.",
+    "capabilities": [
+      "store memory",
+      "recall memory",
+      "summarize history",
+      "prune stale entries",
+      "search memory"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "skill",
+    "dependencies": [],
+    "timeout": 60,
+    "author": "Agent OS",
+    "source": "skill://memUBot"
+  }
+]

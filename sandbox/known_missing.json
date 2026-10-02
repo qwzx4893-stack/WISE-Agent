@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-10-02T10:51:01Z",
+  "count": 3,
+  "tools": [
+    {
+      "name": "burp-suite-testing",
+      "category": "Execution",
+      "impl_type": "cli",
+      "channel": "apt_optional",
+      "reason": "GUI tool, install on host only.",
+      "manual_steps": [
+        "Set AGENT_APT_OPTIONAL=1 then run apt_install burpsuite.",
+        "GUI tool, install on host only."
+      ],
+      "missing_requirements": [
+        {
+          "type": "apt",
+          "name": "burpsuite"
+        }
+      ]
+    },
+    {
+      "name": "litellm",
+      "category": "Execution",
+      "impl_type": "cli",
+      "channel": "auto",
+      "reason": "no curated install channel; manifest may be a skill name rather than a real CLI",
+      "manual_steps": [
+        "No curated install channel. Add an entry to core/tool_packages.json describing how this tool ships."
+      ],
+      "missing_requirements": [
+        {
+          "type": "binary",
+          "name": "litellm"
+        }
+      ]
+    },
+    {
+      "name": "metasploit-framework",
+      "category": "Execution",
+      "impl_type": "cli",
+      "channel": "apt_optional",
+      "reason": "Heavy install; run only on dedicated security boxes.",
+      "manual_steps": [
+        "Set AGENT_APT_OPTIONAL=1 then run apt_install metasploit-framework.",
+        "Heavy install; run only on dedicated security boxes."
+      ],
+      "missing_requirements": [
+        {
+          "type": "apt",
+          "name": "metasploit-framework"
+        }
+      ]
+    }
+  ]
+}

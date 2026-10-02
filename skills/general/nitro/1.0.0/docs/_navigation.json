@@ -1,0 +1,679 @@
+[
+  {
+    "slug": "docs",
+    "path": "/docs",
+    "title": "Docs",
+    "order": 1,
+    "icon": "i-lucide-book-open",
+    "children": [
+      {
+        "slug": "",
+        "path": "/docs",
+        "title": "Introduction",
+        "order": 1,
+        "icon": "i-lucide-compass"
+      },
+      {
+        "slug": "quick-start",
+        "path": "/docs/quick-start",
+        "title": "Quick Start",
+        "order": 2,
+        "icon": "i-lucide-zap"
+      },
+      {
+        "slug": "renderer",
+        "path": "/docs/renderer",
+        "title": "Renderer",
+        "order": 4,
+        "icon": "ri:layout-masonry-line"
+      },
+      {
+        "slug": "routing",
+        "path": "/docs/routing",
+        "title": "Routing",
+        "order": 5,
+        "icon": "ri:direction-line"
+      },
+      {
+        "slug": "server-entry",
+        "path": "/docs/server-entry",
+        "title": "Server Entry",
+        "order": 6,
+        "icon": "ri:server-line"
+      },
+      {
+        "slug": "cache",
+        "path": "/docs/cache",
+        "title": "Cache",
+        "order": 7,
+        "icon": "ri:speed-line"
+      },
+      {
+        "slug": "storage",
+        "path": "/docs/storage",
+        "title": "KV Storage",
+        "order": 8,
+        "icon": "carbon:datastore"
+      },
+      {
+        "slug": "assets",
+        "path": "/docs/assets",
+        "title": "Assets",
+        "order": 50,
+        "icon": "ri:image-2-line"
+      },
+      {
+        "slug": "configuration",
+        "path": "/docs/configuration",
+        "title": "Configuration",
+        "order": 50,
+        "icon": "ri:settings-3-line"
+      },
+      {
+        "slug": "database",
+        "path": "/docs/database",
+        "title": "Database",
+        "order": 50,
+        "icon": "ri:database-2-line"
+      },
+      {
+        "slug": "lifecycle",
+        "path": "/docs/lifecycle",
+        "title": "Lifecycle",
+        "order": 50,
+        "icon": "i-lucide-layers"
+      },
+      {
+        "slug": "plugins",
+        "path": "/docs/plugins",
+        "title": "Plugins",
+        "order": 50,
+        "icon": "ri:plug-line"
+      },
+      {
+        "slug": "tasks",
+        "path": "/docs/tasks",
+        "title": "Tasks",
+        "order": 50,
+        "icon": "codicon:run-all"
+      },
+      {
+        "slug": "migration",
+        "path": "/docs/migration",
+        "title": "Migration Guide",
+        "order": 99,
+        "icon": "ri:arrow-right-up-line"
+      },
+      {
+        "slug": "nightly",
+        "path": "/docs/nightly",
+        "title": "Nightly Channel",
+        "order": 99,
+        "icon": "ri:moon-fill"
+      }
+    ]
+  },
+  {
+    "slug": "deploy",
+    "path": "/deploy",
+    "title": "Deploy",
+    "order": 2,
+    "children": [
+      {
+        "slug": "",
+        "path": "/deploy",
+        "title": "Deploy",
+        "order": 0,
+        "icon": "ri:upload-cloud-2-line"
+      },
+      {
+        "slug": "runtimes",
+        "path": "/deploy/runtimes",
+        "title": "Runtimes",
+        "order": 10,
+        "page": false,
+        "children": [
+          {
+            "slug": "node",
+            "path": "/deploy/runtimes/node",
+            "title": "Node.js",
+            "order": 1,
+            "icon": "akar-icons:node-fill"
+          },
+          {
+            "slug": "bun",
+            "path": "/deploy/runtimes/bun",
+            "title": "Bun",
+            "order": null,
+            "icon": "simple-icons:bun"
+          },
+          {
+            "slug": "deno",
+            "path": "/deploy/runtimes/deno",
+            "title": "Deno",
+            "order": null,
+            "icon": "simple-icons:deno"
+          }
+        ]
+      },
+      {
+        "slug": "providers",
+        "path": "/deploy/providers",
+        "title": "Providers",
+        "order": 20,
+        "page": false,
+        "children": [
+          {
+            "slug": "alwaysdata",
+            "path": "/deploy/providers/alwaysdata",
+            "title": "Alwaysdata",
+            "order": null
+          },
+          {
+            "slug": "aws",
+            "path": "/deploy/providers/aws",
+            "title": "AWS Lambda",
+            "order": null
+          },
+          {
+            "slug": "aws-amplify",
+            "path": "/deploy/providers/aws-amplify",
+            "title": "AWS Amplify",
+            "order": null
+          },
+          {
+            "slug": "azure",
+            "path": "/deploy/providers/azure",
+            "title": "Azure",
+            "order": null
+          },
+          {
+            "slug": "cleavr",
+            "path": "/deploy/providers/cleavr",
+            "title": "Cleavr",
+            "order": null
+          },
+          {
+            "slug": "cloudflare",
+            "path": "/deploy/providers/cloudflare",
+            "title": "Cloudflare",
+            "order": null
+          },
+          {
+            "slug": "deno-deploy",
+            "path": "/deploy/providers/deno-deploy",
+            "title": "Deno Deploy",
+            "order": null
+          },
+          {
+            "slug": "digitalocean",
+            "path": "/deploy/providers/digitalocean",
+            "title": "DigitalOcean",
+            "order": null
+          },
+          {
+            "slug": "firebase",
+            "path": "/deploy/providers/firebase",
+            "title": "Firebase",
+            "order": null
+          },
+          {
+            "slug": "flightcontrol",
+            "path": "/deploy/providers/flightcontrol",
+            "title": "Flightcontrol",
+            "order": null
+          },
+          {
+            "slug": "genezio",
+            "path": "/deploy/providers/genezio",
+            "title": "Genezio",
+            "order": null
+          },
+          {
+            "slug": "github-pages",
+            "path": "/deploy/providers/github-pages",
+            "title": "GitHub Pages",
+            "order": null
+          },
+          {
+            "slug": "gitlab-pages",
+            "path": "/deploy/providers/gitlab-pages",
+            "title": "GitLab Pages",
+            "order": null
+          },
+          {
+            "slug": "heroku",
+            "path": "/deploy/providers/heroku",
+            "title": "Heroku",
+            "order": null
+          },
+          {
+            "slug": "iis",
+            "path": "/deploy/providers/iis",
+            "title": "IIS",
+            "order": null
+          },
+          {
+            "slug": "koyeb",
+            "path": "/deploy/providers/koyeb",
+            "title": "Koyeb",
+            "order": null
+          },
+          {
+            "slug": "netlify",
+            "path": "/deploy/providers/netlify",
+            "title": "Netlify",
+            "order": null
+          },
+          {
+            "slug": "platform-sh",
+            "path": "/deploy/providers/platform-sh",
+            "title": "Platform.sh",
+            "order": null
+          },
+          {
+            "slug": "render",
+            "path": "/deploy/providers/render",
+            "title": "Render.com",
+            "order": null
+          },
+          {
+            "slug": "stormkit",
+            "path": "/deploy/providers/stormkit",
+            "title": "StormKit",
+            "order": null
+          },
+          {
+            "slug": "vercel",
+            "path": "/deploy/providers/vercel",
+            "title": "Vercel",
+            "order": null
+          },
+          {
+            "slug": "zeabur",
+            "path": "/deploy/providers/zeabur",
+            "title": "Zeabur",
+            "order": null
+          },
+          {
+            "slug": "zephyr",
+            "path": "/deploy/providers/zephyr",
+            "title": "Zephyr Cloud",
+            "order": null
+          },
+          {
+            "slug": "zerops",
+            "path": "/deploy/providers/zerops",
+            "title": "Zerops",
+            "order": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "config",
+    "path": "/config",
+    "title": "Config",
+    "order": 3,
+    "children": [
+      {
+        "slug": "",
+        "path": "/config",
+        "title": "Config",
+        "order": 0,
+        "icon": "ri:settings-3-line"
+      }
+    ]
+  },
+  {
+    "slug": "examples",
+    "path": "/examples",
+    "title": "Examples",
+    "order": 4,
+    "children": [
+      {
+        "slug": "",
+        "path": "/examples",
+        "title": "Examples",
+        "order": 0,
+        "icon": "i-lucide-folder-code"
+      },
+      {
+        "slug": "api-routes",
+        "path": "/examples/api-routes",
+        "title": "API Routes",
+        "order": null,
+        "icon": "i-lucide-route",
+        "category": "features"
+      },
+      {
+        "slug": "auto-imports",
+        "path": "/examples/auto-imports",
+        "title": "Auto Imports",
+        "order": null,
+        "icon": "i-lucide-import",
+        "category": "config"
+      },
+      {
+        "slug": "cached-handler",
+        "path": "/examples/cached-handler",
+        "title": "Cached Handler",
+        "order": null,
+        "icon": "i-lucide-clock",
+        "category": "features"
+      },
+      {
+        "slug": "custom-error-handler",
+        "path": "/examples/custom-error-handler",
+        "title": "Custom Error Handler",
+        "order": null,
+        "icon": "i-lucide-alert-circle",
+        "category": "features"
+      },
+      {
+        "slug": "database",
+        "path": "/examples/database",
+        "title": "Database",
+        "order": null,
+        "icon": "i-lucide-database",
+        "category": "features"
+      },
+      {
+        "slug": "elysia",
+        "path": "/examples/elysia",
+        "title": "Elysia",
+        "order": null,
+        "icon": "i-skill-icons-elysia-dark",
+        "category": "backend frameworks"
+      },
+      {
+        "slug": "express",
+        "path": "/examples/express",
+        "title": "Express",
+        "order": null,
+        "icon": "i-simple-icons-express",
+        "category": "backend frameworks"
+      },
+      {
+        "slug": "fastify",
+        "path": "/examples/fastify",
+        "title": "Fastify",
+        "order": null,
+        "icon": "i-simple-icons-fastify",
+        "category": "backend frameworks"
+      },
+      {
+        "slug": "hello-world",
+        "path": "/examples/hello-world",
+        "title": "Hello World",
+        "order": null,
+        "icon": "i-lucide-sparkles",
+        "category": "features"
+      },
+      {
+        "slug": "hono",
+        "path": "/examples/hono",
+        "title": "Hono",
+        "order": null,
+        "icon": "i-logos-hono",
+        "category": "backend frameworks"
+      },
+      {
+        "slug": "import-alias",
+        "path": "/examples/import-alias",
+        "title": "Import Alias",
+        "order": null,
+        "icon": "i-lucide-at-sign",
+        "category": "config"
+      },
+      {
+        "slug": "middleware",
+        "path": "/examples/middleware",
+        "title": "Middleware",
+        "order": null,
+        "icon": "i-lucide-layers",
+        "category": "features"
+      },
+      {
+        "slug": "mono-jsx",
+        "path": "/examples/mono-jsx",
+        "title": "Mono JSX",
+        "order": null,
+        "icon": "i-lucide-brackets",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "nano-jsx",
+        "path": "/examples/nano-jsx",
+        "title": "Nano JSX",
+        "order": null,
+        "icon": "i-lucide-brackets",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "plugins",
+        "path": "/examples/plugins",
+        "title": "Plugins",
+        "order": null,
+        "icon": "i-lucide-plug",
+        "category": "features"
+      },
+      {
+        "slug": "renderer",
+        "path": "/examples/renderer",
+        "title": "Custom Renderer",
+        "order": null,
+        "icon": "i-lucide-code",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "runtime-config",
+        "path": "/examples/runtime-config",
+        "title": "Runtime Config",
+        "order": null,
+        "icon": "i-lucide-settings",
+        "category": "config"
+      },
+      {
+        "slug": "server-fetch",
+        "path": "/examples/server-fetch",
+        "title": "Server Fetch",
+        "order": null,
+        "icon": "i-lucide-arrow-right-left",
+        "category": "features"
+      },
+      {
+        "slug": "shiki",
+        "path": "/examples/shiki",
+        "title": "Shiki",
+        "order": null,
+        "icon": "i-lucide-highlighter",
+        "category": "integrations"
+      },
+      {
+        "slug": "virtual-routes",
+        "path": "/examples/virtual-routes",
+        "title": "Virtual Routes",
+        "order": null,
+        "icon": "i-lucide-box",
+        "category": "features"
+      },
+      {
+        "slug": "vite-nitro-plugin",
+        "path": "/examples/vite-nitro-plugin",
+        "title": "Vite Nitro Plugin",
+        "order": null,
+        "icon": "i-logos-vitejs",
+        "category": "vite"
+      },
+      {
+        "slug": "vite-rsc",
+        "path": "/examples/vite-rsc",
+        "title": "Vite RSC",
+        "order": null,
+        "icon": "i-logos-react",
+        "category": "vite"
+      },
+      {
+        "slug": "vite-ssr-html",
+        "path": "/examples/vite-ssr-html",
+        "title": "Vite SSR HTML",
+        "order": null,
+        "icon": "i-logos-html-5",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-ssr-preact",
+        "path": "/examples/vite-ssr-preact",
+        "title": "SSR with Preact",
+        "order": null,
+        "icon": "i-logos-preact",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-ssr-react",
+        "path": "/examples/vite-ssr-react",
+        "title": "SSR with React",
+        "order": null,
+        "icon": "i-logos-react",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-ssr-solid",
+        "path": "/examples/vite-ssr-solid",
+        "title": "SSR with SolidJS",
+        "order": null,
+        "icon": "i-logos-solidjs-icon",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-ssr-tsr-react",
+        "path": "/examples/vite-ssr-tsr-react",
+        "title": "SSR with TanStack Router",
+        "order": null,
+        "icon": "i-simple-icons-tanstack",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-ssr-tss-react",
+        "path": "/examples/vite-ssr-tss-react",
+        "title": "SSR with TanStack Start",
+        "order": null,
+        "icon": "i-simple-icons-tanstack",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-ssr-vue-router",
+        "path": "/examples/vite-ssr-vue-router",
+        "title": "SSR with Vue Router",
+        "order": null,
+        "icon": "i-logos-vue",
+        "category": "server side rendering"
+      },
+      {
+        "slug": "vite-trpc",
+        "path": "/examples/vite-trpc",
+        "title": "Vite + tRPC",
+        "order": null,
+        "icon": "i-simple-icons-trpc",
+        "category": "vite"
+      },
+      {
+        "slug": "websocket",
+        "path": "/examples/websocket",
+        "title": "WebSocket",
+        "order": null,
+        "icon": "i-lucide-radio",
+        "category": "features"
+      }
+    ]
+  },
+  {
+    "slug": "",
+    "path": "/",
+    "title": "Index",
+    "order": null,
+    "seo": {
+      "title": "Build Full-Stack Servers",
+      "description": "Nitro extends your Vite application with a production-ready server, compatible with any runtime. Add server routes to your application and deploy many hosting platform with a zero-config experience."
+    },
+    "orientation": "horizontal",
+    "filename": "nitro.config.ts",
+    "features": [
+      {
+        "title": "Fast",
+        "description": "Enjoy the fast Vite 8 (rolldown powered) development experience with HMR on the server and optimized for production.",
+        "icon": "i-lucide-zap",
+        "color": "text-amber-500",
+        "bgColor": "bg-amber-500/10",
+        "borderColor": "group-hover:border-amber-500/30"
+      },
+      {
+        "title": "Agnostic",
+        "description": "Deploy the same codebase to any deployment provider with zero config and locked-in.",
+        "icon": "i-lucide-globe",
+        "color": "text-sky-500",
+        "bgColor": "bg-sky-500/10",
+        "borderColor": "group-hover:border-sky-500/30"
+      },
+      {
+        "title": "Minimal",
+        "description": "Nitro adds no overhead to runtime. Build your servers with any modern tool you like.",
+        "icon": "i-lucide-feather",
+        "color": "text-emerald-500",
+        "bgColor": "bg-emerald-500/10",
+        "borderColor": "group-hover:border-emerald-500/30"
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Bare metal perf",
+        "value": "~Native",
+        "unit": "RPS",
+        "description": "Using compile router, and fast paths for request handling.",
+        "icon": "i-lucide-gauge",
+        "color": "text-emerald-500",
+        "bgColor": "bg-emerald-500/10",
+        "barWidth": "95%",
+        "barColor": "bg-emerald-500"
+      },
+      {
+        "label": "Minimum install Size",
+        "value": "Tiny",
+        "unit": "deps",
+        "description": "Minimal dependencies. No bloated node_modules.",
+        "icon": "i-lucide-package",
+        "color": "text-sky-500",
+        "bgColor": "bg-sky-500/10",
+        "barWidth": "15%",
+        "barColor": "bg-sky-500"
+      },
+      {
+        "label": "Small and portable output",
+        "value": "‹ 10",
+        "unit": "kB",
+        "description": "Standard server builds produce ultra-small output bundles.",
+        "icon": "i-lucide-file-output",
+        "color": "text-violet-500",
+        "bgColor": "bg-violet-500/10",
+        "barWidth": "10%",
+        "barColor": "bg-violet-500"
+      },
+      {
+        "label": "FAST builds",
+        "value": "‹ 1",
+        "unit": "sec",
+        "description": "Cold production builds complete in seconds, not minutes.",
+        "icon": "i-lucide-timer",
+        "color": "text-amber-500",
+        "bgColor": "bg-amber-500/10",
+        "barWidth": "12%",
+        "barColor": "bg-amber-500"
+      }
+    ],
+    "headline": "Assets",
+    "link": "/docs/assets",
+    "link-label": "Assets docs"
+  }
+]

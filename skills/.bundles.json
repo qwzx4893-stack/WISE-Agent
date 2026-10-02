@@ -1,0 +1,170 @@
+{
+  "web-development": {
+    "description": "Building modern websites & web apps (React/Next, Tailwind, shadcn).",
+    "skills": [
+      "react",
+      "next",
+      "tailwind",
+      "shadcn-ui",
+      "typescript",
+      "nextjs",
+      "vercel",
+      "frontend"
+    ],
+    "keywords": [
+      "web",
+      "website",
+      "frontend",
+      "react",
+      "next",
+      "tailwind",
+      "ui",
+      "shadcn"
+    ]
+  },
+  "security-audit": {
+    "description": "Security/pentest sweeps for web, code and dependencies.",
+    "skills": [
+      "semgrep",
+      "trufflehog",
+      "gitleaks",
+      "snyk",
+      "burp-suite-testing",
+      "metasploit-framework",
+      "binwalk",
+      "radare2"
+    ],
+    "keywords": [
+      "security",
+      "pentest",
+      "vuln",
+      "audit",
+      "exploit",
+      "malware",
+      "cve",
+      "scan"
+    ]
+  },
+  "smart-contract-audit": {
+    "description": "Solidity/EVM auditing pipeline.",
+    "skills": [
+      "slither",
+      "mythril",
+      "echidna",
+      "medusa",
+      "aderyn",
+      "foundry",
+      "ethers-js"
+    ],
+    "keywords": [
+      "solidity",
+      "evm",
+      "smart-contract",
+      "blockchain",
+      "ethereum",
+      "defi",
+      "audit"
+    ]
+  },
+  "data-science": {
+    "description": "Data wrangling + analytics + ML modelling.",
+    "skills": [
+      "pandas",
+      "polars",
+      "scikit-learn",
+      "duckdb",
+      "dbt",
+      "snowflake",
+      "data-scientist"
+    ],
+    "keywords": [
+      "data",
+      "dataset",
+      "csv",
+      "ml",
+      "machine-learning",
+      "model",
+      "analytics",
+      "feature"
+    ]
+  },
+  "mobile-development": {
+    "description": "Cross-platform mobile (Flutter / React Native / Expo).",
+    "skills": [
+      "flutter-expert",
+      "react-native",
+      "expo",
+      "maestro",
+      "shadcn-ui",
+      "webtoapp"
+    ],
+    "keywords": [
+      "mobile",
+      "android",
+      "ios",
+      "flutter",
+      "react-native",
+      "expo"
+    ]
+  },
+  "devops": {
+    "description": "Containers, IaC and CI/CD.",
+    "skills": [
+      "docker",
+      "kubernetes",
+      "terraform",
+      "ansible",
+      "github-actions",
+      "kubernetes-architect",
+      "terraform-specialist"
+    ],
+    "keywords": [
+      "devops",
+      "infra",
+      "deploy",
+      "ci",
+      "cd",
+      "kubernetes",
+      "docker",
+      "terraform"
+    ]
+  },
+  "research": {
+    "description": "Deep web/document research workflows.",
+    "skills": [
+      "exa",
+      "tavily",
+      "firecrawl",
+      "deep-research",
+      "openalex",
+      "search-knowledge"
+    ],
+    "keywords": [
+      "research",
+      "search",
+      "wiki",
+      "paper",
+      "document",
+      "scrape"
+    ]
+  },
+  "automation": {
+    "description": "Workflow / integration automation.",
+    "skills": [
+      "n8n",
+      "zapier",
+      "temporal",
+      "stripe",
+      "twilio",
+      "slack",
+      "discord"
+    ],
+    "keywords": [
+      "automation",
+      "workflow",
+      "webhook",
+      "integration",
+      "schedule"
+    ]
+  }
+}

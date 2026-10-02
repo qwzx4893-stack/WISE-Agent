@@ -1,0 +1,542 @@
+[
+  {
+    "name": "data-scientist",
+    "version": "1.0.0",
+    "description": "Data Scientist is a comprehensive toolkit for end-to-end data science workflows including data cleaning, exploratory analysis, feature engineering, model selection, and visualization.",
+    "use_cases": [
+      "Data analysis",
+      "Machine learning",
+      "Statistical modeling",
+      "Feature engineering",
+      "Data visualization"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Data science task description"
+        },
+        "data": {
+          "type": "string",
+          "description": "Path to dataset file"
+        },
+        "config": {
+          "type": "string",
+          "description": "Configuration JSON",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "task",
+        "data"
+      ]
+    },
+    "output_format": "Analysis results, model metrics, and visualizations.",
+    "capabilities": [
+      "data science",
+      "machine learning",
+      "statistics",
+      "visualization",
+      "analysis"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false,
+      "memory_limit": "1G"
+    },
+    "implementation_type": "cli",
+    "cli_command": "data-scientist analyze '{task}' --data {data} --config '{config}'",
+    "dependencies": [
+      "python3",
+      "pandas",
+      "numpy",
+      "scikit-learn",
+      "matplotlib"
+    ],
+    "timeout": 600,
+    "source": "https://github.com/datascientist/toolkit",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "polars",
+    "version": "1.0.0",
+    "description": "Polars is a lightning-fast DataFrame library for Rust and Python, designed for high-performance data manipulation. It provides lazy evaluation, vectorized operations, and memory-efficient processing.",
+    "use_cases": [
+      "Large dataset processing",
+      "ETL pipelines",
+      "Data transformation",
+      "Performance-critical analytics",
+      "Memory-efficient operations"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Python code using polars"
+        },
+        "input": {
+          "type": "string",
+          "description": "Input data file path",
+          "default": ""
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "DataFrame output or computation result.",
+    "capabilities": [
+      "dataframe",
+      "rust",
+      "performance",
+      "etl",
+      "analytics"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false,
+      "memory_limit": "2G"
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c \"import polars as pl; {script}\"",
+    "dependencies": [
+      "python3",
+      "polars"
+    ],
+    "timeout": 300,
+    "source": "https://github.com/pola-rs/polars",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "scikit-learn",
+    "version": "1.0.0",
+    "description": "Scikit-learn is a machine learning library featuring classification, regression, clustering, dimensionality reduction, and model selection tools. It provides a consistent API for training and evaluating models.",
+    "use_cases": [
+      "Classification",
+      "Regression",
+      "Clustering",
+      "Dimensionality reduction",
+      "Model evaluation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Python code using scikit-learn"
+        },
+        "data": {
+          "type": "string",
+          "description": "Path to dataset file"
+        }
+      },
+      "required": [
+        "script",
+        "data"
+      ]
+    },
+    "output_format": "Model training results and evaluation metrics.",
+    "capabilities": [
+      "machine learning",
+      "classification",
+      "regression",
+      "clustering",
+      "model selection"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false,
+      "memory_limit": "1G"
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c \"import pandas as pd; data = pd.read_csv('{data}'); {script}\"",
+    "dependencies": [
+      "python3",
+      "scikit-learn",
+      "pandas"
+    ],
+    "timeout": 600,
+    "source": "https://github.com/scikit-learn/scikit-learn",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "plotly",
+    "version": "1.0.0",
+    "description": "Plotly is an interactive graphing library for creating publication-quality visualizations. It supports line charts, scatter plots, bar charts, heatmaps, 3D plots, and dashboards.",
+    "use_cases": [
+      "Interactive visualizations",
+      "Dashboard creation",
+      "Scientific plotting",
+      "Data exploration",
+      "Chart generation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Python code using plotly"
+        },
+        "output": {
+          "type": "string",
+          "description": "Output file path (html/png)",
+          "default": "plot.html"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "Interactive HTML or static image file path.",
+    "capabilities": [
+      "visualization",
+      "interactive",
+      "plotting",
+      "dashboard",
+      "charts"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c \"{script}\"",
+    "dependencies": [
+      "python3",
+      "plotly",
+      "kaleido"
+    ],
+    "timeout": 120,
+    "source": "https://github.com/plotly/plotly.py",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "dbt-transformation-patterns",
+    "version": "1.0.0",
+    "description": "DBT Transformation Patterns provides reusable dbt models, macros, and patterns for data transformation pipelines. It includes incremental loading, snapshotting, testing, and documentation generation.",
+    "use_cases": [
+      "Data transformation",
+      "Analytics engineering",
+      "ETL pipelines",
+      "Data modeling",
+      "Data testing"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "DBT action (run/test/docs/compile)"
+        },
+        "models": {
+          "type": "string",
+          "description": "Model selection pattern",
+          "default": "+*"
+        },
+        "profile": {
+          "type": "string",
+          "description": "DBT profile name",
+          "default": "default"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "DBT execution output with test results.",
+    "capabilities": [
+      "dbt",
+      "transformation",
+      "analytics",
+      "data modeling",
+      "sql"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "dbt {action} --select {models} --profile {profile}",
+    "dependencies": [
+      "python3",
+      "dbt-core"
+    ],
+    "timeout": 600,
+    "source": "https://github.com/dbt-labs/dbt-core",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "spark-optimization",
+    "version": "1.0.0",
+    "description": "Spark Optimization toolkit provides tools for analyzing and optimizing Apache Spark jobs. It includes query plan analysis, partition tuning, memory configuration, and performance profiling.",
+    "use_cases": [
+      "Spark job optimization",
+      "Query tuning",
+      "Partition strategy",
+      "Memory configuration",
+      "Performance analysis"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Path to PySpark script"
+        },
+        "config": {
+          "type": "string",
+          "description": "Spark configuration JSON",
+          "default": "{}"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "Execution output with optimization recommendations.",
+    "capabilities": [
+      "spark",
+      "optimization",
+      "big data",
+      "performance",
+      "tuning"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false,
+      "memory_limit": "4G"
+    },
+    "implementation_type": "cli",
+    "cli_command": "spark-submit --conf '{config}' {script}",
+    "dependencies": [
+      "python3",
+      "pyspark",
+      "openjdk"
+    ],
+    "timeout": 900,
+    "source": "https://github.com/apache/spark",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "snowflake-development",
+    "version": "1.0.0",
+    "description": "Snowflake Development toolkit provides tools for managing Snowflake data warehouse operations. It includes SQL execution, schema management, data loading, query optimization, and resource monitoring.",
+    "use_cases": [
+      "Data warehousing",
+      "SQL development",
+      "Schema management",
+      "Data loading",
+      "Query optimization"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "sql": {
+          "type": "string",
+          "description": "SQL query to execute"
+        },
+        "connection": {
+          "type": "string",
+          "description": "Connection parameters JSON"
+        }
+      },
+      "required": [
+        "sql",
+        "connection"
+      ]
+    },
+    "output_format": "Query results or execution status.",
+    "capabilities": [
+      "snowflake",
+      "data warehouse",
+      "sql",
+      "cloud",
+      "analytics"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "snowsql -c '{connection}' -q \"{sql}\"",
+    "dependencies": [
+      "snowsql"
+    ],
+    "timeout": 300,
+    "source": "https://github.com/snowflakedb/snowflake-connector-python",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "seo-technical",
+    "version": "1.0.0",
+    "description": "SEO Technical toolkit provides comprehensive website auditing and optimization tools. It crawls sites, checks page speed, validates structured data, analyzes mobile-friendliness, and generates SEO reports.",
+    "use_cases": [
+      "Technical SEO audit",
+      "Site crawling",
+      "Page speed analysis",
+      "Structured data validation",
+      "Mobile optimization"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Website URL to audit"
+        },
+        "report_type": {
+          "type": "string",
+          "description": "Report type (full/crawl/speed/schema)",
+          "default": "full"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "output_format": "SEO audit report with issues and recommendations.",
+    "capabilities": [
+      "seo",
+      "technical",
+      "crawling",
+      "page speed",
+      "structured data"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "seo-audit {url} --type {report_type}",
+    "dependencies": [
+      "python3",
+      "lighthouse",
+      "screaming-frog"
+    ],
+    "timeout": 600,
+    "source": "https://github.com/seo/technical",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "programmatic-seo",
+    "version": "1.0.0",
+    "description": "Programmatic SEO toolkit enables large-scale content generation and optimization using templates and data. It automates keyword research, content creation, internal linking, and performance tracking.",
+    "use_cases": [
+      "Programmatic content",
+      "Keyword research",
+      "Template-based generation",
+      "Internal linking",
+      "SEO automation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string",
+          "description": "Content template with variables"
+        },
+        "data": {
+          "type": "string",
+          "description": "Data file for template population"
+        },
+        "output_dir": {
+          "type": "string",
+          "description": "Output directory",
+          "default": "output"
+        }
+      },
+      "required": [
+        "template",
+        "data"
+      ]
+    },
+    "output_format": "Generated content files and deployment report.",
+    "capabilities": [
+      "seo",
+      "programmatic",
+      "content generation",
+      "automation",
+      "keyword research"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "programmatic-seo generate --template {template} --data {data} --output {output_dir}",
+    "dependencies": [
+      "python3",
+      "jinja2"
+    ],
+    "timeout": 600,
+    "source": "https://github.com/seo/programmatic",
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "seo-content-writer",
+    "version": "1.0.0",
+    "description": "SEO Content Writer is an AI-powered content creation tool that generates SEO-optimized articles, meta descriptions, and content briefs. It analyzes SERP data to produce competitive, keyword-rich content.",
+    "use_cases": [
+      "SEO content creation",
+      "Article writing",
+      "Meta description generation",
+      "Content briefs",
+      "SERP analysis"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string",
+          "description": "Content topic or focus keyword"
+        },
+        "length": {
+          "type": "string",
+          "description": "Content length (short/medium/long)",
+          "default": "medium"
+        },
+        "tone": {
+          "type": "string",
+          "description": "Content tone",
+          "default": "professional"
+        }
+      },
+      "required": [
+        "topic"
+      ]
+    },
+    "output_format": "SEO-optimized article or content brief.",
+    "capabilities": [
+      "seo",
+      "content writing",
+      "ai writing",
+      "serp analysis",
+      "keywords"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "seo-writer generate '{topic}' --length {length} --tone {tone}",
+    "dependencies": [
+      "python3",
+      "openai"
+    ],
+    "timeout": 120,
+    "source": "https://github.com/seo/content-writer",
+    "replaces": "1.0.0"
+  }
+]

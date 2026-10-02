@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="WISE agent workspace">
+  <title>WISE</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#conversation">تجاوز إلى المحادثة</a>
+  <div class="app-shell" id="appShell">
+    <aside class="conversation-sidebar" id="conversationSidebar" aria-label="التنقل والمحادثات">
+      <header class="brand-row">
+        <button class="icon-button mobile-only" id="closeSidebar" aria-label="إغلاق الشريط الجانبي"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+        <button class="brand" id="brandButton" aria-label="WISE، محادثة جديدة"><span class="sidebar-brand-name">WISE</span></button>
+        <span class="brand-actions"><button class="icon-button" id="commandButton" aria-label="لوحة الأوامر" title="لوحة الأوامر"><svg aria-hidden="true"><use href="#i-search"/></svg></button><button class="icon-button" id="settingsButton" aria-label="الإعدادات" title="الإعدادات"><svg aria-hidden="true"><use href="#i-settings"/></svg></button></span>
+      </header>
+      <nav class="primary-nav" aria-label="أقسام WISE">
+        <button class="nav-item active" data-view="chat"><svg aria-hidden="true"><use href="#i-edit"/></svg><span>محادثة جديدة</span><kbd>Ctrl K</kbd></button>
+        <button class="nav-item" data-view="schedules"><svg aria-hidden="true"><use href="#i-clock"/></svg><span>المهام المجدولة</span></button>
+        <button class="nav-item" data-view="messaging"><svg aria-hidden="true"><use href="#i-link"/></svg><span>المراسلة</span></button>
+        <button class="nav-item" data-view="media"><svg aria-hidden="true"><use href="#i-media"/></svg><span>الوسائط والمخرجات</span></button>
+      </nav>
+      <div class="sidebar-section conversations-section">
+        <div class="section-heading"><span>المحادثات</span><button class="quiet-icon" id="sessionSearchButton" aria-label="بحث"><svg aria-hidden="true"><use href="#i-search"/></svg></button></div>
+        <label class="search-field" id="sessionSearchField" hidden><svg aria-hidden="true"><use href="#i-search"/></svg><input id="sessionSearch" type="search" placeholder="ابحث في المحادثات" autocomplete="off"></label>
+        <div class="session-list" id="sessionList" role="list"><div class="skeleton-list" aria-label="جارٍ تحميل المحادثات"><i></i><i></i><i></i></div></div>
+      </div>
+      <footer class="sidebar-footer">
+        <button class="core-status" id="coreStatus" aria-label="حالة WISE Core"><span><b>WISE Core</b><small>جارٍ الاتصال…</small></span></button>
+        <button class="icon-button" id="collapseSidebar" aria-label="طي الشريط الجانبي" title="طي الشريط"><svg aria-hidden="true"><use href="#i-panel"/></svg></button>
+      </footer>
+    </aside>
+
+    <main class="workspace" id="conversation">
+      <header class="workspace-header">
+        <div class="header-leading"><button class="icon-button" id="openSidebar" aria-label="فتح الشريط الجانبي"><svg aria-hidden="true"><use href="#i-menu"/></svg></button><div class="conversation-title"><h1 id="pageTitle">محادثة جديدة</h1><p id="pageSubtitle">مسودة محلية</p></div></div>
+        <div class="header-actions"></div>
+      </header>
+
+      <section class="view active" id="chatView" data-view-panel="chat">
+        <div class="chat-scroll" id="chatScroll">
+          <section class="welcome" id="welcome">
+            <div class="welcome-mark wise-wordmark" aria-hidden="true">
+              <svg viewBox="0 0 351 129"><defs><linearGradient id="wiseFade" x1="175.5" y1="18" x2="175.5" y2="120" gradientUnits="userSpaceOnUse"><stop stop-color="currentColor" stop-opacity=".9"/><stop offset="1" stop-color="currentColor" stop-opacity=".26"/></linearGradient></defs><g fill="url(#wiseFade)"><path d="M0 18h18.462v73.714h18.461V55h18.462v36.714h18.461V18h18.462v73.714H73.846v18.429H55.385V91.714H36.923v18.429H18.462V91.714H0Z"/><path d="M110.769 18h55.385v18.429h-18.462v55.285h18.462v18.429h-55.385V91.714h18.462V36.429h-18.462Z"/><path d="M184.615 18h73.847v18.429h-55.385v18.428h55.385v55.286h-73.847V91.714H240V73.286h-55.385Z"/><path d="M276.923 18h73.846v18.429h-55.384v18.428h55.384v18.429h-55.384v18.428h55.384v18.429h-73.846Z"/></g></svg>
+            </div>
+          </section>
+          <div class="message-list" id="messageList" aria-live="polite" aria-relevant="additions"></div>
+        </div>
+        <div class="composer-area">
+          <div id="slashMenu" class="slash-menu" role="listbox" aria-label="أوضاع وخوادم MCP" hidden></div>
+          <section class="task-plan-dock" id="taskPlanDock" aria-label="خطة المهمة الحالية" hidden>
+            <button class="task-plan-toggle" id="taskPlanToggle" type="button" aria-expanded="false" aria-controls="taskPlanBody">
+              <span class="task-plan-leading"><svg aria-hidden="true"><use href="#i-tasks"/></svg><span><b id="taskPlanTitle">خطة المهمة</b><small id="taskPlanMeta"></small></span></span>
+              <svg class="task-plan-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </button>
+            <div class="task-plan-body" id="taskPlanBody" hidden>
+              <div class="task-plan-list" id="taskPlanList"></div>
+              <div class="task-plan-approvals" id="taskPlanApprovals" hidden></div>
+            </div>
+          </section>
+          <form class="composer" id="composerForm">
+            <div id="composerSelection" class="composer-selection" hidden></div>
+            <div class="attachments" id="attachmentList" hidden></div>
+            <textarea id="prompt" rows="1" placeholder="أرسل رسالة إلى WISE…" aria-label="رسالة إلى WISE"></textarea>
+            <div class="composer-toolbar"><div class="compose-start">
+              <input id="fileInput" type="file" multiple hidden>
+              <button class="composer-icon" id="attachButton" type="button" aria-label="إرفاق ملف"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+              <button class="context-button" id="modelButton" type="button" aria-haspopup="menu" aria-expanded="false"><span class="provider-mark" id="modelProviderMark" aria-hidden="true"><svg><use href="#i-spark"/></svg></span><span id="modelLabel">اختيار نموذج</span><svg class="chevron" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+            </div><div class="compose-end"><button class="composer-icon" id="voiceButton" type="button" aria-label="بدء المحادثة الصوتية"><svg aria-hidden="true"><use href="#i-mic"/></svg></button><button class="send-button" id="sendButton" type="submit" aria-label="إرسال"><svg aria-hidden="true"><use href="#i-arrow-up"/></svg></button></div></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="view collection-view" id="schedulesView" data-view-panel="schedules" hidden><div class="collection-head"><div><span class="eyebrow">الأتمتة</span><h2>المهام المجدولة</h2><p>المهام المتكررة ومواعيد تشغيلها القادمة.</p></div><button class="primary-button" id="newSchedule"><svg aria-hidden="true"><use href="#i-plus"/></svg>جدولة مهمة</button></div><div class="card-grid" id="schedulesGrid"></div></section>
+      <section class="view collection-view" id="mediaView" data-view-panel="media" hidden><div class="collection-head"><div><span class="eyebrow">المخرجات</span><h2>الوسائط والملفات</h2><p>كل ما أنشأه WISE أو شاركته داخل جلساتك.</p></div><button class="secondary-button" data-refresh="media"><svg aria-hidden="true"><use href="#i-refresh"/></svg>تحديث</button></div><div class="card-grid" id="mediaGrid"></div></section>
+      <section class="view collection-view" id="messagingView" data-view-panel="messaging" hidden><div class="collection-head"><h2 id="messagingTitle">المراسلة</h2><button class="secondary-button" id="refreshMessaging" type="button"><svg aria-hidden="true"><use href="#i-refresh"/></svg></button></div><div id="messagingContent"></div></section>
+    </main>
+  </div>
+
+  <!-- Kept at document root so fixed positioning is relative to the native
+       window, never to the transformed empty-chat composer. -->
+  <div class="model-menu popover" id="modelMenu" role="menu" aria-label="اختيار النموذج" hidden></div>
+  <div class="overlay" id="drawerOverlay" hidden></div>
+  <div class="modal-backdrop" id="settingsModal" hidden><section class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle"><aside class="settings-nav"><div class="settings-brand"><strong class="settings-wordmark">WISE</strong><span id="settingsTitle">الإعدادات</span></div><nav id="settingsNav"></nav></aside><div class="settings-pane"><header><div><span class="eyebrow" id="settingsEyebrow">WISE SETTINGS</span><h2 id="settingsHeading">عام</h2><p id="settingsDescription"></p></div><button class="icon-button" id="closeSettings" aria-label="إغلاق الإعدادات"><svg aria-hidden="true"><use href="#i-close"/></svg></button></header><div class="settings-content" id="settingsContent" tabindex="-1"></div></div></section></div>
+  <div class="command-backdrop" id="commandPalette" hidden><section class="command-dialog" role="dialog" aria-modal="true" aria-labelledby="commandTitle"><label class="command-search"><svg aria-hidden="true"><use href="#i-search"/></svg><input id="commandInput" type="search" autocomplete="off" placeholder="ابحث عن أمر أو قسم…" aria-label="بحث في أوامر WISE"><kbd>Esc</kbd></label><h2 id="commandTitle">أوامر WISE</h2><div class="command-list" id="commandList" role="listbox"></div></section></div>
+  <div class="context-menu" id="sessionMenu" hidden><button data-session-action="rename"><svg aria-hidden="true"><use href="#i-edit"/></svg>إعادة التسمية</button><button data-session-action="archive"><svg aria-hidden="true"><use href="#i-archive"/></svg>أرشفة</button><button class="danger" data-session-action="delete"><svg aria-hidden="true"><use href="#i-trash"/></svg>حذف</button></div>
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <svg class="icon-defs" aria-hidden="true">
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 8 4 4-4 4m6 0h4"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"/></symbol><symbol id="i-tasks" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"/></symbol><symbol id="i-media" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 20"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 15l2 1-2 3-2-1a8 8 0 0 1-3 2v2h-4v-2a8 8 0 0 1-3-2l-2 1-2-3 2-1a8 8 0 0 1 0-4L3 10l2-3 2 1a8 8 0 0 1 3-2V4h4v2a8 8 0 0 1 3 2l2-1 2 3-2 1a8 8 0 0 1 0 4Z"/></symbol><symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16m4-5 3-3-3-3"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-inspector" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6ZM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8Z"/></symbol><symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol><symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m12 19V5m-6 6 6-6 6 6"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5M19 11a7 7 0 0 0-12-4L4 11m16 2-3 4a7 7 0 0 1-12-4"/></symbol><symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="4" rx="1"/><path d="M5 9v10h14V9m-9 4h4"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16m-10 4v6m4-6v6M9 7l1-3h4l1 3m3 0-1 14H7L6 7"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Z"/><path d="M14 3v5h5"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20ZM12 9v5m0 3h.01"/></symbol>
+  </svg>
+  <!-- The client sends Idempotency-Key for every v2 chat request. -->
+  <!-- Settings expose Super Computer and متصفح الجهاز without bypassing UAC. -->
+  <script src="./integrations.js" defer></script>
+  <script src="./messaging.js" defer></script>
+  <script src="./capability-browser.js" defer></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>

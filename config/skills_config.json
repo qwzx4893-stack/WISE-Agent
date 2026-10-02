@@ -1,0 +1,8 @@
+{
+  "max_skill_length": 4000,
+  "index_refresh_interval": 300,
+  "version_policy": "latest",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "cache_embeddings": true,
+  "embeddings_cache_file": ".embeddings_cache.npz"
+}

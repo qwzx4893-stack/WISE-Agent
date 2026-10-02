@@ -1,0 +1,22 @@
+{
+  "name": "huashu-design",
+  "version": "1.0.0",
+  "category": "design",
+  "author": "Agent OS",
+  "license": "MIT",
+  "description": "Huashu design system: produce branding, layout and visual-language artefacts that follow Huashu's modular grid + bilingual (Arabic/English) typographic conventions.",
+  "capabilities": [
+    "produce branding kit",
+    "design layout",
+    "compose visual language",
+    "create bilingual typography",
+    "generate design tokens"
+  ],
+  "use_cases": [
+    "Draft a Huashu-flavoured landing page wireframe",
+    "Generate a brand kit (colour, type, spacing tokens) from a brief",
+    "Audit an existing UI against Huashu modular grid"
+  ],
+  "tags": ["design", "branding", "ui", "rtl", "typography"],
+  "rating": 4.6
+}

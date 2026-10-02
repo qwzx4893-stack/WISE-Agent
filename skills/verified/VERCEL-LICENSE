@@ -1,0 +1,10 @@
+Invoke-RestMethod: 
+Line |
+   2 |  … seLicense = Invoke-RestMethod 'https://api.github.com/repos/vercel-la …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | 
+{
+  "message": "Not Found",
+  "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content",
+  "status": "404"
+}

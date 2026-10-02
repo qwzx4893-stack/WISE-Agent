@@ -1,0 +1,4 @@
+# Optional CPU-only intelligence tools; no model weights or permanent services.
+# Install in the same Python runtime used by Start-WISE.
+duckdb==1.5.6
+# YARA/STIX dependencies are isolated, on-demand recipes in optional_tools.py.

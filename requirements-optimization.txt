@@ -1,0 +1,23 @@
+# Optional dependencies for advanced prompt compression
+# (Phase 8 Part 5). Install with:
+#
+#     pip install -r requirements-optimization.txt
+#
+# These bring in torch (~800 MB) + transformers + the associated
+# model weights on first use, which is why they are *not* in the
+# default requirements.txt and the ``compression_enabled`` resource
+# setting is off by default. Agent OS runs happily without any of
+# these — ``core.optimization.advanced_compression`` falls back
+# to :class:`PromptOptimizer` when a backend is unavailable.
+
+# Microsoft LLMLingua / LLMLingua-2 / LongLLMLingua. The upstream
+# package ships all three variants under
+# ``llmlingua.PromptCompressor`` — there is no separate
+# ``llmlingua2`` distribution on PyPI.
+llmlingua>=0.2.2
+
+# Optical context compression (renders text to an image for VLMs).
+un-locc>=0.1.9
+
+# Chonkify is GitHub-only. Uncomment to install:
+# chonkify @ git+https://github.com/thomheinrich/chonkify

@@ -1,0 +1,3 @@
+# Messaging brand artwork
+
+Vectors sourced from [Simple Icons](https://github.com/simple-icons/simple-icons). The collection is released under CC0-1.0; this does not imply that every individual brand icon or trademark is CC0. Downloaded from the repository icons directory on 2026-10-02. WISE renders them in a monochrome dark-theme color; paths are unchanged. The marks remain the property of their respective owners and identify supported integrations only. Consult individual brand licenses/guidelines and the project's [legal disclaimer](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md) before redistribution.
