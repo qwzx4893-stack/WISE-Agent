@@ -1,0 +1,37 @@
+{
+  "id": "1700053802548-g66l",
+  "lang": "en",
+  "context_name": "color",
+  "skill_name": "color_skill",
+  "action_name": "tell_hexadecimal_color",
+  "skill_config": {
+    "name": "Color",
+    "bridge": "python",
+    "version": "1.0.0",
+    "workflow": []
+  },
+  "skill_config_path": "skills/native/color_skill/skill.json",
+  "utterance": "what is the hexadecimal color for red?",
+  "entities": [],
+  "action_arguments": {
+    "color_name": "red"
+  },
+  "sentiment": {
+    "vote": "neutral",
+    "score": 0
+  },
+  "context": {
+    "utterances": ["what is the hexadecimal color for red?"],
+    "action_arguments": [{ "color_name": "red" }],
+    "entities": [],
+    "sentiments": [{ "vote": "neutral", "score": 0 }],
+    "data": {}
+  },
+  "extra_context": {
+    "date": "2023-11-15",
+    "time": "21:10:02",
+    "timestamp": 1700053802000,
+    "date_time": "2023-11-15T21:10:02+08:00",
+    "week_day": "Wednesday"
+  }
+}

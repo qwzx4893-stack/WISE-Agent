@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "run": {
+      "answers": [
+        "42.",
+        "1 0 1 0 1 0."
+      ]
+    }
+  }
+}

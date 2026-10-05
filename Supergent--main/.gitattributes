@@ -1,0 +1,14 @@
+sandbox/rootfs/var/lib/apt/lists/deb.debian.org_debian_dists_stable_main_binary-amd64_Packages filter=lfs diff=lfs merge=lfs -text
+tools/binaries/hono filter=lfs diff=lfs merge=lfs -text
+tools/binaries/foundry filter=lfs diff=lfs merge=lfs -text
+tools/binaries/nuclei filter=lfs diff=lfs merge=lfs -text
+tools/binaries/goose filter=lfs diff=lfs merge=lfs -text
+tools/binaries/ethers-js filter=lfs diff=lfs merge=lfs -text
+.git/objects/pack/pack-4ba08cbf65f32158f411ee4d2368b08043113a97.pack filter=lfs diff=lfs merge=lfs -text
+*.a filter=lfs diff=lfs merge=lfs -text
+*.gguf filter=lfs diff=lfs merge=lfs -text
+*.tar.gz filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text
+*.o filter=lfs diff=lfs merge=lfs -text

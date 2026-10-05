@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "generate": {
+      "missing_param_follow_ups": {
+        "topic": ["What topic would you like the podcast to be about?"],
+        "duration": ["How long should the podcast be (in minutes)?"]
+      },
+      "answers": {
+        "researching": ["Researching {{ topic }}... This may take a moment."],
+        "generating_script": ["Generating podcast script based on research..."],
+        "synthesizing_audio": [
+          "Creating audio for the podcast conversation..."
+        ],
+        "success": [
+          "Podcast generated successfully! The conversation is about {{ topic }} and is approximately {{ duration }} minutes long. Audio file: {{ audio_file }}"
+        ],
+        "error": ["Failed to generate podcast: {{ error }}"],
+        "invalid_duration": [
+          "Duration must be between 1 and 30 minutes. You requested {{ duration }} minutes."
+        ]
+      }
+    }
+  }
+}

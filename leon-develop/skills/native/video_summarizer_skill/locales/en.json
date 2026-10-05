@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "prepare_audio": {
+      "missing_param_follow_ups": {
+        "video_source": [
+          "Please provide the video URL or local file path you want summarized.",
+          "What video link or file path should I summarize?"
+        ]
+      },
+      "answers": {
+        "missing_video_source": [
+          "❌ I need a video URL or local file path to start summarizing.",
+          "Please share a video URL or file path so I can extract audio."
+        ],
+        "preparing_audio": [
+          "🎧 Preparing audio from {{ video_source }} in {{ audio_format }} format...",
+          "Extracting audio from {{ video_source }} ({{ audio_format }})..."
+        ],
+        "video_source_not_found": [
+          "❌ I couldn't find the file at {{ video_source }}. Please check the path.",
+          "That local file path doesn't exist: {{ video_source }}."
+        ],
+        "download_failed": [
+          "❌ Failed to download audio from {{ video_source }}. Error: {{ error }}",
+          "I couldn't fetch the audio from that URL. Error: {{ error }}"
+        ],
+        "audio_extraction_failed": [
+          "❌ Failed to extract audio from {{ video_source }}. Error: {{ error }}",
+          "Audio extraction failed. Error: {{ error }}"
+        ],
+        "audio_ready": [
+          "✅ Audio ready: {{ audio_path }}. Starting transcription...",
+          "Audio prepared at {{ audio_path }}. Moving on to transcription."
+        ]
+      }
+    },
+    "summarize_transcription": {
+      "missing_param_follow_ups": {},
+      "answers": {
+        "transcription_not_found": [
+          "❌ I couldn't find the transcription file to summarize.",
+          "The transcription file is missing. Please retry the transcription step."
+        ],
+        "no_segments_found": [
+          "❌ The transcription doesn't contain any segments to summarize.",
+          "I couldn't find any transcribed text to summarize."
+        ],
+        "summary_started": [
+          "🧠 Summarizing the transcription ({{ segment_count }} segments) using {{ model }}...",
+          "Working on the summary from {{ segment_count }} segments with {{ model }}."
+        ],
+        "summary_error": [
+          "❌ An error occurred while summarizing: {{ error }}",
+          "Summary failed with error: {{ error }}"
+        ],
+        "summary_empty": [
+          "❌ I couldn't generate a summary from the transcription.",
+          "No summary content was produced from the transcript."
+        ],
+        "summary_completed": [
+          "Here are the results:\n\nKey points:\n{{ key_points }}\n\nNew knowledge:\n{{ new_knowledge }}",
+          "Summary ready:\n\nKey points:\n{{ key_points }}\n\nNew knowledge:\n{{ new_knowledge }}"
+        ]
+      }
+    }
+  }
+}

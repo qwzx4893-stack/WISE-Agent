@@ -1,0 +1,158 @@
+import fs from 'node:fs'
+import path from 'node:path'
+
+import { LLMDuties } from '@/core/llm-manager/types'
+import { LogHelper } from '@/helpers/log-helper'
+import { getRoutingModeLLMDisplay } from '@/core/llm-manager/llm-routing'
+import { CONFIG_STATE } from '@/core/config-states/config-state'
+import { SkillDomainHelper } from '@/helpers/skill-domain-helper'
+import { getProfilePaths } from '@/core/profile-runtime/profile-paths'
+import { getActiveProfileName } from '@/core/profile-runtime/profile-context'
+
+interface CoreLLMDutyConfig {
+  maxTokens?: number
+  temperature?: number
+  thoughtTokensBudget?: number
+  seed?: number
+}
+
+interface CoreLLMDuties {
+  [LLMDuties.SkillRouter]: CoreLLMDutyConfig
+  [LLMDuties.ActionCalling]: CoreLLMDutyConfig
+  [LLMDuties.SlotFilling]: CoreLLMDutyConfig
+  [LLMDuties.Paraphrase]?: CoreLLMDutyConfig
+}
+
+type SkillListContent = string | null
+
+const WORKFLOW_SKILL_ROUTER_MAX_TOKENS = 72
+const WORKFLOW_ACTION_CALLING_MAX_TOKENS = 256
+const WORKFLOW_ACTION_CALLING_SEED = 7
+const WORKFLOW_SLOT_FILLING_MAX_TOKENS = 128
+const WORKFLOW_PARAPHRASE_MAX_TOKENS = 8_192
+
+// Workflow duties should stay fast and deterministic. The provider layer maps
+// disableThinking to the strongest supported non-thinking / low-reasoning mode.
+const CORE_LLM_DUTIES: CoreLLMDuties = {
+  [LLMDuties.SkillRouter]: {
+    maxTokens: WORKFLOW_SKILL_ROUTER_MAX_TOKENS,
+    thoughtTokensBudget: 0,
+    temperature: 0
+  },
+  [LLMDuties.ActionCalling]: {
+    maxTokens: WORKFLOW_ACTION_CALLING_MAX_TOKENS,
+    thoughtTokensBudget: 0,
+    temperature: 0,
+    seed: WORKFLOW_ACTION_CALLING_SEED
+  },
+  [LLMDuties.SlotFilling]: {
+    maxTokens: WORKFLOW_SLOT_FILLING_MAX_TOKENS,
+    thoughtTokensBudget: 0,
+    temperature: 0
+  },
+  [LLMDuties.Paraphrase]: {
+    maxTokens: WORKFLOW_PARAPHRASE_MAX_TOKENS,
+    thoughtTokensBudget: 0,
+    temperature: 0.6
+  }
+}
+
+function cloneCoreDutyConfig(): CoreLLMDuties {
+  return {
+    [LLMDuties.SkillRouter]: { ...CORE_LLM_DUTIES[LLMDuties.SkillRouter] },
+    [LLMDuties.ActionCalling]: {
+      ...CORE_LLM_DUTIES[LLMDuties.ActionCalling]
+    },
+    [LLMDuties.SlotFilling]: { ...CORE_LLM_DUTIES[LLMDuties.SlotFilling] },
+    ...(CORE_LLM_DUTIES[LLMDuties.Paraphrase]
+      ? {
+          [LLMDuties.Paraphrase]: {
+            ...CORE_LLM_DUTIES[LLMDuties.Paraphrase]
+          }
+        }
+      : {})
+  }
+}
+
+async function buildSkillListContent(): Promise<string> {
+  const friendlyPrompts = await SkillDomainHelper.listSkillFriendlyPrompts()
+
+  return friendlyPrompts
+    .map((friendlyPrompt, index) => `${index + 1}. ${friendlyPrompt}`)
+    .join('\n')
+}
+
+export default class LLMManager {
+  private _isLLMEnabled = false
+  private _skillListContent: SkillListContent = null
+  private _coreLLMDuties = cloneCoreDutyConfig()
+
+  get skillListContent(): SkillListContent {
+    return this._skillListContent
+  }
+
+  get coreLLMDuties(): CoreLLMDuties {
+    return this._coreLLMDuties
+  }
+
+  get isLLMEnabled(): boolean {
+    return this._isLLMEnabled
+  }
+
+  constructor() {
+    LogHelper.title('LLM Manager')
+    LogHelper.success(`New instance for profile ${getActiveProfileName()}`)
+  }
+
+  /**
+   * Load files that only need to be loaded once.
+   */
+  private async singleLoad(): Promise<void> {
+    try {
+      this._skillListContent = await fs.promises.readFile(
+        path.join(getProfilePaths().root, 'leon-skill-list.nlp'),
+        'utf-8'
+      )
+
+      LogHelper.title('LLM Manager')
+      LogHelper.success('Skill router skill list has been loaded')
+    } catch (e) {
+      throw new Error(`Failed to load the skill router skill list: ${e}`)
+    }
+  }
+
+  public async init(): Promise<void> {
+    LogHelper.time('LLM Manager init')
+    this._isLLMEnabled = true
+
+    try {
+      await this.singleLoad()
+    } catch (e) {
+      LogHelper.title('LLM Manager')
+      LogHelper.error(`LLM Manager failed to single load: ${e}`)
+
+      this._skillListContent = await buildSkillListContent()
+    }
+
+    LogHelper.title('LLM Manager')
+    const modelState = CONFIG_STATE.getModelState()
+    const routingMode = CONFIG_STATE.getRoutingModeState().getRoutingMode()
+    const llmDisplay = getRoutingModeLLMDisplay(
+      routingMode,
+      modelState.getWorkflowTarget(),
+      modelState.getAgentTarget()
+    )
+    LogHelper.success(`LLM manager initialized with ${llmDisplay.value}`)
+    LogHelper.timeEnd('LLM Manager init')
+  }
+
+  public async refreshSkillListContent(): Promise<void> {
+    const skillListContent = await buildSkillListContent()
+
+    this._skillListContent = skillListContent
+
+    LogHelper.title('LLM Manager')
+    LogHelper.success('Skill router skill list has been refreshed in memory')
+  }
+
+}

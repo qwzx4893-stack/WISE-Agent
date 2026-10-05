@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "search": {
+      "answers": {
+        "web_search_started": [
+          "🌐 Searching the web for \"{{ query }}\" using {{ provider }}..."
+        ],
+        "x_search_started": [
+          "𝕏 Searching X/Twitter for \"{{ query }}\" using {{ provider }}..."
+        ],
+        "combined_search_started": [
+          "🌐𝕏 Searching web and X/Twitter for \"{{ query }}\" using {{ provider }}..."
+        ],
+        "deep_research_started": [
+          "🔬 Starting deep research on \"{{ query }}\" using {{ provider }}..."
+        ],
+        "web_search_complete": [
+          "✅ Web search complete for \"{{ query }}\"\n\n{{ content }}\n\n📚 {{ citations_count }} sources found"
+        ],
+        "x_search_complete": [
+          "✅ X/Twitter search complete for \"{{ query }}\"\n\n{{ content }}\n\n📚 {{ citations_count }} sources found"
+        ],
+        "combined_search_complete": [
+          "✅ Combined search complete for \"{{ query }}\"\n\n{{ content }}\n\n📚 {{ citations_count }} sources found"
+        ],
+        "deep_research_complete": [
+          "✅ Deep research complete on \"{{ query }}\"\n\n{{ content }}\n\n📚 {{ citations_count }} sources analyzed"
+        ],
+        "provider_not_supported": [
+          "Search provider \"{{ provider }}\" is not supported. Please use 'grok'."
+        ],
+        "search_error": ["❌ Search error: {{ error }}"]
+      }
+    }
+  }
+}

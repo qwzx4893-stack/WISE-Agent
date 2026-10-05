@@ -1,0 +1,12 @@
+{
+  "$schema": "../../schemas/toolkit-schemas/toolkit.json",
+  "name": "Supergent OS",
+  "description": "Integration tools for Supergent autonomous Agent OS: 290 tools, 15 RAG sources, Workforce DAG planning, and Apprise channels.",
+  "icon_name": "cpu-line",
+  "context_files": [
+    "ARCHITECTURE.md"
+  ],
+  "tools": [
+    "bridge"
+  ]
+}

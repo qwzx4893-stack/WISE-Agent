@@ -1,0 +1,45 @@
+{
+  "$schema": "../../../schemas/tool-schemas/tool.json",
+  "tool_id": "shell",
+  "toolkit_id": "operating_system_control",
+  "name": "Shell",
+  "description": "Execute commands in the active platform shell. Uses Bash-compatible shell commands on Linux/macOS and PowerShell commands on Windows.",
+  "icon_name": "terminal-box-line",
+  "author": {
+    "name": "Louis Grenard",
+    "email": "louis@getleon.ai",
+    "url": "https://x.com/grenlouis"
+  },
+  "functions": {
+    "executeCommand": {
+      "description": "Execute a command in the active platform shell and return the result.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "options": {
+            "type": "object",
+            "properties": {
+              "cwd": {
+                "type": "string"
+              },
+              "longRunning": {
+                "type": "boolean",
+                "description": "Set true only for commands expected to run for a long time. Uses a deterministic 24-hour timeout."
+              },
+              "captureOutput": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "command"
+        ]
+      }
+    }
+  }
+}

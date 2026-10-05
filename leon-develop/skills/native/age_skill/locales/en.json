@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "run": {
+      "answers": {
+        "alive_for": [
+          "I've been alive for {{ years }} years, {{ months }} months, {{ days }} days, {{ hours }} hours, {{ minutes }} minutes and {{ seconds }} seconds."
+        ],
+        "magical_day": [
+          "Ah, this {{ weekday }}, {{ month }} {{ day }}, {{ year }}, was the magical day when I first came alive and began my journey as a personal assistant."
+        ],
+        "commemorate": [
+          "Since {{ year }}, every {{ month }} {{ day }}, I commemorate the day when I embarked on this extraordinary adventure to be your personal assistant."
+        ]
+      }
+    }
+  }
+}

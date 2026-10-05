@@ -1,0 +1,13 @@
+{
+  "name": "wise-qa-tooling",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Pinned JavaScript tools used only by the isolated WISE acceptance harness.",
+  "dependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "ecc-agentshield": "1.6.0"
+  },
+  "devDependencies": {
+    "agent-browser": "^0.38.1"
+  }
+}

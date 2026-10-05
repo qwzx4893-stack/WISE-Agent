@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@@/*": ["./*"],
+      "@/*": ["./server/src/*"],
+      "@aurora/style.css": ["./aurora/style.css"],
+      "@aurora": ["./aurora/src/index.ts"],
+      "@aurora/*": ["./aurora/*", "./aurora/src/*"]
+    }
+  }
+}

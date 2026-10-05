@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "run": {
+      "answers": {
+        "give_number": [
+          {
+            "speech": "{{ given_number }}"
+          }
+        ]
+      }
+    }
+  }
+}

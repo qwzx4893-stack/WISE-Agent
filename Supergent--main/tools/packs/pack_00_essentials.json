@@ -1,0 +1,472 @@
+[
+  {
+    "name": "read_file",
+    "version": "1.0.0",
+    "description": "Reads the entire content of a specified file from the secure workspace.",
+    "use_cases": [
+      "Analyzing log files",
+      "Reading configuration",
+      "Reviewing code",
+      "Extracting data"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file to read, relative to workspace root"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "output_format": "Plain text content of the file.",
+    "capabilities": [
+      "file system",
+      "read",
+      "text extraction"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": [],
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "write_file",
+    "version": "1.0.0",
+    "description": "Writes text content to a specified file in the secure workspace.",
+    "use_cases": [
+      "Saving generated content",
+      "Creating configuration files",
+      "Logging results",
+      "Exporting data"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file to write, relative to workspace root"
+        },
+        "content": {
+          "type": "string",
+          "description": "Text content to write to the file"
+        }
+      },
+      "required": [
+        "path",
+        "content"
+      ]
+    },
+    "output_format": "Confirmation message.",
+    "capabilities": [
+      "file system",
+      "write",
+      "persistence"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": [],
+    "replaces": "1.0.0"
+  },
+  {
+    "name": "list_directory",
+    "version": "1.0.0",
+    "description": "Lists files and directories in a given path within the workspace.",
+    "use_cases": [
+      "Exploring workspace",
+      "Checking available files",
+      "Verifying file creation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Directory path to list, relative to workspace root"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "output_format": "Newline-separated list of names.",
+    "capabilities": [
+      "file system",
+      "list",
+      "discovery"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "grep_file",
+    "version": "1.0.0",
+    "description": "Searches for a regular expression pattern in a file and returns matching lines.",
+    "use_cases": [
+      "Log analysis",
+      "Code search",
+      "Pattern matching",
+      "Data extraction"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file to search"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regular expression pattern to match"
+        }
+      },
+      "required": [
+        "path",
+        "pattern"
+      ]
+    },
+    "output_format": "Newline-separated matching lines.",
+    "capabilities": [
+      "file system",
+      "search",
+      "regex",
+      "text processing"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "search_memory",
+    "version": "1.0.0",
+    "description": "Searches the agent's long-term memory using semantic similarity.",
+    "use_cases": [
+      "Recalling past information",
+      "Finding related knowledge",
+      "Context retrieval"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search query to find relevant memories"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "output_format": "Newline-separated memory entries.",
+    "capabilities": [
+      "memory",
+      "search",
+      "knowledge retrieval",
+      "semantic search"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "remember",
+    "version": "1.0.0",
+    "description": "Stores a piece of information in the agent's long-term memory.",
+    "use_cases": [
+      "Saving important facts",
+      "Building knowledge base",
+      "Remembering user preferences"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Identifier for the memory"
+        },
+        "value": {
+          "type": "string",
+          "description": "Content to remember"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "output_format": "Confirmation message.",
+    "capabilities": [
+      "memory",
+      "store",
+      "persistence"
+    ],
+    "category": "Memory",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "ask_user",
+    "version": "1.0.0",
+    "description": "Asks the user a question and waits for a response. Use this when you need clarification or additional input.",
+    "use_cases": [
+      "Clarifying ambiguous tasks",
+      "Requesting missing information",
+      "Confirming actions"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "Question to present to the user"
+        }
+      },
+      "required": [
+        "question"
+      ]
+    },
+    "output_format": "User's response as text.",
+    "capabilities": [
+      "interaction",
+      "clarification",
+      "user input"
+    ],
+    "category": "Orchestration",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "dependencies": []
+  },
+  {
+    "name": "web_search",
+    "version": "1.0.0",
+    "description": "Searches the web using DuckDuckGo and returns result snippets.",
+    "use_cases": [
+      "Finding current information",
+      "Research",
+      "Fact-checking"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search query"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "output_format": "Newline-separated search result snippets.",
+    "capabilities": [
+      "web",
+      "search",
+      "information retrieval"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "curl -s -L -A 'Mozilla/5.0' 'https://html.duckduckgo.com/html/?q={query}' | grep -oP '(?<=result__a\">).*?(?=</a>)' | head -10",
+    "dependencies": [
+      "curl"
+    ],
+    "timeout": 30
+  },
+  {
+    "name": "web_fetch",
+    "version": "1.0.0",
+    "description": "Fetches the content of a web page and returns it as text.",
+    "use_cases": [
+      "Reading documentation",
+      "Scraping content",
+      "Accessing APIs"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL to fetch"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "output_format": "HTML or plain text content of the page.",
+    "capabilities": [
+      "web",
+      "fetch",
+      "http",
+      "scraping"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "curl -L -s '{url}'",
+    "dependencies": [
+      "curl"
+    ],
+    "timeout": 30
+  },
+  {
+    "name": "execute_python",
+    "version": "1.0.0",
+    "description": "Executes a Python script in a sandboxed environment and returns the output.",
+    "use_cases": [
+      "Data processing",
+      "Automation",
+      "Calculations",
+      "Prototyping"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Python code to execute"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "Standard output and error from the Python interpreter.",
+    "capabilities": [
+      "code execution",
+      "python",
+      "automation"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false,
+      "cpu_limit": 50,
+      "memory_limit": "256M"
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c '{script}'",
+    "dependencies": [
+      "python3"
+    ],
+    "timeout": 60
+  },
+  {
+    "name": "git_clone",
+    "version": "1.0.0",
+    "description": "Clones a Git repository into the workspace.",
+    "use_cases": [
+      "Downloading source code",
+      "Accessing projects",
+      "Version control"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Git repository URL"
+        },
+        "target": {
+          "type": "string",
+          "description": "Target directory name (optional)",
+          "default": ""
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "output_format": "Git clone output.",
+    "capabilities": [
+      "git",
+      "version control",
+      "download",
+      "repository"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "git clone {url} {target}",
+    "dependencies": [
+      "git"
+    ],
+    "timeout": 180
+  },
+  {
+    "name": "run_shell",
+    "version": "1.0.0",
+    "description": "Executes a safe shell command in the sandboxed workspace. Allowed commands are restricted by policy.",
+    "use_cases": [
+      "System utilities",
+      "Running installed tools",
+      "File operations not covered by other tools"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Shell command to execute"
+        }
+      },
+      "required": [
+        "command"
+      ]
+    },
+    "output_format": "Standard output and error from the command.",
+    "capabilities": [
+      "shell",
+      "execution",
+      "system"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": false
+    },
+    "implementation_type": "cli",
+    "cli_command": "{command}",
+    "timeout": 60,
+    "dependencies": []
+  }
+]

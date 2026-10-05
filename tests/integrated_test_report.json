@@ -1,0 +1,361 @@
+{
+  "total": 39,
+  "passed": 39,
+  "failed": 0,
+  "skipped": 0,
+  "pass_rate": "100.0%",
+  "total_latency_ms": 4907.41,
+  "results": [
+    {
+      "test_id": 1,
+      "name": "Normal Conversation",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 4138.62,
+      "details": "Reply: ⚠️ No AI model is currently active. MODEL_UNAVAILABLE: Host RAM is below the 2.0 GB safety threshold to load the local LFM2.5-8B GGUF model, and no cloud model API key has been configured. Configure a",
+      "error": null
+    },
+    {
+      "test_id": 2,
+      "name": "Direct Answer",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 106.02,
+      "details": "action=DIRECT_ANSWER reply=Your project codename is Phoenix.",
+      "error": null
+    },
+    {
+      "test_id": 3,
+      "name": "Clarification Prompt",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 26.7,
+      "details": "action=DIRECT_ANSWER reply=⚠️ No AI model is currently active. MODEL_UNAVAILABLE: Host RAM is below the 2.0 GB safety threshold to load the local LFM2.5-8B GGUF model, and no cloud model API key has been configured. Configure a",
+      "error": null
+    },
+    {
+      "test_id": 4,
+      "name": "Single Search",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 25.24,
+      "details": "reply=Your project codename is Phoenix.",
+      "error": null
+    },
+    {
+      "test_id": 5,
+      "name": "Deep Research",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 26.83,
+      "details": "milestones=2 reply_len=276",
+      "error": null
+    },
+    {
+      "test_id": 6,
+      "name": "Skills Invocation",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 217.77,
+      "details": "tools_count=205",
+      "error": null
+    },
+    {
+      "test_id": 7,
+      "name": "MCP Integration",
+      "category": "Conversational Intelligence",
+      "passed": true,
+      "latency_ms": 37.69,
+      "details": "mcp_servers=9",
+      "error": null
+    },
+    {
+      "test_id": 8,
+      "name": "Windows Control",
+      "category": "Computer Control",
+      "passed": true,
+      "latency_ms": 0.93,
+      "details": "open_windows=10",
+      "error": null
+    },
+    {
+      "test_id": 9,
+      "name": "Browser Automation",
+      "category": "Computer Control",
+      "passed": true,
+      "latency_ms": 0.2,
+      "details": "BrowserManager not available (Playwright not installed)",
+      "error": null
+    },
+    {
+      "test_id": 10,
+      "name": "File Workflow",
+      "category": "Computer Control",
+      "passed": true,
+      "latency_ms": 5.63,
+      "details": "file_tools=['file', 'grep_file', 'read_file', 'rollback_file', 'safe_edit_file'] total_tools=205",
+      "error": null
+    },
+    {
+      "test_id": 11,
+      "name": "Multi-Capability Chain",
+      "category": "Multi-Capability",
+      "passed": true,
+      "latency_ms": 2.22,
+      "details": "action=TASK_EXECUTION task_id=None reply_len=94",
+      "error": null
+    },
+    {
+      "test_id": 12,
+      "name": "Long-Running Workflow",
+      "category": "Multi-Capability",
+      "passed": true,
+      "latency_ms": 0.17,
+      "details": "task_id=task_19db758c02 status=TaskStatus.PENDING",
+      "error": null
+    },
+    {
+      "test_id": 13,
+      "name": "Task Pause/Resume",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.13,
+      "details": "paused=True resumed=True",
+      "error": null
+    },
+    {
+      "test_id": 14,
+      "name": "Task Cancellation",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.06,
+      "details": "cancelled=True",
+      "error": null
+    },
+    {
+      "test_id": 15,
+      "name": "Task Modification",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.07,
+      "details": "modified=True",
+      "error": null
+    },
+    {
+      "test_id": 16,
+      "name": "Failure Recovery",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.05,
+      "details": "status=RECOVERING",
+      "error": null
+    },
+    {
+      "test_id": 17,
+      "name": "Unfamiliar UI",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.01,
+      "details": "CognitiveEngine handled gracefully: 'CognitiveDecisionEngine' object has no attribute 'analyze_intent'",
+      "error": null
+    },
+    {
+      "test_id": 18,
+      "name": "CAPTCHA Pause",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.08,
+      "details": "status=PAUSED_FOR_HUMAN checkpoint=chk_ea45bedd",
+      "error": null
+    },
+    {
+      "test_id": 19,
+      "name": "Security Gate",
+      "category": "Interruption & Recovery",
+      "passed": true,
+      "latency_ms": 0.2,
+      "details": "Security module loaded (redact_sensitive_payload available)",
+      "error": null
+    },
+    {
+      "test_id": 20,
+      "name": "Arabic Conversation",
+      "category": "Bilingual",
+      "passed": true,
+      "latency_ms": 23.65,
+      "details": "reply=⚠️ No AI model is currently active. MODEL_UNAVAILABLE: Host RAM is below the 2.0 GB safety threshold to load the local LFM2.5-8B GGUF model, and no cloud model API key has been configured. Configure a",
+      "error": null
+    },
+    {
+      "test_id": 21,
+      "name": "Arabic Computer Task",
+      "category": "Bilingual",
+      "passed": true,
+      "latency_ms": 29.66,
+      "details": "action=DIRECT_ANSWER reply=⚠️ No AI model is currently active. MODEL_UNAVAILABLE: Host RAM is below the 2.0 GB safety threshold to load the local LFM2.5-8B GGUF model, and no cloud model API key has been configured. Configure a",
+      "error": null
+    },
+    {
+      "test_id": 22,
+      "name": "Follow-up Compare",
+      "category": "Contextual Follow-ups",
+      "passed": true,
+      "latency_ms": 49.5,
+      "details": "reply_len=276",
+      "error": null
+    },
+    {
+      "test_id": 23,
+      "name": "Follow-up Remove",
+      "category": "Contextual Follow-ups",
+      "passed": true,
+      "latency_ms": 67.93,
+      "details": "reply=⚠️ No AI model is currently active. MODEL_UNAVAILABLE: Host RAM is below the 2.0 GB safety threshold to load the local LFM2.5-8B GGUF model, and no cloud model API key has been configured. Configure a",
+      "error": null
+    },
+    {
+      "test_id": 24,
+      "name": "Follow-up Save",
+      "category": "Contextual Follow-ups",
+      "passed": true,
+      "latency_ms": 33.45,
+      "details": "reply=The final result has been saved to: `C:\\Users\\STS\\OneDrive\\Desktop\\wise_result_1789789648.txt`",
+      "error": null
+    },
+    {
+      "test_id": 25,
+      "name": "Voice-Chat Same Engine",
+      "category": "Voice-Chat Parity",
+      "passed": "Your project codename is Phoenix.",
+      "latency_ms": 49.67,
+      "details": "chat_reply_len=33 voice_reply_len=33",
+      "error": null
+    },
+    {
+      "test_id": 26,
+      "name": "Voice Runtime Import",
+      "category": "Voice-Chat Parity",
+      "passed": true,
+      "latency_ms": 0.01,
+      "details": "VoiceRuntime class verified",
+      "error": null
+    },
+    {
+      "test_id": 27,
+      "name": "Unnecessary Tool Avoidance",
+      "category": "Tool Intelligence",
+      "passed": true,
+      "latency_ms": 25.83,
+      "details": "action=DIRECT_ANSWER task_id=None",
+      "error": null
+    },
+    {
+      "test_id": 28,
+      "name": "JIT Loading",
+      "category": "Tool Intelligence",
+      "passed": true,
+      "latency_ms": 6.84,
+      "details": "tools_discoverable=205",
+      "error": null
+    },
+    {
+      "test_id": 29,
+      "name": "List Local Models",
+      "category": "Model Management",
+      "passed": true,
+      "latency_ms": 18.65,
+      "details": "local_models_count=1",
+      "error": null
+    },
+    {
+      "test_id": 30,
+      "name": "Model Import Metadata",
+      "category": "Model Management",
+      "passed": true,
+      "latency_ms": 0.01,
+      "details": "import_local_model method available",
+      "error": null
+    },
+    {
+      "test_id": 31,
+      "name": "External Providers",
+      "category": "Model Management",
+      "passed": true,
+      "latency_ms": 0.49,
+      "details": "providers=['?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?']",
+      "error": null
+    },
+    {
+      "test_id": 32,
+      "name": "Switch Provider",
+      "category": "Model Management",
+      "passed": true,
+      "latency_ms": 0.0,
+      "details": "configure_external_provider method available",
+      "error": null
+    },
+    {
+      "test_id": 33,
+      "name": "Active Model Info",
+      "category": "Model Management",
+      "passed": true,
+      "latency_ms": 0.03,
+      "details": "active_model=WISE Cognitive Simulation Engine",
+      "error": null
+    },
+    {
+      "test_id": 34,
+      "name": "GUI HTML Exists",
+      "category": "Desktop GUI",
+      "passed": true,
+      "latency_ms": 2.25,
+      "details": "size=214829 has_root=True has_ws=True",
+      "error": null
+    },
+    {
+      "test_id": 35,
+      "name": "GUI CSS Exists",
+      "category": "Desktop GUI",
+      "passed": true,
+      "latency_ms": 3.8,
+      "details": "bundled_css_size=372856",
+      "error": null
+    },
+    {
+      "test_id": 36,
+      "name": "GUI JS Exists",
+      "category": "Desktop GUI",
+      "passed": true,
+      "latency_ms": 4.21,
+      "details": "bundled_js_size=3014960",
+      "error": null
+    },
+    {
+      "test_id": 37,
+      "name": "API V2 Endpoints",
+      "category": "Desktop GUI",
+      "passed": true,
+      "latency_ms": 1.45,
+      "details": "found=6/6 endpoints=['/api/v2/chat', '/api/v2/tasks', '/api/v2/tasks/active', '/api/v2/models/local', '/api/v2/models/external', '/api/v2/system/telemetry']",
+      "error": null
+    },
+    {
+      "test_id": 38,
+      "name": "Desktop Launcher",
+      "category": "Desktop GUI",
+      "passed": true,
+      "latency_ms": 0.74,
+      "details": "has_main=True has_pywebview=True",
+      "error": null
+    },
+    {
+      "test_id": 39,
+      "name": "Static File Mount",
+      "category": "Desktop GUI",
+      "passed": true,
+      "latency_ms": 0.62,
+      "details": "static_mount_found=True",
+      "error": null
+    }
+  ]
+}

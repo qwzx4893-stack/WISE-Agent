@@ -1,0 +1,37 @@
+{
+  "id": "1700053946667-srkw",
+  "lang": "en",
+  "context_name": "guess_the_number",
+  "skill_name": "guess_the_number_skill",
+  "action_name": "guess",
+  "skill_config": {
+    "name": "Guess the Number",
+    "bridge": "python",
+    "version": "1.0.0",
+    "workflow": []
+  },
+  "skill_config_path": "skills/native/guess_the_number_skill/skill.json",
+  "utterance": "my guess is 42",
+  "entities": [],
+  "action_arguments": {
+    "number": 42
+  },
+  "sentiment": {
+    "vote": "neutral",
+    "score": 0
+  },
+  "context": {
+    "utterances": ["my guess is 42"],
+    "action_arguments": [{ "number": 42 }],
+    "entities": [],
+    "sentiments": [{ "vote": "neutral", "score": 0 }],
+    "data": {}
+  },
+  "extra_context": {
+    "date": "2023-11-15",
+    "time": "21:12:26",
+    "timestamp": 1700053946000,
+    "date_time": "2023-11-15T21:12:26+08:00",
+    "week_day": "Wednesday"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "start_game": {
+      "answers": {
+        "network_error": [
+          "I cannot reach Akinator right now. Please check your network and try again.",
+          "Akinator is not reachable at the moment. Please verify your connection.",
+          "It looks like I cannot contact Akinator right now."
+        ],
+        "calling_akinator": [
+          "I'm calling my friend Akinator...",
+          "Alright, let me call Akinator. Give me a second...",
+          "Sure, let me get Akinator on the line."
+        ]
+      },
+      "missing_param_follow_ups": {
+        "thematic": [
+          "What thematic would you like to play with: characters, objects, or animals?",
+          "Which thematic do you want for Akinator: characters, objects, or animals?"
+        ]
+      }
+    },
+    "restart_game": {
+      "answers": {
+        "confirm_retry": [
+          "Gotcha, let's go again.",
+          "Perfect, starting another round."
+        ],
+        "calling_akinator": [
+          "I'm calling Akinator again...",
+          "Alright, starting another Akinator round...",
+          "Let's spin up another Akinator round."
+        ],
+        "network_error": [
+          "I cannot restart Akinator right now because the service is unreachable.",
+          "Akinator is not reachable at the moment, so I cannot restart the round."
+        ]
+      }
+    },
+    "guess": {
+      "suggestions": ["Yes", "No", "Don't know", "Probably", "Probably not"],
+      "answers": {
+        "network_error": [
+          "I lost contact with Akinator. Please try again in a moment.",
+          "Akinator stopped responding. Please try again."
+        ],
+        "guessed": [
+          "I take the shot: you are thinking of {{ name }}. {{ description }}",
+          "My guess is {{ name }}. {{ description }}"
+        ],
+        "guessed_img": [
+          "<img src=\"{{ url }}\" alt=\"{{ name }}\" style=\"max-width:200px\" />"
+        ],
+        "ask_for_retry": [
+          "Do you want to go for another one?",
+          "Should we try another round?"
+        ]
+      }
+    },
+    "retry": {
+      "suggestions": ["Yes", "No thanks"],
+      "answers": {
+        "deny_retry": [
+          "Got it, take care.",
+          "Let me know anytime you want me to call Akinator again."
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node16/tsconfig"],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "target": "ES2022",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "paths": {
+      "@@/*": ["../*"],
+      "@/*": ["../server/src/*"],
+      "@bridge/*": ["../bridges/nodejs/src/*"],
+      "@sdk/*": ["../bridges/nodejs/src/sdk/*"],
+      "@tools/*": ["../tools/*/src/nodejs/index.ts", "../tools/*.ts"]
+    },
+    "resolveJsonModule": true
+  }
+}

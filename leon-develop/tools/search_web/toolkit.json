@@ -1,0 +1,13 @@
+{
+  "$schema": "../../schemas/toolkit-schemas/toolkit.json",
+  "name": "Search & Web",
+  "description": "Tools to search the web and social media platforms.",
+  "icon_name": "global-line",
+  "context_files": [
+    "BROWSER_HISTORY.md"
+  ],
+  "tools": [
+    "hosted",
+    "grok"
+  ]
+}

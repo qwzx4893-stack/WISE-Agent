@@ -1,0 +1,40 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "get_forecast": {
+      "missing_param_follow_ups": {
+        "location": [
+          "Which location should I check?",
+          "Tell me the city or place for the forecast."
+        ]
+      },
+      "answers": {
+        "forecast_summary": [
+          "Current weather for {{ location }}: {{ description }}, {{ temperature }}, feels like {{ feels_like }}, humidity {{ humidity }}, wind {{ wind }}.",
+          "Weather for {{ location }} right now: {{ description }}, {{ temperature }}, feels like {{ feels_like }}, humidity {{ humidity }}, wind {{ wind }}."
+        ],
+        "forecast_error": [
+          "Sorry, I couldn't get the weather for {{ location }}. {{ error }}",
+          "I couldn't retrieve the weather for {{ location }}. {{ error }}"
+        ],
+        "location_not_found": [
+          "I couldn't find that location. Try a city name like Paris or Chicago.",
+          "That location was not recognized. Please try a nearby city name."
+        ]
+      }
+    }
+  },
+  "common_answers": {
+    "no_internet": [
+      "I could not reach the weather service. Check your connection and try again.",
+      "The weather service is not reachable right now. Please try again."
+    ]
+  },
+  "widget_contents": {
+    "temperature_label": "Temperature",
+    "feels_like_label": "Feels like",
+    "humidity_label": "Humidity",
+    "wind_label": "Wind",
+    "observed_at": "Observed at {{ value }}"
+  }
+}

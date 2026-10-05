@@ -1,0 +1,36 @@
+.aurora-preview-page {
+  min-height: 100vh;
+  padding: 32px;
+  background:
+    radial-gradient(circle at top left, rgba(28, 117, 219, 0.16), transparent 30%),
+    radial-gradient(circle at top right, rgba(237, 41, 122, 0.14), transparent 30%),
+    var(--black-color);
+  color: var(--white-color);
+}
+
+.aurora-preview-shell {
+  width: min(1_440px, 100%);
+  margin: 0 auto;
+}
+
+.aurora-preview-header {
+  margin-bottom: 24px;
+}
+
+.aurora-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.aurora-preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aurora-preview-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

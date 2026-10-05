@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "design_and_speak": {
+      "missing_param_follow_ups": {
+        "voice_description": [
+          "How should the voice sound? Provide a short description."
+        ],
+        "speech_text": ["What text should the voice speak?"]
+      },
+      "answers": {
+        "designing_voice": ["Designing the voice and generating speech..."],
+        "success": ["Done. Audio saved to {{ audio_path }}."],
+        "missing_voice_description": ["Please describe the voice you'd like."],
+        "missing_speech_text": ["Please provide the text to speak."],
+        "output_not_found": [
+          "I couldn't find the generated audio file in {{ output_folder }}."
+        ],
+        "error": ["Failed to generate speech: {{ error }}"]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node16/tsconfig"],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "rootDir": ".",
+    "outDir": "./server/dist",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "jsx": "react",
+    "paths": {
+      "@@/*": ["./*"],
+      "@/*": ["./server/src/*"],
+      "@aurora/style.css": ["./aurora/style.css"],
+      "@aurora": ["./aurora/dist/index.d.ts"],
+      "@aurora/*": ["./aurora/dist/*"],
+      "@bridge/*": ["./bridges/nodejs/src/*"],
+      "@sdk/*": ["./bridges/nodejs/src/sdk/*"],
+      "@tools/*": ["./tools/*/src/nodejs/index.ts", "./tools/*.ts"]
+    },
+    "allowJs": true,
+    "checkJs": false,
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "declaration": true
+  },
+  "files": ["server/src/global.d.ts", "aurora/global.d.ts"],
+  "include": ["server/src/**/*"],
+  "exclude": ["node_modules", "server/dist", "bridges", "tcp_server"]
+}

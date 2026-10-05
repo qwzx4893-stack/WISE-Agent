@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "variables": {
+    "leon_introduction_1": "I'm your daily personal assistant. I have been created by Louis. I'm very happy to serve you everyday.",
+    "leon_introduction_2": "The question is, who are you? I'm kidding! I'm your daily personal assistant. Louis created me to make your life easier.",
+    "leon_introduction_3": "Firstly, I'm not a criminal as you might relatively think about a popular movie. Secondly, Louis is the guy who gave me life. Thirdly, I'm your personal assistant and I'm very glad to help you."
+  },
+  "actions": {
+    "introduce_leon": {
+      "answers": {
+        "leon_introduction": [
+          "{{ leon_introduction_1 }}",
+          "{{ leon_introduction_2 }}",
+          "{{ leon_introduction_3 }}"
+        ],
+        "leon_introduction_with_question": [
+          "{{ leon_introduction_1 }} How about you, what's your name?",
+          "{{ leon_introduction_2 }} How about you, how should I call you?",
+          "{{ leon_introduction_3 }} How about you, may I know your name?"
+        ]
+      }
+    },
+    "remember": {
+      "answers": {
+        "remembered": [
+          "I'm going to remember that {{ owner_name }}.",
+          "Good to know a bit more about you {{ owner_name }}."
+        ]
+      },
+      "missing_param_follow_ups": {
+        "owner_name": [
+          "May I know how should I call you?",
+          "May I know your name?"
+        ],
+        "owner_birth_date": [
+          "What's your birth date?"
+        ]
+      }
+    }
+  }
+}

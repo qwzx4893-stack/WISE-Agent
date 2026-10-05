@@ -1,0 +1,38 @@
+name: WISE source validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: wise-validation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: Supergent--main
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: Supergent--main/requirements.txt
+      - name: Install runtime and test dependencies
+        run: python -m pip install -r requirements.txt pytest pytest-cov pytest-asyncio
+      - name: Non-interactive regression (not native or account acceptance)
+        run: python -m pytest tests/ -q --maxfail=5 --deselect=tests/test_production_autonomy_harness.py::test_scenario_a_windows_application_control --deselect=tests/test_production_autonomy_harness.py::test_zz_autonomy_metrics_summary --junitxml=qa-results/ci.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-${{ matrix.os }}
+          path: Supergent--main/qa-results/ci.xml
+          if-no-files-found: warn

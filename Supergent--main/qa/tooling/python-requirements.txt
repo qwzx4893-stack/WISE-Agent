@@ -1,0 +1,10 @@
+# Reproducible, project-local QA tooling.  Install into .tooling/qa-venv;
+# never mix these packages into WISE's production runtime.
+pywinauto==0.6.9
+hypothesis==6.168.3
+schemathesis==4.28.0
+pytest-xdist==3.8.0
+pytest-timeout==2.4.0
+pytest-json-report==1.5.0
+pip-audit==2.10.1
+bandit==1.9.4

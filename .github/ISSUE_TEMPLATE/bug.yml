@@ -1,0 +1,22 @@
+name: Bug report
+description: A reproducible, redacted WISE failure
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Version and environment
+      description: Commit, Windows version, Python and optional runtime versions. No tokens.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Actual vs expected behavior; state which integrations are configured.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence
+      description: Logs/screenshots without private content. Security issues should be disclosed privately.

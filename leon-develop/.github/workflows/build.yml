@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    # branches: [master, develop]
+    branches: [master]
+  pull_request:
+    # branches: [master, develop]
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 24.x
+          cache: pnpm
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install
+        run: pnpm install
+
+      - name: Check setup
+        run: pnpm run check
+
+      - name: Build
+        run: pnpm run build

@@ -1,0 +1,155 @@
+export const COMPUTER_USE_PROVIDER_ID = 'computer_use'
+export const COMPUTER_USE_ARTIFACT_DIRECTORY = 'computer-use'
+export const COMPUTER_USE_TEXT_PREVIEW_MAX_CHARS = 8_000
+// Leave room for the agent's wrapper under its 6k per-tool observation limit.
+export const COMPUTER_USE_MODEL_OUTPUT_MAX_CHARS = 5_000
+export const COMPUTER_USE_MODEL_IMAGE_LIMIT = 1
+export const COMPUTER_USE_MODEL_IMAGE_PIXEL_BUDGET = 800_000
+export const COMPUTER_USE_APP_RESULT_LIMIT = 24
+export const COMPUTER_USE_APP_WINDOW_LIMIT = 3
+export const COMPUTER_USE_APP_QUERY_PARAMETER = 'query'
+export const COMPUTER_USE_WINDOW_RESULT_LIMIT = 24
+export const COMPUTER_USE_BROWSER_REF_LIMIT = 120
+export const COMPUTER_USE_VISUAL_STATE_LIMIT = 512
+// Layout containers can put useful GTK controls dozens of levels deep. Bound
+// visited nodes independently so the initial observation still reaches them.
+export const COMPUTER_USE_WINDOW_MAX_ELEMENTS = 500
+export const COMPUTER_USE_WINDOW_MAX_DEPTH = 32
+export const COMPUTER_USE_SET_OF_MARK_LIMIT = 40
+export const COMPUTER_USE_SET_OF_MARK_COLOR = 'yellow'
+export const COMPUTER_USE_SET_OF_MARK_FONT_SIZE = 16
+export const COMPUTER_USE_SET_OF_MARK_BADGE_HEIGHT = 20
+export const COMPUTER_USE_ACTION_SEQUENCE_LIMIT = 8
+export const COMPUTER_USE_ACTION_SEQUENCE_PIXEL_CLICK_LIMIT = 1
+export const COMPUTER_USE_OBSERVATION_SETTLE_MAX_MS = 2_000
+export const COMPUTER_USE_BROWSER_QUERY_RETRY_DELAYS_MS = [500, 1_000] as const
+export const COMPUTER_USE_LAUNCH_WINDOW_RETRY_DELAYS_MS = [
+  250,
+  500,
+  1_000,
+  1_750
+] as const
+export const CUA_TELEMETRY_ENABLED_ENV = 'CUA_TELEMETRY_ENABLED'
+export const CUA_X11_UINPUT_SAFETY_ENV = 'KDE_FULL_SESSION'
+export const COMPUTER_USE_REMOTE_DRIVER_URL_ENV =
+  'LEON_COMPUTER_USE_REMOTE_URL'
+export const COMPUTER_USE_REMOTE_DRIVER_TOKEN_ENV = 'LEON_PROFILE_TOKEN'
+export const COMPUTER_USE_REMOTE_DRIVER_TIMEOUT_MS = 90_000
+export const COMPUTER_USE_REMOTE_MODEL_FILES_FIELD = 'cybopal_model_files'
+export const COMPUTER_USE_BROWSER_INSPECTION_SETTING = 'browser_inspection'
+export const COMPUTER_USE_INTERACTION_MODE_SETTING = 'interaction_mode'
+export const COMPUTER_USE_ACTIVITY_OVERLAY_SETTING = 'activity_overlay'
+export const COMPUTER_USE_SET_OF_MARK_SETTING = 'set_of_mark'
+export const COMPUTER_USE_PREFERRED_APPS_SETTING = 'preferred_apps'
+export const CUA_FOREGROUND_DELIVERY_MODE = 'foreground'
+export const CUA_SESSION_ENDED_ERROR_CODE = 'session_ended'
+export const CUA_BROWSER_CONSENT_ERROR_CODE = 'browser_consent_required'
+export const CUA_WINDOW_CAPTURE_OCCLUDED_ERROR_CODE = 'window_capture_occluded'
+export const COMPUTER_USE_CAPTURE_FAILED_ERROR_CODE = 'capture_failed'
+export const COMPUTER_USE_CAPTURE_AFTER_PARAMETER = 'capture_after'
+export const COMPUTER_USE_ACTION_SEQUENCE_NAME = 'perform_actions'
+export const COMPUTER_USE_SCREEN_CAPTURE_ACTIONS = new Set([
+  'get_window_state', 'get_desktop_state', 'zoom'
+])
+
+export const COMPUTER_USE_ACTION_NAMES = [
+  'list_apps',
+  'list_windows',
+  'health_report',
+  'get_window_state',
+  'zoom',
+  'verify_state',
+  'get_desktop_state',
+  'move_cursor',
+  'launch_app',
+  'bring_to_front',
+  'invoke_menu',
+  'click',
+  'drag',
+  'scroll',
+  'type_text',
+  'press_key',
+  'hotkey',
+  COMPUTER_USE_ACTION_SEQUENCE_NAME,
+  'set_value',
+  'clipboard_read',
+  'clipboard_write',
+  'browser_prepare',
+  'get_browser_state',
+  'browser_navigate',
+  'browser_click',
+  'browser_type',
+  'browser_pointer',
+  'browser_dialog',
+  'browser_set_input_files',
+  'start_recording',
+  'stop_recording'
+] as const
+
+export const COMPUTER_USE_ACTIONS = new Set<string>(
+  COMPUTER_USE_ACTION_NAMES
+)
+
+export const COMPUTER_USE_REMOTE_SESSION_AWARE_ACTIONS = new Set<string>([
+  'move_cursor',
+  'get_window_state',
+  'verify_state',
+  'get_desktop_state',
+  'invoke_menu',
+  'click',
+  'drag',
+  'scroll',
+  'type_text',
+  'press_key',
+  'hotkey',
+  'set_value',
+  'clipboard_read',
+  'clipboard_write',
+  'browser_prepare',
+  'get_browser_state',
+  'browser_navigate',
+  'browser_click',
+  'browser_type',
+  'browser_pointer',
+  'browser_dialog',
+  'browser_set_input_files'
+])
+
+// These native actions accept Cua's crop coordinates. Keep this host-only.
+export const COMPUTER_USE_REMOTE_ZOOM_CAPABLE_ACTIONS = new Set(['click', 'drag'])
+
+export { COMPUTER_USE_CAPTURE_ACTIONS } from './action-contract'
+
+// Sequences are intentionally limited to mechanical input whose next target
+// does not need a fresh observation. Semantic browser actions can invalidate
+// references and therefore remain separate model-visible steps.
+export const COMPUTER_USE_SEQUENCE_ACTIONS = new Set([
+  'click',
+  'scroll',
+  'type_text',
+  'press_key',
+  'hotkey'
+])
+
+export const COMPUTER_USE_COORDINATE_FIELDS: Record<
+  string,
+  readonly string[]
+> = {
+  zoom: ['x1', 'y1', 'x2', 'y2'],
+  move_cursor: ['x', 'y'],
+  click: ['x', 'y'],
+  drag: ['from_x', 'from_y', 'to_x', 'to_y'],
+  scroll: ['x', 'y'],
+  type_text: ['x', 'y'],
+  press_key: ['x', 'y'],
+  hotkey: ['x', 'y']
+}
+
+export const IMAGE_EXTENSION_BY_MIME_TYPE: Record<string, string> = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp'
+}
+
+// The tool executes on the controlling device, including through Satellite.
+export const COMPUTER_USE_SELECT_ALL_KEYS = [process.platform === 'darwin' ? 'cmd' : 'ctrl', 'a']

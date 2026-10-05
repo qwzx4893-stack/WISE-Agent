@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "run": {
+      "answers": {
+        "no_pwnage": [
+          "Bonne nouvelle, {{ email }} n'a pas été compromis par une violation de données.",
+          "{{ email }} cela me semble correct!"
+        ],
+        "pwned": [
+          "Oups, on dirait que {{ email }} a été compromis dans au moins une brèche impliquant :<br><br><ul>{{ result }}</ul>",
+          "Malheureusement, {{ email }} a été touché par les brèches suivantes :<br><br><ul>{{ result }}</ul>"
+        ],
+        "list_element": [
+          "<li><a href=\"{{ url }}\" target=\"_blank\">{{ name }}</a> avec un total de {{ total }} comptes.</li>"
+        ],
+        "checking": [
+          "Je cherche un email compromis.",
+          "J'essaie de vérifier le statut de pwnage."
+        ],
+        "no_email": [
+          "Veuillez fournir une ou plusieurs adresses électroniques que vous devez vérifier."
+        ],
+        "errors": [
+          "Je pense que {{ website_name }} est en panne pour le moment, veuillez réessayer plus tard.",
+          "J'ai du mal à joindre {{ website_name }}. Veuillez vérifier que votre connexion Internet est active.",
+          "Mauvaise nouvelle, {{ website_name }} ne répond pas. Peut-être essayer plus tard?"
+        ],
+        "blocked": [
+          "Il y avait un problème d'accès au service de {{ website_name }}.",
+          "Malheureusement, {{ website_name }} ne me donne pas accès à son service."
+        ],
+        "unavailable": [
+          "Il semblerait que Cloudflare protège {{ website_name }}, veuillez réessayer dans un petit instant.",
+          "Malheureusement, Cloudflare a temporairement bloqué votre accès à {{ website_name }}, merci de retenter dans un moment."
+        ]
+      },
+      "missing_param_follow_ups": {
+        "email": [
+          "Quelle adresse email dois-je vérifier ?",
+          "Quel email voulez-vous que je vérifie ?"
+        ]
+      }
+    }
+  }
+}

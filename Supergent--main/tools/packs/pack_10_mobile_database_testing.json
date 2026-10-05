@@ -1,0 +1,555 @@
+[
+  {
+    "name": "webtoapp",
+    "version": "1.0.0",
+    "description": "WebToApp is a comprehensive toolkit for converting websites into native mobile applications. It provides wrapper generation, native feature integration, push notification setup, and app store deployment automation.",
+    "use_cases": [
+      "Website to app conversion",
+      "PWA to native",
+      "Mobile app wrapper",
+      "Native feature integration",
+      "App store publishing"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Website URL to convert"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Target platform (android/ios/both)",
+          "default": "both"
+        },
+        "features": {
+          "type": "string",
+          "description": "Native features (push/camera/location)",
+          "default": "push"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "output_format": "Generated mobile app project or build files.",
+    "capabilities": [
+      "mobile",
+      "conversion",
+      "PWA",
+      "WebView",
+      "native",
+      "app store",
+      "wrapper"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "webtoapp convert '{url}' --platform {platform} --features {features}",
+    "dependencies": [
+      "webtoapp",
+      "nodejs",
+      "cordova"
+    ],
+    "timeout": 600,
+    "author": "WebToApp",
+    "source": "https://github.com/webtoapp/webtoapp"
+  },
+  {
+    "name": "expo-deployment",
+    "version": "1.0.0",
+    "description": "Expo Deployment is an expert agent for building, deploying, and managing React Native applications with Expo. It provides EAS Build configuration, OTA updates, app store submissions, and production optimization strategies.",
+    "use_cases": [
+      "Expo app deployment",
+      "EAS Build",
+      "OTA updates",
+      "App Store submission",
+      "React Native production"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (build/submit/update/publish)"
+        },
+        "platform": {
+          "type": "string",
+          "description": "Platform (ios/android/all)",
+          "default": "all"
+        },
+        "profile": {
+          "type": "string",
+          "description": "Build profile",
+          "default": "production"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Build or deployment result with URLs.",
+    "capabilities": [
+      "expo",
+      "react-native",
+      "deployment",
+      "EAS",
+      "OTA",
+      "app store",
+      "mobile",
+      "CI/CD"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "eas {action} --platform {platform} --profile {profile}",
+    "dependencies": [
+      "expo-cli",
+      "eas-cli",
+      "nodejs"
+    ],
+    "timeout": 1200,
+    "author": "Expo",
+    "source": "https://github.com/expo/eas-cli"
+  },
+  {
+    "name": "postgresql",
+    "version": "1.0.0",
+    "description": "PostgreSQL Expert is an AI agent specialized in PostgreSQL database design, optimization, and administration. It provides query optimization, schema design, indexing strategies, and performance tuning for production databases.",
+    "use_cases": [
+      "Database design",
+      "Query optimization",
+      "Schema migration",
+      "Indexing strategy",
+      "Performance tuning"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "SQL query or database task"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (optimize/design/explain/migrate)",
+          "default": "optimize"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "output_format": "Optimized query, schema, or recommendations.",
+    "capabilities": [
+      "postgresql",
+      "SQL",
+      "database",
+      "optimization",
+      "indexing",
+      "schema",
+      "performance"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c 'import psycopg2; print(\"PostgreSQL expert analysis\")' && psql -c '{query}'",
+    "dependencies": [
+      "postgresql",
+      "python3",
+      "psycopg2"
+    ],
+    "timeout": 300,
+    "author": "PostgreSQL",
+    "source": "https://github.com/postgres/postgres"
+  },
+  {
+    "name": "redis",
+    "version": "1.0.0",
+    "description": "Redis Expert is an AI agent specialized in Redis data structure design, caching strategies, and performance optimization. It provides guidance on data modeling, eviction policies, persistence configuration, and high-availability setups.",
+    "use_cases": [
+      "Redis caching",
+      "Data structure design",
+      "Performance optimization",
+      "Pub/Sub patterns",
+      "Rate limiting"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Redis task or data structure description"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (design/optimize/command/cluster)",
+          "default": "design"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Redis commands, configuration, or recommendations.",
+    "capabilities": [
+      "redis",
+      "caching",
+      "data structures",
+      "performance",
+      "Pub/Sub",
+      "NoSQL",
+      "in-memory"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "redis-cli INFO && python3 -c 'import redis; r = redis.Redis(); print(r.ping())'",
+    "dependencies": [
+      "redis",
+      "redis-tools",
+      "python3",
+      "redis-py"
+    ],
+    "timeout": 180,
+    "author": "Redis",
+    "source": "https://github.com/redis/redis"
+  },
+  {
+    "name": "prisma-expert",
+    "version": "1.0.0",
+    "description": "Prisma Expert is an AI agent specialized in database schema design and ORM optimization with Prisma. It generates type-safe database schemas, optimizes queries, handles migrations, and provides best practices for Node.js and TypeScript applications.",
+    "use_cases": [
+      "Prisma schema design",
+      "Database modeling",
+      "Type-safe ORM",
+      "Migration generation",
+      "Query optimization"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Database modeling task"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action (schema/migrate/generate/optimize)",
+          "default": "schema"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Prisma schema code or migration files.",
+    "capabilities": [
+      "prisma",
+      "ORM",
+      "database",
+      "TypeScript",
+      "schema",
+      "migrations",
+      "PostgreSQL",
+      "MySQL"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "npx prisma {action} --name '{task}'",
+    "dependencies": [
+      "prisma",
+      "nodejs"
+    ],
+    "timeout": 180,
+    "author": "Prisma",
+    "source": "https://github.com/prisma/prisma"
+  },
+  {
+    "name": "drizzle-orm-expert",
+    "version": "1.0.0",
+    "description": "Drizzle ORM Expert is an AI agent specialized in building type-safe SQL applications with Drizzle ORM. It provides schema definition, query building, migration generation, and relational data modeling for modern TypeScript applications.",
+    "use_cases": [
+      "Drizzle ORM schema",
+      "Type-safe SQL",
+      "Query building",
+      "Migration management",
+      "PostgreSQL/MySQL/SQLite"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Database modeling task"
+        },
+        "dialect": {
+          "type": "string",
+          "description": "Database dialect (pg/mysql/sqlite)",
+          "default": "pg"
+        }
+      },
+      "required": [
+        "task"
+      ]
+    },
+    "output_format": "Drizzle schema code and migration files.",
+    "capabilities": [
+      "drizzle",
+      "ORM",
+      "TypeScript",
+      "SQL",
+      "schema",
+      "migrations",
+      "PostgreSQL",
+      "MySQL"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "npx drizzle-kit generate --dialect {dialect} --schema '{task}'",
+    "dependencies": [
+      "drizzle-orm",
+      "drizzle-kit",
+      "nodejs"
+    ],
+    "timeout": 180,
+    "author": "Drizzle Team",
+    "source": "https://github.com/drizzle-team/drizzle-orm"
+  },
+  {
+    "name": "supabase",
+    "version": "1.0.0",
+    "description": "Supabase is an open-source Firebase alternative providing a complete backend platform. It includes PostgreSQL database, authentication, real-time subscriptions, storage, and edge functions for building scalable applications.",
+    "use_cases": [
+      "Backend as a service",
+      "PostgreSQL hosting",
+      "Authentication",
+      "Real-time subscriptions",
+      "File storage"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (init/start/stop/status/deploy)"
+        },
+        "project": {
+          "type": "string",
+          "description": "Project name",
+          "default": ""
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "output_format": "Supabase project status or operation result.",
+    "capabilities": [
+      "supabase",
+      "backend",
+      "PostgreSQL",
+      "authentication",
+      "realtime",
+      "storage",
+      "edge functions",
+      "BaaS"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "supabase {action} {project}",
+    "dependencies": [
+      "supabase-cli",
+      "docker"
+    ],
+    "timeout": 300,
+    "author": "Supabase",
+    "source": "https://github.com/supabase/supabase"
+  },
+  {
+    "name": "neon-postgres",
+    "version": "1.0.0",
+    "description": "Neon is a serverless PostgreSQL platform with instant provisioning, autoscaling, and database branching. It enables Git-like workflows for database development with instant point-in-time recovery.",
+    "use_cases": [
+      "Serverless PostgreSQL",
+      "Database branching",
+      "Instant provisioning",
+      "Autoscaling",
+      "Git-like database workflows"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Action (create/branch/connect/status)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Project or branch name"
+        }
+      },
+      "required": [
+        "action",
+        "name"
+      ]
+    },
+    "output_format": "Connection string or operation status.",
+    "capabilities": [
+      "neon",
+      "PostgreSQL",
+      "serverless",
+      "branching",
+      "autoscaling",
+      "database",
+      "Git-like"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true
+    },
+    "implementation_type": "cli",
+    "cli_command": "neon {action} --name {name}",
+    "dependencies": [
+      "neonctl",
+      "nodejs"
+    ],
+    "timeout": 180,
+    "author": "Neon",
+    "source": "https://github.com/neondatabase/neon"
+  },
+  {
+    "name": "nosql-expert",
+    "version": "1.0.0",
+    "description": "NoSQL Expert is an AI agent specialized in designing and optimizing NoSQL database solutions. It covers MongoDB, Cassandra, DynamoDB, Couchbase, and Firebase, providing data modeling, query optimization, and scaling strategies.",
+    "use_cases": [
+      "NoSQL data modeling",
+      "MongoDB optimization",
+      "Cassandra design",
+      "DynamoDB scaling",
+      "Firebase structure"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "database": {
+          "type": "string",
+          "description": "Database type (mongodb/cassandra/dynamodb/firebase)"
+        },
+        "task": {
+          "type": "string",
+          "description": "Data modeling or optimization task"
+        }
+      },
+      "required": [
+        "database",
+        "task"
+      ]
+    },
+    "output_format": "Schema design, query examples, or optimization recommendations.",
+    "capabilities": [
+      "NoSQL",
+      "MongoDB",
+      "Cassandra",
+      "DynamoDB",
+      "Firebase",
+      "data modeling",
+      "scaling"
+    ],
+    "category": "Planning",
+    "security": {
+      "requires_sandbox": false,
+      "requires_network": false
+    },
+    "implementation_type": "python",
+    "timeout": 180,
+    "author": "NoSQL Expert",
+    "source": "https://github.com/nosql-expert/nosql-expert",
+    "dependencies": []
+  },
+  {
+    "name": "playwright",
+    "version": "1.0.0",
+    "description": "Playwright is a powerful end-to-end testing and browser automation framework. It enables reliable cross-browser testing, mobile device emulation, network interception, and visual regression testing with auto-waiting capabilities.",
+    "use_cases": [
+      "E2E testing",
+      "Browser automation",
+      "Cross-browser testing",
+      "Visual regression",
+      "Mobile emulation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "Playwright test script or URL to test"
+        },
+        "browser": {
+          "type": "string",
+          "description": "Browser (chromium/firefox/webkit)",
+          "default": "chromium"
+        },
+        "headless": {
+          "type": "boolean",
+          "description": "Run headless",
+          "default": true
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "output_format": "Test results, screenshots, or scraped data.",
+    "capabilities": [
+      "testing",
+      "automation",
+      "browser",
+      "E2E",
+      "cross-browser",
+      "scraping",
+      "visual testing"
+    ],
+    "category": "Execution",
+    "security": {
+      "requires_sandbox": true,
+      "requires_network": true,
+      "memory_limit": "512M"
+    },
+    "implementation_type": "cli",
+    "cli_command": "python3 -c 'from playwright.sync_api import sync_playwright; p = sync_playwright().start(); print(p)' && npx playwright test '{script}'",
+    "dependencies": [
+      "playwright",
+      "nodejs",
+      "python3"
+    ],
+    "timeout": 600,
+    "author": "Microsoft",
+    "source": "https://github.com/microsoft/playwright"
+  }
+]

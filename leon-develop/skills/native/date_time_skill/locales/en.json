@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "current_date_time": {
+      "answers": {
+        "current_date_time": [
+          "It is {{ weekday }}, {{ month }} {{ day }}, {{ year }}, and it is {{ hours }}:{{ minutes }}:{{ seconds }}."
+        ]
+      }
+    },
+    "current_date": {
+      "answers": {
+        "current_date": [
+          "It is {{ weekday }}, {{ month }} {{ day }}, {{ year }}."
+        ]
+      }
+    },
+    "current_time": {
+      "answers": {
+        "current_time": [
+          "It is {{ hours }}:{{ minutes }}:{{ seconds }}."
+        ]
+      }
+    },
+    "current_week_number": {
+      "answers": {
+        "current_week_number": [
+          "It is the {{ week_number }} week of the year."
+        ]
+      }
+    },
+    "days_countdown": {
+      "answers": {
+        "days_countdown": [
+          "There are {{ days }} days between {{ month1 }} {{ day1 }}, {{ year1 }} and {{ month2 }} {{ day2 }}, {{ year2 }}."
+        ],
+        "days_countdown_error": [
+          "I'm sorry, I didn't understand the date you said."
+        ]
+      }
+    },
+    "current_date_time_with_time_zone": {
+      "answers": {
+        "current_date_time_with_time_zone": [
+          "Greetings from {{ location_name }}. The local date and time is {{ weekday }}, {{ month }} {{ day }}, {{ year }}, and it is {{ hours }}:{{ minutes }}:{{ seconds }} ({{ time_zone }})."
+        ],
+        "time_zone_not_found": [
+          "I'm sorry, I couldn't resolve the requested time zone. Please try again."
+        ]
+      }
+    }
+  }
+}

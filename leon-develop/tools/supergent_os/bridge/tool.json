@@ -1,0 +1,127 @@
+{
+  "$schema": "../../../schemas/tool-schemas/tool.json",
+  "tool_id": "bridge",
+  "toolkit_id": "supergent_os",
+  "name": "Supergent Bridge",
+  "description": "Bridge interface to Supergent Agent OS kernel, workforce coordinator, RAG sources, and Apprise notification channels.",
+  "author": {
+    "name": "WISE AI",
+    "email": "wise@local"
+  },
+  "functions": {
+    "executeTool": {
+      "description": "Execute any tool in the Supergent 290-tool registry with specific arguments.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tool_name": {
+            "type": "string",
+            "description": "Name of the Supergent tool to execute (e.g. read_file, execute_command, git_clone_repo, etc.)."
+          },
+          "arguments": {
+            "type": "object",
+            "description": "Dictionary of arguments required by the specified tool.",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "tool_name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "searchRAG": {
+      "description": "Query Supergent 15 scientific and academic RAG knowledge sources (arXiv, PubMed, Semantic Scholar, OpenAlex, Wikipedia, etc.).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query or question."
+          },
+          "sources": {
+            "type": "string",
+            "description": "Comma-separated list of sources to search (e.g. 'arxiv,wikipedia,pubmed'). Defaults to all sources."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of results to return per source."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "runWorkforce": {
+      "description": "Submit a multi-step task to Supergent Multi-Agent Workforce (RootPlanner decomposing task into DAG of SubTasks executed by async Workers).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task_description": {
+            "type": "string",
+            "description": "Detailed description of the complex task to decompose and execute."
+          }
+        },
+        "required": [
+          "task_description"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sendNotification": {
+      "description": "Send an alert or notification via Supergent Apprise engine across 199 supported schemes (Telegram, Discord, Slack, Email, etc.).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Logical channel name or direct Apprise URL scheme."
+          },
+          "message": {
+            "type": "string",
+            "description": "Notification body text."
+          },
+          "title": {
+            "type": "string",
+            "description": "Optional notification title."
+          }
+        },
+        "required": [
+          "channel",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "getHealth": {
+      "description": "Query Supergent runtime health, awareness metrics, tool count, and active subsystems.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    "searchSkills": {
+      "description": "Search across Supergent library of 1,727 Agent Skills for specialized workflows and technical procedures.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Skill topic, technology, or procedure to search."
+          },
+          "top_k": {
+            "type": "integer",
+            "description": "Maximum number of skill matches to return."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

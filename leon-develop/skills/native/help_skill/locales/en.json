@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../schemas/skill-schemas/skill-locale-config.json",
+  "actions": {
+    "help": {
+      "answers": {
+        "help_introduction": [
+          {
+            "text": "I'm Leon, your open-source personal assistant. Here are the skills currently available:<br><br><ul>{{ list }}</ul>",
+            "speech": "I'm Leon, your open-source personal assistant. Here are the skills currently available."
+          }
+        ]
+      }
+    }
+  }
+}

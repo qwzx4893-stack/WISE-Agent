@@ -1,0 +1,29 @@
+{
+  "name": "wise",
+  "version": "1.0.0",
+  "description": "WISE: Web/Voice Intelligent Supergent Ecosystem - Unified Leon AI and Supergent Agent OS",
+  "main": "wise_supervisor.py",
+  "type": "module",
+  "scripts": {
+    "start": "python wise_supervisor.py",
+    "test": "python -X utf8 tests/test_core_runtime.py && python -X utf8 tests/test_skill_execution.py && python -X utf8 tests/post_merge_test.py",
+    "test:pre-merge": "python -X utf8 tests/pre_merge_test.py",
+    "test:post-merge": "python -X utf8 tests/post_merge_test.py",
+    "test:skills": "python -X utf8 tests/test_skill_execution.py",
+    "test:core-runtime": "python -X utf8 tests/test_core_runtime.py",
+    "leon:start": "pnpm --dir leon-develop run start",
+    "supergent:start": "uvicorn api.server:app --app-dir Supergent--main --host 127.0.0.1 --port 8765"
+  },
+  "keywords": [
+    "ai",
+    "assistant",
+    "agent-os",
+    "leon",
+    "supergent",
+    "voice",
+    "mcp",
+    "react-loop"
+  ],
+  "author": "WISE AI",
+  "license": "MIT"
+}
