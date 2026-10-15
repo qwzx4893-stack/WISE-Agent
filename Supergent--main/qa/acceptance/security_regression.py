@@ -45,6 +45,7 @@ SUITES = (
     "tests/test_telemetry_render_security.py",
     "tests/test_publication_redaction.py",
     "tests/test_source_regression_selection.py",
+    "tests/test_structured_write_evidence.py",
     "tests/test_security_regression_evidence.py",
 )
 PLATFORM_CONTROLS = (

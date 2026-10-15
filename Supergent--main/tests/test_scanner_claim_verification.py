@@ -75,7 +75,7 @@ def remote_wire(monkeypatch):
                                         "result": {"content": [{"type": "text", "text": "public docs"}]}})
     factory = httpx.Client
     monkeypatch.setattr(module, "_httpx", SimpleNamespace(Client=lambda **kw: factory(
-        transport=httpx.MockTransport(handle), **kw)))
+        **{**kw, "transport": httpx.MockTransport(handle)})))
     def create(name, host):
         client = module.MCPClient(name=name, transport="http", url="https://" + host + "/mcp",
                                   allowed_domains=[host])

@@ -9,6 +9,10 @@ def test_scheduler_autostart_is_limited_interactive_user_task(monkeypatch, tmp_p
     daemon = daemon_module.WindowsSessionDaemon()
     calls = []
     monkeypatch.setattr(daemon, "_audit_onboarding", lambda: None)
+    # Test the Windows command contract without changing the host platform
+    # globally or invoking a real scheduler/registry on either CI OS.
+    monkeypatch.setattr(daemon_module, "sys", SimpleNamespace(
+        platform="win32", executable="synthetic-python.exe", argv=["fixture.py"]))
     monkeypatch.setattr(daemon_module.os, "environ", {"USERNAME": "owner"})
     monkeypatch.setattr(
         daemon_module.subprocess,

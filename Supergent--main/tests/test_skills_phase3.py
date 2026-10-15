@@ -255,6 +255,9 @@ def test_first_boot_health_check_runs_once(
         def get_index(self):
             return {"demo": {"path": str(skill_dir), "metadata": {}}}
 
+        def get_skill_info(self, name):
+            return self.get_index().get(name)
+
     import sys
     fake_idx = type(sys)("core.skills.indexer")
     fake_idx.SkillIndexer = lambda: _Indexer()  # type: ignore[attr-defined]

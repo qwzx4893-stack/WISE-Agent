@@ -11,6 +11,7 @@ import json
 import logging
 import os
 import re
+import stat
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
@@ -131,7 +132,11 @@ def scanner_observation(tool, arguments, result, runtime):
     workspace = runtime / "workspace"
     target = Path(path) if Path(path).is_absolute() else workspace / path
     try:
-        if any(part.is_symlink() or part.is_junction() for part in (runtime, workspace, workspace / "attachments", target)):
+        # Path.is_junction was added in Python 3.12. The 3.11 CI/runtime must
+        # still reject Windows reparse points, not silently drop that check.
+        if any(part.is_symlink() or
+               getattr(part.lstat(), "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0)
+               for part in (runtime, workspace, workspace / "attachments", target)):
             return None
         resolved = target.resolve()
         if (resolved.parent != (workspace / "attachments").resolve()

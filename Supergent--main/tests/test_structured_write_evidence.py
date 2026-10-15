@@ -1,5 +1,6 @@
 """Offline observer scope/noninterference tests; no models or paid dispatch."""
 import json
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -9,6 +10,27 @@ from core.brain import capability_agent
 from qa.acceptance import structured_write_evidence as observer
 
 URL = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+
+
+def test_scanner_reparse_attribute_rejected_before_result_or_file_capture(tmp_path, monkeypatch):
+    runtime = tmp_path / "owned-runtime"
+    target = runtime / "workspace/attachments/1791122451086669600-sample.py"
+    target.parent.mkdir(parents=True)
+    target.write_text("synthetic body", encoding="utf-8")
+    original = Path.lstat
+
+    def lstat(path, *args, **kwargs):
+        result = original(path, *args, **kwargs)
+        if path == runtime:
+            return SimpleNamespace(st_mode=result.st_mode, st_file_attributes=1024)
+        return result
+
+    monkeypatch.setattr(Path, "lstat", lstat)
+    monkeypatch.setattr(observer.stat, "FILE_ATTRIBUTE_REPARSE_POINT", 1024, raising=False)
+    fail = lambda *a, **kw: (_ for _ in ()).throw(AssertionError("No capture across a reparse point"))
+    monkeypatch.setattr(Path, "read_bytes", fail)
+    assert observer.scanner_observation("native.security_scan", {"scanner": "bandit", "path": str(target)},
+                                        SimpleNamespace(to_dict=fail), runtime) is None
 
 
 @pytest.fixture

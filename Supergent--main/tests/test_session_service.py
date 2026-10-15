@@ -77,7 +77,8 @@ def test_v2_session_index_supports_search_archive_and_pagination(tmp_path, monke
         "last_query": "First useful session",
         "last_response": "",
         "message_count": 1,
-        "metadata": {"archived": False, "archived_at": None},
+        "metadata": {"archived": False, "archived_at": None,
+                     "origin": None, "channel": None, "platform": None},
     }]
     history = asyncio.run(server.v2_session_history("wise_one", 1, 0))
     assert history == [{"role": "user", "content": "First useful session", "timestamp": history[0]["timestamp"]}]
