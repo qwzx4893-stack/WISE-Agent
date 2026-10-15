@@ -81,6 +81,7 @@ def test_fixed_runner_includes_tls_and_file_trust_contracts():
     assert "tests/test_voice_reference_security.py" in runner.SUITES
     assert "tests/test_telemetry_render_security.py" in runner.SUITES
     assert "tests/test_publication_redaction.py" in runner.SUITES
+    assert "tests/test_source_regression_selection.py" in runner.SUITES
     assert len(runner.SUITES) == len(set(runner.SUITES))
 
 

@@ -26,8 +26,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 1328,
-      "sha256": "f45ce64c7c15e2159b618be8868d8fbf0b4aa60194ae3ca8c412869a47aa663c"
+      "bytes": 1309,
+      "sha256": "19e81bf8ae2ddf5964174f3b02a6e324840701ff6bec0b54cf89b234f64059b8"
     },
     {
       "path": ".gitignore",
@@ -61,8 +61,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 3925,
-      "sha256": "8fc6e89ac84a25df301ede767112fbc10c4afb87735f05317198c2a079b0e7e6"
+      "bytes": 4252,
+      "sha256": "26d19eafb35b4802eac72633a907c667fafa152f6178a4f66e29d99ffb2e7565"
     },
     {
       "path": "leon-develop/.editorconfig",
@@ -9331,8 +9331,8 @@
     },
     {
       "path": "Supergent--main/qa/acceptance/security_regression.py",
-      "bytes": 13879,
-      "sha256": "1cbcd0ae49677c7059251e65014562910885334832510bf2e670f83a7e270e6e"
+      "bytes": 13928,
+      "sha256": "53705e883bc819aae7ddcdbbc1ce1f285921d883707e0eff47a457694dfbc7df"
     },
     {
       "path": "Supergent--main/qa/acceptance/security_rules.yml",
@@ -9353,6 +9353,11 @@
       "path": "Supergent--main/qa/acceptance/settings_actionability.py",
       "bytes": 5501,
       "sha256": "e8c9cc79c4e422ec119d32d5ad55d56e6d975cbada735ae5af56a74bc1989c5d"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/source_regression.py",
+      "bytes": 1444,
+      "sha256": "94f40026d48d345525639f59f783da5d4d45c3546dc2bbecaa168ab97fb98c68"
     },
     {
       "path": "Supergent--main/qa/acceptance/source_stamp.py",
@@ -32456,8 +32461,8 @@
     },
     {
       "path": "Supergent--main/tests/test_security_regression_evidence.py",
-      "bytes": 11539,
-      "sha256": "5efab03edd752d284e50c3256e6b8cc24baf314968f412637c07285bf6fda56b"
+      "bytes": 11611,
+      "sha256": "617d9a58afce9650f53ab1e3e10fb2573a2a070a06c40fe348fed90edffef7ce"
     },
     {
       "path": "Supergent--main/tests/test_self_test.py",
@@ -32498,6 +32503,11 @@
       "path": "Supergent--main/tests/test_source_api_grounding.py",
       "bytes": 3786,
       "sha256": "771f1f85fe7c5bdddde11af069312001d7e90d40fca7344326daf1e1dd4364bf"
+    },
+    {
+      "path": "Supergent--main/tests/test_source_regression_selection.py",
+      "bytes": 1418,
+      "sha256": "b1861e456b2a9771c52e02d3ba935c6e96c4e57142635acd39ea1c9334b48511"
     },
     {
       "path": "Supergent--main/tests/test_strategy_and_intent.py",
@@ -32616,8 +32626,8 @@
     },
     {
       "path": "Supergent--main/tests/test_voice_reference_security.py",
-      "bytes": 14524,
-      "sha256": "c1208f491013a7c5d94798498b5f13fa587d21785ae738cb77c51077d8df8d36"
+      "bytes": 15593,
+      "sha256": "a597d72b726e45472023cdfd65acbd77410b7ce42548f8ccba1a99558a75dbeb"
     },
     {
       "path": "Supergent--main/tests/test_voice_runtime_shutdown.py",

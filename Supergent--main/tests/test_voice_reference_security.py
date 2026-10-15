@@ -91,12 +91,9 @@ def fixture(monkeypatch, tmp_path):
                            events=events, sf=sf, librosa=librosa, torch=torch, helper=helper)
 
 
-def worker_loader(monkeypatch, fixture):
-    original_namespace = {"librosa": fixture.librosa, "torch": fixture.torch}
-    original = source_function("tools/index-tts/indextts/infer_v2_5.py", "_load_and_cut_audio",
-                               original_namespace)
+def worker_loader(monkeypatch, fixture, reference_decoder):
     model = SimpleNamespace(cache_spk_audio_prompt="existing-cache-key", cache_emo_audio_prompt="existing-key")
-    model._load_and_cut_audio = MethodType(original, model)
+    model._load_and_cut_audio = MethodType(reference_decoder, model)
     constructors = []
 
     def constructor(**kwargs):
@@ -131,8 +128,35 @@ def worker_loader(monkeypatch, fixture):
     return source_function("core/voice/indextts_sidecar.py", "_load_model", namespace), model, constructors
 
 
+def vendor_worker_loader(monkeypatch, fixture):
+    original_namespace = {"librosa": fixture.librosa, "torch": fixture.torch}
+    original = source_function("tools/index-tts/indextts/infer_v2_5.py", "_load_and_cut_audio",
+                               original_namespace)
+    return worker_loader(monkeypatch, fixture, original)
+
+
+def synthetic_contract_worker_loader(monkeypatch, fixture):
+    def synthetic_reference_decoder(model, audio_path, max_audio_length_seconds,
+                                    verbose=False, sr=None):
+        raise AssertionError("the instance guard must replace the synthetic decoder")
+
+    return worker_loader(monkeypatch, fixture, synthetic_reference_decoder)
+
+
+def test_synthetic_contract_loader_does_not_read_optional_vendor(monkeypatch, fixture):
+    read_source = source_function
+
+    def reject_vendor_source(relative, name, namespace):
+        assert relative != "tools/index-tts/indextts/infer_v2_5.py"
+        return read_source(relative, name, namespace)
+
+    monkeypatch.setattr(sys.modules[__name__], "source_function", reject_vendor_source)
+    load_model, model, _ = synthetic_contract_worker_loader(monkeypatch, fixture)
+    assert load_model() is model
+
+
 def test_actual_worker_model_installs_finite_reference_decode(monkeypatch, fixture):
-    load_model, model, constructors = worker_loader(monkeypatch, fixture)
+    load_model, model, constructors = vendor_worker_loader(monkeypatch, fixture)
     assert load_model() is model
     result, rate = model._load_and_cut_audio(str(fixture.reference), 15)
     assert rate == 22050 and result.shape == (1, 15 * 22050)
@@ -184,7 +208,7 @@ def test_byte_and_regular_file_budget_precedes_metadata(fixture, monkeypatch, si
 
 @pytest.mark.parametrize("rate", [None, 16000, 22050])
 def test_instance_adapter_preserves_rate_shape_path_cache_and_library_functions(monkeypatch, fixture, rate):
-    load_model, model, _ = worker_loader(monkeypatch, fixture)
+    load_model, model, _ = synthetic_contract_worker_loader(monkeypatch, fixture)
     original_load = fixture.librosa.load
     model = load_model()
     info = fixture.helper.validate_reference_audio(fixture.reference)
@@ -208,7 +232,7 @@ def test_instance_adapter_preserves_rate_shape_path_cache_and_library_functions(
 
 
 def test_short_reference_and_greater_requested_duration_remain_bounded(monkeypatch, fixture):
-    load_model, model, _ = worker_loader(monkeypatch, fixture)
+    load_model, model, _ = synthetic_contract_worker_loader(monkeypatch, fixture)
     model = load_model()
     fixture.metadata.frames = 44100 * 5
     fixture.metadata.duration = 5.0
@@ -268,7 +292,7 @@ def test_decoder_contract_rejection_precedes_tensor_copy(fixture, monkeypatch, l
 
 
 def test_full_actual_job_validates_then_uses_guard_without_changing_inference_options(monkeypatch, fixture):
-    load_model, model, _ = worker_loader(monkeypatch, fixture)
+    load_model, model, _ = vendor_worker_loader(monkeypatch, fixture)
     model.low_vram = True
     inference_options = []
 
@@ -309,7 +333,7 @@ def test_full_actual_job_validates_then_uses_guard_without_changing_inference_op
 
 
 def test_unsupported_model_contract_cannot_enter_cached_model_state(monkeypatch, fixture):
-    load_model, model, _ = worker_loader(monkeypatch, fixture)
+    load_model, model, _ = vendor_worker_loader(monkeypatch, fixture)
     model._load_and_cut_audio = None
     with pytest.raises(RuntimeError, match="contract is unavailable"):
         load_model()

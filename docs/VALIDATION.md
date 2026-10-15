@@ -9,8 +9,13 @@ untrusted file observations, TLS and voice worker resource/loading boundaries.
 The October 13 aggregate passed **544 tests without failures/errors/skips**;
 this is historical contract evidence, not certification of later edits.
 October 15 preparation additionally passed **561 offline security/publication
-tests across 22 suites**, with zero failures/errors/skips and no omitted suites,
-and verified exported Python 3.11 syntax and required files. These checks do not
+tests across 22 suites**, with zero failures/errors/skips and no omitted suites
+in the local checkout, and verified exported Python 3.11 syntax and required files.
+The first GitHub run exposed a missing broad-CI dependency and four reference
+adapter tests coupled unnecessarily to an optional ignored voice checkout.
+Follow-up CI explicitly records unavailable vendor/platform/native coverage;
+synthetic adapter coverage is separate from actual vendor-source coverage.
+These checks do not
 close the release gates below. Private raw reports, owner state and credential candidates are not public
 release artifacts. Documentation changes are not runtime acceptance.
 
