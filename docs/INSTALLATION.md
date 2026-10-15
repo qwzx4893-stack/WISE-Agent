@@ -20,7 +20,7 @@ Use Python 3.11 on Windows 10/11, Git and Microsoft WebView2 Runtime. Run `tools
 | Voice TTS | Pinned IndexTTS source, `uv.lock`, weights and permitted custom assets | Optional |
 | Security executables | Isolated recipes in `core/security/optional_tools.py` | Optional |
 | MCP | Server-specific dependencies/transport/authentication | Optional |
-| Plugins / messaging | Nango, provider OAuth applications / channel credentials | Optional |
+| MCP connections / messaging | Per-server OAuth, service credentials or trusted local applications; channel-specific configuration | Optional |
 | QA | `Supergent--main/qa/tooling/` manifests; native assemblies separately | Optional |
 
 ## Leon workspace integration

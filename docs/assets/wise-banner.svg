@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="420" viewBox="0 0 1260 420" role="img" aria-labelledby="title desc">
+  <title id="title">WISE Agent OS</title>
+  <desc id="desc">A local-first Agent OS for your desktop. Conversation, cognition and coordinated execution, connected through a capability network.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10151d"/><stop offset="1" stop-color="#192638"/></linearGradient>
+    <linearGradient id="mark" x2="0" y2="1"><stop stop-color="#f5f7fc"/><stop offset="1" stop-color="#9baac0"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#4075b9" stop-opacity=".22"/><stop offset="1" stop-color="#4075b9" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1260" height="420" rx="20" fill="url(#bg)"/>
+  <ellipse cx="1020" cy="180" rx="350" ry="300" fill="url(#glow)"/>
+  <g fill="none" stroke="#7695bf" stroke-opacity=".08">
+    <path d="M700 0v420M780 0v420M860 0v420M940 0v420M1020 0v420M1100 0v420M1180 0v420M660 50h600M660 130h600M660 210h600M660 290h600M660 370h600"/>
+  </g>
+  <text x="64" y="62" fill="#9aafca" font-family="Segoe UI,Arial,sans-serif" font-size="13" letter-spacing="3">A LOCAL-FIRST AGENT OS</text>
+  <!-- Same geometric WISE letter paths as the current desktop wordmark. -->
+  <g transform="translate(64 91) scale(1.1)" fill="url(#mark)">
+    <path d="M0 18h18.462v73.714h18.461V55h18.462v36.714h18.461V18h18.462v73.714H73.846v18.429H55.385V91.714H36.923v18.429H18.462V91.714H0Z"/>
+    <path d="M110.769 18h55.385v18.429h-18.462v55.285h18.462v18.429h-55.385V91.714h18.462V36.429h-18.462Z"/>
+    <path d="M184.615 18h73.847v18.429h-55.385v18.428h55.385v55.286h-73.847V91.714H240V73.286h-55.385Z"/>
+    <path d="M276.923 18h73.846v18.429h-55.384v18.428h55.384v18.429h-55.384v18.428h55.384v18.429h-73.846Z"/>
+  </g>
+  <text x="64" y="270" fill="#f0f3f8" font-family="Segoe UI,Arial,sans-serif" font-size="30" font-weight="600">One workspace.</text>
+  <text x="64" y="311" fill="#c7d2e2" font-family="Segoe UI,Arial,sans-serif" font-size="30">A coordinated system of capabilities.</text>
+  <text x="64" y="368" fill="#8e9fb8" font-family="Segoe UI,Arial,sans-serif" font-size="14">WINDOWS-FIRST  /  MODELS + TOOLS + SKILLS + MCP</text>
+  <g fill="none" stroke="#678ab9" stroke-width="1.5" stroke-opacity=".55">
+    <path d="M958 208L838 116M958 208l131-92M958 208l131 101M958 208L838 309"/>
+    <circle cx="958" cy="208" r="66" stroke-opacity=".15"/>
+  </g>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="13" text-anchor="middle">
+    <rect x="896" y="177" width="124" height="62" rx="13" fill="#263e5d"/>
+    <text x="958" y="202" fill="#f2f6fc" font-weight="600">CAPABILITY</text><text x="958" y="222" fill="#b8cce8">NETWORK</text>
+    <rect x="779" y="96" width="118" height="40" rx="9" fill="#1f2d40"/><text x="838" y="121" fill="#c5d3e7">Cognition</text>
+    <rect x="1030" y="96" width="118" height="40" rx="9" fill="#1f2d40"/><text x="1089" y="121" fill="#c5d3e7">Execution</text>
+    <rect x="779" y="289" width="118" height="40" rx="9" fill="#1f2d40"/><text x="838" y="314" fill="#c5d3e7">Durable state</text>
+    <rect x="1030" y="289" width="118" height="40" rx="9" fill="#1f2d40"/><text x="1089" y="314" fill="#c5d3e7">Tools + MCP</text>
+  </g>
+</svg>

@@ -1,11 +1,31 @@
 name: Bug report
-description: A reproducible, redacted WISE failure
+description: Report a reproducible WISE failure using redacted evidence.
+title: "[Bug]: "
 body:
+  - type: markdown
+    attributes:
+      value: "Search existing issues first. Use synthetic data. Security vulnerabilities belong in the private disclosure process, not this form."
   - type: textarea
     id: environment
     attributes:
       label: Version and environment
       description: Commit, Windows version, Python and optional runtime versions. No tokens.
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected area
+      options:
+        - Desktop or renderer
+        - Conversation or model provider
+        - Tools, skills or execution
+        - MCP connection or authentication
+        - Messaging
+        - State, scheduling or recovery
+        - Optional voice or hardware resources
+        - Installation or dependencies
+        - Documentation or other
     validations:
       required: true
   - type: textarea
@@ -20,3 +40,10 @@ body:
     attributes:
       label: Redacted evidence
       description: Logs/screenshots without private content. Security issues should be disclosed privately.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before submitting
+      options:
+        - label: I removed secrets, account cookies and private content from this report.
+          required: true

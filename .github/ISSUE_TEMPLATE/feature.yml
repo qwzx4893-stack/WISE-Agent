@@ -1,0 +1,31 @@
+name: Feature or compatibility request
+description: Propose a focused improvement to WISE with a concrete use case.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Search existing issues first. Do not include credentials, private data or security vulnerabilities."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and user workflow
+      description: What are you trying to accomplish, and where does the current behavior fall short?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the smallest useful change and how its success could be checked.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and compatibility
+      description: Mention existing capabilities, affected platforms and any upstream documentation or license constraints.
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Permissions and resource impact
+      description: Note external accounts, outgoing data, privileged actions, downloads or hardware requirements.

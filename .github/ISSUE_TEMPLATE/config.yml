@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Installation and troubleshooting
+    url: https://github.com/qwzx4893-stack/WISE-Agent/blob/main/docs/FAQ.md
+    about: Check prerequisites, optional components and common setup problems first.
+  - name: Security disclosure
+    url: https://github.com/qwzx4893-stack/WISE-Agent/blob/main/SECURITY.md
+    about: Follow private reporting guidance. Do not report vulnerabilities in public issues.
+  - name: Current validation boundaries
+    url: https://github.com/qwzx4893-stack/WISE-Agent/blob/main/docs/VALIDATION.md
+    about: See what was tested and what remains unverified before relying on the preview.

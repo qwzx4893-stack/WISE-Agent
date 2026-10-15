@@ -1,0 +1,26 @@
+name: Setup or usage question
+description: Ask a non-sensitive question not answered by the guides.
+title: "[Question]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Read the installation guide and FAQ first. Never post keys, cookies, private logs or recordings."
+  - type: input
+    id: version
+    attributes:
+      label: Commit and environment
+      description: Include OS, Python version and the relevant optional runtime, if any.
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Explain what you want to do, what you tried and which guide you followed.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted context
+      description: Small, synthetic examples are preferred. Mention whether the component is installed and authenticated.

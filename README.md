@@ -1,98 +1,315 @@
-# WISE — Local-first Agent OS
+<div align="center">
 
-**A Windows-first agent workspace connecting conversation, cognition, multi-agent execution, tools, skills, research, persistent state and desktop automation.**
+![WISE — A local-first Agent OS for your desktop](docs/assets/wise-banner.svg)
 
-WISE is more than a chat interface around a model. Its Agent OS core coordinates task execution, discovers capabilities on demand, manages model and worker resources, persists conversations and recoverable task state, and connects a native desktop workspace to local and remote services. The wider workspace retains its Leon assistant integration and process supervisor.
+# WISE Agent
 
-> **Development preview, not a certified production release.** Implemented capabilities are not a guarantee of error-free autonomous operation. Security contract regressions and broader product tests are separate evidence layers; native Windows, real-account authorization, dependency remediation and voice hardware acceptance remain incomplete. See [validation status](docs/VALIDATION.md).
+### One workspace. A coordinated system of capabilities.
 
-## What WISE brings together
+A **Windows-first, local-first Agent OS** connecting conversation, cognition, multi-agent execution, research, durable state and desktop automation.
 
-| Layer | Responsibilities |
+[![Source validation](https://github.com/qwzx4893-stack/WISE-Agent/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/qwzx4893-stack/WISE-Agent/actions/workflows/validate.yml)
+[![Security contracts](https://github.com/qwzx4893-stack/WISE-Agent/actions/workflows/security-regressions.yml/badge.svg?branch=main)](https://github.com/qwzx4893-stack/WISE-Agent/actions/workflows/security-regressions.yml)
+[![Stage: development preview](https://img.shields.io/badge/stage-development_preview-64748b?style=flat-square)](docs/VALIDATION.md)
+
+[![Platform: Windows](https://img.shields.io/badge/desktop-Windows_10%2F11-2563eb?style=flat-square)](docs/INSTALLATION.md)
+[![Python: 3.11](https://img.shields.io/badge/Python-3.11-3776ab?style=flat-square&logo=python&logoColor=white)](docs/INSTALLATION.md)
+[![Protocol: MCP](https://img.shields.io/badge/integrations-MCP-475569?style=flat-square)](Supergent--main/docs/MCP_CONNECTION_MARKETPLACE.md)
+[![Licensing: read notices](https://img.shields.io/badge/licensing-read_notices-64748b?style=flat-square)](THIRD_PARTY_NOTICES.md)
+
+**[Get started](#get-started)** · **[Architecture](#how-the-system-fits-together)** · **[Documentation](#documentation)** · **[العربية](docs/README.ar.md)**
+
+</div>
+
+---
+
+> [!IMPORTANT]
+> **Development preview — not a certified production release.** WISE has substantial implemented capabilities and source-level regression evidence, but unconditional daily-use reliability is not established. Native Windows acceptance, dependency remediation, complete data-egress policy and real-account flows remain open. [See the validation boundaries](docs/VALIDATION.md).
+
+## Contents
+
+- [Why WISE](#why-wise)
+- [Capabilities](#capabilities)
+- [Architecture](#how-the-system-fits-together)
+- [Get started](#get-started)
+- [Models and services](#connect-models-and-services)
+- [Optional runtimes](#optional-runtimes)
+- [Permissions and trust](#permissions-and-trust)
+- [Validation and quality](#validation-and-quality)
+- [Repository map](#repository-map)
+- [Documentation](#documentation)
+- [Roadmap](#roadmap)
+- [Contribute and get help](#contribute-and-get-help)
+- [Licensing and acknowledgements](#licensing-and-acknowledgements)
+
+## Why WISE
+
+WISE is not just a chat UI with a collection of tool buttons. Its Agent OS core connects **understanding a request, discovering the right capabilities, coordinating execution, preserving state and checking the outcome** in one desktop workspace.
+
+| Principle | What it means in WISE |
 | --- | --- |
-| Conversation & cognition | Streaming turns, intent and task routing, planning, execution contracts, outcome checks and persistent user instructions. |
-| Capability / Usage Network | Task-oriented discovery of tools, grouped skills, MCP services and research sources, rather than injecting the entire inventory into every prompt. |
-| Multi-agent execution | Specialized workers with a single-writer coordination path, bounded execution and evidence checks for requested outputs. |
-| Models & efficiency | Explicit user-selected cloud/local models; context and request optimizations, caches, resource admission and isolated worker lifecycle. Provider failures do not silently change the user's chosen provider. |
-| Research & intelligence | Web search, source retrieval, document inspection, structured public-source adapters, evidence checks and on-demand security-tool recipes. Catalog membership is not proof that an executable or adapter is ready. |
-| State & recovery | Durable conversations, artifacts, task checkpoints, scheduling, recovery and diagnostic logs. Recovery is not universal rollback of arbitrary machine changes. |
-| Integrations | MCP Market with published remote/local service metadata, direct per-server authorization, compatible package workflows and bundled MCP connections, plus messaging connectors. Catalog entries are not installed or audited services; host-specific components and service authentication have explicit compatibility limits. |
-| Windows & browser | Native pywebview host, file and desktop operations, opt-in background/system integration, managed browser sessions and explicitly requested device-browser access. |
-| Optional voice | Isolated IndexTTS synthesis and CPU Whisper transcription, interruption handling and VRAM admission guards. Custom voice assets are private runtime inputs. |
+| **Discover what the task needs** | The Capability / Usage Network routes toward relevant tools, grouped skills, MCP services and research sources instead of placing the entire inventory into every prompt. |
+| **Keep work connected** | Conversations, instructions, artifacts, task contracts and checkpoints provide continuity across execution and recovery paths. |
+| **Keep important choices explicit** | Users select their model, enable optional runtimes and authorize sensitive access. A catalog entry is not a connected service; a passing test is not proof of universal safety. |
 
-## Workspace layout
+**Local-first does not mean offline-only.** The workspace and state can run locally, while selected model providers, search services and integrations may send data to external services. Those choices require configuration and appropriate permissions.
 
-```text
-WISE-Agent/
-  Supergent--main/       Agent OS core, API, current WISE UI, skills, tools, tests
-  leon-develop/          Leon source integration, SDKs, tools and lockfiles
-  config/               Cross-service configuration code (not account secrets)
-  wise_supervisor.py    Multi-process supervisor for Agent OS and Leon services
-  wise_desktop.py       Workspace desktop entry point
-  tools/                Workspace setup utilities
-  tests/                Cross-service integration tests
-  docs/                 Installation, validation and distribution notes
+## Capabilities
+
+### Understand, coordinate, execute
+
+| Area | Included implementation | Important boundary |
+| --- | --- | --- |
+| **Conversation and cognition** | Streaming turns, intent/task routing, planning, execution contracts, outcome checks and persistent user instructions. | Model accuracy and task completion still require task-level evaluation. |
+| **Multi-agent execution** | Specialized workers, capability teams, single-writer coordination and bounded execution paths. | Effective delegation depends on the task, model and configured capabilities. |
+| **Capability discovery** | Task-oriented tool selection, grouped skill discovery, MCP routing and source guidance. | Availability, permission, installation and successful execution are separate states. |
+| **Models and efficiency** | Explicit cloud/local model selection, context/request optimizations, caching and worker/resource admission. | No promise of identical answers or a fixed token-saving percentage. |
+
+### Work with files, knowledge and the desktop
+
+| Area | Included implementation | Important boundary |
+| --- | --- | --- |
+| **Files and research** | File inspection/editing, document handling, web research, source retrieval and evidence-oriented checks. | Search freshness, source quality and factual completeness remain acceptance concerns. |
+| **State and recovery** | Durable sessions, artifacts, checkpoints, schedules and diagnostic records. | Not universal rollback of arbitrary filesystem or system changes. |
+| **Windows and browser** | Native desktop host, file/command operations, browser workflows and opt-in background/system integration. | Trusted user-level execution is powerful, but it is not an OS sandbox. |
+| **MCP and messaging** | MCP Market, remote/local server configuration, per-server authorization and messaging connectors. | External services have their own credentials, policies and compatibility requirements. |
+| **Voice** | Optional isolated synthesis/transcription, interruption handling and VRAM admission guards. | Weights, permitted reference assets and hardware acceptance are separate provisioning steps. |
+| **Security and OSINT** | Public-source adapters and on-demand recipes for optional independent security tools. | Use only with authorization. Large platforms and uninstalled tools are not silently deployed. |
+
+<details>
+<summary><strong>Example workflows the architecture is intended to support</strong></summary>
+
+- Research a topic, inspect sources, import relevant documents and produce a cited report.
+- Inspect a coding workspace, plan an edit, modify files and run outcome checks.
+- Continue a long-running task using its conversation, artifacts and persisted state.
+- Connect an authorized MCP service and expose relevant capabilities to the agent.
+- Schedule a bounded task or use explicitly enabled desktop/browser operations.
+
+These describe workflows, **not a claim that every combination has passed live end-to-end acceptance**. Start with a dedicated workspace and low-risk data.
+
+</details>
+
+## How the system fits together
+
+```mermaid
+flowchart TB
+    Desktop["Native Windows desktop / WISE UI"] --> API["Local API and streaming sessions"]
+    API --> Core["Conversation, cognition and task contracts"]
+    Core --> Routing["Capability / Usage Network"]
+    Routing --> Teams["Bounded multi-agent execution"]
+    Routing --> Skills["Tools, skills and MCP services"]
+    Routing --> Research["Files, web research and public sources"]
+    Teams --> Execution["Permission-aware execution boundaries"]
+    Skills --> Execution
+    Research --> Execution
+    Core <--> State["Memory, instructions, schedules and checkpoints"]
+    Core --> Models["Selected model and resource admission"]
+    Execution --> DesktopOps["Files, browser, Windows and connected services"]
 ```
 
-This layout replaces the older flattened pre-Plugins publication. Existing clones should follow the new paths below. The current product interface lives in `Supergent--main/ui/wise_web`; no comparison UI is required to run it.
+The primary runtime lives in [`Supergent--main/`](Supergent--main/README.md). The root supervisor can additionally coordinate retained **Leon** services, which have separate dependencies and profile secrets. The native desktop path does not require starting every optional service.
 
-## Start the native desktop
+See the [architecture guide](docs/ARCHITECTURE.md) for module ownership, entry points and runtime boundaries.
 
-Requirements: **Windows 10/11, Python 3.11, Git, Microsoft Edge WebView2 Runtime**. WebView2 is the native rendering engine, not a request to open the interface in the Edge browser. Brave is needed for the installed-Brave automation path.
+## Get started
+
+### 1. Prepare the prerequisites
+
+| Requirement | Purpose |
+| --- | --- |
+| **Windows 10 or 11** | Primary desktop target. Linux CI checks source behavior; it is not Linux desktop certification. |
+| **Python 3.11** | Supported project runtime for the documented installation. |
+| **Git** | Clone the public source workspace. |
+| **Microsoft WebView2 Runtime** | Render the native window. This does **not** open WISE in the Edge browser. |
+| **Brave, for installed-browser automation** | The installed-Brave path needs a local Brave installation. |
+
+### 2. Install the text-first runtime
 
 ```powershell
 git clone https://github.com/qwzx4893-stack/WISE-Agent.git
 cd WISE-Agent
 powershell -NoProfile -File tools/Install-WISE.ps1
+```
+
+The installer expects `python` to be **Python 3.11**. If necessary, pass the correct interpreter path:
+
+```powershell
+powershell -NoProfile -File tools/Install-WISE.ps1 -Python "C:\Path\To\Python311\python.exe"
+```
+
+### 3. Open the native app
+
+```powershell
 .\Supergent--main\.venv\Scripts\python.exe .\Supergent--main\wise_desktop.py --native-only
 ```
 
-Configure a provider in **Settings → Models and providers**, choose a model in the composer, then start a conversation. Credentials are supplied locally; none are bundled. Do not copy someone else's browser profile, runtime state or keystore into a new installation.
+### 4. Configure your first conversation
 
-The default install is text-first. Voice, semantic search, advanced compression, external accounts and security executables are optional—not silently downloaded or represented as connected. See [installation and dependency matrix](docs/INSTALLATION.md).
+1. Open **Settings → Models and providers** and configure your own provider or supported local runtime.
+2. Choose a model from the composer. Provider failures do not silently switch to another provider.
+3. Start with a small task in a dedicated workspace; review requested permissions.
 
-For backend development only:
+No provider credentials, account sessions, model weights or private voice assets are bundled. The base installation does not silently provision optional services. See the [complete installation guide](docs/INSTALLATION.md).
+
+<details>
+<summary><strong>Backend-only development</strong></summary>
+
+From the repository root, after installation:
 
 ```powershell
 cd Supergent--main
 .\.venv\Scripts\python.exe -m uvicorn api.server:app --host 127.0.0.1 --port 8765
 ```
 
-## Optional integrations
+Keep this API loopback-only unless authentication and trusted-origin controls are deliberately configured. This starts the backend, not the native acceptance workflow.
 
-- **Leon:** source with manifests and lockfiles; Node.js 24+ and pnpm required. Follow [workspace setup](docs/INSTALLATION.md#leon-workspace-integration) before running the root supervisor. Core desktop chat does not require booting Leon.
-- **MCP:** import server configuration in Settings. Install stdio commands or configure remote endpoints and the server's supported authentication method.
-- **Plugins / messaging:** use direct MCP connections with [Plugins setup](Supergent--main/docs/PLUGINS.md). A browsable catalog is not a connected account or a security audit.
-- **Voice:** provision the compatible pinned IndexTTS runtime, model weights and permitted custom assets separately. See [voice setup](docs/INSTALLATION.md#voice).
-- **Security / OSINT:** lightweight adapters and isolated on-demand recipes are distinct from sources and deferred platforms. MISP, OpenCTI and CAPE are not deployed automatically. See [optional security tooling](Supergent--main/docs/OPTIONAL_SECURITY_TOOLS.md).
+</details>
 
-## Safety boundaries
+## Connect models and services
 
-Keep the API loopback-only unless you configure authentication and trusted origins. Browser/account access, file edits, command execution and external messaging have real consequences; use a dedicated workspace and review high-impact actions.
+**Models.** Select the cloud or local model you intend to use. Keep credentials local and separate from source control. Resource admission and lifecycle management help coordinate workloads; actual capacity depends on your hardware.
 
-Opt-in system integration uses official Windows mechanisms. Administrative operations require UAC consent and a fixed broker allowlist; WISE does **not** bypass UAC or grant unrestricted invisible administrator access. Windows host allowlists are not OS sandboxing. Model instructions alone are not a security boundary.
+**MCP Market.** Browse server information, configure a supported remote endpoint or trusted local command, then use the server's supported authorization method. Some servers provide browser OAuth; others require an API key or an installed application. Universal one-click login cannot be promised for every third-party service.
 
-Secrets, sessions, profiles, logs, installed environments, weights, recordings and training data are excluded from public source. Package manifests, install recipes and examples are included instead. See [distribution contract](docs/DISTRIBUTION.md) and [security reporting](SECURITY.md).
+**Messaging.** Configure only the channels you intend to use. External messages are real actions, not test fixtures. Authentication, recipient scope and account isolation require explicit configuration and acceptance.
 
-## Development & validation
+No Nango account or broker key is required by the current direct-MCP path. See [connection setup](Supergent--main/docs/PLUGINS.md) and [MCP Market behavior](Supergent--main/docs/MCP_CONNECTION_MARKETPLACE.md).
+
+## Optional runtimes
+
+Provision extras only when needed:
+
+| Component | Setup reference |
+| --- | --- |
+| **Leon services and SDKs** | [Workspace integration](docs/INSTALLATION.md#leon-workspace-integration); separate Node.js/pnpm prerequisites. |
+| **Semantic discovery / advanced compression** | [Dependency matrix](docs/INSTALLATION.md#dependency-matrix); optional requirements and downloads. |
+| **Voice synthesis and transcription** | [Voice installation](docs/INSTALLATION.md#voice) and [GPU/runtime policy](Supergent--main/docs/VOICE_RUNTIME.md). |
+| **Security / public-source intelligence** | [Optional security tooling](Supergent--main/docs/OPTIONAL_SECURITY_TOOLS.md); isolated recipes, not bulk installation. |
+| **MCP and messaging accounts** | [Direct connection guide](Supergent--main/docs/PLUGINS.md); per-service transport, credentials and consent. |
+
+> [!NOTE]
+> **Source is not a bundled appliance.** This repository includes manifests, setup recipes, lockfiles where available and integration code—not generated environments, all upstream binaries, weights or account access. Runtime requirements still include version ranges; installation is not yet a fully reproducible cross-platform lock.
+
+## Permissions and trust
+
+WISE can edit files, run commands, interact with browsers and connect to external services. Treat enabled capabilities as real access to your machine and data.
+
+- **Official elevation only.** Administrative operations use Windows UAC and a fixed broker catalog. No bypass or invisible unrestricted administrator access.
+- **Explicit device access.** Browser profiles, local applications, background operation and system integration are not interchangeable with an isolated task workspace.
+- **Untrusted inputs stay untrusted.** Pages, files, skills and MCP results are not human authorization. Model instructions are not access controls.
+- **Private state stays out of publication.** Credentials, browser storage, sessions, recordings, weights and training data are excluded from public source.
+- **Documented limits.** Worker isolation is not OS sandboxing, and complete private-data egress policy remains an open release gate.
+
+Read the [security policy](SECURITY.md), [distribution contract](docs/DISTRIBUTION.md) and [validation limits](docs/VALIDATION.md) before unattended or sensitive use.
+
+## Validation and quality
+
+The badges above show **actual workflow status**, not a security certificate or coverage percentage. Source regressions, renderer scenarios, model behavior, external accounts and native Windows execution are different evidence layers.
+
+### Verified source snapshot · 15 October 2026
+
+These results belong to executable-source commit [`71a4217`](https://github.com/qwzx4893-stack/WISE-Agent/commit/71a4217ef07bca63b14525e24417d8d2c86ee177). Later documentation-only updates do not turn them into new whole-product acceptance.
+
+| Evidence | Result | Scope |
+| --- | --- | --- |
+| Local offline security contracts | **591 passed**, 0 failed, 0 skipped | 24 suites in the audit checkout; synthetic/component contracts. |
+| [GitHub focused security](https://github.com/qwzx4893-stack/WISE-Agent/actions/runs/38780577374) · Windows / Linux | **584 / 581 passed**, no failures or skips | Optional vendor/platform omissions are explicitly recorded. |
+| [GitHub source regression](https://github.com/qwzx4893-stack/WISE-Agent/actions/runs/38780577135) · Windows | **2,148 passed**, 14 skipped, 11 deselected | Non-interactive source tests; not native certification. |
+| Same source regression · Linux | **2,144 passed**, 15 skipped, 14 deselected | Source compatibility; not a native Linux release. |
+
+These suites overlap; their counts **must not be added together**. Skipped, deselected, mocked and unavailable cases are not live successes.
+
+<details>
+<summary><strong>Run the CI-aligned checks locally</strong></summary>
+
+Use an isolated project environment with the test dependencies listed in the workflows:
 
 ```powershell
 cd Supergent--main
-.\.venv\Scripts\python.exe -m pip install pytest pytest-cov
-.\.venv\Scripts\python.exe -m pytest tests/ -q
+.\.venv\Scripts\python.exe -m qa.acceptance.source_regression
+.\.venv\Scripts\python.exe -m qa.acceptance.security_regression --output qa-results/security-local --timeout 900
 ```
 
-Unit/regression, API/security, recovery, renderer/user-scenario, live-model and native-observation test layers are included. Live tests need explicit credentials, a bounded budget and isolated runtime state. Mocked connections and headless UI results are never evidence of native desktop or real-account acceptance. See [validation scope](docs/VALIDATION.md) and the [acceptance plan](Supergent--main/docs/WISE_FINAL_VALIDATION_PLAN.md).
+Review [source CI](.github/workflows/validate.yml) and [focused security CI](.github/workflows/security-regressions.yml) for their dependency sets. Optional vendor/native tests need separate environments. Never supply real accounts or paid-model credentials to synthetic fixtures.
+
+</details>
+
+See [Validation](docs/VALIDATION.md) and the [acceptance plan](Supergent--main/docs/WISE_FINAL_VALIDATION_PLAN.md) for release blockers.
+
+## Repository map
+
+```text
+WISE-Agent/
+├── Supergent--main/           Primary Agent OS runtime
+│   ├── agent_core.py          Conversation and execution entry point
+│   ├── api/                   Local API, streaming and integration routes
+│   ├── core/                  Cognition, routing, state, models and permissions
+│   ├── ui/wise_web/           Current WISE desktop renderer
+│   ├── skills/                Agent-facing skill inventory
+│   ├── tools/                 Capability packs and optional runtime setup
+│   ├── tests/                 Component and regression tests
+│   └── qa/                    Acceptance and evidence tooling
+├── leon-develop/              Retained Leon integration, SDKs and lockfiles
+├── config/                    Cross-service configuration code
+├── wise_desktop.py            Workspace desktop entry point
+├── wise_supervisor.py         Optional multi-service process supervisor
+├── tools/                    Installation and publication utilities
+├── tests/                    Cross-service integration tests
+├── docs/                     Workspace guides and repository assets
+└── .github/                  CI, issue forms and contribution templates
+```
+
+The current UI is `Supergent--main/ui/wise_web`; no comparison interface is required. Older flattened clones should use these paths.
 
 ## Documentation
 
-- [Agent OS overview](Supergent--main/README.md)
-- [Installation & dependencies](docs/INSTALLATION.md)
-- [Architecture map](docs/ARCHITECTURE.md)
-- [Validation & remaining gates](docs/VALIDATION.md)
-- [Contribution workflow](CONTRIBUTING.md)
-- [Third-party attribution](THIRD_PARTY_NOTICES.md)
+| Start here | Go deeper |
+| --- | --- |
+| [Installation and dependencies](docs/INSTALLATION.md) | [Agent OS core overview](Supergent--main/README.md) |
+| [Architecture and source map](docs/ARCHITECTURE.md) | [MCP Market and authentication](Supergent--main/docs/MCP_CONNECTION_MARKETPLACE.md) |
+| [Validation and known limits](docs/VALIDATION.md) | [Voice runtime and resource policy](Supergent--main/docs/VOICE_RUNTIME.md) |
+| [Troubleshooting and FAQ](docs/FAQ.md) | [Optional security / OSINT tooling](Supergent--main/docs/OPTIONAL_SECURITY_TOOLS.md) |
+| [Contribution guide](CONTRIBUTING.md) | [Distribution and publication](docs/DISTRIBUTION.md) |
+| [دليل WISE بالعربية](docs/README.ar.md) | [Licensing and provenance](THIRD_PARTY_NOTICES.md) |
 
-## License & provenance
+## Roadmap
 
-WISE-specific source currently has **no repository-wide license grant**. Public visibility does not grant reuse rights. Third-party components retain their own licenses and notices; the root package's historical MIT field does not license the entire workspace. Known non-transferable skills and private voice assets are excluded. See [licensing status](Supergent--main/docs/releases/LICENSING_STATUS.md) and the publication manifest. WISE is not affiliated with or endorsed by upstream projects it integrates.
+The next milestone is **evidence-backed daily-use reliability**, not simply a larger catalog. There is no promised release date.
+
+- [ ] Complete isolated interactive Windows acceptance: UAC, native frame/input, clean install, update, rollback and uninstall.
+- [ ] Close dependency/advisory and provenance findings with compatibility-tested remediation.
+- [ ] Complete destination/data/scope egress controls and end-to-end owner-approval/resume paths.
+- [ ] Validate live connector authorization, refresh, revocation and account isolation.
+- [ ] Strengthen research correctness and recovery from tool/model failures.
+- [ ] Validate voice clarity, interruption behavior and resource coexistence on target hardware.
+- [ ] Complete two/eight-hour native soak and decide WISE-specific licensing before stable distribution.
+
+See [acceptance gates](docs/VALIDATION.md#open-acceptance-gates). A documentation refresh does not close them.
+
+## Contribute and get help
+
+Contributions should preserve the coordinated Agent OS architecture, make behavior testable and keep permission boundaries explicit.
+
+- **Found a bug?** [Open a structured report](https://github.com/qwzx4893-stack/WISE-Agent/issues/new?template=bug.yml) with redacted reproduction steps.
+- **Have an improvement?** [Propose it](https://github.com/qwzx4893-stack/WISE-Agent/issues/new?template=feature.yml), then follow the [contribution guide](CONTRIBUTING.md).
+- **Need setup help?** Start with the [FAQ](docs/FAQ.md) and [support guide](.github/SUPPORT.md).
+- **Found a security issue?** Follow [private disclosure guidance](SECURITY.md), not a public issue.
+- **Joining a review?** Read the [community conduct guidelines](.github/CODE_OF_CONDUCT.md).
+
+## Licensing and acknowledgements
+
+WISE combines original work and retained third-party components. **There is currently no repository-wide license grant for WISE-specific source.** Public visibility is not permission to reuse it; the historical root package MIT field does not license the entire workspace.
+
+Third-party projects retain their own licenses and notices. See [attribution](THIRD_PARTY_NOTICES.md), [licensing status](Supergent--main/docs/releases/LICENSING_STATUS.md) and [`PUBLICATION_MANIFEST.json`](PUBLICATION_MANIFEST.json). Restricted assets, private recordings and custom voice weights are not published.
+
+Thanks to the upstream communities behind the retained Leon integration, MCP ecosystem, native hosting, model runtimes and testing tools. Inclusion does not imply endorsement or affiliation.
+
+---
+
+<div align="center">
+
+**WISE Agent OS** · Local workspace. Connected capabilities. Explicit boundaries.
+
+[Documentation](docs/INSTALLATION.md) · [Issues](https://github.com/qwzx4893-stack/WISE-Agent/issues) · [Security](SECURITY.md) · [Back to top](#wise-agent)
+
+</div>
