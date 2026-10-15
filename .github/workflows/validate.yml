@@ -11,6 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   regression:
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
@@ -29,7 +30,7 @@ jobs:
       - name: Install runtime and test dependencies
         # Include library-only desktop fixtures on Linux as well. No native
         # renderer, model, browser download or account is started here.
-        run: python -m pip install -r requirements.txt pytest==9.1.1 pytest-cov pytest-asyncio hypothesis==6.168.3 pywebview==6.2.1
+        run: python -m pip install -r requirements.txt pytest==9.1.1 pytest-cov pytest-asyncio hypothesis==6.168.3 pywebview==6.2.1 stix2==3.0.2 duckdb==1.5.6
       - name: Non-interactive regression (not native or account acceptance)
         run: python -m qa.acceptance.source_regression
       - uses: actions/upload-artifact@v4

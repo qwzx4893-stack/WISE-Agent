@@ -9,7 +9,7 @@ def test_preserves_old_tool_facts_and_consent_before_windowing():
     messages = [
         {"role": "system", "content": "Security policy: never delete files without consent."},
         {"role": "user", "content": "Prepare the release report."},
-        {"role": "assistant", "content": "I will inspect the repository."},
+        {"role": "assistant", "content": "I will inspect the repository. " + "inspection detail " * 200},
         {"role": "tool", "content": "Observation: artifact=/workspace/release.md; tests=142 passed"},
         {"role": "user", "content": "I confirm publishing only the report, never the secret key."},
         {"role": "assistant", "content": "Acknowledged."},
@@ -17,6 +17,9 @@ def test_preserves_old_tool_facts_and_consent_before_windowing():
         {"role": "assistant", "content": "Final Answer: ready"},
     ]
     compressor = ContextCompressor(max_tokens=110, keep_recent_turns=2)
+    # Real tokenization and the offline estimator do not produce identical
+    # counts. Exercise an actually over-budget history in either environment.
+    assert compressor.counter.count_messages(messages) > compressor.max_tokens
     result = compressor.compress_with_report(messages)
     text = _all_text(result.messages)
 

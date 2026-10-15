@@ -25,7 +25,7 @@ def command(app=APP):
     native = [{"node": node, "reason": "Requires separate owned native acceptance evidence"}
               for node in NATIVE_EXCLUSIONS]
     omitted = [row for rows in omissions.values() for row in rows] + native
-    args = [sys.executable, "-m", "pytest", "tests/", "-q", "--maxfail=5",
+    args = [sys.executable, "-m", "pytest", "tests/", "-q", "--maxfail=0",
             "--junitxml=qa-results/ci.xml"]
     args.extend("--deselect=" + row["node"] for row in omitted)
     return args, {**omissions, "native": native}

@@ -26,8 +26,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 1309,
-      "sha256": "19e81bf8ae2ddf5964174f3b02a6e324840701ff6bec0b54cf89b234f64059b8"
+      "bytes": 1360,
+      "sha256": "3c451b5e07e85390ad46c07f1f085389b5bafa4d932b861aa2c200b188a8d37e"
     },
     {
       "path": ".gitignore",
@@ -9357,7 +9357,7 @@
     {
       "path": "Supergent--main/qa/acceptance/source_regression.py",
       "bytes": 1444,
-      "sha256": "94f40026d48d345525639f59f783da5d4d45c3546dc2bbecaa168ab97fb98c68"
+      "sha256": "146451e531dd0f0714fb0b423e135e303b72a50450ed60f79bca027927f1af2a"
     },
     {
       "path": "Supergent--main/qa/acceptance/source_stamp.py",
@@ -32076,8 +32076,8 @@
     },
     {
       "path": "Supergent--main/tests/test_context_compression_quality.py",
-      "bytes": 2521,
-      "sha256": "b35d430e2b021470beb9f083346a284e8ff0bd129441ed25d2c045a5caeb814b"
+      "bytes": 2783,
+      "sha256": "0678a7ccbe904ef03fc0785e918f4843160546b89aefef2e3205beff0af0c288"
     },
     {
       "path": "Supergent--main/tests/test_conversation_presentation.py",
@@ -32316,8 +32316,8 @@
     },
     {
       "path": "Supergent--main/tests/test_phase11_layers.py",
-      "bytes": 8903,
-      "sha256": "1022a0903e5d98b218dd82e85217fd8443dfdf51712093c09cbb1ed7e6d879b5"
+      "bytes": 9615,
+      "sha256": "b28327ac8ad5226bc4722b306f5211d5d2defe8f5f8e0d2847d31c57350b4fba"
     },
     {
       "path": "Supergent--main/tests/test_phase7_part1_part2.py",

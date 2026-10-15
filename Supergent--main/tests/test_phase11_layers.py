@@ -15,6 +15,7 @@ the dedicated suites).
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pytest
 
@@ -39,12 +40,22 @@ def test_rag_layer_has_15_sources() -> None:
 # Skills layer
 # --------------------------------------------------------------------------
 
-def test_skills_indexer_finds_at_least_1700() -> None:
+def test_skills_indexer_covers_every_current_nonhidden_manifest() -> None:
     from core.skills import SkillIndexer
 
     idx = SkillIndexer()
-    skills = idx.list_skills()
-    assert len(skills) >= 1700, f"skills indexed: {len(skills)}"
+    # Distribution licensing excludes some trees. A historical numeric floor
+    # neither proves complete indexing nor describes a clean public checkout.
+    expected = {path.parent.resolve() for path in idx.skills_dir.rglob("SKILL.md")
+                if not path.relative_to(idx.skills_dir).parts[0].startswith(".")}
+    assert expected, "No shipped skill manifests found"
+    idx.force_reindex()
+    index = idx.get_index()
+    base_paths = [Path(row["path"]).resolve() for row in index.values()
+                  if Path(row["path"]).resolve().is_relative_to(idx.skills_dir.resolve())]
+    assert set(base_paths) == expected
+    assert len(base_paths) == len(expected), "A manifest was indexed more than once"
+    assert set(idx.list_skills()) == set(index)
 
 
 def test_skills_search_returns_relevant_results() -> None:
