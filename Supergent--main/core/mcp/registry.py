@@ -21,6 +21,7 @@ Public surface:
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import re
 import threading
@@ -47,6 +48,20 @@ from .policy import (
 _SAFE_NAME = re.compile(r"^[A-Za-z][A-Za-z0-9_\-]{0,63}$")
 
 
+def _recipient_identity(config: "MCPServerConfig", client: MCPClient) -> str:
+    """Bind consent to configured AND live transport/auth/tool identity.
+
+    Only a process-local digest is retained; no credentials enter UI metadata.
+    This does not isolate a hostile same-user process that can edit our memory.
+    """
+    live = {name: getattr(client, name, None) for name in (
+        "transport", "command", "args", "env", "cwd", "url", "headers",
+        "sandbox", "allowed_domains", "_http_session_id", "_protocol_version", "tools")}
+    encoded = json.dumps([config.to_dict(), live], sort_keys=True,
+                         separators=(",", ":"), allow_nan=False).encode()
+    return hashlib.sha256(encoded).hexdigest()
+
+
 # --------------------------------------------------------------------------
 @dataclass
 class MCPServerConfig:
@@ -55,6 +70,8 @@ class MCPServerConfig:
     command: str = ""
     args: List[str] = field(default_factory=list)
     env: Dict[str, str] = field(default_factory=dict)
+    cwd: str = ""
+    bundle_sha256: str = ""
     url: str = ""
     headers: Dict[str, str] = field(default_factory=dict)
     enabled: bool = True
@@ -80,12 +97,19 @@ class MCPServerConfig:
         name = str(raw["name"])
         if not _SAFE_NAME.match(name):
             raise ValueError(f"invalid mcp server name '{name}'")
+        cwd = raw.get('cwd', '')
+        if not isinstance(cwd, str) or cwd and (not Path(cwd).is_absolute() or not Path(cwd).is_dir()):
+            raise ValueError('MCP working directory must be an existing absolute directory')
+        bundle = raw.get('bundle_sha256','')
+        if not isinstance(bundle,str) or bundle and not re.fullmatch(r'[a-f0-9]{64}',bundle): raise ValueError('Invalid MCP bundle identity')
         return cls(
             name=name,
             transport=str(raw.get("transport", "stdio")),
             command=str(raw.get("command", "")),
             args=[str(a) for a in (raw.get("args") or [])],
             env=dict(raw.get("env") or {}),
+            cwd=cwd,
+            bundle_sha256=bundle,
             url=str(raw.get("url", "")),
             headers=dict(raw.get("headers") or {}),
             enabled=bool(raw.get("enabled", True)),
@@ -108,6 +132,8 @@ class MCPServerConfig:
             "name": self.name, "transport": self.transport,
             "command": self.command, "args": self.args,
             "env": self.env, "url": self.url, "headers": self.headers,
+            "cwd": self.cwd,
+            "bundle_sha256":self.bundle_sha256,
             "enabled": self.enabled,
             "init_timeout": self.init_timeout,
             "call_timeout": self.call_timeout,
@@ -194,13 +220,17 @@ class MCPRegistry:
         return "/tests/_fake_mcp_server.py" in normalized
 
     def _save(self) -> None:
+        # The owned runtime directory may have been removed by recovery or a
+        # test reset while the canonical registry instance remains alive.
+        self.path.parent.mkdir(parents=True,exist_ok=True)
         tmp = self.path.with_suffix(".json.tmp")
         tmp.write_text(
             json.dumps([c.to_dict() for c in self._configs],
                        ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
-        os.replace(tmp, self.path)
+        from core.atomic_io import replace_file
+        replace_file(tmp,self.path)
 
     # ------------------------------------------------------------------
     # Server lifecycle
@@ -232,7 +262,7 @@ class MCPRegistry:
                     "set sandbox=false only for a trusted server."
                 )
             if cfg.transport == "stdio" and cfg.command:
-                bin_name = cfg.command[0] if isinstance(cfg.command, list) else cfg.command.split()[0]
+                bin_name = cfg.command
                 if bin_name in ("python", "python3"):
                     # Check python module if -m is passed
                     if "-m" in cfg.args:
@@ -371,7 +401,9 @@ class MCPRegistry:
         import shutil
         import importlib.util
         if cfg.transport == "stdio" and cfg.command:
-            bin_name = cfg.command[0] if isinstance(cfg.command, list) else cfg.command.split()[0]
+            # command is one executable, args is a separate array. Splitting
+            # here breaks every Windows interpreter under "Program Files".
+            bin_name = cfg.command
             if bin_name in ("python", "python3"):
                 if "-m" in cfg.args:
                     m_idx = cfg.args.index("-m")
@@ -392,6 +424,12 @@ class MCPRegistry:
                 return {"alive": False, "error": self._errors[name], "status": "UNAVAILABLE"}
 
         try:
+            if cfg.bundle_sha256:
+                from core.plugins.bundles import verify_installed
+                expected=self.root/'mcp-bundles'/cfg.bundle_sha256
+                if Path(cfg.cwd).resolve()!=expected.resolve() or not expected.resolve().is_relative_to(self.root.resolve()):
+                    raise ValueError('MCP bundle directory does not match its registered identity')
+                verify_installed(expected,cfg.bundle_sha256)
             from .oauth import refresh_if_needed
             refresh_if_needed(name, self)
             from .config_import import resolve_values
@@ -403,6 +441,7 @@ class MCPRegistry:
                 call_timeout=cfg.call_timeout,
                 sandbox=cfg.sandbox,
                 allowed_domains=cfg.allowed_domains,
+                cwd=cfg.cwd,
             )
             cli.open()
             self._clients[name] = cli
@@ -419,7 +458,7 @@ class MCPRegistry:
             }
             return {"alive": True, "tools": len(cli.tools), "status": "CONNECTED",
                     "kinds": self._kinds_summary(name)}
-        except (MCPError, ValueError) as exc:
+        except (MCPError, ValueError, OSError) as exc:
             self._errors[name] = str(exc)[:300]
             return {"alive": False, "error": str(exc)[:300], "status": "ERROR"}
 
@@ -478,9 +517,11 @@ def build_mcp_tools(registry: Optional[MCPRegistry] = None,
     - ``write``          : require ``confirm=True`` kwarg, or be in the
       server's ``auto_approve`` list, or be approved out-of-band via the
       :class:`ConfirmationGate` REST surface.
-    - ``dangerous``      : same rules as write but never auto-approved
-      and never short-circuited by ``confirm=True`` alone — it must
-      additionally pass the server's ``classifications`` override.
+    - ``dangerous``      : requires owner approval, never auto-approved.
+
+    Model executors reject ``confirm``/``_wait``; direct trusted Python callers
+    retain their documented programmatic channel. Ordinary agent retries use
+    single-use receipts bound to runtime session and current client/config.
     """
     reg = registry or MCPRegistry()
     if auto_start:
@@ -506,46 +547,6 @@ def build_mcp_tools(registry: Optional[MCPRegistry] = None,
                       require_confirm: bool, desc: str) -> Callable[..., Any]:
                 def _runner(*, confirm: bool = False, _wait: float = 0.0,
                             **kwargs: Any) -> Any:
-                    # Enforce the gate for write / dangerous calls.
-                    if require_confirm and kind != "read" and not auto_ok:
-                        if kind == "dangerous" and not confirm:
-                            # Dangerous always blocks unless explicitly
-                            # confirmed (UI / REST flow).
-                            if _wait > 0:
-                                approved = get_gate().request_and_wait(
-                                    server=srv, tool=tl, arguments=kwargs,
-                                    kind=kind, wait_seconds=_wait,
-                                )
-                                if not approved:
-                                    return {"ok": False,
-                                            "error": "dangerous call denied or timed out",
-                                            "kind": kind, "server": srv,
-                                            "tool": tl}
-                            else:
-                                get_gate().request(
-                                    server=srv, tool=tl, arguments=kwargs,
-                                    kind=kind,
-                                )
-                                # request() always raises
-                                # ConfirmationRequired before reaching here.
-                                return {"ok": False, "error": "unreachable"}
-                        if kind == "write" and not confirm:
-                            if _wait > 0:
-                                approved = get_gate().request_and_wait(
-                                    server=srv, tool=tl, arguments=kwargs,
-                                    kind=kind, wait_seconds=_wait,
-                                )
-                                if not approved:
-                                    return {"ok": False,
-                                            "error": "write call denied or timed out",
-                                            "kind": kind, "server": srv,
-                                            "tool": tl}
-                            else:
-                                get_gate().request(
-                                    server=srv, tool=tl, arguments=kwargs,
-                                    kind=kind,
-                                )
-                                return {"ok": False, "error": "unreachable"}
                     try:
                         from .oauth import refresh_if_needed
                         active = reg.alive_clients().get(srv)
@@ -556,8 +557,40 @@ def build_mcp_tools(registry: Optional[MCPRegistry] = None,
                                 raise ValueError("MCP reconnect after refresh failed; authorize again")
                             active = reg.alive_clients()[srv]
                         current = reg.classification_of(srv,tl)
-                        if current and current.kind != kind:
+                        if current is None or current.kind != kind:
                             raise ValueError("MCP tool classification changed; rediscover tools before execution")
+                        active_cfg = reg._find(srv)
+                        if active_cfg is None or not any(t.get("name") == tl for t in active.tools or []):
+                            raise ValueError("MCP tool or server configuration no longer exists")
+                        # Recipient/auth/config changes invalidate outstanding
+                        # receipts, including OAuth reconnects. Hash only; no
+                        # credential values are exposed in pending/UI metadata.
+                        identity = _recipient_identity(active_cfg, active)
+                        policy_state = (current.kind, current.auto_approved)
+                        from core.tools_bridge import bound_security_context
+                        context = bound_security_context(tl, kwargs)
+                        session = context.session_id if context is not None else None
+                        if session == "default":
+                            session = None  # No conversation identity was supplied.
+                        scope = (reg, active, getattr(active, "_proc", None), identity, session) if isinstance(session, str) and session else None
+                        auto_allowed = current.auto_approved and kind != "dangerous"
+                        if active_cfg.require_confirmation and kind != "read" and not auto_allowed and not confirm:
+                            if _wait > 0:
+                                approved = get_gate().request_and_wait(server=srv, tool=tl,
+                                    arguments=kwargs, kind=kind, wait_seconds=_wait)
+                                if not approved:
+                                    return {"ok": False, "error": "MCP call denied or timed out",
+                                            "kind": kind, "server": srv, "tool": tl}
+                            else:
+                                kwargs = get_gate().request_or_consume(server=srv, tool=tl,
+                                    arguments=kwargs, kind=kind, retry_scope=scope, session_id=session)
+                        # Do not send a receipt-approved call to a replacement
+                        # client/config that appeared while consent was checked.
+                        if (reg.alive_clients().get(srv) is not active or reg._find(srv) is not active_cfg
+                                or _recipient_identity(active_cfg, active) != identity
+                                or reg.classification_of(srv, tl) is not current
+                                or (current.kind, current.auto_approved) != policy_state):
+                            raise ValueError("MCP recipient or policy changed before execution; retry for fresh approval")
                         return active.call_tool(tl, kwargs, kind=kind)
                     except (MCPError, ValueError) as exc:
                         return {"ok": False, "error": str(exc)[:300],

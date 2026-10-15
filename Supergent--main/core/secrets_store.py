@@ -16,12 +16,15 @@ from __future__ import annotations
 import base64
 import json
 import os
-import secrets
 import threading
 from pathlib import Path
 from typing import Dict, Optional
 
 from .paths import MEMORY_DIR
+from .llm.keystore import (
+    SecretStorageError, _atomic_write, _decode_legacy, _load_legacy_secret,
+    _protect_windows, _read_json,
+)
 
 _LOCK = threading.RLock()
 
@@ -48,8 +51,9 @@ class SecretStore:
     def __new__(cls) -> "SecretStore":
         with _LOCK:
             if cls._instance is None:
-                cls._instance = super().__new__(cls)
-                cls._instance._init()  # type: ignore[attr-defined]
+                instance = super().__new__(cls)
+                instance._init()
+                cls._instance = instance
             return cls._instance
 
     def _init(self) -> None:
@@ -59,31 +63,22 @@ class SecretStore:
         self._secret = self._load_secret()
 
     # ------------------------------------------------------------------
-    def _load_secret(self) -> bytes:
-        if self.secret_path.exists():
-            return self.secret_path.read_bytes()
-        material = secrets.token_bytes(32)
-        self.secret_path.write_bytes(material)
-        try:
-            os.chmod(self.secret_path, 0o600)
-        except Exception:
-            pass
-        return material
+    def _load_secret(self) -> bytes | None:
+        return _load_legacy_secret(self.secret_path, self.path)
 
     def _enc(self, value: str) -> str:
         if not value:
             return ""
         if os.name == "nt":
-            from core.llm.keystore import win32crypt
-            if win32crypt is not None:
-                protected = win32crypt.CryptProtectData(value.encode("utf-8"), "WISE connection secret", None, None, None, 0)
-                return "dpapi:" + base64.urlsafe_b64encode(protected).decode("ascii")
+            return _protect_windows(value, "WISE connection secret")
+        if self._secret is None:
+            raise SecretStorageError("Legacy secret material is unavailable; refusing to save a secret")
         return base64.urlsafe_b64encode(
             _xor(value.encode("utf-8"), self._secret)).decode("ascii")
 
     def _dec(self, value: str) -> str:
         if value.startswith("dpapi:"):
-            from core.llm.keystore import win32crypt
+            from .llm.keystore import win32crypt
             if os.name != "nt" or win32crypt is None:
                 return ""
             try:
@@ -92,32 +87,15 @@ class SecretStore:
                 return ""
         if not value:
             return ""
-        try:
-            raw = base64.urlsafe_b64decode(value.encode("ascii"))
-        except Exception:
-            return value
-        return _xor(raw, self._secret).decode("utf-8", errors="replace")
+        return _decode_legacy(value, self._secret)
 
     # ------------------------------------------------------------------ IO
     def _read(self) -> Dict[str, str]:
-        if not self.path.exists():
-            return {}
-        try:
-            data = json.loads(self.path.read_text(encoding="utf-8"))
-            return data.get("items") or {}
-        except Exception:
-            return {}
+        return _read_json(self.path, "items")["items"]
 
     def _write(self, items: Dict[str, str]) -> None:
-        tmp = self.path.with_suffix(".json.tmp")
-        tmp.write_text(json.dumps({"version": 1, "items": items},
-                                  indent=2, ensure_ascii=False),
-                       encoding="utf-8")
-        try:
-            os.chmod(tmp, 0o600)
-        except Exception:
-            pass
-        os.replace(tmp, self.path)
+        _atomic_write(self.path, json.dumps({"version": 1, "items": items},
+                      indent=2, ensure_ascii=False).encode("utf-8"))
 
     # ------------------------------------------------------------------ API
     def get(self, name: str) -> Optional[str]:

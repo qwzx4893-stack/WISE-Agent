@@ -60,6 +60,7 @@ def test_server_denylist_hides_execute_command():
 
 def test_server_write_requires_confirm():
     from core.mcp.server import MCPServer
+    from core.mcp.policy import get_gate
     srv = MCPServer(tool_registry=_FakeRegistry({
         "create_note": lambda title, body: f"created {title}",
     }))
@@ -69,11 +70,20 @@ def test_server_write_requires_confirm():
                                      "arguments": {"title": "t", "body": "b"}}})
     assert out["error"]["code"] == -32002
     assert "call_id" in out["error"]["data"]
-    # With confirm: passes.
+    call_id = out["error"]["data"]["call_id"]
+    # Model argument flags cannot approve the pending request.
     out = srv.dispatch({"jsonrpc": "2.0", "id": 2, "method": "tools/call",
                          "params": {"name": "create_note",
                                      "arguments": {"title": "t", "body": "b",
                                                     "confirm": True}}})
+    assert out["error"]["code"] == -32002
+    # The owner resolves the original call, then the client explicitly
+    # retries identical business arguments with transport metadata.
+    assert get_gate().resolve(call_id, approved=True)
+    out = srv.dispatch({"jsonrpc": "2.0", "id": 3, "method": "tools/call",
+                        "params": {"name": "create_note",
+                                   "arguments": {"title": "t", "body": "b"},
+                                   "_meta": {"agent-os/confirmation_call_id": call_id}}})
     assert "result" in out
 
 

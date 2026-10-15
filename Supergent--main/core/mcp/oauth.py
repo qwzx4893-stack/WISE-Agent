@@ -9,6 +9,7 @@ import base64
 import hashlib
 import ipaddress
 import json
+import os
 import secrets
 import socket
 import urllib.request
@@ -24,12 +25,13 @@ _LOCK = threading.RLock()
 _REFRESH_LOCK = threading.RLock()
 
 
-def _save_tokens(name, tokens, *, client_id, token_endpoint, resource, previous=None):
+def _save_tokens(name, tokens, *, client_id, token_endpoint, resource, previous=None, issuer=""):
     if tokens.get("token_type", "").lower() != "bearer" or not isinstance(tokens.get("access_token"), str) or not tokens["access_token"]:
         raise ValueError("Invalid OAuth token response")
     from core.secrets_store import SecretStore
     store = SecretStore()
     session = {"client_id":client_id, "token_endpoint":token_endpoint, "resource":resource,
+        "issuer":issuer or (previous or {}).get('issuer',''),
         "refresh_token":tokens.get("refresh_token") or (previous or {}).get("refresh_token", "")}
     if tokens.get("expires_in") is not None:
         lifetime = float(tokens["expires_in"])
@@ -109,11 +111,23 @@ def _json(url, *, data=None, headers=None, form=None):
     return result
 
 
-def start(name, registry, *, client_id=""):
+def start(name, registry, *, client_id="", client_metadata_url=""):
     cfg = registry._find(name)
     if not cfg or cfg.transport != "http":
         raise ValueError("OAuth requires a registered remote MCP server")
     original_url = cfg.url
+    # Optional published, WISE-owned metadata. Never borrow another app's ID
+    # or invent a hosted document. Missing deployment falls back to DCR.
+    metadata_client = client_metadata_url or os.environ.get('WISE_MCP_CLIENT_METADATA_URL','')
+    client_document = None
+    if metadata_client and not client_id:
+        document_url=urlsplit(public_url(metadata_client))
+        if document_url.path in {'','/'} or document_url.query:
+            raise ValueError('OAuth client metadata needs a public HTTPS document URL with a non-root path')
+        client_document=_json(metadata_client)
+        if (client_document.get('client_id')!=metadata_client or client_document.get('token_endpoint_auth_method')!='none'
+                or client_document.get('application_type','native')!='native'):
+            raise ValueError('Published OAuth client metadata must describe a public native WISE client')
     discovery_url = cfg.url
     # Context7 documents a distinct OAuth endpoint. The anonymous /mcp
     # endpoint publishes origin-wide metadata but is not the login transport.
@@ -172,7 +186,7 @@ def start(name, registry, *, client_id=""):
                 public_url(candidate.get(key, ""))
             if "S256" not in candidate.get("code_challenge_methods_supported", []):
                 continue
-            if not client_id and not candidate.get("registration_endpoint"):
+            if not client_id and not (metadata_client and candidate.get('client_id_metadata_document_supported') is True) and not candidate.get("registration_endpoint"):
                 continue
             auth = candidate
             break
@@ -180,6 +194,8 @@ def start(name, registry, *, client_id=""):
             continue
     if auth is None:
         raise ValueError("No compatible PKCE authorization server; enter a registered public OAuth client ID if required")
+    # Pin to the selected issuer, not a loop variable left by discovery.
+    issuer=auth['issuer']
     state = secrets.token_urlsafe(32)
     verifier = secrets.token_urlsafe(48)
     challenge = base64.urlsafe_b64encode(hashlib.sha256(verifier.encode()).digest()).decode().rstrip("=")
@@ -196,8 +212,10 @@ def start(name, registry, *, client_id=""):
             if urlsplit(self.path).path != "/oauth/callback" or not secrets.compare_digest(received, state):
                 self.send_response(400); self.end_headers(); self.wfile.write(b"Invalid OAuth callback")
                 return
-            if flow["status"] != "pending" or time.time() - flow["started"] > 600:
-                self.send_response(410); self.end_headers(); return
+            with _LOCK:
+                if flow["status"] != "pending" or time.time() - flow["started"] > 600:
+                    self.send_response(410); self.end_headers(); return
+                flow["status"] = "exchanging"
             try:
                 response_issuer = values.get("iss", [""])[0]
                 if (auth.get("authorization_response_iss_parameter_supported") and not response_issuer
@@ -210,7 +228,6 @@ def start(name, registry, *, client_id=""):
                     raise ValueError("Missing authorization code")
                 if registry._find(name) is not cfg or cfg.url != original_url:
                     raise ValueError("MCP configuration changed during authorization; start again")
-                flow["status"] = "exchanging"
                 tokens = _json(flow["token_endpoint"], form={
                     "grant_type": "authorization_code", "code": code,
                     "client_id": flow["client_id"], "redirect_uri": flow["redirect_uri"],
@@ -218,7 +235,7 @@ def start(name, registry, *, client_id=""):
                 if registry._find(name) is not cfg or cfg.url != original_url:
                     raise ValueError("MCP configuration changed during authorization; start again")
                 cfg.headers["Authorization"] = _save_tokens(name, tokens, client_id=flow["client_id"],
-                    token_endpoint=flow["token_endpoint"], resource=resource)
+                    token_endpoint=flow["token_endpoint"], resource=resource, issuer=issuer)
                 cfg.url = discovery_url
                 registry._save()
                 connected = registry.start(name)
@@ -236,18 +253,29 @@ def start(name, registry, *, client_id=""):
     server = HTTPServer(("127.0.0.1", 0), Callback)
     redirect_uri = f"http://127.0.0.1:{server.server_port}/oauth/callback"
     try:
+        registration_mode='registered-client' if client_id else 'dynamic-registration'
+        if not client_id and metadata_client and auth.get('client_id_metadata_document_supported') is True:
+            # The server must be able to fetch this document and validate its
+            # redirect URI. Do not silently override the document's policy.
+            redirects=client_document.get('redirect_uris',[])
+            actual=urlsplit(redirect_uri)
+            if not isinstance(redirects,list) or not any(
+                isinstance(uri,str) and (lambda p:p.scheme=='http' and p.hostname=='127.0.0.1' and p.path==actual.path
+                    and not p.query and not p.fragment)(urlsplit(uri)) for uri in redirects):
+                raise ValueError('Published OAuth metadata must allow the native 127.0.0.1 callback')
+            client_id=metadata_client;registration_mode='client-metadata'
         if not client_id:
             registration = auth.get("registration_endpoint")
             if not registration:
                 raise ValueError("This service requires your registered OAuth client ID; enter it in Settings")
             registered = _json(registration, data={"client_name": "WISE", "redirect_uris": [redirect_uri],
-                "grant_types": ["authorization_code"], "response_types": ["code"], "token_endpoint_auth_method": "none"})
+                "application_type":"native", "grant_types": ["authorization_code"], "response_types": ["code"], "token_endpoint_auth_method": "none"})
             client_id = registered.get("client_id", "")
             if registered.get("token_endpoint_auth_method", "none") != "none":
                 raise ValueError("This service requires a confidential OAuth application; public desktop flow unsupported")
         if not client_id:
             raise ValueError("OAuth registration returned no client ID")
-        flow.update(client_id=client_id, redirect_uri=redirect_uri)
+        flow.update(client_id=client_id, redirect_uri=redirect_uri, server=server)
         scope = challenge_params.get("scope", "")
         query = {"response_type": "code", "client_id": client_id, "redirect_uri": redirect_uri,
                  "state": state, "code_challenge": challenge, "code_challenge_method": "S256", "resource": resource}
@@ -269,7 +297,7 @@ def start(name, registry, *, client_id=""):
             with _LOCK:
                 _FLOWS.pop(state, None)
         timer = threading.Timer(600, expire); timer.daemon = True; timer.start()
-        return {"ok": True, "auth_url": auth_url, "state": state}
+        return {"ok": True, "auth_url": auth_url, "state": state, "registration_mode":registration_mode}
     except Exception:
         server.server_close()
         raise
@@ -281,3 +309,15 @@ def status(state):
         if not flow:
             return {"status": "expired", "error": "Authorization session expired"}
         return {"name": flow["name"], "status": flow["status"], "error": flow.get("error", "")}
+
+
+def cancel(state):
+    """Invalidates the callback before closing its listener; no late re-enable."""
+    with _LOCK:
+        flow = _FLOWS.get(state)
+        if not flow or flow["status"] not in {"pending", "exchanging"}: return
+        if flow["status"] == "exchanging":
+            raise ValueError("Authorization is finishing; wait before disabling this extension")
+        flow["status"] = "cancelled"
+        server = flow.get("server")
+    if server: threading.Thread(target=server.shutdown, daemon=True).start()

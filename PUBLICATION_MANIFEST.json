@@ -1,7 +1,7 @@
 {
   "schema": "wise.public-workspace.v1",
   "repository": "qwzx4893-stack/WISE-Agent",
-  "source_stamp": "ea8c46b40d52d4c8041f309a1b0259162c70e88123c6f050aa1a62baada17d28",
+  "source_stamp": "128066b9ee85c136d53de35668f64c2ae88cea17b63d28e140f4c599f04ad88a",
   "scope": "CURRENT_WORKSPACE_SOURCE_NOT_STANDALONE_INSTALLER",
   "files": [
     {
@@ -20,14 +20,19 @@
       "sha256": "f0d4c47c90ed744c67f2f967e1b8de02e743d4c234fbbd7decf085a56a9eb5c5"
     },
     {
+      "path": ".github/workflows/security-regressions.yml",
+      "bytes": 2690,
+      "sha256": "180997bd8fc9ee183d192952e99b212a03ebd40d842f24c2276fc78d8a556d42"
+    },
+    {
       "path": ".github/workflows/validate.yml",
       "bytes": 1328,
       "sha256": "f45ce64c7c15e2159b618be8868d8fbf0b4aa60194ae3ca8c412869a47aa663c"
     },
     {
       "path": ".gitignore",
-      "bytes": 688,
-      "sha256": "7f2867fb20c3037bde4fedb42d9e1fecfb9e33d9939224ea2f4d2f128067e864"
+      "bytes": 703,
+      "sha256": "dbeaf2fd0ea1df8408ab863842ecaa1262183642e1f1a752da3e7a448ff3fa71"
     },
     {
       "path": "config/wise_config.py",
@@ -46,18 +51,18 @@
     },
     {
       "path": "docs/DISTRIBUTION.md",
-      "bytes": 1453,
-      "sha256": "ac4a34a6ad13188c38d00f7d003fc154fe08aa74121debe6e024ff9a18dc0e3f"
+      "bytes": 1894,
+      "sha256": "facba576900478cf48ae9134826130738f32b8d6fb91fc7e967f420543956a77"
     },
     {
       "path": "docs/INSTALLATION.md",
-      "bytes": 4503,
-      "sha256": "63f1ce625e2341e384dd5c9716434c5b90ddd718bcfe39e88ecfa8e7f4bc9ed0"
+      "bytes": 4661,
+      "sha256": "f0d0da9b96abd248662735d8dee44df4ceb91d70cd871e52bf7b77e81ffb9df8"
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 2235,
-      "sha256": "ef9386f5bf3bbcec1ba4de3185b2981cfa24258e51be7ad84283713e5e6dd5ad"
+      "bytes": 3925,
+      "sha256": "8fc6e89ac84a25df301ede767112fbc10c4afb87735f05317198c2a079b0e7e6"
     },
     {
       "path": "leon-develop/.editorconfig",
@@ -480,16 +485,6 @@
       "sha256": "145894eb7de88eb845107f34abf2ae25d3e53fe74236fc14ab73cc0c49a3f3a2"
     },
     {
-      "path": "leon-develop/aurora/src/components/icon-button/icon-button.tsx",
-      "bytes": 2505,
-      "sha256": "c1aa46dc7644d6727faffbff717e157b720f3904939c045b03271e21d1269a18"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/icon-button/index.ts",
-      "bytes": 30,
-      "sha256": "c10466a488a89cc959c43ba030c76db210c21cb5e5cc1964033270e1d3da8f5e"
-    },
-    {
       "path": "leon-develop/aurora/src/components/icon/icon.tsx",
       "bytes": 1588,
       "sha256": "2498d2b89fe10273e120a4da7dec4d9ccd8acd00ba8cf51e4b387cb3123cf42d"
@@ -498,6 +493,16 @@
       "path": "leon-develop/aurora/src/components/icon/index.ts",
       "bytes": 23,
       "sha256": "49fb4bf05f58e949451ceb9b87171ad484c033ebbdb211fe699d9562ba395c77"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/icon-button/icon-button.tsx",
+      "bytes": 2505,
+      "sha256": "c1aa46dc7644d6727faffbff717e157b720f3904939c045b03271e21d1269a18"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/icon-button/index.ts",
+      "bytes": 30,
+      "sha256": "c10466a488a89cc959c43ba030c76db210c21cb5e5cc1964033270e1d3da8f5e"
     },
     {
       "path": "leon-develop/aurora/src/components/image/image.tsx",
@@ -535,6 +540,16 @@
       "sha256": "b1de1a97484cbc16d957e05e3ce48c7274d3c5cebf43048e2374a2c3eef026c4"
     },
     {
+      "path": "leon-develop/aurora/src/components/lists/list/index.ts",
+      "bytes": 23,
+      "sha256": "f010e044d9f16ece56afec307e808c9b9a4d3f3f8ee1994096f0c2bb6b470136"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/lists/list/list.tsx",
+      "bytes": 385,
+      "sha256": "63be9b26c8a91dc588120b6afa87c27fa5fe1fa933370a1aecd9fc481ea66ae5"
+    },
+    {
       "path": "leon-develop/aurora/src/components/lists/list-header/index.ts",
       "bytes": 30,
       "sha256": "73bdd0522fd8e0b59c2e671ea43ff7d47f4c1e046ef63382b4ee9a1a61e31c70"
@@ -553,16 +568,6 @@
       "path": "leon-develop/aurora/src/components/lists/list-item/list-item.tsx",
       "bytes": 1523,
       "sha256": "140ab389780ddc8309343ae6f11e75350fa2eb39a7c92bd760d8082013d3c024"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/lists/list/index.ts",
-      "bytes": 23,
-      "sha256": "f010e044d9f16ece56afec307e808c9b9a4d3f3f8ee1994096f0c2bb6b470136"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/lists/list/list.tsx",
-      "bytes": 385,
-      "sha256": "63be9b26c8a91dc588120b6afa87c27fa5fe1fa933370a1aecd9fc481ea66ae5"
     },
     {
       "path": "leon-develop/aurora/src/components/loader/index.ts",
@@ -590,16 +595,6 @@
       "sha256": "5ec54e9bf0752ce769b4585aa6de1574fdccd3ca8199d0db2408ca5e1967cf6a"
     },
     {
-      "path": "leon-develop/aurora/src/components/radios/radio-group/index.ts",
-      "bytes": 30,
-      "sha256": "d2ed1173da6d4f548fdd93e683b0ee5b9d440ee87046bdf89d0d2cb2605edae1"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/radios/radio-group/radio-group.tsx",
-      "bytes": 1071,
-      "sha256": "1e152506d51e6000270020d5d0d213a86188cba8e3a3df213584fcdcc70c325d"
-    },
-    {
       "path": "leon-develop/aurora/src/components/radios/radio/index.ts",
       "bytes": 24,
       "sha256": "0e7e1a4987b1e976124bbfb65efa25fdb8a188e7ee70e64757084b80263a9de8"
@@ -608,6 +603,16 @@
       "path": "leon-develop/aurora/src/components/radios/radio/radio.tsx",
       "bytes": 617,
       "sha256": "0155ce86fe18f18aaeb8761f61e9d66ead1a09a9b8a127af4356a03387fddf1c"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/radios/radio-group/index.ts",
+      "bytes": 30,
+      "sha256": "d2ed1173da6d4f548fdd93e683b0ee5b9d440ee87046bdf89d0d2cb2605edae1"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/radios/radio-group/radio-group.tsx",
+      "bytes": 1071,
+      "sha256": "1e152506d51e6000270020d5d0d213a86188cba8e3a3df213584fcdcc70c325d"
     },
     {
       "path": "leon-develop/aurora/src/components/range-slider/index.ts",
@@ -635,16 +640,6 @@
       "sha256": "d455bfa11c80284bf8c99c915cd563b580ddf6225041d237fe84945e6bb08a4e"
     },
     {
-      "path": "leon-develop/aurora/src/components/selects/select-option/index.ts",
-      "bytes": 32,
-      "sha256": "ac58d80b155f8b5a56f8f8dc1f2d4221a272d7b0a42ff0c02b20a23b6e033791"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/selects/select-option/select-option.tsx",
-      "bytes": 476,
-      "sha256": "b63491e08f9a676afa4e1ac478c1b6881daa43cf86203e5264d7c718bffcc894"
-    },
-    {
       "path": "leon-develop/aurora/src/components/selects/select/index.ts",
       "bytes": 25,
       "sha256": "6b2fbc06e564524e62b299c4d529db733e963e4639cd7792290aa15deb0e6c7f"
@@ -653,6 +648,16 @@
       "path": "leon-develop/aurora/src/components/selects/select/select.tsx",
       "bytes": 3063,
       "sha256": "7c506754d8dd142e60b364b67b7089c18ba87ffe97365ce145ddaf2124580198"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/selects/select-option/index.ts",
+      "bytes": 32,
+      "sha256": "ac58d80b155f8b5a56f8f8dc1f2d4221a272d7b0a42ff0c02b20a23b6e033791"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/selects/select-option/select-option.tsx",
+      "bytes": 476,
+      "sha256": "b63491e08f9a676afa4e1ac478c1b6881daa43cf86203e5264d7c718bffcc894"
     },
     {
       "path": "leon-develop/aurora/src/components/status/index.ts",
@@ -678,6 +683,16 @@
       "path": "leon-develop/aurora/src/components/tabs/index.ts",
       "bytes": 107,
       "sha256": "ea5f60c483868430a00d7e17ffd251894172225213a46a97c9bfb3d2956f8767"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/tabs/tab/index.ts",
+      "bytes": 22,
+      "sha256": "1db033819520e8a8e419866fba2fdbbfdd6a27112d80ea0cf73e258636064d0b"
+    },
+    {
+      "path": "leon-develop/aurora/src/components/tabs/tab/tab.tsx",
+      "bytes": 518,
+      "sha256": "bcec6cf7ee6f7e26a406c8186004448c2e145a21c6c13d2987efd1ea0c4d6587"
     },
     {
       "path": "leon-develop/aurora/src/components/tabs/tab-content/index.ts",
@@ -708,16 +723,6 @@
       "path": "leon-develop/aurora/src/components/tabs/tab-list/tab-list.tsx",
       "bytes": 566,
       "sha256": "c33c4769db44ffe890af4441461b2e690cbf9c9717fd8260faa9009117bd473a"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/tabs/tab/index.ts",
-      "bytes": 22,
-      "sha256": "1db033819520e8a8e419866fba2fdbbfdd6a27112d80ea0cf73e258636064d0b"
-    },
-    {
-      "path": "leon-develop/aurora/src/components/tabs/tab/tab.tsx",
-      "bytes": 518,
-      "sha256": "bcec6cf7ee6f7e26a406c8186004448c2e145a21c6c13d2987efd1ea0c4d6587"
     },
     {
       "path": "leon-develop/aurora/src/components/text/index.ts",
@@ -1080,14 +1085,14 @@
       "sha256": "df1a44512fa138e3bf319cff991d2ccbceef5fe9af62782d8805f8cf0fef1667"
     },
     {
-      "path": "leon-develop/bridges/python/src/sdk/aurora/icon_button.py",
-      "bytes": 159,
-      "sha256": "c5466e05237d8935b980f9f9f152afd801a99e65828c345ca5de61d34c7f8b4d"
-    },
-    {
       "path": "leon-develop/bridges/python/src/sdk/aurora/icon.py",
       "bytes": 153,
       "sha256": "fecacae1c566879e108a5d5e31410828c61523fe1ecc61fd07a6e563cb3d67bf"
+    },
+    {
+      "path": "leon-develop/bridges/python/src/sdk/aurora/icon_button.py",
+      "bytes": 159,
+      "sha256": "c5466e05237d8935b980f9f9f152afd801a99e65828c345ca5de61d34c7f8b4d"
     },
     {
       "path": "leon-develop/bridges/python/src/sdk/aurora/image.py",
@@ -1105,6 +1110,11 @@
       "sha256": "63f2be38eb5d4a4282784bdd358677d4ae05eba573720f86d545b384fcbbe30f"
     },
     {
+      "path": "leon-develop/bridges/python/src/sdk/aurora/list.py",
+      "bytes": 153,
+      "sha256": "44843e2f1d88b95c34a86ecce76947cf568476746fbaf619931a64618d9780af"
+    },
+    {
       "path": "leon-develop/bridges/python/src/sdk/aurora/list_header.py",
       "bytes": 159,
       "sha256": "cb421baa02de5d9c3d364887b2aa0d3004b13ff820071215f7e8ae30bebcd70e"
@@ -1113,11 +1123,6 @@
       "path": "leon-develop/bridges/python/src/sdk/aurora/list_item.py",
       "bytes": 157,
       "sha256": "62f616735e79d27eb0c4d73beda75f831b776f0a97c40147bbc8f5a41894cde0"
-    },
-    {
-      "path": "leon-develop/bridges/python/src/sdk/aurora/list.py",
-      "bytes": 153,
-      "sha256": "44843e2f1d88b95c34a86ecce76947cf568476746fbaf619931a64618d9780af"
     },
     {
       "path": "leon-develop/bridges/python/src/sdk/aurora/loader.py",
@@ -1130,14 +1135,14 @@
       "sha256": "b47939e18730ef39e093c935137ac4647ebf69bd1e3c82da2e6081b3fc4ee247"
     },
     {
-      "path": "leon-develop/bridges/python/src/sdk/aurora/radio_group.py",
-      "bytes": 159,
-      "sha256": "26df0d2bd8cbec9c89cb76c91eb99e4bea930076a903c81d1b4960d835c76b64"
-    },
-    {
       "path": "leon-develop/bridges/python/src/sdk/aurora/radio.py",
       "bytes": 154,
       "sha256": "4b88a04aaba740126e71744d67d33b98ccd6a8d538c4aee993c81fecb4305ce2"
+    },
+    {
+      "path": "leon-develop/bridges/python/src/sdk/aurora/radio_group.py",
+      "bytes": 159,
+      "sha256": "26df0d2bd8cbec9c89cb76c91eb99e4bea930076a903c81d1b4960d835c76b64"
     },
     {
       "path": "leon-develop/bridges/python/src/sdk/aurora/range_slider.py",
@@ -1150,14 +1155,14 @@
       "sha256": "fa4dcc1eeed936bfa4d3dbf308001f448a63a1b6df887ae217a21875aa28a873"
     },
     {
-      "path": "leon-develop/bridges/python/src/sdk/aurora/select_option.py",
-      "bytes": 161,
-      "sha256": "b7ada7eb3b02362b6d525a5c5275d30097fd77760760b4accbaf9a52f69415c8"
-    },
-    {
       "path": "leon-develop/bridges/python/src/sdk/aurora/select.py",
       "bytes": 155,
       "sha256": "8aa8ec95fa4ba3c484d62b86c8a13ec7242de876ad035254d0d484770f7db58a"
+    },
+    {
+      "path": "leon-develop/bridges/python/src/sdk/aurora/select_option.py",
+      "bytes": 161,
+      "sha256": "b7ada7eb3b02362b6d525a5c5275d30097fd77760760b4accbaf9a52f69415c8"
     },
     {
       "path": "leon-develop/bridges/python/src/sdk/aurora/status.py",
@@ -1168,6 +1173,11 @@
       "path": "leon-develop/bridges/python/src/sdk/aurora/switch.py",
       "bytes": 155,
       "sha256": "c3fcf59667315cd3608a33083e9192d88597b282ffd6b1de254c1bbeff606759"
+    },
+    {
+      "path": "leon-develop/bridges/python/src/sdk/aurora/tab.py",
+      "bytes": 152,
+      "sha256": "cb0130b9083858ec24f5fef4bd5efa7358b040528281ee592cb38dfe8539f13d"
     },
     {
       "path": "leon-develop/bridges/python/src/sdk/aurora/tab_content.py",
@@ -1183,11 +1193,6 @@
       "path": "leon-develop/bridges/python/src/sdk/aurora/tab_list.py",
       "bytes": 156,
       "sha256": "7f001ed247cab4dfb9f7ef8eaa80f47855a382131ecfcffd8a23ee9e65eb1e4c"
-    },
-    {
-      "path": "leon-develop/bridges/python/src/sdk/aurora/tab.py",
-      "bytes": 152,
-      "sha256": "cb0130b9083858ec24f5fef4bd5efa7358b040528281ee592cb38dfe8539f13d"
     },
     {
       "path": "leon-develop/bridges/python/src/sdk/aurora/text.py",
@@ -1255,14 +1260,14 @@
       "sha256": "b7c394aa881f014d7382113352be3dbcb9fec25c43175fd9db79a9fd8baeb942"
     },
     {
-      "path": "leon-develop/bridges/python/src/sdk/widget_component.py",
-      "bytes": 2131,
-      "sha256": "1042b9d4de7fc99e1e38d07b6015bd068fa61247d5bd80306a27f62745311c7a"
-    },
-    {
       "path": "leon-develop/bridges/python/src/sdk/widget.py",
       "bytes": 3786,
       "sha256": "9e42f167a1d9270479453a409cade615d8d3394929266b163c7075e8e0cc78a8"
+    },
+    {
+      "path": "leon-develop/bridges/python/src/sdk/widget_component.py",
+      "bytes": 2131,
+      "sha256": "1042b9d4de7fc99e1e38d07b6015bd068fa61247d5bd80306a27f62745311c7a"
     },
     {
       "path": "leon-develop/bridges/python/src/version.py",
@@ -2300,11 +2305,6 @@
       "sha256": "0cce614bdc1a08838b0bc149ee8c9b12ddb773062464d8986bf007dd2054b96f"
     },
     {
-      "path": "leon-develop/server/src/core/http-server/http-plugins/leon-services.ts",
-      "bytes": 6132,
-      "sha256": "f260791970c495c25bf2d7d8f1aaa305602f9f029d13813276c29916d319ed9b"
-    },
-    {
       "path": "leon-develop/server/src/core/http-server/http-plugins/leon-services/agent-event-channel.ts",
       "bytes": 3735,
       "sha256": "405cbe085a8d7565428a634906cea28c838e00c6e8ae596c3bafe954206357d5"
@@ -2333,6 +2333,11 @@
       "path": "leon-develop/server/src/core/http-server/http-plugins/leon-services/normalizers.ts",
       "bytes": 5003,
       "sha256": "8a98aae1aeed7386ce872b998b3075ac487604732c54f56ccafc9f260c8a3866"
+    },
+    {
+      "path": "leon-develop/server/src/core/http-server/http-plugins/leon-services.ts",
+      "bytes": 6132,
+      "sha256": "f260791970c495c25bf2d7d8f1aaa305602f9f029d13813276c29916d319ed9b"
     },
     {
       "path": "leon-develop/server/src/core/http-server/http-plugins/loader.ts",
@@ -2393,11 +2398,6 @@
       "path": "leon-develop/server/src/core/llm-manager/llm-duties/paraphrase-llm-duty.ts",
       "bytes": 3806,
       "sha256": "d20ea7a5d53b3d9d894641f9d7c02be1214bc1e4b52c17747d48971e0ead959a"
-    },
-    {
-      "path": "leon-develop/server/src/core/llm-manager/llm-duties/react-llm-duty.ts",
-      "bytes": 52470,
-      "sha256": "227c41fae086bb34db087db8dfd67b6bfe33b8ba478f4648eea2e45a5c4a1714"
     },
     {
       "path": "leon-develop/server/src/core/llm-manager/llm-duties/react-llm-duty/agent-answer-stream.ts",
@@ -2488,6 +2488,11 @@
       "path": "leon-develop/server/src/core/llm-manager/llm-duties/react-llm-duty/utils.ts",
       "bytes": 8857,
       "sha256": "b90327f686146b1e9184cf5bd9ef800a246de3475b4d2b8fd02917e58d1e28c0"
+    },
+    {
+      "path": "leon-develop/server/src/core/llm-manager/llm-duties/react-llm-duty.ts",
+      "bytes": 52470,
+      "sha256": "227c41fae086bb34db087db8dfd67b6bfe33b8ba478f4648eea2e45a5c4a1714"
     },
     {
       "path": "leon-develop/server/src/core/llm-manager/llm-duties/skill-router-llm-duty.ts",
@@ -2635,11 +2640,6 @@
       "sha256": "70282c098bd1543ce5e867edd7b54d925bcfc14c601f5675d9897c20e638612a"
     },
     {
-      "path": "leon-develop/server/src/core/memory-manager/qmd-backend.ts",
-      "bytes": 22690,
-      "sha256": "84b9eb460405c03334bd16e0b0694f9a1a999db2b1b0a4c84c188fe461b0468c"
-    },
-    {
       "path": "leon-develop/server/src/core/memory-manager/qmd/qmd-embed-worker.js",
       "bytes": 2265,
       "sha256": "0b50aa344227cfef479c01192058be6917ac18329b1bfa1834e23537bee4567b"
@@ -2653,6 +2653,11 @@
       "path": "leon-develop/server/src/core/memory-manager/qmd/qmd-store.ts",
       "bytes": 15130,
       "sha256": "c85589e0f2ba5557a66a26a37c5b021acca17cc88ff86264755dd934a54aca43"
+    },
+    {
+      "path": "leon-develop/server/src/core/memory-manager/qmd-backend.ts",
+      "bytes": 22690,
+      "sha256": "84b9eb460405c03334bd16e0b0694f9a1a999db2b1b0a4c84c188fe461b0468c"
     },
     {
       "path": "leon-develop/server/src/core/memory-manager/sql/schema.sql",
@@ -3170,9 +3175,9 @@
       "sha256": "7cfc5b15f2fcd466dab1cb49f334911628f2c5ed9fb9326f0a3860ecccc6013c"
     },
     {
-      "path": "leon-develop/skills/native/date_time_skill/src/actions/current_date_time_with_time_zone.ts",
-      "bytes": 1267,
-      "sha256": "1ecd9f594e63045e3f25a42a2087ff11609343a507bb0e7e5c1f907ce7d6b8be"
+      "path": "leon-develop/skills/native/date_time_skill/src/actions/current_date.ts",
+      "bytes": 471,
+      "sha256": "eeb5c2a57c00adc03cb83ab00957b6adcf7b2d679a8c8fd3fee0d73c9a77d601"
     },
     {
       "path": "leon-develop/skills/native/date_time_skill/src/actions/current_date_time.ts",
@@ -3180,9 +3185,9 @@
       "sha256": "6c9c6fc1c5d93ddf8961d2df3f1a2e77750f3cf16b66433c166744debd067fe7"
     },
     {
-      "path": "leon-develop/skills/native/date_time_skill/src/actions/current_date.ts",
-      "bytes": 471,
-      "sha256": "eeb5c2a57c00adc03cb83ab00957b6adcf7b2d679a8c8fd3fee0d73c9a77d601"
+      "path": "leon-develop/skills/native/date_time_skill/src/actions/current_date_time_with_time_zone.ts",
+      "bytes": 1267,
+      "sha256": "1ecd9f594e63045e3f25a42a2087ff11609343a507bb0e7e5c1f907ce7d6b8be"
     },
     {
       "path": "leon-develop/skills/native/date_time_skill/src/actions/current_time.ts",
@@ -4210,14 +4215,19 @@
       "sha256": "cb2f845b9264bd1a93e55bd4d0d31798e4b7dc14ca9f602434b8db293fd68700"
     },
     {
+      "path": "leon-develop/tcp_server/src/lib/tts/text/cleaner.py",
+      "bytes": 1130,
+      "sha256": "bdeb4b9da821a0c62cffaf259bb2fed4a8031ff66b695fd56bb0b0025fdea5ca"
+    },
+    {
       "path": "leon-develop/tcp_server/src/lib/tts/text/cleaner_multiling.py",
       "bytes": 2639,
       "sha256": "a44be0634e915c716b8c067ceadceaff1a2531d2e6b5413ed0c80b58d5013afa"
     },
     {
-      "path": "leon-develop/tcp_server/src/lib/tts/text/cleaner.py",
-      "bytes": 1130,
-      "sha256": "bdeb4b9da821a0c62cffaf259bb2fed4a8031ff66b695fd56bb0b0025fdea5ca"
+      "path": "leon-develop/tcp_server/src/lib/tts/text/english.py",
+      "bytes": 6883,
+      "sha256": "c02ff14bcb39ccbef607bb6feb09a98caafe4b28808087d5c5de8b77157818d7"
     },
     {
       "path": "leon-develop/tcp_server/src/lib/tts/text/english_bert.py",
@@ -4243,11 +4253,6 @@
       "path": "leon-develop/tcp_server/src/lib/tts/text/english_utils/time_norm.py",
       "bytes": 1173,
       "sha256": "409ccb71664184aa4082c4bb6c226fdddd3e43e4e660ac4f7e8481a72955325e"
-    },
-    {
-      "path": "leon-develop/tcp_server/src/lib/tts/text/english.py",
-      "bytes": 6883,
-      "sha256": "c02ff14bcb39ccbef607bb6feb09a98caafe4b28808087d5c5de8b77157818d7"
     },
     {
       "path": "leon-develop/tcp_server/src/lib/tts/text/fr_phonemizer/__init__.py",
@@ -4305,14 +4310,14 @@
       "sha256": "c7f5c1057ed1e279055281e43ef861e5618cf1f5dd4a56b5c79dd3a59314625c"
     },
     {
-      "path": "leon-develop/tcp_server/src/lib/tts/text/french_bert.py",
-      "bytes": 1365,
-      "sha256": "4411dd41eb2338129c4e5271c9587daca3208adb402c13dd0341279ac323600b"
-    },
-    {
       "path": "leon-develop/tcp_server/src/lib/tts/text/french.py",
       "bytes": 2994,
       "sha256": "74fe270f20e7cba90e8fcdc87583122bec1c3f02e366974e8fb937212f4760c2"
+    },
+    {
+      "path": "leon-develop/tcp_server/src/lib/tts/text/french_bert.py",
+      "bytes": 1365,
+      "sha256": "4411dd41eb2338129c4e5271c9587daca3208adb402c13dd0341279ac323600b"
     },
     {
       "path": "leon-develop/tcp_server/src/lib/tts/text/opencpop-strict.txt",
@@ -4835,11 +4840,6 @@
       "sha256": "9ca6f3f311f96be6eb92a74bae725c0364d9ce3ad9cb63910d5874e375848f3b"
     },
     {
-      "path": "leon-develop/tools/computer_use/cua/src/nodejs/lib/cua-runtime.ts",
-      "bytes": 56780,
-      "sha256": "92e223f8b24671da0470f110f5fc5dfee11ce8c662fd255dfa7f4f8fd3789a02"
-    },
-    {
       "path": "leon-develop/tools/computer_use/cua/src/nodejs/lib/cua/cua-browser-authorization.ts",
       "bytes": 1640,
       "sha256": "5d3c8ad84699cc12e074ff4a9e4639affa9609594e1da4ddd165aea9f4edc105"
@@ -4858,6 +4858,11 @@
       "path": "leon-develop/tools/computer_use/cua/src/nodejs/lib/cua/cua-wayland-capture.ts",
       "bytes": 13761,
       "sha256": "3a84eafd837b8ddc82b8ff8309530cef79ceeb39cff88c027030e2853e6aeea1"
+    },
+    {
+      "path": "leon-develop/tools/computer_use/cua/src/nodejs/lib/cua-runtime.ts",
+      "bytes": 56780,
+      "sha256": "92e223f8b24671da0470f110f5fc5dfee11ce8c662fd255dfa7f4f8fd3789a02"
     },
     {
       "path": "leon-develop/tools/computer_use/cua/src/nodejs/lib/types.ts",
@@ -5245,14 +5250,14 @@
       "sha256": "45bea148b19c60968c7802432de5805d7f0acb0c8aea0b4b468fcc1ed54edb5a"
     },
     {
-      "path": "leon-develop/tools/music_audio/transcription_schema.py",
-      "bytes": 710,
-      "sha256": "a12780de1395c4658f77f7a6988f95d19f8cec549444941aac20969a41a2428e"
-    },
-    {
       "path": "leon-develop/tools/music_audio/transcription-schema.ts",
       "bytes": 647,
       "sha256": "a782932e7e6e8b0ce818638bb86064f67ac8cdc6e0fe3e41ad70cc78ff452675"
+    },
+    {
+      "path": "leon-develop/tools/music_audio/transcription_schema.py",
+      "bytes": 710,
+      "sha256": "a12780de1395c4658f77f7a6988f95d19f8cec549444941aac20969a41a2428e"
     },
     {
       "path": "leon-develop/tools/music_audio/ultimate_vocal_remover_onnx/__init__.py",
@@ -5960,16 +5965,6 @@
       "sha256": "b5fab8f3e49ca9ecbbe2719d9270ac49817e834c44cbd67639b9890298ba1c57"
     },
     {
-      "path": "leon-develop/web-app/src/components/task-list-item/index.ts",
-      "bytes": 33,
-      "sha256": "035ba9df3179ef88d2bcc774b1ff320048290e883f9e11a4238b959ac2d03c5c"
-    },
-    {
-      "path": "leon-develop/web-app/src/components/task-list-item/task-list-item.tsx",
-      "bytes": 2621,
-      "sha256": "bd43f78c47318113b2f9088c5a66defd2da0f53b6f6ceb107c8e0e3e0b757d0d"
-    },
-    {
       "path": "leon-develop/web-app/src/components/task-list/index.ts",
       "bytes": 28,
       "sha256": "839cc6bbfd88392bd291b963a22c87b235a7225af5df571c81e5a1c2094ab83d"
@@ -5978,6 +5973,16 @@
       "path": "leon-develop/web-app/src/components/task-list/task-list.tsx",
       "bytes": 411,
       "sha256": "dac7427c49ac411824dd2f3bfc6003031aaac7c5de3f5fe6d784b0811597f94e"
+    },
+    {
+      "path": "leon-develop/web-app/src/components/task-list-item/index.ts",
+      "bytes": 33,
+      "sha256": "035ba9df3179ef88d2bcc774b1ff320048290e883f9e11a4238b959ac2d03c5c"
+    },
+    {
+      "path": "leon-develop/web-app/src/components/task-list-item/task-list-item.tsx",
+      "bytes": 2621,
+      "sha256": "bd43f78c47318113b2f9088c5a66defd2da0f53b6f6ceb107c8e0e3e0b757d0d"
     },
     {
       "path": "leon-develop/web-app/src/components/thinking-message/index.ts",
@@ -6010,16 +6015,6 @@
       "sha256": "1c5108a683f9801da6de5663742cb08402ee180d88717c57477df2eef7e43a8a"
     },
     {
-      "path": "leon-develop/web-app/src/components/tool-call-list/index.ts",
-      "bytes": 49,
-      "sha256": "4e7ba0d75cb843a0dc47a5b92894a971037c8a24731fa2bf3241c461a1d7434a"
-    },
-    {
-      "path": "leon-develop/web-app/src/components/tool-call-list/tool-call-list.tsx",
-      "bytes": 545,
-      "sha256": "7cad1bbf7472210882bfe88258f70fd71834045c834fe8b9499e313bf0ff9183"
-    },
-    {
       "path": "leon-develop/web-app/src/components/tool-call/index.ts",
       "bytes": 28,
       "sha256": "53f64c9d083bc06bb486f5a58435721c52afa9836a5cb532cf6580c01407e7c9"
@@ -6028,6 +6023,16 @@
       "path": "leon-develop/web-app/src/components/tool-call/tool-call.tsx",
       "bytes": 2899,
       "sha256": "93891d3738dd574d383986923681add40d71ba6c927775ee7bacc69d4f724390"
+    },
+    {
+      "path": "leon-develop/web-app/src/components/tool-call-list/index.ts",
+      "bytes": 49,
+      "sha256": "4e7ba0d75cb843a0dc47a5b92894a971037c8a24731fa2bf3241c461a1d7434a"
+    },
+    {
+      "path": "leon-develop/web-app/src/components/tool-call-list/tool-call-list.tsx",
+      "bytes": 545,
+      "sha256": "7cad1bbf7472210882bfe88258f70fd71834045c834fe8b9499e313bf0ff9183"
     },
     {
       "path": "leon-develop/web-app/src/components/tooltip/index.ts",
@@ -6110,16 +6115,6 @@
       "sha256": "035bfa423266873b1b5689a8949554fb71a3c0b975a3b23d88878161034f36d3"
     },
     {
-      "path": "leon-develop/web-app/src/layout/sidebar/menu-item/index.ts",
-      "bytes": 28,
-      "sha256": "d883510bd82a51bc3ba6b50f00a56d67ac6129780fced2d7e498b513c16d345f"
-    },
-    {
-      "path": "leon-develop/web-app/src/layout/sidebar/menu-item/menu-item.tsx",
-      "bytes": 4285,
-      "sha256": "0175f1a62db14f5f74190833b2b8edd2ec1172f6d7233ca95508fc17b64568ef"
-    },
-    {
       "path": "leon-develop/web-app/src/layout/sidebar/menu/index.ts",
       "bytes": 23,
       "sha256": "e9855bd7c4159ad57f04340f4e7494c032453373c617bbe3756cbbb20bd69bf9"
@@ -6130,14 +6125,14 @@
       "sha256": "a49604efae61795e023476140b4565b67f83127c8f556103ef0c03f0d0491004"
     },
     {
-      "path": "leon-develop/web-app/src/layout/sidebar/session-list-item/index.ts",
-      "bytes": 36,
-      "sha256": "dab9c4ab303fe7aa0d7b9143bee2c1f692e3a08fce8d48c5511c1a8a99acde49"
+      "path": "leon-develop/web-app/src/layout/sidebar/menu-item/index.ts",
+      "bytes": 28,
+      "sha256": "d883510bd82a51bc3ba6b50f00a56d67ac6129780fced2d7e498b513c16d345f"
     },
     {
-      "path": "leon-develop/web-app/src/layout/sidebar/session-list-item/session-list-item.tsx",
-      "bytes": 10627,
-      "sha256": "af89e198546315d793049ef25de1fa18bb18a773c9ee44ab3f3e62fac640a266"
+      "path": "leon-develop/web-app/src/layout/sidebar/menu-item/menu-item.tsx",
+      "bytes": 4285,
+      "sha256": "0175f1a62db14f5f74190833b2b8edd2ec1172f6d7233ca95508fc17b64568ef"
     },
     {
       "path": "leon-develop/web-app/src/layout/sidebar/session-list/index.ts",
@@ -6148,6 +6143,16 @@
       "path": "leon-develop/web-app/src/layout/sidebar/session-list/session-list.tsx",
       "bytes": 5192,
       "sha256": "c2c28bf3f2252162af45dc057fb9b4f61d065f4dabf477a7e67ad4c5b3057eb8"
+    },
+    {
+      "path": "leon-develop/web-app/src/layout/sidebar/session-list-item/index.ts",
+      "bytes": 36,
+      "sha256": "dab9c4ab303fe7aa0d7b9143bee2c1f692e3a08fce8d48c5511c1a8a99acde49"
+    },
+    {
+      "path": "leon-develop/web-app/src/layout/sidebar/session-list-item/session-list-item.tsx",
+      "bytes": 10627,
+      "sha256": "af89e198546315d793049ef25de1fa18bb18a773c9ee44ab3f3e62fac640a266"
     },
     {
       "path": "leon-develop/web-app/src/layout/sidebar/session-search/index.ts",
@@ -6236,8 +6241,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8103,
-      "sha256": "ea72985dc430e76fbaebcd17e62c8468a429bad713d8f7ede4b8309846cbf3b3"
+      "bytes": 8238,
+      "sha256": "174da6e612dd44ac6c8b494b4fada9626e3e4e3a6d96d78e177069bfe9a1f6bc"
     },
     {
       "path": "SECURITY.md",
@@ -6246,8 +6251,8 @@
     },
     {
       "path": "Supergent--main/.env.example",
-      "bytes": 552,
-      "sha256": "363dd3b9a716921340e7e27faf8182fcc7701845329663a99c7e9b33273a85a6"
+      "bytes": 591,
+      "sha256": "4f8fe2fa32b48de6c116f71b4a2464d91a6e54536b928dc5fd3c64419a0caaf7"
     },
     {
       "path": "Supergent--main/.gitattributes",
@@ -6271,13 +6276,13 @@
     },
     {
       "path": "Supergent--main/api/plugin_routes.py",
-      "bytes": 3182,
-      "sha256": "0f044f3d6b963e70090b098a4587b044a9d464eac28aac89be8c02a153d92d9b"
+      "bytes": 8793,
+      "sha256": "90a996fe07e623cd7ae27e0768f0dcf79131aef1c93f82b9f228c5cee174648b"
     },
     {
       "path": "Supergent--main/api/server.py",
-      "bytes": 193530,
-      "sha256": "cc1d78a739d80b7a71b3c837699cd5f9b2e3052f3d8bc356f3f8174f7ea15ba9"
+      "bytes": 196499,
+      "sha256": "b4238539aaa5bdc062400d5b4472885fe92661152a94a9266e711f7302f200fb"
     },
     {
       "path": "Supergent--main/CHANGELOG.md",
@@ -6288,6 +6293,11 @@
       "path": "Supergent--main/config/intelligence_resources.json",
       "bytes": 47912,
       "sha256": "9b3b3ce3433a93a98038e4fafcb94894bbf0b9ae4b5b07a6243da61be378f610"
+    },
+    {
+      "path": "Supergent--main/config/mcp_market_seed.json",
+      "bytes": 6117763,
+      "sha256": "9daa3b72125de2c551025b62a11c8ec8adf0f811bee55ffb5c968a30b3f9deb7"
     },
     {
       "path": "Supergent--main/config/server.json.example",
@@ -6370,6 +6380,11 @@
       "sha256": "9cc2ac84841c159cfa37572a4fe90325bd97727ba5de7ecd399ae6b91d8ba1cd"
     },
     {
+      "path": "Supergent--main/core/atomic_io.py",
+      "bytes": 545,
+      "sha256": "1d8302e43312fcde6c4272df9ddef3bd33f5bf73d6e0cc51c0cdd3f096984fef"
+    },
+    {
       "path": "Supergent--main/core/blender/__init__.py",
       "bytes": 180,
       "sha256": "d32376e89aae7e162cba6f2ec71733a088e4a4dc0654b4555cfa9ee5cf146d1b"
@@ -6386,8 +6401,8 @@
     },
     {
       "path": "Supergent--main/core/brain/capability_agent.py",
-      "bytes": 55848,
-      "sha256": "3dcf240406232177288b1ef73471589725f77c6419d9dd02f9592763e37ed968"
+      "bytes": 60200,
+      "sha256": "d5158e836e92f59bdc42d313bd253eb41e4e5bdded006a39bb5ce7659ed259dd"
     },
     {
       "path": "Supergent--main/core/brain/capability_team.py",
@@ -6471,8 +6486,8 @@
     },
     {
       "path": "Supergent--main/core/capability_router.py",
-      "bytes": 25254,
-      "sha256": "05124f3354a6491c4d31c0efdf2db73fd742703efffcfd4141e280ab19f431c6"
+      "bytes": 25454,
+      "sha256": "56f79c1b03682a0719cdf4b78f383567ab632de648d62971f8daa9d3877882f8"
     },
     {
       "path": "Supergent--main/core/channels/__init__.py",
@@ -6480,9 +6495,14 @@
       "sha256": "fb8676e979bde8dd5d0e74a886a141b18fbe67f92a1950be9dbfedeb1d9ef2f7"
     },
     {
+      "path": "Supergent--main/core/channels/conversations.py",
+      "bytes": 3725,
+      "sha256": "299e621260e820004ec7fc9cd1e28caefaecac9f99e37d7a5cb35286d0111ebe"
+    },
+    {
       "path": "Supergent--main/core/channels/service_catalog.py",
-      "bytes": 5985,
-      "sha256": "bda9117167afb51395280d69a854c64a56816d10d20ef0bb4886aacc7e76b6ad"
+      "bytes": 6156,
+      "sha256": "159c8a4db4da89ab4039780ca92c03ead56c5406dc8a1f0e703c684c8567d5bb"
     },
     {
       "path": "Supergent--main/core/channels/unified.py",
@@ -6585,36 +6605,6 @@
       "sha256": "0352b0df0725f26b18fd04ee7a40e73f7080737e77a51d6a4dca7a842903d81d"
     },
     {
-      "path": "Supergent--main/core/integrations/__init__.py",
-      "bytes": 81,
-      "sha256": "c899c5b66bb14d775660787d3492c3c9c454c15812208e97adf8aba5c84fe098"
-    },
-    {
-      "path": "Supergent--main/core/integrations/bindings.py",
-      "bytes": 1952,
-      "sha256": "b68a1b8b0e962555534430cab88067a72b9aaf3135c4175f8318ed9ce36c429a"
-    },
-    {
-      "path": "Supergent--main/core/integrations/metadata.json",
-      "bytes": 147,
-      "sha256": "6269c734fbdbb3f7612cd9cac3b37dc547a46c2ddaa67b8ba643925342c5d45f"
-    },
-    {
-      "path": "Supergent--main/core/integrations/provider_catalog.json",
-      "bytes": 208834,
-      "sha256": "2d43b9fcc3ab371a0f14b263acbd132e3afb245f7b5aec8204921e6514f58cd0"
-    },
-    {
-      "path": "Supergent--main/core/integrations/provider.py",
-      "bytes": 4550,
-      "sha256": "c0022a73f4636bb9017c10488432266e61dc8715c1bedb1051bcf71647d7f5aa"
-    },
-    {
-      "path": "Supergent--main/core/integrations/service.py",
-      "bytes": 22340,
-      "sha256": "d94562ca72859eac89eaa734b914cf5e762fb15a75b0c93cdd80ed729ca1f527"
-    },
-    {
       "path": "Supergent--main/core/intelligence/__init__.py",
       "bytes": 78,
       "sha256": "42dc6063b3f07df702092f51ab3aff94907233582909d90acac1457a25280a81"
@@ -6676,8 +6666,8 @@
     },
     {
       "path": "Supergent--main/core/llm/keystore.py",
-      "bytes": 9580,
-      "sha256": "3f22ecbb66def860b2e3a721f28727216319427558d14c3752711e44ba0aecd2"
+      "bytes": 15379,
+      "sha256": "02c7db04974dd923cb41fa0c2262fb27d1a6b7f8742199d253e8ee273fc15b17"
     },
     {
       "path": "Supergent--main/core/llm/providers.py",
@@ -6688,11 +6678,6 @@
       "path": "Supergent--main/core/llm/universal.py",
       "bytes": 30830,
       "sha256": "38f5d978691c3dfce4502149148f32d3c92e878137afec02ae172a08e752c2fd"
-    },
-    {
-      "path": "Supergent--main/core/mcp_document_evidence.py",
-      "bytes": 13161,
-      "sha256": "b43dd87a129c6c5bc344ff43aed6cd66de9ce08ccad16e3a3302466d4874cf35"
     },
     {
       "path": "Supergent--main/core/mcp/__init__.py",
@@ -6706,8 +6691,8 @@
     },
     {
       "path": "Supergent--main/core/mcp/client.py",
-      "bytes": 15220,
-      "sha256": "c832b62a5cf1f6730b3d618a054a0a945ebac8e40106e176297aed7c8dcb5a81"
+      "bytes": 20936,
+      "sha256": "0d3b9f7c1b0d162db2611bef5e5b4450a6ddc88160f5d438f88535fc7046d0d7"
     },
     {
       "path": "Supergent--main/core/mcp/config_import.py",
@@ -6716,18 +6701,18 @@
     },
     {
       "path": "Supergent--main/core/mcp/oauth.py",
-      "bytes": 15103,
-      "sha256": "bdb95760de7cdc5f8644695403af91d2d8e5904f2d3dbb91e89c7e5ac1c25d43"
+      "bytes": 17856,
+      "sha256": "dbdb49fb288ccc7d71f88fae2e7e13ccf46703af52b107b366eaddec289f3b34"
     },
     {
       "path": "Supergent--main/core/mcp/policy.py",
-      "bytes": 18544,
-      "sha256": "59eddab4fea0a15c5c0485757f6faca6517175813e087d29f794f55ef3d1153a"
+      "bytes": 23071,
+      "sha256": "f49f329698468c1acc90646dbed02fb1478cd8b74236368a43678b3d76517b27"
     },
     {
       "path": "Supergent--main/core/mcp/registry.py",
-      "bytes": 26358,
-      "sha256": "72dc0488333e87e81f8b8a8f2cafad6087dcdfa2bb28c4f2c5dde54663505216"
+      "bytes": 28871,
+      "sha256": "6bb5aa50c760ba15256bacab5a4b07dfceb8d9ab4b17187d1f3cf463396c7c83"
     },
     {
       "path": "Supergent--main/core/mcp/sandbox.py",
@@ -6736,8 +6721,8 @@
     },
     {
       "path": "Supergent--main/core/mcp/server.py",
-      "bytes": 17807,
-      "sha256": "2ea942db3f8585a6b87cabeb05eb8493728d5e5fad92990ebfd2656d5dceb8bb"
+      "bytes": 20554,
+      "sha256": "00b58b388cef67da6e55ddb73feff2153eb324273b44bbfc1fe1c428b676a794"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/__init__.py",
@@ -6770,14 +6755,14 @@
       "sha256": "178374569266f2f7774c0ca9f5324022bf3e87ff667d1e2d76b37a1885dc1b51"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/animation_preset.py",
-      "bytes": 31012,
-      "sha256": "75d1d394b7092e3d206b1c3320e15d9dd7085c322bd6764d1b2a0e03b41941ec"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/animation.py",
       "bytes": 15763,
       "sha256": "0185dd2dddf3006707768347d3aaed340397c2619b5f3914493aa9cb836eb9b0"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/animation_preset.py",
+      "bytes": 31012,
+      "sha256": "75d1d394b7092e3d206b1c3320e15d9dd7085c322bd6764d1b2a0e03b41941ec"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/assets.py",
@@ -6800,14 +6785,14 @@
       "sha256": "8d373c28849ed2a57c4ca2e494bcf368a94288c4afbd8f356c533b178021fc5a"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/character_template.py",
-      "bytes": 21557,
-      "sha256": "c5a2c21d7f576234f726b5ffaa9bf0584c55fa2842663e25809eac8e9bdb3957"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/character.py",
       "bytes": 36727,
       "sha256": "08326ded7fc39d3039179e55a058ac9d3a1047ceccf10ab4ae09a534151f43c4"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/character_template.py",
+      "bytes": 21557,
+      "sha256": "c5a2c21d7f576234f726b5ffaa9bf0584c55fa2842663e25809eac8e9bdb3957"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/checkpoint.py",
@@ -6950,14 +6935,14 @@
       "sha256": "a9855b2cb37f1099d03af45da068e294162199ad2ef81beedb1c4b759e52075e"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/scene_advanced.py",
-      "bytes": 14781,
-      "sha256": "637ce06bcd0b92f692431dca597c44837332d1aed1fb2461cf2d84ab0b483903"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/scene.py",
       "bytes": 4802,
       "sha256": "19206b74fce21d73cd2bacd1908c58c3aa9bf1f15b351ecaf055b21f88f29209"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/scene_advanced.py",
+      "bytes": 14781,
+      "sha256": "637ce06bcd0b92f692431dca597c44837332d1aed1fb2461cf2d84ab0b483903"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/addon/blender_mcp_addon/handlers/sculpt.py",
@@ -7065,14 +7050,14 @@
       "sha256": "3be5f2985eb8071f1eb810cac066d0c8b74aedffa40a72979fa2bad43cedff58"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/create_fanzhendong_scene.py",
-      "bytes": 19452,
-      "sha256": "193ee0958e118855431fa531b8af386844da0627defe5ca3c851f3685319ff73"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/create_fanzhendong.py",
       "bytes": 26763,
       "sha256": "e0f41ad803fee960dbf5142834f21552571648bc902381a3b68f885ec4be237d"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/create_fanzhendong_scene.py",
+      "bytes": 19452,
+      "sha256": "193ee0958e118855431fa531b8af386844da0627defe5ca3c851f3685319ff73"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/create_penglai_models.py",
@@ -7630,31 +7615,6 @@
       "sha256": "65f84145f5edcb0109cb626ea81d81b2db27a0a96f5240adf99677989d525494"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/dependency_links.txt",
-      "bytes": 1,
-      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
-    },
-    {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/entry_points.txt",
-      "bytes": 58,
-      "sha256": "f436b8324a0efccc71b996dd23762367af17fe84578980696c26e95ffe9e2200"
-    },
-    {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/requires.txt",
-      "bytes": 166,
-      "sha256": "6a0a0fa66fdd3389ee733f919b2e571f7c19c4f22d6be7268a0b3b1202a7c3a0"
-    },
-    {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/SOURCES.txt",
-      "bytes": 2920,
-      "sha256": "be753e1bf1ce03b29bf9ace2b0c900a22214872dd8c65040943d883d2fa3137a"
-    },
-    {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/top_level.txt",
-      "bytes": 12,
-      "sha256": "7fe60c0a788957865a3959861f552764ab2aeebee28b6fb45914fffe6b118935"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/__init__.py",
       "bytes": 347,
       "sha256": "0a230054d096931f40f63d7d882797f12fa62b917d260b39ac64c142ca005e49"
@@ -7690,11 +7650,6 @@
       "sha256": "ed92482ef06227330e5048cd6f4367de34248cddd0cbf3d549a108b77257fe6c"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools_config.py",
-      "bytes": 13268,
-      "sha256": "6df490234618edd37e49dbd9657cb905d4da5813edb5120134125f90f7b59210"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/__init__.py",
       "bytes": 5456,
       "sha256": "861f6fdc327a54acb8b6cf9c6f051ae3e79af8c579dac0092797f0fa7a6b44c9"
@@ -7715,14 +7670,14 @@
       "sha256": "501d0b65a09130027b8912457060ba1eea584b9e6ee532bd6ca43a40f970e184"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/animation_presets.py",
-      "bytes": 8559,
-      "sha256": "97b81a8c48eb61d50de8879172ea6cb09766484dd814e5a472c824c32f5b7c97"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/animation.py",
       "bytes": 19070,
       "sha256": "f8c753df6eaa68cf7bd4aa5fe9d109840cb7d194fe8154dd85ef448693046a89"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/animation_presets.py",
+      "bytes": 8559,
+      "sha256": "97b81a8c48eb61d50de8879172ea6cb09766484dd814e5a472c824c32f5b7c97"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/assets.py",
@@ -7745,14 +7700,14 @@
       "sha256": "27039aa0ad10d298326cb5126fc9bc0cdac3844643f78d8e327a9248e30cece7"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/character_templates.py",
-      "bytes": 10918,
-      "sha256": "c96512b116fe65b22156c0ef4a9f974c1ed54ffd1b74c79fb1132c3eee8391c2"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/character.py",
       "bytes": 20914,
       "sha256": "c4a733477f10ab58fece37f6b5353c4d36438fc60f33721abaa96621286dc35e"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/character_templates.py",
+      "bytes": 10918,
+      "sha256": "c96512b116fe65b22156c0ef4a9f974c1ed54ffd1b74c79fb1132c3eee8391c2"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/checkpoint.py",
@@ -7890,14 +7845,14 @@
       "sha256": "6157aa36200e574e2f5c82e01503a682eab5120d6696fda83127f696f00196a5"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/scene_advanced.py",
-      "bytes": 11085,
-      "sha256": "c0beb3d2556800521dd5a094f907f9dd1f639415b51a1dc53561630710a63974"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/scene.py",
       "bytes": 9926,
       "sha256": "65be9205c92b5910985750039b16cc71e70184607b6f1d934b3d3d6ede13eb14"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/scene_advanced.py",
+      "bytes": 11085,
+      "sha256": "c0beb3d2556800521dd5a094f907f9dd1f639415b51a1dc53561630710a63974"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools/sculpting.py",
@@ -7980,6 +7935,36 @@
       "sha256": "5a1b2055d915b2d0e2babf916171a9304385eff82e5feff9d100dad34efb6004"
     },
     {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp/tools_config.py",
+      "bytes": 13268,
+      "sha256": "6df490234618edd37e49dbd9657cb905d4da5813edb5120134125f90f7b59210"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/dependency_links.txt",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/entry_points.txt",
+      "bytes": 58,
+      "sha256": "f436b8324a0efccc71b996dd23762367af17fe84578980696c26e95ffe9e2200"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/requires.txt",
+      "bytes": 166,
+      "sha256": "6a0a0fa66fdd3389ee733f919b2e571f7c19c4f22d6be7268a0b3b1202a7c3a0"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/SOURCES.txt",
+      "bytes": 2920,
+      "sha256": "be753e1bf1ce03b29bf9ace2b0c900a22214872dd8c65040943d883d2fa3137a"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/src/blender_mcp.egg-info/top_level.txt",
+      "bytes": 12,
+      "sha256": "7fe60c0a788957865a3959861f552764ab2aeebee28b6fb45914fffe6b118935"
+    },
+    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/test_all_tools.py",
       "bytes": 8526,
       "sha256": "1af287c5a5167dfa0cd4659f42fd778484b450fab80d6cd1e08057732594dc47"
@@ -8005,14 +7990,14 @@
       "sha256": "19b7de8efd50caf1c9672b8c3e36774a06ce2cf6904b1b21a64ed45eb10024a0"
     },
     {
-      "path": "Supergent--main/core/mcp/vendors/blender-mcp/test_new_tools_import.py",
-      "bytes": 5315,
-      "sha256": "d5ffe455f90b5f8334b1ff80b0f02f822fd32877f43a92ca837aa6657834892c"
-    },
-    {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/test_new_tools.py",
       "bytes": 11251,
       "sha256": "e41b5d8abc1d0ff3e9d23abfbc980d7a72427acb36a4f8be0be2f06116604ada"
+    },
+    {
+      "path": "Supergent--main/core/mcp/vendors/blender-mcp/test_new_tools_import.py",
+      "bytes": 5315,
+      "sha256": "d5ffe455f90b5f8334b1ff80b0f02f822fd32877f43a92ca837aa6657834892c"
     },
     {
       "path": "Supergent--main/core/mcp/vendors/blender-mcp/tests/build_sao_demo.py",
@@ -8105,14 +8090,19 @@
       "sha256": "f80be8ed5e3493431e5a40d3e0c180f6f6012189533eec27dddf461751f32612"
     },
     {
-      "path": "Supergent--main/core/memory_service.py",
-      "bytes": 12164,
-      "sha256": "564cafe1d283af2b4083e153234ef53ddacdc90904c3e68c694d9248723111d0"
+      "path": "Supergent--main/core/mcp_document_evidence.py",
+      "bytes": 13161,
+      "sha256": "b43dd87a129c6c5bc344ff43aed6cd66de9ce08ccad16e3a3302466d4874cf35"
     },
     {
       "path": "Supergent--main/core/memory.py",
       "bytes": 777,
       "sha256": "1b9b0227bc2e05e9cb6cbfb1bb6d8a0b0758061ba4c1a27553b9a0bd779b0bb8"
+    },
+    {
+      "path": "Supergent--main/core/memory_service.py",
+      "bytes": 12164,
+      "sha256": "564cafe1d283af2b4083e153234ef53ddacdc90904c3e68c694d9248723111d0"
     },
     {
       "path": "Supergent--main/core/models/__init__.py",
@@ -8251,8 +8241,8 @@
     },
     {
       "path": "Supergent--main/core/oauth/flow.py",
-      "bytes": 15162,
-      "sha256": "a52372c93c98070581f6f0d0a4b2b5edb31318d0ee4f56fb963eb68cc2465375"
+      "bytes": 18127,
+      "sha256": "2cf1c49900d9a0c0f7e3124d902a4a2e76825909fc1b361e667c4c4ea08d918d"
     },
     {
       "path": "Supergent--main/core/oauth/google.py",
@@ -8315,11 +8305,6 @@
       "sha256": "25a363e9b26255da73ba8b6935a26a29a1e1bcfc7932152f2893e6c82d8e3335"
     },
     {
-      "path": "Supergent--main/core/orchestrator.py",
-      "bytes": 381,
-      "sha256": "48e4b75519ed140d055893dea4cd7d9d8649094df738130e2f69a29113c6bf5e"
-    },
-    {
       "path": "Supergent--main/core/orchestrator/__init__.py",
       "bytes": 496,
       "sha256": "6a0b0bc504ee477ad10a03413866023ec347e5e4a958aa16e8a7e4d67ea4c1f0"
@@ -8328,6 +8313,11 @@
       "path": "Supergent--main/core/orchestrator/closed_loop_orchestrator.py",
       "bytes": 47578,
       "sha256": "65f60e629e0e265898bc03e477e7c9847b79d7cc1a68b552df264a055c0c2894"
+    },
+    {
+      "path": "Supergent--main/core/orchestrator.py",
+      "bytes": 381,
+      "sha256": "48e4b75519ed140d055893dea4cd7d9d8649094df738130e2f69a29113c6bf5e"
     },
     {
       "path": "Supergent--main/core/paths.py",
@@ -8345,19 +8335,74 @@
       "sha256": "a0afe12f7d2bca813fe586e6e10180290366cca7a928f8617de4544710a1580c"
     },
     {
+      "path": "Supergent--main/core/plugins/__init__.py",
+      "bytes": 83,
+      "sha256": "4e39c1caa523d54caba62c206fa117b96f0edffd0fe59eecdbefa0d79846f2fb"
+    },
+    {
+      "path": "Supergent--main/core/plugins/bundles.py",
+      "bytes": 18176,
+      "sha256": "e4f35135e856ea0bdcccbc88bffda8bc7a6696d381fe138a275b45e5b61d9a54"
+    },
+    {
+      "path": "Supergent--main/core/plugins/catalog.py",
+      "bytes": 11830,
+      "sha256": "47907fb140a1552cc69870990994af547b1a686119f4a16c5bc2cd88d8e279d3"
+    },
+    {
+      "path": "Supergent--main/core/plugins/connectors.py",
+      "bytes": 12400,
+      "sha256": "fc572f15718d4b204987e239006b382fde63f0583af0d72e7c343556cddc6eec"
+    },
+    {
+      "path": "Supergent--main/core/plugins/local.py",
+      "bytes": 10248,
+      "sha256": "afe264a9f200d8f4933751afe026a246f042cb2d2de7013558b5395c71be98d9"
+    },
+    {
+      "path": "Supergent--main/core/plugins/logos.py",
+      "bytes": 4946,
+      "sha256": "4488a7d021859029310ee379404191c89373e7582f465cedbd960ce2f9b5985f"
+    },
+    {
+      "path": "Supergent--main/core/plugins/manager.py",
+      "bytes": 34601,
+      "sha256": "7e71c823ab7169d1ddc179df84ab3c19c3cea110418a944ed772233b49004269"
+    },
+    {
+      "path": "Supergent--main/core/plugins/market.py",
+      "bytes": 4570,
+      "sha256": "186eb07c0b197b3112cf6273a53430ab778b8f5b4b884bcaed923ad664f0dacf"
+    },
+    {
+      "path": "Supergent--main/core/plugins/marketplace.py",
+      "bytes": 6650,
+      "sha256": "313ebc122b9b14193877e805315b8589aad68f5395aeedef6433c75739ecf90b"
+    },
+    {
+      "path": "Supergent--main/core/plugins/packages.py",
+      "bytes": 11987,
+      "sha256": "f2e8f7d329ab15f92dcbb3691dc638bf17e36bc347f25d30a276fe497e1bc666"
+    },
+    {
+      "path": "Supergent--main/core/plugins/store.py",
+      "bytes": 22613,
+      "sha256": "099cf3e0846e8c5a463054e9fc005c31e09a129cdc3ede5d137f3240bc3dd25f"
+    },
+    {
       "path": "Supergent--main/core/policy.py",
       "bytes": 590,
       "sha256": "b18e2630bf0c7e756a406df3ff73cc0325d5d8970f4ef2d21bb070b5e60c404b"
     },
     {
       "path": "Supergent--main/core/preview_server.py",
-      "bytes": 14949,
-      "sha256": "3d8717f769dfcbc41923982bce9e41d6af303ad153c7d56b32c0a6ccf5d8b844"
+      "bytes": 24826,
+      "sha256": "dae1c126f95fcf29acfa51d9ae4ee3bf95f228a82012138d926282a0f69e0a2b"
     },
     {
       "path": "Supergent--main/core/public_http.py",
-      "bytes": 1863,
-      "sha256": "b714cb3e1aea526e5327cf7697b043874d5d862aeebb9d13c82ebd1a15f2cc0a"
+      "bytes": 1997,
+      "sha256": "0e535c02618f3d9a7fa1fa6ec81f0a359f9a2555e3cb3ae3b1d991551b3df6b3"
     },
     {
       "path": "Supergent--main/core/rag/__init__.py",
@@ -8405,11 +8450,6 @@
       "sha256": "d94b607d86798025231138cc842480479edcae8a0cb17353c9eec30db22ff985"
     },
     {
-      "path": "Supergent--main/core/resource_settings.py",
-      "bytes": 10143,
-      "sha256": "149d68c5778ddca65ba92c7af45efc61e15c497494c15cb0a7f5fe742d6e3713"
-    },
-    {
       "path": "Supergent--main/core/resource/__init__.py",
       "bytes": 548,
       "sha256": "22810ed006d407bd68f429f118ea9ae7bab2e613d3c66752382700bc7219707b"
@@ -8423,6 +8463,11 @@
       "path": "Supergent--main/core/resource/worker_supervisor.py",
       "bytes": 11226,
       "sha256": "cfe4f29ee4841806f96bf1d84e4581d0d02572c9c4e8bc093beb547b95792c2b"
+    },
+    {
+      "path": "Supergent--main/core/resource_settings.py",
+      "bytes": 10143,
+      "sha256": "149d68c5778ddca65ba92c7af45efc61e15c497494c15cb0a7f5fe742d6e3713"
     },
     {
       "path": "Supergent--main/core/runtime_doctor.py",
@@ -8441,8 +8486,8 @@
     },
     {
       "path": "Supergent--main/core/secrets_store.py",
-      "bytes": 5222,
-      "sha256": "ac6632a12dbee2dd1fbb1db094899c912bcd3028ff33894c8aa554e3d74b8f0e"
+      "bytes": 4488,
+      "sha256": "654e2d6d24edfa546fda0c1e9c1e812996912f19361616131da455d676f65222"
     },
     {
       "path": "Supergent--main/core/security/__init__.py",
@@ -8465,9 +8510,19 @@
       "sha256": "521248ec65548fae76c7cb480d84a04a9f942348a4c359ef3827ea4920fd7047"
     },
     {
+      "path": "Supergent--main/core/security/http_origin.py",
+      "bytes": 3961,
+      "sha256": "94f07b4544c050dbe3b6ba59c0767223633854e111bc92f604aa0b4b07c95ca9"
+    },
+    {
       "path": "Supergent--main/core/security/local_scanners.py",
       "bytes": 4309,
       "sha256": "ee7ae7865a57c9d4fb2fafb20516f1b58f746fad61a1ae4a358828c45dad7e95"
+    },
+    {
+      "path": "Supergent--main/core/security/native_bridge.py",
+      "bytes": 3541,
+      "sha256": "1e3c044b201cc734b3f13af0d6c8aeca50ec9bf5b574667d951210848e6a85a3"
     },
     {
       "path": "Supergent--main/core/security/optional_tools.py",
@@ -8486,8 +8541,8 @@
     },
     {
       "path": "Supergent--main/core/security/security_gate.py",
-      "bytes": 29977,
-      "sha256": "1af69f7cf3bbdf56c11cef604b1f241203618546dec6a83afe6a0611749e6890"
+      "bytes": 30517,
+      "sha256": "0d365087c27c92c8bd73f6c9d1a999c4925756a056a3854f50c4f9b52ee11983"
     },
     {
       "path": "Supergent--main/core/security/transient_vault.py",
@@ -8556,18 +8611,18 @@
     },
     {
       "path": "Supergent--main/core/skills/indexer.py",
-      "bytes": 11207,
-      "sha256": "3c8a144de82dd6a3494488a5cbb9e03abe0f1973b3b53d6474b6608fb2f7486a"
+      "bytes": 11504,
+      "sha256": "0016e13b210f42659c067b4040cebb32a6d26f95379cc036a6e4252c69236267"
     },
     {
       "path": "Supergent--main/core/skills/lifecycle.py",
-      "bytes": 12985,
-      "sha256": "feb5dc226cef7ac2671fe0e1f2d903623a8d7f7849d1e7ba4d5d6d0b514f2a64"
+      "bytes": 13279,
+      "sha256": "1dbbe28e890dfba386d26f70c4889312fc38ab6dd5975d12ae89f5baa953c748"
     },
     {
       "path": "Supergent--main/core/skills/loader.py",
-      "bytes": 1138,
-      "sha256": "ef2422b2d701ccc51df936b1727ae4e042b2739f5bfa668a70a5e83795668e62"
+      "bytes": 1652,
+      "sha256": "a0a96df4d456f0048d84ddeb8a9ba8c8dc5498a1251d0c370667fe7ceb40d7a8"
     },
     {
       "path": "Supergent--main/core/skills/ranker.py",
@@ -8581,8 +8636,8 @@
     },
     {
       "path": "Supergent--main/core/skills/search.py",
-      "bytes": 5701,
-      "sha256": "3ff6b43d9ec5bae77c63045dcc63adde9601ad679ad2d5d144c997eb2a144023"
+      "bytes": 5955,
+      "sha256": "c9682b5bf4987ed3f758c622367b30c7f9d756e1ccb5e5090e756b4afcb709e3"
     },
     {
       "path": "Supergent--main/core/skills/skillnet.py",
@@ -8636,8 +8691,8 @@
     },
     {
       "path": "Supergent--main/core/thinking/engine.py",
-      "bytes": 34264,
-      "sha256": "270695368c2b6649d6a0287a94a0e235ed8f18472cfbe42ac45160b9c1ad987a"
+      "bytes": 35819,
+      "sha256": "c27ba5a437b0fdfc01b6d83b91b8d680f8f2adea4675ef2bbe57e72ee7914a44"
     },
     {
       "path": "Supergent--main/core/thinking/intent.py",
@@ -8770,14 +8825,14 @@
       "sha256": "fc8a68618064bb10bbf6ff1bc4d35391cad58f83f838f85617382159ee6bcc0c"
     },
     {
-      "path": "Supergent--main/core/tools_bridge.py",
-      "bytes": 10693,
-      "sha256": "9fbfb5e7dfbb0b03de3196f5918dca1f5f640992e9b37bce3a44c135a4bae2d0"
-    },
-    {
       "path": "Supergent--main/core/tools.py",
       "bytes": 2376,
       "sha256": "fd33cf3cfe0212c9c0f81690796f37e8beccfdf4f7722733b9bb9b9894decc04"
+    },
+    {
+      "path": "Supergent--main/core/tools_bridge.py",
+      "bytes": 10693,
+      "sha256": "9fbfb5e7dfbb0b03de3196f5918dca1f5f640992e9b37bce3a44c135a4bae2d0"
     },
     {
       "path": "Supergent--main/core/universal_executor.py",
@@ -8846,13 +8901,18 @@
     },
     {
       "path": "Supergent--main/core/voice/indextts_sidecar.py",
-      "bytes": 12986,
-      "sha256": "554e8f5ac23f2862c83dd3972fc9a9dcc2ad4981caed430868dd864adabe9ec3"
+      "bytes": 13495,
+      "sha256": "42dba0b4cfae3d1cd2d671b261a5430d62e7e2e82e39848755bd826dc529c17d"
     },
     {
       "path": "Supergent--main/core/voice/microphone.py",
       "bytes": 9495,
       "sha256": "d37a3d3614a69584d87af9a406adea8c4539dccff3a6556d64bd58d249c75515"
+    },
+    {
+      "path": "Supergent--main/core/voice/reference_audio.py",
+      "bytes": 7062,
+      "sha256": "d484668a571c284394b65424f45fbed5706ac19394ccc6335cd1279bd3d76763"
     },
     {
       "path": "Supergent--main/core/voice/runtime.py",
@@ -8871,8 +8931,8 @@
     },
     {
       "path": "Supergent--main/core/voice/tts.py",
-      "bytes": 27941,
-      "sha256": "cdb973dfa675b79fc7fe8fb7ed58a1b9660fe3f8ca41b4ec07494cc0aa6a4396"
+      "bytes": 28228,
+      "sha256": "e77eef43288cab6ec1193fecf94021e73ce3b22da4a31eaf7b9180dfc7f170d3"
     },
     {
       "path": "Supergent--main/core/voice/vad.py",
@@ -8921,8 +8981,8 @@
     },
     {
       "path": "Supergent--main/core/windows/uac.py",
-      "bytes": 16940,
-      "sha256": "6a7346606c0d38b8e0043850446429b46dec07e581d99cdcc703e3112860cc0e"
+      "bytes": 18648,
+      "sha256": "1a9e8310e2ff049419218378839f31be4088e6ad57d79bfa9263de2ffd5cd9e1"
     },
     {
       "path": "Supergent--main/core/windows/window_manager.py",
@@ -8950,14 +9010,19 @@
       "sha256": "95eb0f4ca83e3eb23ea30878812c226e8ff96b3cf8df09ace2407059f162287f"
     },
     {
+      "path": "Supergent--main/docs/MCP_CONNECTION_MARKETPLACE.md",
+      "bytes": 12558,
+      "sha256": "d1e391f6a9b2b6d65b877738e50bd545c89fc3b6d1b9076f22495d0bb40080e4"
+    },
+    {
       "path": "Supergent--main/docs/OPTIONAL_SECURITY_TOOLS.md",
       "bytes": 2687,
       "sha256": "1aa84ae46e6873a895649f84f29af8b3384cd50110fa4fa16f0c65e306d8abff"
     },
     {
-      "path": "Supergent--main/docs/PLUGINS_NANGO.md",
-      "bytes": 5753,
-      "sha256": "85f2fbbf8fb7a429870c4fb8db272a38efe195135da27787f608308eb66d9e89"
+      "path": "Supergent--main/docs/PLUGINS.md",
+      "bytes": 9911,
+      "sha256": "22ed63774f29d099f108adbd5093e14bc9edbb59060467ec62403095539d8726"
     },
     {
       "path": "Supergent--main/docs/RELEASE_NOTES.md",
@@ -8991,8 +9056,8 @@
     },
     {
       "path": "Supergent--main/modes/normal.py",
-      "bytes": 3296,
-      "sha256": "a404cc55e6e5e423e26ca59c60700f66b73f8fd532bacd25ae71172583d7cc0c"
+      "bytes": 3235,
+      "sha256": "1afb0bf9b8d50fa5daa4573af90267d585f459f117a823a65f53d339c7e35097"
     },
     {
       "path": "Supergent--main/modes/workflow.py",
@@ -9045,9 +9110,9 @@
       "sha256": "3524c1c13401b8505d2b7c65d1dbcc7ccf855bfc0870f16e5340572ed5096e92"
     },
     {
-      "path": "Supergent--main/qa/acceptance/CURRENT_STATUS_20261002.md",
-      "bytes": 3070,
-      "sha256": "90d0fd6c6e73275678a433430d038b7bf2617e945bb47cfef2e982592071249e"
+      "path": "Supergent--main/qa/acceptance/connection_marketplace_journeys.py",
+      "bytes": 12220,
+      "sha256": "70ec63d866d99a5539669e313af5740b29d2f8f76a064ed2b91f561398e865c3"
     },
     {
       "path": "Supergent--main/qa/acceptance/desktop_soak.py",
@@ -9063,11 +9128,6 @@
       "path": "Supergent--main/qa/acceptance/diagnose_browser.py",
       "bytes": 2987,
       "sha256": "d1d0447b208f2801c45fc261113c1d3618b1fcbb047762261c3e50059f0a504b"
-    },
-    {
-      "path": "Supergent--main/qa/acceptance/export_brand_assets.py",
-      "bytes": 2037,
-      "sha256": "5e2bdf681a01d4ff9011d4f3944d38ddf316a9490c8bbf55039006aaf68133d5"
     },
     {
       "path": "Supergent--main/qa/acceptance/export_resource_coverage.py",
@@ -9100,6 +9160,11 @@
       "sha256": "76db48adfb4fb458976e55a21946e9ff56dfdaeeae87f26fbe9fd8fd391f55c5"
     },
     {
+      "path": "Supergent--main/qa/acceptance/mcp_market_journeys.py",
+      "bytes": 8501,
+      "sha256": "4c9391741d4f2eac511178a1d8f08fe5be3c3cba7e65bcb5ca6a2b77d65a80d2"
+    },
+    {
       "path": "Supergent--main/qa/acceptance/native_observation.py",
       "bytes": 1304,
       "sha256": "eda3254fed99f1583b240aa32719cbb910afb9f1abf0155cec01ed3f33f25850"
@@ -9126,23 +9191,38 @@
     },
     {
       "path": "Supergent--main/qa/acceptance/package_desktop_source.py",
-      "bytes": 10383,
-      "sha256": "a56806500af5a0ca4e93e48c14a4247440b5d0d5ef56fc9bfc0bd254ec258a52"
+      "bytes": 10408,
+      "sha256": "fc05fdf4f82393b51a9bc8f80570598e7d906067c1d76f0317e54ccb832343bd"
     },
     {
-      "path": "Supergent--main/qa/acceptance/plugin_boundary_app.py",
-      "bytes": 2404,
-      "sha256": "1ec8d1068c7158cad172f0bc093c4b59ecb0936f2298204322c1ce6fde3fea7c"
+      "path": "Supergent--main/qa/acceptance/package_store_journeys.py",
+      "bytes": 11757,
+      "sha256": "23a5d9f88fedeb3d0aa2ec667ab14522184fa0b4def6860ffae748ff233b0957"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/package_store_live_probe.py",
+      "bytes": 3947,
+      "sha256": "1471e745330c499813db437ac284965e042df9a30552c54b6a5d1ab325bc7bb4"
     },
     {
       "path": "Supergent--main/qa/acceptance/plugin_journeys.py",
-      "bytes": 20315,
-      "sha256": "cca340487f047532886a29f0d9550e4567f50bd6a8734d45fe0334eb61c6e950"
+      "bytes": 357,
+      "sha256": "4e3d5a5f46fac731c3981108527505e06f2896eaf862fbecadde5186707c07ee"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/plugin_live_probe.py",
+      "bytes": 2823,
+      "sha256": "35f81d561727753e0585d6ba27bc5a8db686045cf56ff66e4a8c48b40b691488"
     },
     {
       "path": "Supergent--main/qa/acceptance/plugin_preview.py",
       "bytes": 500,
       "sha256": "29b1ac1d063b78962ce6834808ff23b4eb438db20c8e5c635585f2236620b6df"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/plugin_regression.py",
+      "bytes": 2064,
+      "sha256": "d4eb864c63e0b0d51e8c8ece5c0696d4800f7766db1275abf9cf8163cc4d1fd9"
     },
     {
       "path": "Supergent--main/qa/acceptance/prepare_public_snapshot.py",
@@ -9210,14 +9290,19 @@
       "sha256": "bf6cff01231f51b072702906daa30cda2918c7d0e42022fba544fa37292f59f5"
     },
     {
-      "path": "Supergent--main/qa/acceptance/run_acceptance.py",
-      "bytes": 18031,
-      "sha256": "5aabad18a8058492e6ab8c5ba51dc15b2e2b6e83241dc9f3449453509e03a481"
+      "path": "Supergent--main/qa/acceptance/risk_audit_probe.py",
+      "bytes": 9964,
+      "sha256": "9fb0a6c73619d5c0de31c317c720c0cc386af8f62c9ab4e710dc0b30e8a85648"
     },
     {
       "path": "Supergent--main/qa/acceptance/Run-UserAcceptance.ps1",
       "bytes": 3473,
       "sha256": "4e6e5596daf077815d26fef3730efed4e69f0f333eef475f3ce6f3e2415f7a84"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/run_acceptance.py",
+      "bytes": 18031,
+      "sha256": "5aabad18a8058492e6ab8c5ba51dc15b2e2b6e83241dc9f3449453509e03a481"
     },
     {
       "path": "Supergent--main/qa/acceptance/runtime_probe.py",
@@ -9230,9 +9315,39 @@
       "sha256": "0c98339a60049727df7cbab14643947a4234af9ac4b10baa04d5af6b4c6b6b8d"
     },
     {
+      "path": "Supergent--main/qa/acceptance/security_audit.py",
+      "bytes": 20244,
+      "sha256": "a55e5d69348e71d4cd9aeaa1aa43b35a59cdb27ccac57c3faf4ec6a1a259d0c2"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/security_baseline.py",
+      "bytes": 5849,
+      "sha256": "13cf0331e08d69dbf8176486b96e83da0a651edeb6c19254cbe47519eadc660a"
+    },
+    {
       "path": "Supergent--main/qa/acceptance/security_probes.py",
       "bytes": 2868,
       "sha256": "e330df12f9a48d09e61a2fc177102d7497b33b376ad8b2b1d3fdb67b98a1184f"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/security_regression.py",
+      "bytes": 13879,
+      "sha256": "1cbcd0ae49677c7059251e65014562910885334832510bf2e670f83a7e270e6e"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/security_rules.yml",
+      "bytes": 1630,
+      "sha256": "00242f2d8ea839a8d67a034f4c90702a246791cfce595c42889822c59d2ebb29"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/service_connector_journeys.py",
+      "bytes": 10671,
+      "sha256": "9f95af754c3f56ff68314a512c9a5284e93ea5c68bde14cd11118a9398430d2d"
+    },
+    {
+      "path": "Supergent--main/qa/acceptance/service_oauth_probe.py",
+      "bytes": 2552,
+      "sha256": "7f7139d41953d0ec690608a39063bb6beea087832090be17d82a396859730468"
     },
     {
       "path": "Supergent--main/qa/acceptance/settings_actionability.py",
@@ -9241,8 +9356,8 @@
     },
     {
       "path": "Supergent--main/qa/acceptance/source_stamp.py",
-      "bytes": 1452,
-      "sha256": "0f837e6d9205a38d0ab2130ab8aefa7067ca800eac03bced2fb910bcd70e244c"
+      "bytes": 1556,
+      "sha256": "ae733ca274cd5e0abb294aa32d6689ddec0e2d1cd2fa7056895d8564a48a67fa"
     },
     {
       "path": "Supergent--main/qa/acceptance/stamp_regression.py",
@@ -9280,11 +9395,6 @@
       "sha256": "ebb6c2b6f170b6f37728e319a088da25d9f2f96e355fbc236e305b5d86acb76d"
     },
     {
-      "path": "Supergent--main/qa/acceptance/update_provider_catalog.py",
-      "bytes": 2801,
-      "sha256": "391138dffd113ac15d3a8c374d3b2ccfe4d577880fa7825bb624a65d0dbf406b"
-    },
-    {
       "path": "Supergent--main/qa/acceptance/user_journeys.py",
       "bytes": 30734,
       "sha256": "18d7cac971811b3eb4ac3a08174af375c6bcb364b0ff8848d7660606f9f68575"
@@ -9316,8 +9426,8 @@
     },
     {
       "path": "Supergent--main/README.md",
-      "bytes": 3379,
-      "sha256": "0f6ebd16774eae89f571c722df8a5ac2c37ed0dd963552e28b23ea4450b00d19"
+      "bytes": 3360,
+      "sha256": "63de57e9ee5e311de1ba97011ef056027d6cdab1b9aec5ae21fd0e30df017a02"
     },
     {
       "path": "Supergent--main/requirements-intelligence.txt",
@@ -9368,6 +9478,36 @@
       "path": "Supergent--main/skills/agents/acceptance-orchestrator/1.0.0/SKILL.md",
       "bytes": 2968,
       "sha256": "ffb796e8860c046a1a6ce55e2b1e127fc807e13583812553c46be0e6daf7f730"
+    },
+    {
+      "path": "Supergent--main/skills/agents/agent/1.0.0/_meta.json",
+      "bytes": 124,
+      "sha256": "530db46f8a4bf1322788aa805a0717fb6dacd16f6f0926d9d0d261ca49a89f60"
+    },
+    {
+      "path": "Supergent--main/skills/agents/agent/1.0.0/adaptation.md",
+      "bytes": 3812,
+      "sha256": "baa31cfa718ce6f6a5700630dc0872062a7a9e03eb490249396ed4a02698d10c"
+    },
+    {
+      "path": "Supergent--main/skills/agents/agent/1.0.0/boundaries.md",
+      "bytes": 3532,
+      "sha256": "8717bf939fb6cd48ddd33600264849aa8a362148a465900d8ac2e64c8351f3f9"
+    },
+    {
+      "path": "Supergent--main/skills/agents/agent/1.0.0/SKILL.md",
+      "bytes": 2696,
+      "sha256": "b944529253930e35410d01b6fc8f961dd369fb2777c7cb37e700baef731f0f90"
+    },
+    {
+      "path": "Supergent--main/skills/agents/agent/1.0.0/templates.md",
+      "bytes": 3439,
+      "sha256": "b490df38b186442f66a88eb84e4181087a4b1964774bb56f76a919abf00f5e5c"
+    },
+    {
+      "path": "Supergent--main/skills/agents/agent/1.0.0/voice.md",
+      "bytes": 2973,
+      "sha256": "7b7484a2b22411fff56cd3f16a1bc39b538345de8058c28296032641ba965d29"
     },
     {
       "path": "Supergent--main/skills/agents/agent-browser-clawdbot/1.0.0/_meta.json",
@@ -9645,36 +9785,6 @@
       "sha256": "46a80dd166583455ec30dc16d1564db49d7d79845100f0ba531636a148e5b378"
     },
     {
-      "path": "Supergent--main/skills/agents/agent/1.0.0/_meta.json",
-      "bytes": 124,
-      "sha256": "530db46f8a4bf1322788aa805a0717fb6dacd16f6f0926d9d0d261ca49a89f60"
-    },
-    {
-      "path": "Supergent--main/skills/agents/agent/1.0.0/adaptation.md",
-      "bytes": 3812,
-      "sha256": "baa31cfa718ce6f6a5700630dc0872062a7a9e03eb490249396ed4a02698d10c"
-    },
-    {
-      "path": "Supergent--main/skills/agents/agent/1.0.0/boundaries.md",
-      "bytes": 3532,
-      "sha256": "8717bf939fb6cd48ddd33600264849aa8a362148a465900d8ac2e64c8351f3f9"
-    },
-    {
-      "path": "Supergent--main/skills/agents/agent/1.0.0/SKILL.md",
-      "bytes": 2696,
-      "sha256": "b944529253930e35410d01b6fc8f961dd369fb2777c7cb37e700baef731f0f90"
-    },
-    {
-      "path": "Supergent--main/skills/agents/agent/1.0.0/templates.md",
-      "bytes": 3439,
-      "sha256": "b490df38b186442f66a88eb84e4181087a4b1964774bb56f76a919abf00f5e5c"
-    },
-    {
-      "path": "Supergent--main/skills/agents/agent/1.0.0/voice.md",
-      "bytes": 2973,
-      "sha256": "7b7484a2b22411fff56cd3f16a1bc39b538345de8058c28296032641ba965d29"
-    },
-    {
       "path": "Supergent--main/skills/agents/agentfolio/1.0.0/SKILL.md",
       "bytes": 4162,
       "sha256": "2ab2d849c89f9c46d89de2060b3886627dfc8d105139a054c845b5531745d63d"
@@ -9940,14 +10050,14 @@
       "sha256": "83fd040bf881c4bd6c2cf92e3de4d5527be6676ea5388f3262a49aaa715e3106"
     },
     {
-      "path": "Supergent--main/skills/agents/multi-agent-collaboration/1.0.0/AGENT_PROMPTS.md",
-      "bytes": 15317,
-      "sha256": "42fe578f496df66aef6ccc73471d16252a2713826f317b0746479886caa8106e"
-    },
-    {
       "path": "Supergent--main/skills/agents/multi-agent-collaboration/1.0.0/agent-collaboration-demo.js",
       "bytes": 19987,
       "sha256": "da115c64019152906209b670f05571061ff8d9c908bf62010201e51845cb9462"
+    },
+    {
+      "path": "Supergent--main/skills/agents/multi-agent-collaboration/1.0.0/AGENT_PROMPTS.md",
+      "bytes": 15317,
+      "sha256": "42fe578f496df66aef6ccc73471d16252a2713826f317b0746479886caa8106e"
     },
     {
       "path": "Supergent--main/skills/agents/multi-agent-collaboration/1.0.0/demo.js",
@@ -10400,14 +10510,14 @@
       "sha256": "c5bbdb9f195ad54d69fc4a2a7aa94dfc72b0825daa7daac367c8020458c333a1"
     },
     {
-      "path": "Supergent--main/skills/agents/vexor-cli/1.0.0/SKILL.md",
-      "bytes": 2799,
-      "sha256": "543bb83946c222596a80ed801c1fed275706f6c9a1161e744b5320808e54e991"
-    },
-    {
       "path": "Supergent--main/skills/agents/vexor/1.0.0/SKILL.md",
       "bytes": 643,
       "sha256": "34d97a9b7305e6d1876e6b554c95288ab150c455c0db5c8b6870775bac64c5c3"
+    },
+    {
+      "path": "Supergent--main/skills/agents/vexor-cli/1.0.0/SKILL.md",
+      "bytes": 2799,
+      "sha256": "543bb83946c222596a80ed801c1fed275706f6c9a1161e744b5320808e54e991"
     },
     {
       "path": "Supergent--main/skills/agents/voice-agents/1.0.0/SKILL.md",
@@ -10450,14 +10560,14 @@
       "sha256": "cf9401961f897949b3fbcb0f68f7b0e4be5cca687f1a617bcaa0838b792a9e88"
     },
     {
-      "path": "Supergent--main/skills/automation/add-telegram-swarm/1.0.0/SKILL.md",
-      "bytes": 14429,
-      "sha256": "7e5c82903f50127f8e1686c7a4d56ee3d7a92ce3980eb336d614988b8afb38a2"
-    },
-    {
       "path": "Supergent--main/skills/automation/add-telegram/1.0.0/SKILL.md",
       "bytes": 6242,
       "sha256": "a0c02f125f070ca0952f0c9a987d6e9d2e5cade1a06d383df9839e5ec13088a7"
+    },
+    {
+      "path": "Supergent--main/skills/automation/add-telegram-swarm/1.0.0/SKILL.md",
+      "bytes": 14429,
+      "sha256": "7e5c82903f50127f8e1686c7a4d56ee3d7a92ce3980eb336d614988b8afb38a2"
     },
     {
       "path": "Supergent--main/skills/automation/agent-workflow/1.0.0/reference/agent-architecture.md",
@@ -10670,11 +10780,6 @@
       "sha256": "0f4498b365662319465110f101c82e20675ade0fc2c3cd8fe4d570fc8dc2b55c"
     },
     {
-      "path": "Supergent--main/skills/automation/discord-bot-architect/1.0.0/SKILL.md",
-      "bytes": 8315,
-      "sha256": "9175a8772cdef65be6a20e4054a78a108b9398850fc445ee88a4d84353a2ed4b"
-    },
-    {
       "path": "Supergent--main/skills/automation/discord-bot/1.0.0/_meta.json",
       "bytes": 130,
       "sha256": "7f85d6332a863a4d1ff5e11ed7963c5105250633ae5ea90cb51c158e03db7068"
@@ -10688,6 +10793,11 @@
       "path": "Supergent--main/skills/automation/discord-bot/1.0.0/SKILL.md",
       "bytes": 5157,
       "sha256": "90fd15a101cb6e453256b27666a1683b38a754eb879fb9fdfe55057074c122af"
+    },
+    {
+      "path": "Supergent--main/skills/automation/discord-bot-architect/1.0.0/SKILL.md",
+      "bytes": 8315,
+      "sha256": "9175a8772cdef65be6a20e4054a78a108b9398850fc445ee88a4d84353a2ed4b"
     },
     {
       "path": "Supergent--main/skills/automation/docusign-automation/1.0.0/SKILL.md",
@@ -10765,11 +10875,6 @@
       "sha256": "f669620f926d7746d539a9b6b8a6d29be029fc6330df0730c5ea35b9c74e0fa3"
     },
     {
-      "path": "Supergent--main/skills/automation/github-workflow-automation/1.0.0/SKILL.md",
-      "bytes": 21647,
-      "sha256": "c935b9235b01c992143b398d3f694c2884b1a51edfff87ae418f2fc8216a7a27"
-    },
-    {
       "path": "Supergent--main/skills/automation/github-workflow/1.0.0/references/workflow-routines.md",
       "bytes": 2993,
       "sha256": "0f4c0c0edf24c66d4b47ab71c8c5a7dc0a6170872e72e5b80d9dff2b3de433c1"
@@ -10778,6 +10883,11 @@
       "path": "Supergent--main/skills/automation/github-workflow/1.0.0/SKILL.md",
       "bytes": 4122,
       "sha256": "0e730ca5e2ed61017bc1f3352abe68d93dbc80bfca14bbcfae3631f843a1e4e4"
+    },
+    {
+      "path": "Supergent--main/skills/automation/github-workflow-automation/1.0.0/SKILL.md",
+      "bytes": 21647,
+      "sha256": "c935b9235b01c992143b398d3f694c2884b1a51edfff87ae418f2fc8216a7a27"
     },
     {
       "path": "Supergent--main/skills/automation/gitlab-automation/1.0.0/SKILL.md",
@@ -11235,16 +11345,6 @@
       "sha256": "8f7e36a58447d132d17c4def8385f48c50e99ec1c48fbd8477f134c80e73885e"
     },
     {
-      "path": "Supergent--main/skills/automation/slack-automation/1.0.0/SKILL.md",
-      "bytes": 9611,
-      "sha256": "3760ade14c3593f10d6538283b17a4861c00b772b168a26e2f1efd3457d314b7"
-    },
-    {
-      "path": "Supergent--main/skills/automation/slack-formatting/1.0.0/SKILL.md",
-      "bytes": 2496,
-      "sha256": "dd8eeb7880157772bac217c2add58a4a0450469ab977d1bb785899e2dd8c4d2e"
-    },
-    {
       "path": "Supergent--main/skills/automation/slack/1.0.0/_meta.json",
       "bytes": 124,
       "sha256": "0ba4ed14ef7a159c59d9a2de5edae2a6672c4d40837a7fd3a84288aa9893692e"
@@ -11253,6 +11353,16 @@
       "path": "Supergent--main/skills/automation/slack/1.0.0/SKILL.md",
       "bytes": 2315,
       "sha256": "e15de2ab67a9ee4949c4fce1e5a2685da7eb4575096c1b10bd898499fc844eb3"
+    },
+    {
+      "path": "Supergent--main/skills/automation/slack-automation/1.0.0/SKILL.md",
+      "bytes": 9611,
+      "sha256": "3760ade14c3593f10d6538283b17a4861c00b772b168a26e2f1efd3457d314b7"
+    },
+    {
+      "path": "Supergent--main/skills/automation/slack-formatting/1.0.0/SKILL.md",
+      "bytes": 2496,
+      "sha256": "dd8eeb7880157772bac217c2add58a4a0450469ab977d1bb785899e2dd8c4d2e"
     },
     {
       "path": "Supergent--main/skills/automation/square-automation/1.0.0/SKILL.md",
@@ -11308,26 +11418,6 @@
       "path": "Supergent--main/skills/automation/tdd-workflows-tdd-refactor/1.0.0/SKILL.md",
       "bytes": 6062,
       "sha256": "17369ad0759ef313ac5d9fac071eece41cb2c24c345a1f23bc32069f2dddab8a"
-    },
-    {
-      "path": "Supergent--main/skills/automation/telegram-automation/1.0.0/SKILL.md",
-      "bytes": 8235,
-      "sha256": "c10f66a287ff2d8a8fc9101caf805390f7e0d7cdd018af5fc5eeafe88d9fb511"
-    },
-    {
-      "path": "Supergent--main/skills/automation/telegram-mini-app/1.0.0/SKILL.md",
-      "bytes": 6273,
-      "sha256": "8d5c864b4b1ea3482b8dc72b5ed061fcf0346f3b940c956cb5bad065bd0fa575"
-    },
-    {
-      "path": "Supergent--main/skills/automation/telegram-notify/1.0.0/_meta.json",
-      "bytes": 134,
-      "sha256": "a1672681f1d367474d211a3d6e03c5b42433ef452f298fce820c37fb24a1dfe4"
-    },
-    {
-      "path": "Supergent--main/skills/automation/telegram-notify/1.0.0/SKILL.md",
-      "bytes": 322,
-      "sha256": "d17dfb3c55bbe5414e7f19f3cfebf3b140420aa89d12d3f863449fa9360fe143"
     },
     {
       "path": "Supergent--main/skills/automation/telegram/1.0.0/assets/boilerplate/nodejs/package.json",
@@ -11418,6 +11508,26 @@
       "path": "Supergent--main/skills/automation/telegram/1.0.0/SKILL.md",
       "bytes": 15891,
       "sha256": "c50a048f2a10378f4aaa9173ea1635e83e19b493d9413db2f8f6780d2f473dd9"
+    },
+    {
+      "path": "Supergent--main/skills/automation/telegram-automation/1.0.0/SKILL.md",
+      "bytes": 8235,
+      "sha256": "c10f66a287ff2d8a8fc9101caf805390f7e0d7cdd018af5fc5eeafe88d9fb511"
+    },
+    {
+      "path": "Supergent--main/skills/automation/telegram-mini-app/1.0.0/SKILL.md",
+      "bytes": 6273,
+      "sha256": "8d5c864b4b1ea3482b8dc72b5ed061fcf0346f3b940c956cb5bad065bd0fa575"
+    },
+    {
+      "path": "Supergent--main/skills/automation/telegram-notify/1.0.0/_meta.json",
+      "bytes": 134,
+      "sha256": "a1672681f1d367474d211a3d6e03c5b42433ef452f298fce820c37fb24a1dfe4"
+    },
+    {
+      "path": "Supergent--main/skills/automation/telegram-notify/1.0.0/SKILL.md",
+      "bytes": 322,
+      "sha256": "d17dfb3c55bbe5414e7f19f3cfebf3b140420aa89d12d3f863449fa9360fe143"
     },
     {
       "path": "Supergent--main/skills/automation/temporal-golang-pro/1.0.0/resources/implementation-playbook.md",
@@ -11600,26 +11710,6 @@
       "sha256": "08e1b6e7bab3f6f8000c8c5e8c1c7f4fc2e0382846d0a41f93c65aeff86a1767"
     },
     {
-      "path": "Supergent--main/skills/backend/fastapi-pro/1.0.0/SKILL.md",
-      "bytes": 6436,
-      "sha256": "1353c18348e1c2ae2e44d068359e7cf81558e46324b98d241f2b10dc336512f6"
-    },
-    {
-      "path": "Supergent--main/skills/backend/fastapi-router-py/1.0.0/SKILL.md",
-      "bytes": 1605,
-      "sha256": "e6ccc8a088dd3c15f75ff9bb6c9157c0d792c157542c5d87efa91325a70c343f"
-    },
-    {
-      "path": "Supergent--main/skills/backend/fastapi-templates/1.0.0/resources/implementation-playbook.md",
-      "bytes": 16197,
-      "sha256": "0b331f6678f8729bc1abdfaa634a0e799c481ad74f811a33de550a466ba1e660"
-    },
-    {
-      "path": "Supergent--main/skills/backend/fastapi-templates/1.0.0/SKILL.md",
-      "bytes": 1257,
-      "sha256": "5e7131af88753376f5aac6b40ec51d93e41c6e89c2ef29cc0507cb1362a3d043"
-    },
-    {
       "path": "Supergent--main/skills/backend/fastapi/1.0.0/references/dependencies.md",
       "bytes": 3263,
       "sha256": "2a23535c0554e80022af1ea4234885e967f6eb986352f0c632222544fbe37157"
@@ -11640,14 +11730,34 @@
       "sha256": "3c8b2bced3222051cad6032d06cae4ac40e8a1376255e308d2c6f405cf2ea355"
     },
     {
-      "path": "Supergent--main/skills/backend/graphql-architect/1.0.0/SKILL.md",
-      "bytes": 7306,
-      "sha256": "712126147e3c76477aa7a0a618e973645f36979e4dc610d091db4a42830cd917"
+      "path": "Supergent--main/skills/backend/fastapi-pro/1.0.0/SKILL.md",
+      "bytes": 6436,
+      "sha256": "1353c18348e1c2ae2e44d068359e7cf81558e46324b98d241f2b10dc336512f6"
+    },
+    {
+      "path": "Supergent--main/skills/backend/fastapi-router-py/1.0.0/SKILL.md",
+      "bytes": 1605,
+      "sha256": "e6ccc8a088dd3c15f75ff9bb6c9157c0d792c157542c5d87efa91325a70c343f"
+    },
+    {
+      "path": "Supergent--main/skills/backend/fastapi-templates/1.0.0/resources/implementation-playbook.md",
+      "bytes": 16197,
+      "sha256": "0b331f6678f8729bc1abdfaa634a0e799c481ad74f811a33de550a466ba1e660"
+    },
+    {
+      "path": "Supergent--main/skills/backend/fastapi-templates/1.0.0/SKILL.md",
+      "bytes": 1257,
+      "sha256": "5e7131af88753376f5aac6b40ec51d93e41c6e89c2ef29cc0507cb1362a3d043"
     },
     {
       "path": "Supergent--main/skills/backend/graphql/1.0.0/SKILL.md",
       "bytes": 2400,
       "sha256": "20034c387e08f92c2e75ff5cad50fb1212fa375cfa8eb236f5c9fcbe9f2ec3ec"
+    },
+    {
+      "path": "Supergent--main/skills/backend/graphql-architect/1.0.0/SKILL.md",
+      "bytes": 7306,
+      "sha256": "712126147e3c76477aa7a0a618e973645f36979e4dc610d091db4a42830cd917"
     },
     {
       "path": "Supergent--main/skills/backend/hono/1.0.0/SKILL.md",
@@ -11725,6 +11835,11 @@
       "sha256": "dc977f7cbf2c772615bc73b26db89a13d9f4564704595f3665d9a712496ddb4e"
     },
     {
+      "path": "Supergent--main/skills/business/product-manager/1.0.0/SKILL.md",
+      "bytes": 1885,
+      "sha256": "3bb85323d2472bcf67a0fe9198b32f6984ad87fba9f5841eb9e48b379b5d61cb"
+    },
+    {
       "path": "Supergent--main/skills/business/product-manager-toolkit/1.0.0/references/prd_templates.md",
       "bytes": 7249,
       "sha256": "cd0d50ea82142ad801e2cd5a9c1a7ce88ce024259df7da15923b9d6bf2d3c85d"
@@ -11743,11 +11858,6 @@
       "path": "Supergent--main/skills/business/product-manager-toolkit/1.0.0/SKILL.md",
       "bytes": 8889,
       "sha256": "72fc32f45e1f749298f4b4f20656d5dedf95d8c7f118dc0907ddc0646adaeef3"
-    },
-    {
-      "path": "Supergent--main/skills/business/product-manager/1.0.0/SKILL.md",
-      "bytes": 1885,
-      "sha256": "3bb85323d2472bcf67a0fe9198b32f6984ad87fba9f5841eb9e48b379b5d61cb"
     },
     {
       "path": "Supergent--main/skills/business/revops/1.0.0/evals/evals.json",
@@ -12165,14 +12275,14 @@
       "sha256": "aac859f99330b504f446fcc198fbafd556fe056ff2052449178372ba10474a67"
     },
     {
-      "path": "Supergent--main/skills/database/postgresql-optimization/1.0.0/SKILL.md",
-      "bytes": 3803,
-      "sha256": "5d8ca70e2156a4f49ec582ef9cc820fc3f1ab788324afa1bb88e0d322efdfe47"
-    },
-    {
       "path": "Supergent--main/skills/database/postgresql/1.0.0/SKILL.md",
       "bytes": 16973,
       "sha256": "4908afc41b07fa0d9764f8c8f3b9439bd1c9841d8fce4ffbdb76599d3eb5d157"
+    },
+    {
+      "path": "Supergent--main/skills/database/postgresql-optimization/1.0.0/SKILL.md",
+      "bytes": 3803,
+      "sha256": "5d8ca70e2156a4f49ec582ef9cc820fc3f1ab788324afa1bb88e0d322efdfe47"
     },
     {
       "path": "Supergent--main/skills/database/prisma-expert/1.0.0/SKILL.md",
@@ -12350,29 +12460,19 @@
       "sha256": "f1c12975a52f5c3106ab2ebdd4457d622eb6e628de11909b01e81ae225d064a6"
     },
     {
-      "path": "Supergent--main/skills/devops/kubernetes-architect/1.0.0/SKILL.md",
-      "bytes": 9902,
-      "sha256": "86a3af4e273c5122e9e05d6e979f856f5645e8e64030f236fbdd989ed5a6e3e3"
-    },
-    {
-      "path": "Supergent--main/skills/devops/kubernetes-deployment/1.0.0/SKILL.md",
-      "bytes": 3343,
-      "sha256": "80e7eac814fc8732bae1f817ad4683b18a097b04ec068f5e8f143b8c5a8f7a8d"
-    },
-    {
       "path": "Supergent--main/skills/devops/kubernetes/1.0.0/_meta.json",
       "bytes": 129,
       "sha256": "ae321ffd3e0de753f7607827f6370bd16102eb69d9e6eff2fd07fccfcd361f45"
     },
     {
-      "path": "Supergent--main/skills/devops/kubernetes/1.0.0/AGENTS.md",
-      "bytes": 13872,
-      "sha256": "013fdd581ab7cc9b35cdf9fec70286bf0ab653492872b237b8aaa7c767103dcf"
-    },
-    {
       "path": "Supergent--main/skills/devops/kubernetes/1.0.0/agents/AGENTS.md",
       "bytes": 3592,
       "sha256": "656c93beca69b3cb529169eec852ace0ae8c3a5cf94888ea6efb805bcacda1db"
+    },
+    {
+      "path": "Supergent--main/skills/devops/kubernetes/1.0.0/AGENTS.md",
+      "bytes": 13872,
+      "sha256": "013fdd581ab7cc9b35cdf9fec70286bf0ab653492872b237b8aaa7c767103dcf"
     },
     {
       "path": "Supergent--main/skills/devops/kubernetes/1.0.0/assets/test.txt",
@@ -12550,34 +12650,19 @@
       "sha256": "bc044ff57f311e4a6dfb6b7586a84d4c203216016206d88ec02f7bdc1fcf9501"
     },
     {
+      "path": "Supergent--main/skills/devops/kubernetes-architect/1.0.0/SKILL.md",
+      "bytes": 9902,
+      "sha256": "86a3af4e273c5122e9e05d6e979f856f5645e8e64030f236fbdd989ed5a6e3e3"
+    },
+    {
+      "path": "Supergent--main/skills/devops/kubernetes-deployment/1.0.0/SKILL.md",
+      "bytes": 3343,
+      "sha256": "80e7eac814fc8732bae1f817ad4683b18a097b04ec068f5e8f143b8c5a8f7a8d"
+    },
+    {
       "path": "Supergent--main/skills/devops/makepad-deployment/1.0.0/SKILL.md",
       "bytes": 11458,
       "sha256": "73496753660062342d996eb3d8eed50b60d66477ae13d41725855cf77b64254d"
-    },
-    {
-      "path": "Supergent--main/skills/devops/observability-engineer/1.0.0/SKILL.md",
-      "bytes": 12982,
-      "sha256": "aa5a6ea823c14a79ee53b36141d60d61f24fcd786218ffe841b4ab6e0a2353b4"
-    },
-    {
-      "path": "Supergent--main/skills/devops/observability-monitoring-monitor-setup/1.0.0/resources/implementation-playbook.md",
-      "bytes": 14372,
-      "sha256": "56dd89df9aa1eafba701ec042e352d5ea3cf0c42690cc14247357f49ab9c44c1"
-    },
-    {
-      "path": "Supergent--main/skills/devops/observability-monitoring-monitor-setup/1.0.0/SKILL.md",
-      "bytes": 2259,
-      "sha256": "f23f83e5ce717700867bb61463744d3fac461a9b4909eff3d69a3d285c5b5213"
-    },
-    {
-      "path": "Supergent--main/skills/devops/observability-monitoring-slo-implement/1.0.0/resources/implementation-playbook.md",
-      "bytes": 36268,
-      "sha256": "a8f6068f5d4e8fe1755f212f461cd6bf2a32a5f231ebf4c26846dd7136011867"
-    },
-    {
-      "path": "Supergent--main/skills/devops/observability-monitoring-slo-implement/1.0.0/SKILL.md",
-      "bytes": 1943,
-      "sha256": "623a3650a48c40e015ee4f4e8dc810de910a62230a0674e448d064546aa0129f"
     },
     {
       "path": "Supergent--main/skills/devops/observability/1.0.0/scripts/alert-triage.sh",
@@ -12608,6 +12693,31 @@
       "path": "Supergent--main/skills/devops/observability/1.0.0/SKILL.md",
       "bytes": 26189,
       "sha256": "50fb7c2b094b281a3e5383aba61155a51f9157c228301715b0c380834fd8628d"
+    },
+    {
+      "path": "Supergent--main/skills/devops/observability-engineer/1.0.0/SKILL.md",
+      "bytes": 12982,
+      "sha256": "aa5a6ea823c14a79ee53b36141d60d61f24fcd786218ffe841b4ab6e0a2353b4"
+    },
+    {
+      "path": "Supergent--main/skills/devops/observability-monitoring-monitor-setup/1.0.0/resources/implementation-playbook.md",
+      "bytes": 14372,
+      "sha256": "56dd89df9aa1eafba701ec042e352d5ea3cf0c42690cc14247357f49ab9c44c1"
+    },
+    {
+      "path": "Supergent--main/skills/devops/observability-monitoring-monitor-setup/1.0.0/SKILL.md",
+      "bytes": 2259,
+      "sha256": "f23f83e5ce717700867bb61463744d3fac461a9b4909eff3d69a3d285c5b5213"
+    },
+    {
+      "path": "Supergent--main/skills/devops/observability-monitoring-slo-implement/1.0.0/resources/implementation-playbook.md",
+      "bytes": 36268,
+      "sha256": "a8f6068f5d4e8fe1755f212f461cd6bf2a32a5f231ebf4c26846dd7136011867"
+    },
+    {
+      "path": "Supergent--main/skills/devops/observability-monitoring-slo-implement/1.0.0/SKILL.md",
+      "bytes": 1943,
+      "sha256": "623a3650a48c40e015ee4f4e8dc810de910a62230a0674e448d064546aa0129f"
     },
     {
       "path": "Supergent--main/skills/devops/odoo-docker-deployment/1.0.0/SKILL.md",
@@ -12971,13 +13081,13 @@
     },
     {
       "path": "Supergent--main/skills/frontend/comfyui-gateway/1.0.0/references/integration.md",
-      "bytes": 48284,
-      "sha256": "771fe71e9a18704b23bd9e8528862c72a2fee7e0145ae14e0ad9ece8b4409265"
+      "bytes": 48287,
+      "sha256": "e23c886516e96067f2aad8d9b84f8fe6f46aa11f603e86799211da165663c058"
     },
     {
       "path": "Supergent--main/skills/frontend/comfyui-gateway/1.0.0/references/troubleshooting.md",
-      "bytes": 29528,
-      "sha256": "2c69a67cb249576407daebde269417902ee14816a06228c482c0027b2c8b2916"
+      "bytes": 29531,
+      "sha256": "9eac13d2c6d3534e70907b4552b40e1b012750e8ffad60bf985203ffa7837c9e"
     },
     {
       "path": "Supergent--main/skills/frontend/comfyui-gateway/1.0.0/SKILL.md",
@@ -13375,16 +13485,6 @@
       "sha256": "ccf88fa31c3262f8320e87df9ee2038658f26b2bb6ddde6abba5920ab284fba0"
     },
     {
-      "path": "Supergent--main/skills/frontend/shadcn-ui/1.0.0/_meta.json",
-      "bytes": 128,
-      "sha256": "6a3f457eff958fe5b72115e4de32d4fdf3bd8b72a28fccea3b45021d180c85dd"
-    },
-    {
-      "path": "Supergent--main/skills/frontend/shadcn-ui/1.0.0/SKILL.md",
-      "bytes": 17650,
-      "sha256": "ec4cee3a75b7780d837a572d8986098ddcad0f94423b2b1e56a636637a68e603"
-    },
-    {
       "path": "Supergent--main/skills/frontend/shadcn/1.0.0/agents/openai.yml",
       "bytes": 238,
       "sha256": "35db91b1eef58b2abe01da9b88577de5a44e233b740cd93d692ddeeadd2afe4d"
@@ -13448,6 +13548,16 @@
       "path": "Supergent--main/skills/frontend/shadcn/1.0.0/SKILL.md",
       "bytes": 16269,
       "sha256": "e4f8bcc3ef9cd1ea22b1cee5dd6ce0261a4d095887756ad239dd1235d0335c16"
+    },
+    {
+      "path": "Supergent--main/skills/frontend/shadcn-ui/1.0.0/_meta.json",
+      "bytes": 128,
+      "sha256": "6a3f457eff958fe5b72115e4de32d4fdf3bd8b72a28fccea3b45021d180c85dd"
+    },
+    {
+      "path": "Supergent--main/skills/frontend/shadcn-ui/1.0.0/SKILL.md",
+      "bytes": 17650,
+      "sha256": "ec4cee3a75b7780d837a572d8986098ddcad0f94423b2b1e56a636637a68e603"
     },
     {
       "path": "Supergent--main/skills/frontend/slack-bot-builder/1.0.0/SKILL.md",
@@ -14200,6 +14310,21 @@
       "sha256": "d8365148f5326a5013127f77959c0cfbc5f80adddbd5cd04e4cc3af7ed237664"
     },
     {
+      "path": "Supergent--main/skills/general/angular/1.0.0/metadata.json",
+      "bytes": 741,
+      "sha256": "96d4071ebdbeb7d0b60acd7f4191ddc1382aad815e9e409e8daa32b0d0d3a0b9"
+    },
+    {
+      "path": "Supergent--main/skills/general/angular/1.0.0/README.md",
+      "bytes": 1400,
+      "sha256": "fc22940cd60d47b7ac3c9289ccd7a5eab3c37a9c48e805570308852833546b88"
+    },
+    {
+      "path": "Supergent--main/skills/general/angular/1.0.0/SKILL.md",
+      "bytes": 20148,
+      "sha256": "cef5860c52630e8794d6f896091fa135eed91ca4250a5f8b4c3e52cf759983da"
+    },
+    {
       "path": "Supergent--main/skills/general/angular-best-practices/1.0.0/metadata.json",
       "bytes": 724,
       "sha256": "b6b7f8d15c35143f8d66e9382e29a157604d7ebc478cd55a309bde9249c5c338"
@@ -14233,21 +14358,6 @@
       "path": "Supergent--main/skills/general/angular-state-management/1.0.0/SKILL.md",
       "bytes": 15420,
       "sha256": "d3cf4f16909613e42ce1e90c8fc9a8ee150ee5b363b46e740097ecb9b0d6bc1c"
-    },
-    {
-      "path": "Supergent--main/skills/general/angular/1.0.0/metadata.json",
-      "bytes": 741,
-      "sha256": "96d4071ebdbeb7d0b60acd7f4191ddc1382aad815e9e409e8daa32b0d0d3a0b9"
-    },
-    {
-      "path": "Supergent--main/skills/general/angular/1.0.0/README.md",
-      "bytes": 1400,
-      "sha256": "fc22940cd60d47b7ac3c9289ccd7a5eab3c37a9c48e805570308852833546b88"
-    },
-    {
-      "path": "Supergent--main/skills/general/angular/1.0.0/SKILL.md",
-      "bytes": 20148,
-      "sha256": "cef5860c52630e8794d6f896091fa135eed91ca4250a5f8b4c3e52cf759983da"
     },
     {
       "path": "Supergent--main/skills/general/animejs-animation/1.0.0/SKILL.md",
@@ -14790,14 +14900,14 @@
       "sha256": "1bba7b3e3ed4a2822bc4355e35d815aa00d7ab39eb58dda7eb80b61bf13cf4df"
     },
     {
-      "path": "Supergent--main/skills/general/api-documentation-generator/1.0.0/SKILL.md",
-      "bytes": 11242,
-      "sha256": "bf04cfe06b703fd4fd818618532ad98b6fa4a16fddf166ee0860f3c1f9fd734b"
-    },
-    {
       "path": "Supergent--main/skills/general/api-documentation/1.0.0/SKILL.md",
       "bytes": 3286,
       "sha256": "dc68be9b642fc5357ed810c9ea6e2f946e939eabefd1845262e48ff26fb68729"
+    },
+    {
+      "path": "Supergent--main/skills/general/api-documentation-generator/1.0.0/SKILL.md",
+      "bytes": 11242,
+      "sha256": "bf04cfe06b703fd4fd818618532ad98b6fa4a16fddf166ee0860f3c1f9fd734b"
     },
     {
       "path": "Supergent--main/skills/general/api-documenter/1.0.0/SKILL.md",
@@ -15135,21 +15245,6 @@
       "sha256": "c061bf2e4d51bf16342536cc69159984f42ab9d8f553b467854e5924d3251af0"
     },
     {
-      "path": "Supergent--main/skills/general/architecture-decision-records/1.0.0/SKILL.md",
-      "bytes": 12992,
-      "sha256": "e441a94143eed1ac846233cfb5fabd958a692cdb209688ddda3bf1f7c0d95462"
-    },
-    {
-      "path": "Supergent--main/skills/general/architecture-patterns/1.0.0/resources/implementation-playbook.md",
-      "bytes": 14429,
-      "sha256": "54cf8375417be40591bec2c66abf279bbb458ebdb964d2f7695357019282d588"
-    },
-    {
-      "path": "Supergent--main/skills/general/architecture-patterns/1.0.0/SKILL.md",
-      "bytes": 1931,
-      "sha256": "2c28ef0ab26ed02cbf7cb52fa945325090f0a2831b2b03c8e81564ff02bf9b80"
-    },
-    {
       "path": "Supergent--main/skills/general/architecture/1.0.0/context-discovery.md",
       "bytes": 1591,
       "sha256": "0698e38a37669c36c819bac70c51213bb955e99125ca96b690c840c317595a17"
@@ -15178,6 +15273,21 @@
       "path": "Supergent--main/skills/general/architecture/1.0.0/trade-off-analysis.md",
       "bytes": 1579,
       "sha256": "14a0ceb22e88af2d39b24f06a9095312aa04bc72e8980f244bf2b42f8260abaa"
+    },
+    {
+      "path": "Supergent--main/skills/general/architecture-decision-records/1.0.0/SKILL.md",
+      "bytes": 12992,
+      "sha256": "e441a94143eed1ac846233cfb5fabd958a692cdb209688ddda3bf1f7c0d95462"
+    },
+    {
+      "path": "Supergent--main/skills/general/architecture-patterns/1.0.0/resources/implementation-playbook.md",
+      "bytes": 14429,
+      "sha256": "54cf8375417be40591bec2c66abf279bbb458ebdb964d2f7695357019282d588"
+    },
+    {
+      "path": "Supergent--main/skills/general/architecture-patterns/1.0.0/SKILL.md",
+      "bytes": 1931,
+      "sha256": "2c28ef0ab26ed02cbf7cb52fa945325090f0a2831b2b03c8e81564ff02bf9b80"
     },
     {
       "path": "Supergent--main/skills/general/arm-cortex-expert/1.0.0/SKILL.md",
@@ -15446,8 +15556,8 @@
     },
     {
       "path": "Supergent--main/skills/general/broken-authentication/1.0.0/SKILL.md",
-      "bytes": 12594,
-      "sha256": "ee12907b8d06b966d1f0c0b0c4292c2fac835c4364c19cb9487c3693e2eda104"
+      "bytes": 12597,
+      "sha256": "9db41089941c6647fe32d8bb406539019dc92afa98b0ff62dc488a8442096e23"
     },
     {
       "path": "Supergent--main/skills/general/bug-hunter/1.0.0/README.md",
@@ -16530,6 +16640,11 @@
       "sha256": "4182b7d62ece0500ec6611e239c8ace8a74d27da91fd3475f29bfa9acc224c3d"
     },
     {
+      "path": "Supergent--main/skills/general/daily/1.0.0/SKILL.md",
+      "bytes": 13882,
+      "sha256": "e11f7acc3353537af4229b3fe97f0de0cc27ef6fa299b356cac5ef727941d6df"
+    },
+    {
       "path": "Supergent--main/skills/general/daily-news-report/1.0.0/cache.json",
       "bytes": 976,
       "sha256": "68ef551bb353190f5382d6360948f738ad05ddfce165e883189fce8c5ac3f9fc"
@@ -16553,11 +16668,6 @@
       "path": "Supergent--main/skills/general/daily-review-ritual/1.0.0/SKILL.md",
       "bytes": 1578,
       "sha256": "e4bddd7e66b553cb4d9d1c0f02b31f8a7299fb69ac5257e2fedf337de6f4cada"
-    },
-    {
-      "path": "Supergent--main/skills/general/daily/1.0.0/SKILL.md",
-      "bytes": 13882,
-      "sha256": "e11f7acc3353537af4229b3fe97f0de0cc27ef6fa299b356cac5ef727941d6df"
     },
     {
       "path": "Supergent--main/skills/general/data-engineer/1.0.0/SKILL.md",
@@ -17045,14 +17155,14 @@
       "sha256": "ef69b5d9e4ada9c4c8d66b320b3a0e05d9273506402f70f29a7fd6a33bddf061"
     },
     {
-      "path": "Supergent--main/skills/general/debug-buttercup/1.0.0/SKILL.md",
-      "bytes": 9569,
-      "sha256": "e22470ca32ca3913bc307c5f07c34f19aae01d70369fef00ef8695b60c1d9e01"
-    },
-    {
       "path": "Supergent--main/skills/general/debug/1.0.0/SKILL.md",
       "bytes": 11499,
       "sha256": "d774a2bc45d62e2e388a7f3de72afd761b0025f6666c3cc698c496c1805fa10e"
+    },
+    {
+      "path": "Supergent--main/skills/general/debug-buttercup/1.0.0/SKILL.md",
+      "bytes": 9569,
+      "sha256": "e22470ca32ca3913bc307c5f07c34f19aae01d70369fef00ef8695b60c1d9e01"
     },
     {
       "path": "Supergent--main/skills/general/debugger/1.0.0/SKILL.md",
@@ -17080,14 +17190,14 @@
       "sha256": "d6055deb222c8a20a3bf5d73a04d628219f83851e0dd93145678e1163bf77806"
     },
     {
-      "path": "Supergent--main/skills/general/delegation-tracker/1.0.0/SKILL.md",
-      "bytes": 3086,
-      "sha256": "8c338dd14ea85d3c165ae2512367182e8f47c279c2fd48256677f16d0109f4fa"
-    },
-    {
       "path": "Supergent--main/skills/general/delegation/1.0.0/SKILL.md",
       "bytes": 2449,
       "sha256": "6556004c1b4af6b30707c932ce707fda2e486502c67a079758cba6b4a5448442"
+    },
+    {
+      "path": "Supergent--main/skills/general/delegation-tracker/1.0.0/SKILL.md",
+      "bytes": 3086,
+      "sha256": "8c338dd14ea85d3c165ae2512367182e8f47c279c2fd48256677f16d0109f4fa"
     },
     {
       "path": "Supergent--main/skills/general/dependency-upgrade/1.0.0/SKILL.md",
@@ -17275,6 +17385,11 @@
       "sha256": "20cb41cfe88a5069cf08d843f37582fe5d810b91b2e14312cef4bf839a5d02eb"
     },
     {
+      "path": "Supergent--main/skills/general/documentation/1.0.0/SKILL.md",
+      "bytes": 5346,
+      "sha256": "29a5c57c9f2d1afa3f858682703962f0acd6588cb73f449009227147417fef11"
+    },
+    {
       "path": "Supergent--main/skills/general/documentation-generation-doc-generate/1.0.0/resources/implementation-playbook.md",
       "bytes": 16243,
       "sha256": "e0677f17f5347702c6d807838208c5c532283a643efae8602b5616a41072024a"
@@ -17288,11 +17403,6 @@
       "path": "Supergent--main/skills/general/documentation-templates/1.0.0/SKILL.md",
       "bytes": 3396,
       "sha256": "d5ae51ad819bcd6b83e6b9530494e5e6bebb766a82d0d7ce907c4219786a5566"
-    },
-    {
-      "path": "Supergent--main/skills/general/documentation/1.0.0/SKILL.md",
-      "bytes": 5346,
-      "sha256": "29a5c57c9f2d1afa3f858682703962f0acd6588cb73f449009227147417fef11"
     },
     {
       "path": "Supergent--main/skills/general/domain-driven-design/1.0.0/references/ddd-deliverables.md",
@@ -17318,6 +17428,11 @@
       "path": "Supergent--main/skills/general/dotnet-architect/1.0.0/SKILL.md",
       "bytes": 7142,
       "sha256": "7fc59bf5e3ef628ce989d220646c5ea58a3b878e35c7ad0d8dd22897b23f5b8a"
+    },
+    {
+      "path": "Supergent--main/skills/general/dotnet-backend/1.0.0/SKILL.md",
+      "bytes": 7732,
+      "sha256": "4d2c39335d42e3a3d10cf2aa48f1c47f31a8dc22c33dfd8fc3b32342db80ea5f"
     },
     {
       "path": "Supergent--main/skills/general/dotnet-backend-patterns/1.0.0/assets/repository-template.cs.template",
@@ -17350,11 +17465,6 @@
       "sha256": "e3a85e8af3982ca737e05822b13139b1111b4375c4f96f061aa697e2388277bb"
     },
     {
-      "path": "Supergent--main/skills/general/dotnet-backend/1.0.0/SKILL.md",
-      "bytes": 7732,
-      "sha256": "4d2c39335d42e3a3d10cf2aa48f1c47f31a8dc22c33dfd8fc3b32342db80ea5f"
-    },
-    {
       "path": "Supergent--main/skills/general/dwarf-expert/1.0.0/SKILL.md",
       "bytes": 4953,
       "sha256": "406fd6de0c5dfc5b1e0cccfba850d6667e280cc0466dc961cff30f16f72e7980"
@@ -17365,6 +17475,11 @@
       "sha256": "c3968379ab786b4670e0593e18d19be7f1ae6ddfc4663e8c349e150d92ce724e"
     },
     {
+      "path": "Supergent--main/skills/general/e2e-testing/1.0.0/SKILL.md",
+      "bytes": 3448,
+      "sha256": "3114b756cd1521c2d869cf98aab459e929081a804b9882a5d47ea50ce7a563bf"
+    },
+    {
       "path": "Supergent--main/skills/general/e2e-testing-patterns/1.0.0/resources/implementation-playbook.md",
       "bytes": 14545,
       "sha256": "426683013b5178548c2ef567e40cd012dcac873bc148437d542d4ffdd6b3ccdc"
@@ -17373,11 +17488,6 @@
       "path": "Supergent--main/skills/general/e2e-testing-patterns/1.0.0/SKILL.md",
       "bytes": 1370,
       "sha256": "1e6e621baf9add3651cf0c222da6195f220a9d25057e1026897099dd8305377c"
-    },
-    {
-      "path": "Supergent--main/skills/general/e2e-testing/1.0.0/SKILL.md",
-      "bytes": 3448,
-      "sha256": "3114b756cd1521c2d869cf98aab459e929081a804b9882a5d47ea50ce7a563bf"
     },
     {
       "path": "Supergent--main/skills/general/eightctl/1.0.0/SKILL.md",
@@ -18405,6 +18515,11 @@
       "sha256": "4710c0596e8e3a4f8172b2d5bdcfffdf611e4cc774a92ebb844a4f7ba5ee971a"
     },
     {
+      "path": "Supergent--main/skills/general/gemini/1.0.0/SKILL.md",
+      "bytes": 934,
+      "sha256": "b513caa7255732f75a6d7f8b66e33903a49e2176727bf7577da5d0a65e1401dc"
+    },
+    {
       "path": "Supergent--main/skills/general/gemini-api-dev/1.0.0/SKILL.md",
       "bytes": 4822,
       "sha256": "be4d2a289f2f3745e106c8bab136ecf103a3d5c47d6203658e122d522afc853a"
@@ -18413,11 +18528,6 @@
       "path": "Supergent--main/skills/general/gemini-api-integration/1.0.0/SKILL.md",
       "bytes": 5754,
       "sha256": "42a8eb48f3aab1bc9e206eb7e5361835b81a70f6d575e912fba95ebc807a23d0"
-    },
-    {
-      "path": "Supergent--main/skills/general/gemini/1.0.0/SKILL.md",
-      "bytes": 934,
-      "sha256": "b513caa7255732f75a6d7f8b66e33903a49e2176727bf7577da5d0a65e1401dc"
     },
     {
       "path": "Supergent--main/skills/general/geo-fundamentals/1.0.0/scripts/geo_checker.py",
@@ -18500,14 +18610,14 @@
       "sha256": "45b9172dd0c8d5a200599daafe32bd3abe2bda0c5e3e5733fbb6020b4fb3cda4"
     },
     {
-      "path": "Supergent--main/skills/general/github-issue-creator/1.0.0/SKILL.md",
-      "bytes": 3839,
-      "sha256": "e920770164a436248e65bbccbfcf2db1715e3e249c904e2d5d2c9c525327567f"
-    },
-    {
       "path": "Supergent--main/skills/general/github-issue/1.0.0/SKILL.md",
       "bytes": 6310,
       "sha256": "be497973a0c3dfbdea5f432cd325e10cd47e638f2d42dc519015c79064e7bd8f"
+    },
+    {
+      "path": "Supergent--main/skills/general/github-issue-creator/1.0.0/SKILL.md",
+      "bytes": 3839,
+      "sha256": "e920770164a436248e65bbccbfcf2db1715e3e249c904e2d5d2c9c525327567f"
     },
     {
       "path": "Supergent--main/skills/general/github-ops/1.0.0/_meta.json",
@@ -18520,6 +18630,11 @@
       "sha256": "7cdc4e503f8b3fe5fd278ec9de3dbd6ed489032dcbfdf41f222670c826b8f31c"
     },
     {
+      "path": "Supergent--main/skills/general/github-pr/1.0.0/SKILL.md",
+      "bytes": 9507,
+      "sha256": "5b933df109622845193d29d85f1cff0234fbe5ad8f93680d8cfd4d18b981b50d"
+    },
+    {
       "path": "Supergent--main/skills/general/github-pr-review/1.0.0/references/review-protocol.md",
       "bytes": 22275,
       "sha256": "a3cadd2323a113d95feac478f917abfd25cd39d61181304c509e290f9c6cdeb4"
@@ -18528,11 +18643,6 @@
       "path": "Supergent--main/skills/general/github-pr-review/1.0.0/SKILL.md",
       "bytes": 5709,
       "sha256": "4ae5ef4d3f9d2aa0e142e2880756464ff3f0801d7a050bf0d3aed85dfae1afd8"
-    },
-    {
-      "path": "Supergent--main/skills/general/github-pr/1.0.0/SKILL.md",
-      "bytes": 9507,
-      "sha256": "5b933df109622845193d29d85f1cff0234fbe5ad8f93680d8cfd4d18b981b50d"
     },
     {
       "path": "Supergent--main/skills/general/gitlab-ci-patterns/1.0.0/SKILL.md",
@@ -18621,8 +18731,8 @@
     },
     {
       "path": "Supergent--main/skills/general/h3/1.0.0/docs/examples/handle-session.md",
-      "bytes": 3902,
-      "sha256": "f9892ffc817a9289a87207d8067f5646db45f3c503f29c448ab2b0049fd0edab"
+      "bytes": 3797,
+      "sha256": "23356c27f3fa7eb8b79467787824ce170c9eafa54f3bb9a5bef37eb9889cffc8"
     },
     {
       "path": "Supergent--main/skills/general/h3/1.0.0/docs/examples/index.md",
@@ -20300,14 +20410,14 @@
       "sha256": "1008267974ffe314a4b83de8473b4a0d85bcd46d24a3794934e38e27949ea211"
     },
     {
-      "path": "Supergent--main/skills/general/iterate-pr/1.0.0/SKILL.md",
-      "bytes": 7544,
-      "sha256": "a20e49997036e3d62ce15d9c9548934eb9fbfaf4b859be3e0c08ee25479ed9b4"
-    },
-    {
       "path": "Supergent--main/skills/general/iterate/1.0.0/SKILL.md",
       "bytes": 3514,
       "sha256": "68a05419f43bc4294febd6276cc09443fa47568e52dde0d8917c96d4c92ccdaf"
+    },
+    {
+      "path": "Supergent--main/skills/general/iterate-pr/1.0.0/SKILL.md",
+      "bytes": 7544,
+      "sha256": "a20e49997036e3d62ce15d9c9548934eb9fbfaf4b859be3e0c08ee25479ed9b4"
     },
     {
       "path": "Supergent--main/skills/general/java-pro/1.0.0/SKILL.md",
@@ -20406,8 +20516,8 @@
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/base_scraper.py",
-      "bytes": 8119,
-      "sha256": "73408b41050dbf71476aa691bb608425a4a64532cc6864b29817e6e1afc63ff2"
+      "bytes": 8920,
+      "sha256": "1fbb141490260da5c07bbf83eeb37a710e2d5bd1b4349048e7ec57c63a7e02e7"
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/generic_scraper.py",
@@ -20441,8 +20551,8 @@
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/jucema.py",
-      "bytes": 8292,
-      "sha256": "3a88ac572bf715fd295c46e2da2a8acf93f5e5bd05ec089e5c0c25ed40532c20"
+      "bytes": 8363,
+      "sha256": "b2374ea1ca99458381b3c6204d3311eae91a99bbb55f1fd04f008d9b405631b5"
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/jucemg.py",
@@ -20496,8 +20606,8 @@
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/jucesp.py",
-      "bytes": 9269,
-      "sha256": "3457df689a4f3d8775b536fa5b5720b1bb1544f149432a186b9724a25dd705fc"
+      "bytes": 9334,
+      "sha256": "24802f2ba6d324b7adc550eca03e23c93ee65923b1d5c89d81b9f23c3bb9d48e"
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/jucetins.py",
@@ -20511,8 +20621,8 @@
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/jucisrs.py",
-      "bytes": 12034,
-      "sha256": "e47580f146438b3676246933dfcaf32a08ce8dee1122b9e082494e963f9d1991"
+      "bytes": 11872,
+      "sha256": "2735fe586777d24e24acf9507f17b135210d01ba09b6b3bfc37a1903db257da2"
     },
     {
       "path": "Supergent--main/skills/general/junta-leiloeiros/1.0.0/scripts/scraper/states.py",
@@ -21906,8 +22016,8 @@
     },
     {
       "path": "Supergent--main/skills/general/migrate-nanoclaw/1.0.0/diagnostics.md",
-      "bytes": 1543,
-      "sha256": "f117c858798bde419c42ea7c24f81ef9b550c6a4adb4e3b104ab0750b75d8760"
+      "bytes": 1511,
+      "sha256": "c35b101fa0d5c7fb60231655e6a16bf1880e08b79f30281d2e1a0412ae7d9b20"
     },
     {
       "path": "Supergent--main/skills/general/migrate-nanoclaw/1.0.0/SKILL.md",
@@ -22240,14 +22350,14 @@
       "sha256": "fdca8c82789922c16ce8f5d9315361c6fd9603297c269a5896c90a99a840cb36"
     },
     {
-      "path": "Supergent--main/skills/general/nerdzao-elite-gemini-high/1.0.0/SKILL.md",
-      "bytes": 2050,
-      "sha256": "c068e3b55b577e76c6c1936509d32a19fb5320767b6f7375e2308626b3a104fd"
-    },
-    {
       "path": "Supergent--main/skills/general/nerdzao-elite/1.0.0/SKILL.md",
       "bytes": 1481,
       "sha256": "989b84245b44ab5b8c2d823827e88bae7d34a2e26748e2a1524e039c2da79dfc"
+    },
+    {
+      "path": "Supergent--main/skills/general/nerdzao-elite-gemini-high/1.0.0/SKILL.md",
+      "bytes": 2050,
+      "sha256": "c068e3b55b577e76c6c1936509d32a19fb5320767b6f7375e2308626b3a104fd"
     },
     {
       "path": "Supergent--main/skills/general/network-101/1.0.0/SKILL.md",
@@ -22835,6 +22945,16 @@
       "sha256": "52c4b62840aae3ea09dfd98e1d87827bd4743ec0e4d253fe9153860249c3a31c"
     },
     {
+      "path": "Supergent--main/skills/general/obsidian/1.0.0/_meta.json",
+      "bytes": 127,
+      "sha256": "097709ff9fc7c56a4645ec8544be578ca7c23a086fe2c1ae2b6a5add670c43d7"
+    },
+    {
+      "path": "Supergent--main/skills/general/obsidian/1.0.0/SKILL.md",
+      "bytes": 2334,
+      "sha256": "dc45b522a0f08fa11762b330b5355ccaca789bd645b0c450fe75026f69d728b2"
+    },
+    {
       "path": "Supergent--main/skills/general/obsidian-bases/1.0.0/references/FUNCTIONS_REFERENCE.md",
       "bytes": 7538,
       "sha256": "208fd63aead9bca1975626fea52605e6ab9434dc0529d923feb36b18b8877d3b"
@@ -22918,16 +23038,6 @@
       "path": "Supergent--main/skills/general/obsidian-vault-maintainer/1.0.0/SKILL.md",
       "bytes": 1073,
       "sha256": "c3c719a7b7722511f80c5abd65b48df68669aa471eb3d304c2299f7d56a9a21b"
-    },
-    {
-      "path": "Supergent--main/skills/general/obsidian/1.0.0/_meta.json",
-      "bytes": 127,
-      "sha256": "097709ff9fc7c56a4645ec8544be578ca7c23a086fe2c1ae2b6a5add670c43d7"
-    },
-    {
-      "path": "Supergent--main/skills/general/obsidian/1.0.0/SKILL.md",
-      "bytes": 2334,
-      "sha256": "dc45b522a0f08fa11762b330b5355ccaca789bd645b0c450fe75026f69d728b2"
     },
     {
       "path": "Supergent--main/skills/general/occupational-health-analyzer/1.0.0/SKILL.md",
@@ -23906,8 +24016,8 @@
     },
     {
       "path": "Supergent--main/skills/general/public-skills/1.0.0/plugins/vulnerability-remediation/scripts/scan_and_remediate.py",
-      "bytes": 20554,
-      "sha256": "7fa4523472f19f786455be1bb418f3c799fcbef7b2e10eb8a3d5d1164fa40200"
+      "bytes": 20560,
+      "sha256": "4e614ee31d6d5c57a7950424e42cd819de34a8b99eeda92c7773cb7f5df834a4"
     },
     {
       "path": "Supergent--main/skills/general/public-skills/1.0.0/plugins/vulnerability-remediation/workflows/vulnerability-scan.yml",
@@ -24570,6 +24680,11 @@
       "sha256": "c692e70b69eb7c5a41479077a04dcf7341dbd5b0bcc3a0def11ddab8416c751a"
     },
     {
+      "path": "Supergent--main/skills/general/remotion/1.0.0/SKILL.md",
+      "bytes": 13105,
+      "sha256": "66f7db12a91ab9699fd91dad09a55bfad1f46a33358996204789523d1e9e7116"
+    },
+    {
       "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/3d.md",
       "bytes": 2290,
       "sha256": "2a5b1a72de35168bba08c7e78153fccd408ec7882fdd1778f2751162e1661378"
@@ -24578,11 +24693,6 @@
       "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/animations.md",
       "bytes": 790,
       "sha256": "99a6377d64061af5f7fcd1a179c0c8f6d7bcd0a515060a46db117a757ac3387a"
-    },
-    {
-      "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/assets.md",
-      "bytes": 1590,
-      "sha256": "664160a48fe6ef76c9b25ea51b3796d39d371cb3632f380b014492412902ad42"
     },
     {
       "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/assets/charts-bar-chart.tsx",
@@ -24598,6 +24708,11 @@
       "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/assets/text-animations-word-highlight.tsx",
       "bytes": 2387,
       "sha256": "5dbba688b875baaa62555c7a243f54739e81edbf34148c87048594a210c3ec2c"
+    },
+    {
+      "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/assets.md",
+      "bytes": 1590,
+      "sha256": "664160a48fe6ef76c9b25ea51b3796d39d371cb3632f380b014492412902ad42"
     },
     {
       "path": "Supergent--main/skills/general/remotion-best-practices/1.0.0/rules/audio.md",
@@ -24730,11 +24845,6 @@
       "sha256": "0661fd8a78fcfdba032cd1db3cf2b50e4ff182798e4aa76b51ce43029918c2af"
     },
     {
-      "path": "Supergent--main/skills/general/remotion/1.0.0/SKILL.md",
-      "bytes": 13105,
-      "sha256": "66f7db12a91ab9699fd91dad09a55bfad1f46a33358996204789523d1e9e7116"
-    },
-    {
       "path": "Supergent--main/skills/general/report-generator/1.0.0/_meta.json",
       "bytes": 135,
       "sha256": "db58144f156e43f444a1311ec33c507ab343d0fffc5c21e802ddc97931fd4731"
@@ -24788,6 +24898,16 @@
       "path": "Supergent--main/skills/general/reverse-engineer/1.0.0/SKILL.md",
       "bytes": 5327,
       "sha256": "68a78f28004cfb5e11f11ed7a05e91b90e6ee1ac18dbc2591000f66ad6ac6637"
+    },
+    {
+      "path": "Supergent--main/skills/general/review/1.0.0/_meta.json",
+      "bytes": 125,
+      "sha256": "521ce26c52bd22a56ecf49d4c04592023764fbcece9a81a0788e2d52bf2bf7a5"
+    },
+    {
+      "path": "Supergent--main/skills/general/review/1.0.0/skill.md",
+      "bytes": 6164,
+      "sha256": "67b90aec9e817237bb52621f23938957ba46507ed35fb1b8fc5f7b63a2f814d7"
     },
     {
       "path": "Supergent--main/skills/general/review-analysis/1.0.0/_meta.json",
@@ -24863,16 +24983,6 @@
       "path": "Supergent--main/skills/general/review-readiness/1.0.0/SKILL.md",
       "bytes": 3361,
       "sha256": "d9e4a538efab2fe01544823ad3e4023361817691e672f4e0f5c4759fafaf9e8e"
-    },
-    {
-      "path": "Supergent--main/skills/general/review/1.0.0/_meta.json",
-      "bytes": 125,
-      "sha256": "521ce26c52bd22a56ecf49d4c04592023764fbcece9a81a0788e2d52bf2bf7a5"
-    },
-    {
-      "path": "Supergent--main/skills/general/review/1.0.0/skill.md",
-      "bytes": 6164,
-      "sha256": "67b90aec9e817237bb52621f23938957ba46507ed35fb1b8fc5f7b63a2f814d7"
     },
     {
       "path": "Supergent--main/skills/general/risk-manager/1.0.0/SKILL.md",
@@ -25295,6 +25405,16 @@
       "sha256": "8db62f0b1eb250b04256494b529ae139f801555ca0d9a43980f16d2bcdef211c"
     },
     {
+      "path": "Supergent--main/skills/general/setup/1.0.0/diagnostics.md",
+      "bytes": 1654,
+      "sha256": "d4017a2c56b440d66555324cd9cd9282e2032e2f87f04ba5ffc5e39799535d10"
+    },
+    {
+      "path": "Supergent--main/skills/general/setup/1.0.0/SKILL.md",
+      "bytes": 17174,
+      "sha256": "4db056c25393bad8cfc1a519a442ec727ed123e34e1eabc6397f5e1a4b3712d3"
+    },
+    {
       "path": "Supergent--main/skills/general/setup-openhands/1.0.0/README.md",
       "bytes": 813,
       "sha256": "ec07ce9e1c0ee42579534d90029484ee8c3d451713a698f2f48596469fef45b1"
@@ -25313,16 +25433,6 @@
       "path": "Supergent--main/skills/general/setup-pr-review/1.0.0/SKILL.md",
       "bytes": 2939,
       "sha256": "70b8d5fb44619412ff7b9bc7794a94ab4a6ab9f14198218c85739463026b1513"
-    },
-    {
-      "path": "Supergent--main/skills/general/setup/1.0.0/diagnostics.md",
-      "bytes": 1686,
-      "sha256": "2791fcba1b7f874d84e77809c5cc342cff39e5e8e83a977416ba5f08ee201872"
-    },
-    {
-      "path": "Supergent--main/skills/general/setup/1.0.0/SKILL.md",
-      "bytes": 17174,
-      "sha256": "4db056c25393bad8cfc1a519a442ec727ed123e34e1eabc6397f5e1a4b3712d3"
     },
     {
       "path": "Supergent--main/skills/general/sexual-health-analyzer/1.0.0/SKILL.md",
@@ -25440,6 +25550,61 @@
       "sha256": "3c9460f8b95163cd74fca27ae85a35629a9a18e6a6d15555e195a9963638d128"
     },
     {
+      "path": "Supergent--main/skills/general/skill/1.0.0/metadata.json",
+      "bytes": 68,
+      "sha256": "27ff7cc87263c9c0d7b859ab3a746df4ecc9e5e1ab85486ff2c237558a7fcb56"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/element-attributes.md",
+      "bytes": 665,
+      "sha256": "bf19aa4671e0a50a0fefa9c790f39124e803060eefe395042b723c29fcb7faa2"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/playwright-tests.md",
+      "bytes": 1635,
+      "sha256": "d770e9eb15cf1e266b9d92e788722fa189941f89346702a6800b06e25416c4e7"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/request-mocking.md",
+      "bytes": 2182,
+      "sha256": "54e801c9663fc2b6d68ceb058cb1c360724c2499f42acc7852a68e83e5b5f37c"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/running-code.md",
+      "bytes": 5398,
+      "sha256": "0729425a05ee7f16510dae80f1e18041fef53041f1d15cfb2f77a3b30b648244"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/session-management.md",
+      "bytes": 3998,
+      "sha256": "97d9a564f9661bf7f6c940d884f20d79f912e7c84df4d3d5742383b9ff1c7a22"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/storage-state.md",
+      "bytes": 5198,
+      "sha256": "1122778c9b13b44bddebb4476a7f99d918afd31757be8b4fade3cb09c3d48c99"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/test-generation.md",
+      "bytes": 2411,
+      "sha256": "f08d14388b7002963e27bd242550154cb1379def89597464deb36b6f7afca15f"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/tracing.md",
+      "bytes": 3440,
+      "sha256": "792e0ac7705e56ac48df84c0f5400221ce86107897c671590a64a4ea6a82508e"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/references/video-recording.md",
+      "bytes": 5381,
+      "sha256": "db920168840dc5e0313a48ef6beaabb64f60823347add9b2670f44baa5e0bb10"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill/1.0.0/SKILL.md",
+      "bytes": 8649,
+      "sha256": "8fc9ec712b9cfbeae8937bef4bab83b291083ecbc4a60065e1325b786c5dcaf5"
+    },
+    {
       "path": "Supergent--main/skills/general/skill-check/1.0.0/metadata.json",
       "bytes": 74,
       "sha256": "08a69a6c08239676320daaf4bcfe497a19c14b694dcf861c29da0ccd021ca54a"
@@ -25480,14 +25645,14 @@
       "sha256": "7b395ac7493d56fdb2e1ff093004f290101b2cfb14702c065d7684d2acae4abe"
     },
     {
-      "path": "Supergent--main/skills/general/skill-developer/1.0.0/SKILL_RULES_REFERENCE.md",
-      "bytes": 8692,
-      "sha256": "340a66dc9a527da89509459454de7c21a224ae6f0eeef70b6cbee610e7d2e16e"
-    },
-    {
       "path": "Supergent--main/skills/general/skill-developer/1.0.0/SKILL.md",
       "bytes": 12046,
       "sha256": "6b635f69968a73a154e134ae4e4eded4a7c794e843b82675283bb7a3c79ae943"
+    },
+    {
+      "path": "Supergent--main/skills/general/skill-developer/1.0.0/SKILL_RULES_REFERENCE.md",
+      "bytes": 8692,
+      "sha256": "340a66dc9a527da89509459454de7c21a224ae6f0eeef70b6cbee610e7d2e16e"
     },
     {
       "path": "Supergent--main/skills/general/skill-developer/1.0.0/TRIGGER_TYPES.md",
@@ -25740,61 +25905,6 @@
       "sha256": "b295e7b80698fbbeb66b7df0dfe0aa3c169bf312ccdccd6dfc5529b75aed7076"
     },
     {
-      "path": "Supergent--main/skills/general/skill/1.0.0/metadata.json",
-      "bytes": 68,
-      "sha256": "27ff7cc87263c9c0d7b859ab3a746df4ecc9e5e1ab85486ff2c237558a7fcb56"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/element-attributes.md",
-      "bytes": 665,
-      "sha256": "bf19aa4671e0a50a0fefa9c790f39124e803060eefe395042b723c29fcb7faa2"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/playwright-tests.md",
-      "bytes": 1635,
-      "sha256": "d770e9eb15cf1e266b9d92e788722fa189941f89346702a6800b06e25416c4e7"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/request-mocking.md",
-      "bytes": 2182,
-      "sha256": "54e801c9663fc2b6d68ceb058cb1c360724c2499f42acc7852a68e83e5b5f37c"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/running-code.md",
-      "bytes": 5398,
-      "sha256": "0729425a05ee7f16510dae80f1e18041fef53041f1d15cfb2f77a3b30b648244"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/session-management.md",
-      "bytes": 3998,
-      "sha256": "97d9a564f9661bf7f6c940d884f20d79f912e7c84df4d3d5742383b9ff1c7a22"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/storage-state.md",
-      "bytes": 5198,
-      "sha256": "1122778c9b13b44bddebb4476a7f99d918afd31757be8b4fade3cb09c3d48c99"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/test-generation.md",
-      "bytes": 2411,
-      "sha256": "f08d14388b7002963e27bd242550154cb1379def89597464deb36b6f7afca15f"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/tracing.md",
-      "bytes": 3440,
-      "sha256": "792e0ac7705e56ac48df84c0f5400221ce86107897c671590a64a4ea6a82508e"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/references/video-recording.md",
-      "bytes": 5381,
-      "sha256": "db920168840dc5e0313a48ef6beaabb64f60823347add9b2670f44baa5e0bb10"
-    },
-    {
-      "path": "Supergent--main/skills/general/skill/1.0.0/SKILL.md",
-      "bytes": 8649,
-      "sha256": "8fc9ec712b9cfbeae8937bef4bab83b291083ecbc4a60065e1325b786c5dcaf5"
-    },
-    {
       "path": "Supergent--main/skills/general/skin-health-analyzer/1.0.0/SKILL.md",
       "bytes": 16768,
       "sha256": "ac254269ccf4f2cbfe6ecfbdc90c157a47c43f9013b8bb063699a988c1b35bfa"
@@ -25990,11 +26100,6 @@
       "sha256": "8f2e0620346448dbc7bb1c2066719c0c995ed2f5dc37a6fcd80795106ae36c43"
     },
     {
-      "path": "Supergent--main/skills/general/ssh-penetration-testing/1.0.0/SKILL.md",
-      "bytes": 12170,
-      "sha256": "3ac032ede7c2ebcebc9726ce8794887037c8247098500d72ec42c41096be5293"
-    },
-    {
       "path": "Supergent--main/skills/general/ssh/1.0.0/README.md",
       "bytes": 3302,
       "sha256": "827661990f9786672038a1fdc2f1e131e9b42a5d32a2ba7e5f1ab4973fb65801"
@@ -26003,6 +26108,11 @@
       "path": "Supergent--main/skills/general/ssh/1.0.0/SKILL.md",
       "bytes": 3244,
       "sha256": "02b94d8014244412cbac9ee93c1860ecd87ffdce8df95f4acb823c9075ca7366"
+    },
+    {
+      "path": "Supergent--main/skills/general/ssh-penetration-testing/1.0.0/SKILL.md",
+      "bytes": 12170,
+      "sha256": "3ac032ede7c2ebcebc9726ce8794887037c8247098500d72ec42c41096be5293"
     },
     {
       "path": "Supergent--main/skills/general/start-core/1.0.0/deployment/SKILL.md",
@@ -26285,14 +26395,14 @@
       "sha256": "771890516893ff1850455a4176c1ac31bf1b7a1a900b9317c843811378b30ef1"
     },
     {
-      "path": "Supergent--main/skills/general/taskflow-inbox-triage/1.0.0/SKILL.md",
-      "bytes": 2697,
-      "sha256": "88ece750e25d49414842de5355f23b1c9f0d9ff83e7d95beea3d87901d8e1963"
-    },
-    {
       "path": "Supergent--main/skills/general/taskflow/1.0.0/SKILL.md",
       "bytes": 5014,
       "sha256": "74d4e9c76f249b4852a7bd3084451dc6caad2d94e0360161f060e9d5572fbf3c"
+    },
+    {
+      "path": "Supergent--main/skills/general/taskflow-inbox-triage/1.0.0/SKILL.md",
+      "bytes": 2697,
+      "sha256": "88ece750e25d49414842de5355f23b1c9f0d9ff83e7d95beea3d87901d8e1963"
     },
     {
       "path": "Supergent--main/skills/general/tcm-constitution-analyzer/1.0.0/SKILL.md",
@@ -26746,8 +26856,8 @@
     },
     {
       "path": "Supergent--main/skills/general/update-nanoclaw/1.0.0/diagnostics.md",
-      "bytes": 1491,
-      "sha256": "e1d1dd9526a5d6fa5a418b62aa9f50d211920be08e34f306281aac727382c5ae"
+      "bytes": 1459,
+      "sha256": "26954ce8aa6c79607d51555457bb3722f894a67710a1f789c05670d6ac826b45"
     },
     {
       "path": "Supergent--main/skills/general/update-nanoclaw/1.0.0/SKILL.md",
@@ -26790,16 +26900,6 @@
       "sha256": "986e42f5bfa430ecd2ff70ffe1dde04874e7e17ff2828de5f2d0ee7a057c8682"
     },
     {
-      "path": "Supergent--main/skills/general/uv-package-manager/1.0.0/resources/implementation-playbook.md",
-      "bytes": 15900,
-      "sha256": "0b558b711d16c2696fb5ed5bc3682c6873ec488cce3814a6a793585705ed7f71"
-    },
-    {
-      "path": "Supergent--main/skills/general/uv-package-manager/1.0.0/SKILL.md",
-      "bytes": 1382,
-      "sha256": "dbf57fe6fe5bca15ef61e1e49911f1a90ec19db8de54a25359c541de2dddf762"
-    },
-    {
       "path": "Supergent--main/skills/general/uv/1.0.0/README.md",
       "bytes": 125,
       "sha256": "8584fa76dc7be7ff641340188c20fc00e5c4db16df920b4b043a9eeae5c5a067"
@@ -26815,9 +26915,24 @@
       "sha256": "e321822ec05752b5fd8b967f6bec30f0e9fd5d7d042aaf5a5d7002829d788315"
     },
     {
+      "path": "Supergent--main/skills/general/uv-package-manager/1.0.0/resources/implementation-playbook.md",
+      "bytes": 15900,
+      "sha256": "0b558b711d16c2696fb5ed5bc3682c6873ec488cce3814a6a793585705ed7f71"
+    },
+    {
+      "path": "Supergent--main/skills/general/uv-package-manager/1.0.0/SKILL.md",
+      "bytes": 1382,
+      "sha256": "dbf57fe6fe5bca15ef61e1e49911f1a90ec19db8de54a25359c541de2dddf762"
+    },
+    {
       "path": "Supergent--main/skills/general/variant-analysis/1.0.0/SKILL.md",
       "bytes": 5664,
       "sha256": "fec30af7e59b5ed71d3be35aa238ae9ab10aa47424d019e66b1e21b57fda44ce"
+    },
+    {
+      "path": "Supergent--main/skills/general/varlock/1.0.0/SKILL.md",
+      "bytes": 9555,
+      "sha256": "1c2088c24ba984f8b4f9998f819101c37fe1ab54eccd86696a8bfe4b4d9a7e13"
     },
     {
       "path": "Supergent--main/skills/general/varlock-claude-skill/1.0.0/metadata.json",
@@ -26830,16 +26945,6 @@
       "sha256": "f60cb467f58d5c608a8087c713efafe32ea61ad109826e7bf1a4deb70e7c71c8"
     },
     {
-      "path": "Supergent--main/skills/general/varlock/1.0.0/SKILL.md",
-      "bytes": 9555,
-      "sha256": "1c2088c24ba984f8b4f9998f819101c37fe1ab54eccd86696a8bfe4b4d9a7e13"
-    },
-    {
-      "path": "Supergent--main/skills/general/vercel-ai-sdk-expert/1.0.0/SKILL.md",
-      "bytes": 8447,
-      "sha256": "3016e0b1a9d39e2bf6d884380ad732dff8b4283feb0037a91dcb046f9b0bfb18"
-    },
-    {
       "path": "Supergent--main/skills/general/vercel/1.0.0/README.md",
       "bytes": 3118,
       "sha256": "9942d678d08b62ed40d4f12763cf0b9f8a1116c36415c26216747aa4418a00c2"
@@ -26848,6 +26953,11 @@
       "path": "Supergent--main/skills/general/vercel/1.0.0/SKILL.md",
       "bytes": 3071,
       "sha256": "7074346209ead94f5394cb57ff84dd7c3f7ab9855a6983b1aac0f08070508ccd"
+    },
+    {
+      "path": "Supergent--main/skills/general/vercel-ai-sdk-expert/1.0.0/SKILL.md",
+      "bytes": 8447,
+      "sha256": "3016e0b1a9d39e2bf6d884380ad732dff8b4283feb0037a91dcb046f9b0bfb18"
     },
     {
       "path": "Supergent--main/skills/general/verification-before-completion/1.0.0/SKILL.md",
@@ -27180,6 +27290,11 @@
       "sha256": "c58aafd313c0774b262b51b8edfcefd9670f0b994149f4a9ec1b54d092171d09"
     },
     {
+      "path": "Supergent--main/skills/general/wordpress/1.0.0/SKILL.md",
+      "bytes": 17092,
+      "sha256": "0bfe35cdce6bcab10f93872d0f4fccd36c69ee709cf889642396e1d8f336af98"
+    },
+    {
       "path": "Supergent--main/skills/general/wordpress-penetration-testing/1.0.0/SKILL.md",
       "bytes": 15302,
       "sha256": "548d05cdc6f59750046ac354cc9928f2a2191656dcd1cd715f6740efd3ef88b5"
@@ -27198,11 +27313,6 @@
       "path": "Supergent--main/skills/general/wordpress-woocommerce-development/1.0.0/SKILL.md",
       "bytes": 17886,
       "sha256": "e1da33ebe4333ed2bdee3cac2909195fe3f8ac340167b1bb10a55fe485661aa5"
-    },
-    {
-      "path": "Supergent--main/skills/general/wordpress/1.0.0/SKILL.md",
-      "bytes": 17092,
-      "sha256": "0bfe35cdce6bcab10f93872d0f4fccd36c69ee709cf889642396e1d8f336af98"
     },
     {
       "path": "Supergent--main/skills/general/writing-plans/1.0.0/SKILL.md",
@@ -27395,6 +27505,11 @@
       "sha256": "111aab4ea6b1c0b903e2374b5d988c48939c892cff68f9a7312318d2d69c2c03"
     },
     {
+      "path": "Supergent--main/skills/general/yann-lecun/1.0.0/SKILL.md",
+      "bytes": 60356,
+      "sha256": "247fc78bf82d53248368400852036a92dbef46f3d5108eaff552fefc87fa3ea1"
+    },
+    {
       "path": "Supergent--main/skills/general/yann-lecun-debate/1.0.0/SKILL.md",
       "bytes": 17977,
       "sha256": "3567e4bd2a5bc58776b3605a72111db324e4f12124f63c430a3ca5ecaf9f462b"
@@ -27408,11 +27523,6 @@
       "path": "Supergent--main/skills/general/yann-lecun-tecnico/1.0.0/SKILL.md",
       "bytes": 15702,
       "sha256": "9532eb7b1de20fcfb206a59f3bc14fa772c7c766779e4290e6f4a17f831e238c"
-    },
-    {
-      "path": "Supergent--main/skills/general/yann-lecun/1.0.0/SKILL.md",
-      "bytes": 60356,
-      "sha256": "247fc78bf82d53248368400852036a92dbef46f3d5108eaff552fefc87fa3ea1"
     },
     {
       "path": "Supergent--main/skills/general/yes-md/1.0.0/SKILL.md",
@@ -28195,14 +28305,14 @@
       "sha256": "e0f8c899d884bb8a4e9e6b0d9c3c73a50f84d1242871582163debcf7326adf7e"
     },
     {
-      "path": "Supergent--main/skills/knowledge/tavily-web/1.0.0/SKILL.md",
-      "bytes": 1080,
-      "sha256": "41bfdb0a0f1c9a122d62aad180539a37546ea3482977ecfbaaed461d9998a9b3"
-    },
-    {
       "path": "Supergent--main/skills/knowledge/tavily/1.0.0/SKILL.md",
       "bytes": 4873,
       "sha256": "0da38e07ea2b303ed3887ce59969e1c7b5a15d4055e269540a111107b9261ed1"
+    },
+    {
+      "path": "Supergent--main/skills/knowledge/tavily-web/1.0.0/SKILL.md",
+      "bytes": 1080,
+      "sha256": "41bfdb0a0f1c9a122d62aad180539a37546ea3482977ecfbaaed461d9998a9b3"
     },
     {
       "path": "Supergent--main/skills/knowledge/web-search-ex-skill/1.0.0/_meta.json",
@@ -28390,6 +28500,11 @@
       "sha256": "5389d5170f61fede83507b70a79dee07fa747ed5268592caf92e430db37fc38e"
     },
     {
+      "path": "Supergent--main/skills/llm/openai-whisper/1.0.0/SKILL.md",
+      "bytes": 912,
+      "sha256": "7e8d2749dee07854ebf48a19bc02f85d98c371178795032d1d76e97323a123da"
+    },
+    {
       "path": "Supergent--main/skills/llm/openai-whisper-api/1.0.0/scripts/transcribe.sh",
       "bytes": 1550,
       "sha256": "9c8abc93c198b77f804a6837db7baf1e85c902dc35a853c8086222a89f83fc89"
@@ -28400,11 +28515,6 @@
       "sha256": "99e37834711f8b11a1d14fbd2da3375d515cbee87456ae14b21a09c66d127ac4"
     },
     {
-      "path": "Supergent--main/skills/llm/openai-whisper/1.0.0/SKILL.md",
-      "bytes": 912,
-      "sha256": "7e8d2749dee07854ebf48a19bc02f85d98c371178795032d1d76e97323a123da"
-    },
-    {
       "path": "Supergent--main/skills/llm/prompt-engineer/1.0.0/README.md",
       "bytes": 18539,
       "sha256": "342dbe70cd710b98e128ad7d8b75e5d7ec40ea243edf01669f1236fc973324d7"
@@ -28413,6 +28523,11 @@
       "path": "Supergent--main/skills/llm/prompt-engineer/1.0.0/SKILL.md",
       "bytes": 10785,
       "sha256": "d79ff54493582affddeb32c957dc91edc7b90b13ca80e96b4843e88c159cde1f"
+    },
+    {
+      "path": "Supergent--main/skills/llm/prompt-engineering/1.0.0/SKILL.md",
+      "bytes": 5821,
+      "sha256": "86cd5a8ecedbd5fba2386305acacd69c83e2412525ae2f29064a0ec0f55264ab"
     },
     {
       "path": "Supergent--main/skills/llm/prompt-engineering-patterns/1.0.0/assets/few-shot-examples.json",
@@ -28458,11 +28573,6 @@
       "path": "Supergent--main/skills/llm/prompt-engineering-patterns/1.0.0/SKILL.md",
       "bytes": 7323,
       "sha256": "5c9655b550a37385141be870f55cd6aba5e88d8a337b3807c1da9fdf35cccefa"
-    },
-    {
-      "path": "Supergent--main/skills/llm/prompt-engineering/1.0.0/SKILL.md",
-      "bytes": 5821,
-      "sha256": "86cd5a8ecedbd5fba2386305acacd69c83e2412525ae2f29064a0ec0f55264ab"
     },
     {
       "path": "Supergent--main/skills/media/add-image-vision/1.0.0/SKILL.md",
@@ -28750,16 +28860,6 @@
       "sha256": "bafb0cc9d336a4864da9514d3553590af055d775bb13b20d60bc249890906b49"
     },
     {
-      "path": "Supergent--main/skills/media/videodb-skills/1.0.0/metadata.json",
-      "bytes": 77,
-      "sha256": "952910353a03a588724c42fe98cabc781626f3791bb1fc0f22fed741a3d18702"
-    },
-    {
-      "path": "Supergent--main/skills/media/videodb-skills/1.0.0/SKILL.md",
-      "bytes": 3438,
-      "sha256": "9bc23df768b86b4f5844e1d7cf868bd3e3693b6235ea8801df4afd0a1bbe7650"
-    },
-    {
       "path": "Supergent--main/skills/media/videodb/1.0.0/reference/api-reference.md",
       "bytes": 20329,
       "sha256": "00a3a9ac0cff3f943c814b769e1a286201a8ab7508d95e74fd6d8b84d8b23db4"
@@ -28818,6 +28918,16 @@
       "path": "Supergent--main/skills/media/videodb/1.0.0/SKILL.md",
       "bytes": 13474,
       "sha256": "1b2673ee367fb6bcf85fedea22c2a8076492acbe9636da28e40153069227f4dd"
+    },
+    {
+      "path": "Supergent--main/skills/media/videodb-skills/1.0.0/metadata.json",
+      "bytes": 77,
+      "sha256": "952910353a03a588724c42fe98cabc781626f3791bb1fc0f22fed741a3d18702"
+    },
+    {
+      "path": "Supergent--main/skills/media/videodb-skills/1.0.0/SKILL.md",
+      "bytes": 3438,
+      "sha256": "9bc23df768b86b4f5844e1d7cf868bd3e3693b6235ea8801df4afd0a1bbe7650"
     },
     {
       "path": "Supergent--main/skills/security/1.0.0/_template/assets/ci-config-template.yml",
@@ -29021,8 +29131,8 @@
     },
     {
       "path": "Supergent--main/skills/security/1.0.0/appsec/dast-zap/references/authentication_guide.md",
-      "bytes": 11294,
-      "sha256": "b054fa0ff63d046582ea034dee1c05ea538fe3a939e8075dabda28f9519f3154"
+      "bytes": 11291,
+      "sha256": "4cee4f7146135a770fdb8db9dd7115ae40d25f017860a7b39fbbece7977f29b9"
     },
     {
       "path": "Supergent--main/skills/security/1.0.0/appsec/dast-zap/references/EXAMPLE.md",
@@ -29115,6 +29225,11 @@
       "sha256": "f0449e0111a2e45ead976a56fb161bcb92cb86c5c087332bed0a77797a9ceb4b"
     },
     {
+      "path": "Supergent--main/skills/security/1.0.0/appsec/sca-blackduck/assets/ci-config-template.yml",
+      "bytes": 11105,
+      "sha256": "0fc554799a0e03a44883990f208f2a428f3c1e70eed1a9bcfbc01e728962b91e"
+    },
+    {
       "path": "Supergent--main/skills/security/1.0.0/appsec/sca-blackduck/assets/ci_integration/github_actions.yml",
       "bytes": 5239,
       "sha256": "ff919148fab86d7cb701ad2b30a8bde678164bbabe066f499c5b1d6a4f8ca730"
@@ -29123,11 +29238,6 @@
       "path": "Supergent--main/skills/security/1.0.0/appsec/sca-blackduck/assets/ci_integration/gitlab_ci.yml",
       "bytes": 6043,
       "sha256": "6c1dc666f3d60883306e24125457241c64d26954a6d834eafa25f7e0fdf54577"
-    },
-    {
-      "path": "Supergent--main/skills/security/1.0.0/appsec/sca-blackduck/assets/ci-config-template.yml",
-      "bytes": 11105,
-      "sha256": "0fc554799a0e03a44883990f208f2a428f3c1e70eed1a9bcfbc01e728962b91e"
     },
     {
       "path": "Supergent--main/skills/security/1.0.0/appsec/sca-blackduck/assets/policy_templates/security_policy.json",
@@ -30441,8 +30551,8 @@
     },
     {
       "path": "Supergent--main/skills/security/pentest-vuln-verify/1.0.0/scan_demo.sh",
-      "bytes": 1970,
-      "sha256": "329808a3a6ff279e8f769bd79288ff40e6bb891617da319f1ea15b28877ec58a"
+      "bytes": 742,
+      "sha256": "43b2c943d881eb703b319e89c35017c52432a7caf1088079aa8d500c50bf0025"
     },
     {
       "path": "Supergent--main/skills/security/pentest-vuln-verify/1.0.0/SKILL.md",
@@ -30855,11 +30965,6 @@
       "sha256": "d7fc30ce41a1953023630666940b0c98b7b4f9cc98160e743165a000a91656b2"
     },
     {
-      "path": "Supergent--main/skills/seo/content-creator-assistant/1.0.0/SKILL.md",
-      "bytes": 8883,
-      "sha256": "f1f332191ae58a8e53ca3e79e7d694cf6083c2a57d8338b33a332d343473ccbc"
-    },
-    {
       "path": "Supergent--main/skills/seo/content-creator/1.0.0/assets/content_calendar_template.md",
       "bytes": 1610,
       "sha256": "338d24a0dd5b41e9e5de98d8feda602000211abf09ce41c2b6f2493ceeb2951d"
@@ -30893,6 +30998,11 @@
       "path": "Supergent--main/skills/seo/content-creator/1.0.0/SKILL.md",
       "bytes": 7167,
       "sha256": "2e2447370ff95ec8838330b67ea7e736c6a22f0fa9c2e2b62260d2f950446fde"
+    },
+    {
+      "path": "Supergent--main/skills/seo/content-creator-assistant/1.0.0/SKILL.md",
+      "bytes": 8883,
+      "sha256": "f1f332191ae58a8e53ca3e79e7d694cf6083c2a57d8338b33a332d343473ccbc"
     },
     {
       "path": "Supergent--main/skills/seo/content-marketer/1.0.0/SKILL.md",
@@ -30960,6 +31070,11 @@
       "sha256": "8fe77d70fda657a690f04990f10a2ee28520516be239c56f39501215cf9c0693"
     },
     {
+      "path": "Supergent--main/skills/seo/seo-content/1.0.0/SKILL.md",
+      "bytes": 8024,
+      "sha256": "394842699eabea97813a4547feb5ec59c65843feebb30a266d9fb96e59cff42d"
+    },
+    {
       "path": "Supergent--main/skills/seo/seo-content-planner/1.0.0/SKILL.md",
       "bytes": 2623,
       "sha256": "ac6c9ed6ff8c7e214b049cbbae3de30db20c3c56721a79436fc7d608f7ed01d1"
@@ -30973,11 +31088,6 @@
       "path": "Supergent--main/skills/seo/seo-content-writer/1.0.0/SKILL.md",
       "bytes": 2594,
       "sha256": "ff51c58ab093de8cce094986413efe722de3ac626c407e2190666525867eeb44"
-    },
-    {
-      "path": "Supergent--main/skills/seo/seo-content/1.0.0/SKILL.md",
-      "bytes": 8024,
-      "sha256": "394842699eabea97813a4547feb5ec59c65843feebb30a266d9fb96e59cff42d"
     },
     {
       "path": "Supergent--main/skills/seo/seo-dataforseo/1.0.0/SKILL.md",
@@ -31130,6 +31240,41 @@
       "sha256": "69b1d776c49b16b56ee70793ca72bf7726ec37914f2f3f09b6dffc6c3f48b385"
     },
     {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/_meta.json",
+      "bytes": 129,
+      "sha256": "6a7c056ba5b2d7a235726c9a91b5075806c55d0223ea3698403f5c1fc2ea0bb0"
+    },
+    {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/ci-cd.md",
+      "bytes": 3501,
+      "sha256": "5821e33e0b8184e8b799da3acf439f6c91bd3daa7eabaa977be1c470182a6515"
+    },
+    {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/debugging.md",
+      "bytes": 3624,
+      "sha256": "8fb3cabd6c6b047ee89de54bf375d57a52124832b3952e3d37490c6a3c78bea2"
+    },
+    {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/scraping.md",
+      "bytes": 3968,
+      "sha256": "db47f9bf86e933647fc54c1f8d0ec7e0ef590f08a5dfa28e4c54dcecf3ed6c09"
+    },
+    {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/selectors.md",
+      "bytes": 2384,
+      "sha256": "0b4aae1cdeaf77ea80f0f9a19e6007deb4cab53bb5f066d85fc87e1e11a19003"
+    },
+    {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/SKILL.md",
+      "bytes": 10970,
+      "sha256": "9f85deae2e2b022065e8cce4cbc8d8fb5901b78e641ce2fa6a3da41b275e337c"
+    },
+    {
+      "path": "Supergent--main/skills/testing/playwright/1.0.0/testing.md",
+      "bytes": 4512,
+      "sha256": "62afb90d96e68eec8776dbfc7724a193eeed99d11495f027c7345b6e15254483"
+    },
+    {
       "path": "Supergent--main/skills/testing/playwright-java/1.0.0/assertions.md",
       "bytes": 4226,
       "sha256": "c2963ceb57c8924bb9de5a826800a7892047fe460ce376c84b161b789d384e41"
@@ -31183,41 +31328,6 @@
       "path": "Supergent--main/skills/testing/playwright-skill/1.0.0/SKILL.md",
       "bytes": 14142,
       "sha256": "cd34e7487c262df7ca4c725408eead83a62cc829ec858c6af458b3119716f9e3"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/_meta.json",
-      "bytes": 129,
-      "sha256": "6a7c056ba5b2d7a235726c9a91b5075806c55d0223ea3698403f5c1fc2ea0bb0"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/ci-cd.md",
-      "bytes": 3501,
-      "sha256": "5821e33e0b8184e8b799da3acf439f6c91bd3daa7eabaa977be1c470182a6515"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/debugging.md",
-      "bytes": 3624,
-      "sha256": "8fb3cabd6c6b047ee89de54bf375d57a52124832b3952e3d37490c6a3c78bea2"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/scraping.md",
-      "bytes": 3968,
-      "sha256": "db47f9bf86e933647fc54c1f8d0ec7e0ef590f08a5dfa28e4c54dcecf3ed6c09"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/selectors.md",
-      "bytes": 2384,
-      "sha256": "0b4aae1cdeaf77ea80f0f9a19e6007deb4cab53bb5f066d85fc87e1e11a19003"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/SKILL.md",
-      "bytes": 10970,
-      "sha256": "9f85deae2e2b022065e8cce4cbc8d8fb5901b78e641ce2fa6a3da41b275e337c"
-    },
-    {
-      "path": "Supergent--main/skills/testing/playwright/1.0.0/testing.md",
-      "bytes": 4512,
-      "sha256": "62afb90d96e68eec8776dbfc7724a193eeed99d11495f027c7345b6e15254483"
     },
     {
       "path": "Supergent--main/skills/testing/test-automator/1.0.0/SKILL.md",
@@ -31941,8 +32051,8 @@
     },
     {
       "path": "Supergent--main/tests/test_catalog_and_execution_hardening.py",
-      "bytes": 8801,
-      "sha256": "a72ec3d4003b8a114178ccbd07282c08b2e3cdb02ce5987a57339fb16664e59c"
+      "bytes": 9108,
+      "sha256": "90d7c273e6d9a3056fbecae917bb6e453771f0146e2927a757e1fb2cdf7b40e3"
     },
     {
       "path": "Supergent--main/tests/test_channels.py",
@@ -32005,9 +32115,14 @@
       "sha256": "a1389d339db748d27402c4adac113fa69238059b87bc2f9826dc918b654e28d5"
     },
     {
+      "path": "Supergent--main/tests/test_file_result_trust_security.py",
+      "bytes": 8255,
+      "sha256": "31eafcfdb9a5de1533f16737869fb96b2b2163dc1d0279392dfff0c70517f94a"
+    },
+    {
       "path": "Supergent--main/tests/test_final_capability_contracts.py",
-      "bytes": 9845,
-      "sha256": "7c07888eb025dc2a5f0f7375e75d0a29fe9843424ef4f49d52853ca2ad01ec45"
+      "bytes": 10145,
+      "sha256": "1c3e5df4ca921a20536d70e64d5ff1e866dc1ea66f0944b8e2cd976f065feb6e"
     },
     {
       "path": "Supergent--main/tests/test_git_clone_contract.py",
@@ -32035,6 +32150,11 @@
       "sha256": "34cf9eefeb0f74ab8c5c8c597e61f23a2f9858fcc84b0119a5fcdfda20fe95cd"
     },
     {
+      "path": "Supergent--main/tests/test_ingress_security_contract.py",
+      "bytes": 9269,
+      "sha256": "51823edaca5e361f2ad8fde8d50330ff8daa0c173926ff4c676340ebcb33e317"
+    },
+    {
       "path": "Supergent--main/tests/test_intelligence_positive_adapters.py",
       "bytes": 4532,
       "sha256": "d399b8d868edb8cb494704432c3528deddf9fb817e5b28a0b31c09c808ea2aea"
@@ -32060,6 +32180,11 @@
       "sha256": "5c06792bb8074013a0dae6e87e2bf321611b80b461ee7261b885b99ec3866013"
     },
     {
+      "path": "Supergent--main/tests/test_mcp_bundles.py",
+      "bytes": 12407,
+      "sha256": "449e800119ead21b7edacdd4ac389e0b40bd27218bb9860baf28ff31fde8117a"
+    },
+    {
       "path": "Supergent--main/tests/test_mcp_configuration_import.py",
       "bytes": 2190,
       "sha256": "5f3e56ce62d0bc76624f511d8c271ad295ca0ee9e6990efcb7967baf4d5cd526"
@@ -32070,9 +32195,34 @@
       "sha256": "0aef9bbef6e0b69c140e325cecf1841c806558df321215e87f11d0921fe05ebd"
     },
     {
+      "path": "Supergent--main/tests/test_mcp_inbound_authority.py",
+      "bytes": 8339,
+      "sha256": "0267c6a20978c0fd9cb39dcba80b70fb581f88481a5f9890f71c2a66994e09cb"
+    },
+    {
+      "path": "Supergent--main/tests/test_mcp_market.py",
+      "bytes": 8047,
+      "sha256": "c67f4519e0ee9054d380ac6b6fc16880cda25d56294cda46973c19a9e7b37944"
+    },
+    {
       "path": "Supergent--main/tests/test_mcp_oauth_flow.py",
-      "bytes": 10356,
-      "sha256": "abe653cd3c73e544a4cfb6d6da459ab07fcde64394d0b00ffbed436c91cf34f0"
+      "bytes": 12777,
+      "sha256": "a7b25e114c0b822a3c61f139689a4f5ad9d3a65f669ab143eb9f80f086979703"
+    },
+    {
+      "path": "Supergent--main/tests/test_mcp_outbound_authority_security.py",
+      "bytes": 12506,
+      "sha256": "bd407063e2a63f8d37299708363dcd272801f2f22b7518882c205846a56e8aae"
+    },
+    {
+      "path": "Supergent--main/tests/test_mcp_owner_confirmation_api.py",
+      "bytes": 4869,
+      "sha256": "2843f74c29da46c07237497cb7c3ce6a0f076c34e4ba012059bce5bd8d9bf54f"
+    },
+    {
+      "path": "Supergent--main/tests/test_mcp_owner_retry.py",
+      "bytes": 9315,
+      "sha256": "01c891234cd7fbbf9dc6c435adb005ed8ffaaf903dbc816af2da8ec1c163c1a7"
     },
     {
       "path": "Supergent--main/tests/test_mcp_scoped_limit_alternatives.py",
@@ -32086,13 +32236,13 @@
     },
     {
       "path": "Supergent--main/tests/test_mcp_server_and_bridge.py",
-      "bytes": 6825,
-      "sha256": "4ce20a5807744ce0a76a4eebe433edeec41192c437f3b75f683880bbddcfd874"
+      "bytes": 7482,
+      "sha256": "128135abeddc1d10f41dbb49c14c269ada2c107430035ef91dacb218ec8735ab"
     },
     {
       "path": "Supergent--main/tests/test_mcp_settings_and_oauth.py",
-      "bytes": 8967,
-      "sha256": "c76b7b2f408a8676bc3e6ef2d4f143a2da125b917f4d2e6c291ee43a5f600f14"
+      "bytes": 8977,
+      "sha256": "dd5fe3115cbc619694a15de7df0b44259d96e5cb63fbe52cb4b154953a34cb24"
     },
     {
       "path": "Supergent--main/tests/test_named_artifact_obligations.py",
@@ -32103,6 +32253,11 @@
       "path": "Supergent--main/tests/test_native_background_control.py",
       "bytes": 2121,
       "sha256": "6f3b8e4fef9d1bf6bdd83d0fc62e3669eb7ca707a084423ccf988393398c6bf4"
+    },
+    {
+      "path": "Supergent--main/tests/test_native_bridge_security.py",
+      "bytes": 10372,
+      "sha256": "af8977f1ca067ba26cd79816d3a65c02b76f5203e9aedac56ef047ea0589c271"
     },
     {
       "path": "Supergent--main/tests/test_native_gate_provenance.py",
@@ -32116,8 +32271,8 @@
     },
     {
       "path": "Supergent--main/tests/test_native_runtime_window_ownership.py",
-      "bytes": 11443,
-      "sha256": "09e53db0c5008a26667cc122a9691fd1ad70c77ad42d637d5a81cb5c863cb362"
+      "bytes": 11971,
+      "sha256": "7e9bf41562b85540af171e6264c7c95f16b71eb37d014f42dcdf8d6adba295c3"
     },
     {
       "path": "Supergent--main/tests/test_native_screenshot_evidence.py",
@@ -32128,6 +32283,11 @@
       "path": "Supergent--main/tests/test_oauth.py",
       "bytes": 16449,
       "sha256": "a588a40ea2832c21205004206a8bc15815d00b750e85592966d98c29b3dbcc09"
+    },
+    {
+      "path": "Supergent--main/tests/test_oauth_security.py",
+      "bytes": 11477,
+      "sha256": "3e9a22fd799beb7ff917cb3fcf3c932cb2270dd1a77a98dece682cea00413ccd"
     },
     {
       "path": "Supergent--main/tests/test_onboarding_resources.py",
@@ -32160,14 +32320,24 @@
       "sha256": "001e1b2738d29b8776a61071bb02418d31b1222eab629c0455f9999acf122aae"
     },
     {
+      "path": "Supergent--main/tests/test_plugin_packages.py",
+      "bytes": 20356,
+      "sha256": "ac61b5e76bd3f4880d91efd6a6549568589da8cc1559d510d2f55e43f772f2ee"
+    },
+    {
       "path": "Supergent--main/tests/test_plugins.py",
-      "bytes": 14009,
-      "sha256": "88dcb6860434c643d99458014a9d91d51ee2acdb70e531110645c0d7f288b36d"
+      "bytes": 18521,
+      "sha256": "d046063cf58bba8dd40a7f624733ba3fb6e19dfa0d91188a57993fcb90f828c9"
     },
     {
       "path": "Supergent--main/tests/test_policy_source_stamp.py",
       "bytes": 823,
       "sha256": "441509bd54b5f7020d170baa85e813f0dd149a140560f230b81e659363f9b585"
+    },
+    {
+      "path": "Supergent--main/tests/test_preview_security_contract.py",
+      "bytes": 6573,
+      "sha256": "4fef0a7ecfbe57db406ba7f5842ca25f6d6b054bd3440e1b86e6c2b8d4ab5246"
     },
     {
       "path": "Supergent--main/tests/test_preview_server.py",
@@ -32193,6 +32363,11 @@
       "path": "Supergent--main/tests/test_public_api_surface.py",
       "bytes": 4911,
       "sha256": "2d79acc6d7420d72d4761b0a461a721a0744538f01a8eb8c142fec6f0a50ee0e"
+    },
+    {
+      "path": "Supergent--main/tests/test_publication_redaction.py",
+      "bytes": 3670,
+      "sha256": "5a6c2f2cda3251a180224d8761113f11ba8070b116e075b06806e1fef59c0849"
     },
     {
       "path": "Supergent--main/tests/test_qa_normal_turn_request_bound.py",
@@ -32260,9 +32435,39 @@
       "sha256": "27a361a0af4ed4061b7bbbcffa4e32094755302bec55414f4fe630b3c04e76d0"
     },
     {
+      "path": "Supergent--main/tests/test_secret_storage_security.py",
+      "bytes": 10105,
+      "sha256": "48f55793607fdf604c150c8cbaa6fd566e12b54430507c1b9aacc49c2d65e8ac"
+    },
+    {
+      "path": "Supergent--main/tests/test_security_audit_gate.py",
+      "bytes": 7915,
+      "sha256": "e55cdaa30e60b28b1499f96a494e0263740b61f65a465a8125de8c2af52f82f6"
+    },
+    {
+      "path": "Supergent--main/tests/test_security_boundary_properties.py",
+      "bytes": 3163,
+      "sha256": "7df23ecf59d10320f78b2f62dc621a51280f76d8589aab84536a0e409fa4585a"
+    },
+    {
+      "path": "Supergent--main/tests/test_security_policy_fail_closed.py",
+      "bytes": 5895,
+      "sha256": "ad4fa07cd54268ad91e9a7665d86bef0b63b80f41dd51d9d50902b9b10e7c8ac"
+    },
+    {
+      "path": "Supergent--main/tests/test_security_regression_evidence.py",
+      "bytes": 11539,
+      "sha256": "5efab03edd752d284e50c3256e6b8cc24baf314968f412637c07285bf6fda56b"
+    },
+    {
       "path": "Supergent--main/tests/test_self_test.py",
       "bytes": 7072,
       "sha256": "f3c4f016f41fc7fc1e08f0fc723d00404a472f7f2e0c38c4d560de68f326a223"
+    },
+    {
+      "path": "Supergent--main/tests/test_service_connectors.py",
+      "bytes": 7856,
+      "sha256": "729e4f73778e97d9c336f8b597ce3818ab56d085f6397c88eb58ed73a34910c0"
     },
     {
       "path": "Supergent--main/tests/test_session_daemon_autostart.py",
@@ -32278,6 +32483,11 @@
       "path": "Supergent--main/tests/test_sigma_adapter.py",
       "bytes": 7082,
       "sha256": "2dd058b4b6c8a2b38b6f9de5e8806dd10e228f362a0614dccaf34d2f34c00552"
+    },
+    {
+      "path": "Supergent--main/tests/test_skill_tls_security.py",
+      "bytes": 11125,
+      "sha256": "4974cb7b1e487355e451533d08aeb44ae7707e27f0f370755048ea1380a5733f"
     },
     {
       "path": "Supergent--main/tests/test_skills_phase3.py",
@@ -32335,6 +32545,11 @@
       "sha256": "9ab8cfa986eb5ecb1875f0887ec2819bd32feb02cd87d682ba624056be1ceb12"
     },
     {
+      "path": "Supergent--main/tests/test_telemetry_render_security.py",
+      "bytes": 2990,
+      "sha256": "33baad52b18dd4f77e2d0b5c99b859f7fe8345c118f0c92881c6aa167cf21de2"
+    },
+    {
       "path": "Supergent--main/tests/test_token_streaming.py",
       "bytes": 5361,
       "sha256": "fe785822638c9dc936836181241afac0b674223f23d33efc3b635cdb0ca57d89"
@@ -32360,6 +32575,16 @@
       "sha256": "20d51c9184c9aad376ae620a550ae344d3002a4f66ab605998f41eb9b51153d1"
     },
     {
+      "path": "Supergent--main/tests/test_uac_security_contract.py",
+      "bytes": 6182,
+      "sha256": "64d48e477175ce53a235a465e171a3f1d4e17096690a48d9914798f9e7b61d58"
+    },
+    {
+      "path": "Supergent--main/tests/test_ui_connection_contracts.py",
+      "bytes": 6330,
+      "sha256": "2e220ef8a567ab6b3fb7ef963cfb22027a135904244780d1e3c5707aa6dab2ac"
+    },
+    {
       "path": "Supergent--main/tests/test_universal_platform.py",
       "bytes": 13592,
       "sha256": "04f4eda91ed419cb2064863f6abf671583214f863489e72a03df419543dd453f"
@@ -32380,9 +32605,19 @@
       "sha256": "041659598d115aed76aa87d58a4971603d16426dca6ed64aab1309635405e7a8"
     },
     {
+      "path": "Supergent--main/tests/test_voice_load_security.py",
+      "bytes": 5124,
+      "sha256": "52e4336f146a948128361381187ed2937555a62698c5c69f57735c535b251810"
+    },
+    {
       "path": "Supergent--main/tests/test_voice_readiness.py",
       "bytes": 9168,
       "sha256": "d30474f83bfc12e08261aa7a87e097e5444653839e318fb469e16b2d1785cf27"
+    },
+    {
+      "path": "Supergent--main/tests/test_voice_reference_security.py",
+      "bytes": 14524,
+      "sha256": "c1208f491013a7c5d94798498b5f13fa587d21785ae738cb77c51077d8df8d36"
     },
     {
       "path": "Supergent--main/tests/test_voice_runtime_shutdown.py",
@@ -32525,14 +32760,19 @@
       "sha256": "248669f9c93c74e47001e79c1124f819d29a1e0eae8a00100935fe2bc53ff7cb"
     },
     {
+      "path": "Supergent--main/tools/update_mcp_catalog.py",
+      "bytes": 2497,
+      "sha256": "a4de9df577141eb015542ca42a2746bedbf15b4b3f4de9d43cb7d64d803985f2"
+    },
+    {
       "path": "Supergent--main/tools/voice_runtime_requirements.txt",
       "bytes": 179,
       "sha256": "b6b6674cdd152e89e97c3b75a8f56b88a7e92bbb9f0d7c710c14e4e5a6f5ebc4"
     },
     {
       "path": "Supergent--main/ui/wise_web/app.js",
-      "bytes": 120860,
-      "sha256": "ac17c97eeb723887168919db004f2d166d2bbec8c9ae73d735dbf480d4cee124"
+      "bytes": 125381,
+      "sha256": "fbd8f5b1e2ed5fda9fecf75180e836420513e0ff88f82d28b1bd471565d9ea53"
     },
     {
       "path": "Supergent--main/ui/wise_web/assets/integrations/asana.svg",
@@ -32541,8 +32781,8 @@
     },
     {
       "path": "Supergent--main/ui/wise_web/assets/integrations/ATTRIBUTION.md",
-      "bytes": 1164,
-      "sha256": "f28bad328587ff3d321b8e8839c9213d504ba3a97e9a8633168db8dd0d8490ea"
+      "bytes": 1779,
+      "sha256": "0376effd707158a24f2deca5f96e843ab20546d1defa970e893b5ef537a47271"
     },
     {
       "path": "Supergent--main/ui/wise_web/assets/integrations/box.svg",
@@ -32568,6 +32808,11 @@
       "path": "Supergent--main/ui/wise_web/assets/integrations/google-calendar.svg",
       "bytes": 1801,
       "sha256": "9dd6e1dd8dd224e1c4341309cb4e4de4b242165e77419130df84ef2c7eb32d01"
+    },
+    {
+      "path": "Supergent--main/ui/wise_web/assets/integrations/google-chat.svg",
+      "bytes": 2859,
+      "sha256": "8e83091f5fe597a7a3099c3530030d10abfd0229c81f59b2353324da38f40252"
     },
     {
       "path": "Supergent--main/ui/wise_web/assets/integrations/google-docs.svg",
@@ -32645,9 +32890,14 @@
       "sha256": "bb9d2897560aaaa54d019e4e9d79dc1a40f544b2ffdec8430feafa2db47af9ba"
     },
     {
+      "path": "Supergent--main/ui/wise_web/assets/integrations/webex.svg",
+      "bytes": 4102,
+      "sha256": "db5f7c3d3554044c9d1f1a9ad2bcfd9cd2d54b9ac360ad41c629bf4f8631a394"
+    },
+    {
       "path": "Supergent--main/ui/wise_web/assets/messaging/ATTRIBUTION.md",
-      "bytes": 638,
-      "sha256": "819957abfa9820a2ae2e08b42265f4c75a95b819329a4c2fec21cf68cd5ad3d6"
+      "bytes": 1301,
+      "sha256": "977d24129439dd37068cad306cff21501a51b3dfd0fc75afaddd7d4938199b40"
     },
     {
       "path": "Supergent--main/ui/wise_web/assets/messaging/discord.svg",
@@ -32658,6 +32908,11 @@
       "path": "Supergent--main/ui/wise_web/assets/messaging/matrix.svg",
       "bytes": 955,
       "sha256": "8cdfc12c73cd828eb6e23cc11ba88edcf086e63fa5470df688006f8a0e162152"
+    },
+    {
+      "path": "Supergent--main/ui/wise_web/assets/messaging/rocketchat.svg",
+      "bytes": 2169,
+      "sha256": "3a81ba48553501f01fa5c2fe8bbaf7b1e0cefe7d1696a6dd70586c7affac6852"
     },
     {
       "path": "Supergent--main/ui/wise_web/assets/messaging/signal.svg",
@@ -32791,33 +33046,33 @@
     },
     {
       "path": "Supergent--main/ui/wise_web/index.html",
-      "bytes": 14423,
-      "sha256": "1c74e513226a9ce2fa39c1c21a00cea1981c4964cece2c1dd4fd356a3f3579ff"
+      "bytes": 14583,
+      "sha256": "9e409a2efed39a1ecb7d7fc84d8a70c77d7dedbfacb192dd494a75a9f9e30745"
     },
     {
       "path": "Supergent--main/ui/wise_web/integrations.js",
-      "bytes": 9055,
-      "sha256": "5f83f7c73d513f7631c3e9b2e9c633ceca37fb32048768c0c4c2fd398c5f5b63"
+      "bytes": 10000,
+      "sha256": "d077c946f6e6b5e06dcf674055ec84a7bcfd538907c4ad66eab3c8c99de6fdec"
     },
     {
       "path": "Supergent--main/ui/wise_web/messaging.js",
-      "bytes": 6362,
-      "sha256": "d078ce4f6b92b20a5ad7091342315cb28b3097e52bc7900591968ef5bba7b18f"
+      "bytes": 10150,
+      "sha256": "b34c9c9446a8266a55d136d55bd9f9c91b1451f78077f943b88020193c8971d1"
     },
     {
       "path": "Supergent--main/ui/wise_web/plugins.js",
-      "bytes": 19713,
-      "sha256": "4c09ba2f9cafb17ee11beb912840f43dd39ec1b705cb5384866f3e272aa062b6"
+      "bytes": 43453,
+      "sha256": "cf974615d13fc965d6206d106f00255855a93c6221430e3b6863b25e57b17095"
     },
     {
       "path": "Supergent--main/ui/wise_web/styles.css",
-      "bytes": 101911,
-      "sha256": "07f08d6b46337d1acde617ab69ccc84e9a83092b735b77a892b88334674ef102"
+      "bytes": 111189,
+      "sha256": "d66b384bf60494a245d8b42e121073f8737a5bcbd37c6ad87b736924190c5e5e"
     },
     {
       "path": "Supergent--main/wise_desktop.py",
-      "bytes": 35543,
-      "sha256": "691a14d43ee13721eadd3d85947616b2422b9fbbf0d147fc377b81ebf6d79c73"
+      "bytes": 35832,
+      "sha256": "829f919a0ab8cf6fa700a244098894450d0174c8ddd07a5a029b4cc0347e5f7e"
     },
     {
       "path": "tests/accreditation_harness.py",
@@ -33011,8 +33266,8 @@
     },
     {
       "path": "tools/prepare_public_update.py",
-      "bytes": 7796,
-      "sha256": "67223ed0c287b4152f8f20c065e5ee071c6dc5273ad54476c694addcfb5d2096"
+      "bytes": 12110,
+      "sha256": "9ca0362bd016be7a6730a88df4789f0821cc9256a968e8252a11a6231ec0f5c5"
     },
     {
       "path": "tools/publish_public_update.py",
@@ -33041,16 +33296,21 @@
     "Supergent--main/api/plugin_routes.py",
     "Supergent--main/api/server.py",
     "Supergent--main/config/intelligence_resources.json",
+    "Supergent--main/config/mcp_market_seed.json",
     "Supergent--main/config/server.json.example",
     "Supergent--main/core/brain/capability_team.py",
     "Supergent--main/core/capability_network.py",
-    "Supergent--main/core/integrations/service.py",
+    "Supergent--main/core/mcp/oauth.py",
     "Supergent--main/core/models/model_manager.py",
+    "Supergent--main/core/plugins/manager.py",
     "Supergent--main/core/usage_network.py",
+    "Supergent--main/docs/MCP_CONNECTION_MARKETPLACE.md",
+    "Supergent--main/docs/PLUGINS.md",
     "Supergent--main/pytest.ini",
     "Supergent--main/qa/tooling/package-lock.json",
     "Supergent--main/requirements.txt",
     "Supergent--main/tools/bootstrap_voice.ps1",
+    "Supergent--main/tools/update_mcp_catalog.py",
     "Supergent--main/tools/voice_runtime_requirements.txt",
     "Supergent--main/ui/wise_web/index.html",
     "Supergent--main/ui/wise_web/messaging.js",
@@ -33075,5 +33335,126 @@
   "voice_assets_included": false,
   "external_voice_revision": "ee40fa7d6c6b8a2c7f06105f9f1e65775b74868c",
   "licensing_review": "Known restricted trees excluded; no blanket license clearance or WISE-wide grant",
+  "credential_example_redactions": [
+    {
+      "path": "Supergent--main/skills/frontend/comfyui-gateway/1.0.0/references/integration.md",
+      "lines": [
+        1577
+      ],
+      "spans": [
+        [
+          1577,
+          1582
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/frontend/comfyui-gateway/1.0.0/references/troubleshooting.md",
+      "lines": [
+        1047
+      ],
+      "spans": [
+        [
+          1047,
+          1047
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/general/broken-authentication/1.0.0/SKILL.md",
+      "lines": [
+        458
+      ],
+      "spans": [
+        [
+          458,
+          458
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/general/h3/1.0.0/docs/examples/handle-session.md",
+      "lines": [
+        24,
+        50,
+        68,
+        98,
+        119
+      ],
+      "spans": [
+        [
+          24,
+          24
+        ],
+        [
+          50,
+          50
+        ],
+        [
+          68,
+          68
+        ],
+        [
+          98,
+          98
+        ],
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/general/migrate-nanoclaw/1.0.0/diagnostics.md",
+      "lines": [
+        16
+      ],
+      "spans": [
+        [
+          16,
+          16
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/general/setup/1.0.0/diagnostics.md",
+      "lines": [
+        18
+      ],
+      "spans": [
+        [
+          18,
+          18
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/general/update-nanoclaw/1.0.0/diagnostics.md",
+      "lines": [
+        17
+      ],
+      "spans": [
+        [
+          17,
+          17
+        ]
+      ]
+    },
+    {
+      "path": "Supergent--main/skills/security/1.0.0/appsec/dast-zap/references/authentication_guide.md",
+      "lines": [
+        218
+      ],
+      "spans": [
+        [
+          218,
+          218
+        ]
+      ]
+    }
+  ],
+  "private_qa_summary_exclusions": [
+    "qa/acceptance/CURRENT_STATUS_20261002.md"
+  ],
   "secret_scan": "targeted-patterns-pass-not-proof"
 }

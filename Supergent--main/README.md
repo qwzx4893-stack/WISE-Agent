@@ -15,7 +15,7 @@ See the [workspace README](../README.md) for the whole product and setup. The di
 | Skills / tools / MCP | `core/skills/`, `skills/`, `tools/packs/`, `core/tool_intelligence/`, `core/mcp/` |
 | Research / intelligence | `core/web_research.py`, `core/intelligence/`, `core/security/optional_tools.py`, `config/intelligence_resources.json` |
 | State / schedules / instructions | `core/memory_service.py`, `core/scheduler.py`, `core/user_instructions.py` |
-| Plugins / messaging | `api/plugin_routes.py`, `core/integrations/`, `core/channels/` |
+| Plugins / messaging | `api/plugin_routes.py`, `core/plugins/`, `core/channels/` |
 | Desktop / system | `wise_desktop.py`, `core/windows/`, `core/system_integration.py`, `core/idle_controller.py` |
 | Voice | `core/voice/`, isolated IndexTTS / Whisper workers |
 | Current interface | `ui/wise_web/` |
@@ -44,7 +44,7 @@ Python 3.11 and WebView2 are required for the native Windows path. Supply creden
 
 `config/server.json.example` and `.env.example` are templates. Immutable skills/packs come from source; `WISE_RUNTIME_ROOT` isolates writable state and `WISE_CONFIG_DIR` selects explicit configuration. Keep keys, sessions, profiles and account data out of Git.
 
-See [voice](docs/VOICE_RUNTIME.md), [Plugins / Nango](docs/PLUGINS_NANGO.md), [security tools](docs/OPTIONAL_SECURITY_TOOLS.md) and [acceptance plan](docs/WISE_FINAL_VALIDATION_PLAN.md).
+See [voice](docs/VOICE_RUNTIME.md), [Plugins](docs/PLUGINS.md), [security tools](docs/OPTIONAL_SECURITY_TOOLS.md) and [acceptance plan](docs/WISE_FINAL_VALIDATION_PLAN.md).
 
 ## Readiness & license
 

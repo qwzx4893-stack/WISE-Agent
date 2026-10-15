@@ -433,6 +433,8 @@ def _request_is_authorized(request: Request) -> bool:
 
 
 def _websocket_is_authorized(websocket: WebSocket) -> bool:
+    if not _ingress_is_allowed(websocket):
+        return False
     expected = os.environ.get("AGENT_API_TOKEN")
     if expected:
         supplied = (
@@ -441,6 +443,17 @@ def _websocket_is_authorized(websocket: WebSocket) -> bool:
         )
         return bool(supplied and hmac.compare_digest(supplied, expected))
     return _is_loopback_peer(websocket.client.host if websocket.client else None)
+
+
+def _ingress_is_allowed(connection) -> bool:
+    from core.security.http_origin import ingress_allowed
+    cfg = load_server_config()
+    return ingress_allowed(
+        connection,
+        configured_host=cfg.get("host"),
+        allowed_origins=cfg.get("cors_origins"),
+        token_configured=bool(os.environ.get("AGENT_API_TOKEN")),
+    )
 
 
 def _refresh_canonical_model_provider() -> None:
@@ -465,13 +478,22 @@ async def _request_size_limit(request: Request, call_next):
         try:
             length = int(cl)
         except ValueError:
-            length = 0
+            return JSONResponse(status_code=400,content={'detail':'invalid content length'})
+        if length < 0:
+            return JSONResponse(status_code=400,content={'detail':'invalid content length'})
         if request.url.path == "/execute":
             max_size = int(cfg.get("max_execute_bytes", 65 * 1024))
+        elif (request.method=='POST' and request.url.path=='/api/v2/plugins/bundles'
+              and request.headers.get('content-type','').split(';')[0]=='application/octet-stream'):
+            # A bundle is a bounded binary upload, not a normal JSON API body.
+            # The route also enforces this budget while streaming (no CL).
+            max_size = min(64_000_000,int(cfg.get('max_mcp_bundle_bytes',64_000_000)))
         else:
             max_size = int(cfg.get("max_request_bytes", 1024 * 1024))
         if length > max_size:
-            raise HTTPException(status_code=413, detail="request too large")
+            # HTTPException raised in user middleware becomes a 500 instead
+            # of a useful upload error. Return an actual 413 response here.
+            return JSONResponse(status_code=413,content={'detail':'request too large'})
     return await call_next(request)
 
 
@@ -483,7 +505,9 @@ async def _api_access_control(request: Request, call_next):
     added later and bypassed them. This boundary protects both generations,
     including future routes under ``/api/`` and ``/mcp``.
     """
-    path = request.url.path
+    path = request.scope.get("path", "")
+    if path.startswith(_AUTH_CONTROLLED_PREFIXES) and not _ingress_is_allowed(request):
+        return JSONResponse(status_code=403, content={"detail": "control request origin or Host is not allowed"})
     if path.startswith(_AUTH_CONTROLLED_PREFIXES) and not _request_is_authorized(request):
         expected = os.environ.get("AGENT_API_TOKEN")
         detail = "invalid or missing token" if expected else (
@@ -1364,8 +1388,12 @@ async def mcp_confirm(
     x_agent_token: Optional[str] = Header(default=None),
 ) -> Dict[str, Any]:
     _require_auth(x_agent_token)
-    approved = bool((payload or {}).get("approved", True))
-    reason = str((payload or {}).get("reason", ""))
+    if not isinstance(payload, dict) or not isinstance(payload.get("approved"), bool):
+        raise HTTPException(status_code=422, detail="approved must be an explicit JSON boolean")
+    approved = payload["approved"]
+    reason = payload.get("reason", "")
+    if not isinstance(reason, str) or len(reason) > 1000:
+        raise HTTPException(status_code=422, detail="reason must be a string of at most 1000 characters")
     try:
         from core.mcp import get_gate
         ok = get_gate().resolve(call_id, approved=approved, reason=reason)
@@ -2381,13 +2409,9 @@ async def chat_stream(websocket: WebSocket) -> None:
     a ``?token=...`` query parameter. The connection is closed with
     code 4401 when auth fails — analogous to a 401 over HTTP.
     """
-    expected = os.environ.get("AGENT_API_TOKEN")
-    if expected:
-        provided = (websocket.headers.get("x-agent-token")
-                    or websocket.query_params.get("token") or "")
-        if provided != expected:
-            await websocket.close(code=4401, reason="invalid token")
-            return
+    if not _websocket_is_authorized(websocket):
+        await websocket.close(code=4401, reason="unauthorized")
+        return
 
     await websocket.accept()
 
@@ -3089,13 +3113,34 @@ async def v2_messaging_services():
 
 
 @app.post("/api/v2/messaging/connections")
-async def v2_messaging_configure(payload: Dict[str, Any]):
+async def v2_messaging_configure(payload: Dict[str, Any], request: Request):
+    from api.plugin_routes import same_origin
+    same_origin(request)
     from core.channels.service_catalog import configure
     try:
         return await asyncio.to_thread(configure, str(payload.get("service", "")),
             str(payload.get("name", "")), payload.get("fields", {}))
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@app.post("/api/v2/messaging/connections/{name}/send")
+async def v2_messaging_send(name: str, payload: Dict[str, Any], request: Request):
+    from api.plugin_routes import same_origin
+    same_origin(request)  # Same human-action guard; no cross-site sends.
+    from core.channels.conversations import deliver
+    try:
+        return await asyncio.to_thread(deliver, name, payload.get("message"), payload.get("request_id"))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from None
+
+
+@app.post("/api/v2/messaging/conversations/sync")
+async def v2_messaging_sync(request: Request):
+    from api.plugin_routes import same_origin
+    same_origin(request)
+    from core.channels.conversations import sync_conversations
+    return await asyncio.to_thread(sync_conversations)
 
 
 @app.post("/api/v2/attachments")
@@ -3197,6 +3242,11 @@ async def _execute_v2_chat(req, idempotency_key, on_milestone=None):
     from core.idempotency import get_idempotency_store
     from core.brain.conversational_core import get_conversational_core
     store = get_idempotency_store()
+    if req.session_id:
+        from core.session_service import get_session_service
+        existing = get_session_service().get_session(req.session_id)
+        if existing and existing.metadata.get("origin") == "messaging":
+            raise HTTPException(409, "This is an external messaging thread; use its messaging send action")
     if req.selected_mcp:
         from core.mcp import get_registry
         if not any(row["name"] == req.selected_mcp and row.get("alive") for row in get_registry().list_servers()):
@@ -3731,6 +3781,9 @@ def _v2_session_summary(session: Any) -> Dict[str, Any]:
         "metadata": {
             "archived": bool(session.metadata.get("archived")),
             "archived_at": session.metadata.get("archived_at"),
+            "origin": session.metadata.get("origin"),
+            "channel": session.metadata.get("channel"),
+            "platform": session.metadata.get("platform"),
         },
     }
 

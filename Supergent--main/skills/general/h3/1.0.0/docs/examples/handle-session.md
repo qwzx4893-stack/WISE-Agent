@@ -21,7 +21,7 @@ import { useSession } from "h3";
 
 app.use(async (event) => {
   const session = await useSession(event, {
-    password: "80d42cfb-1cd2-462c-8f17-e3237d9027e9",
+    password: "YOUR_OWN_SECRET",
   });
 
   // do something...
@@ -47,7 +47,7 @@ import { useSession } from "h3";
 
 app.use(async (event) => {
   const session = await useSession(event, {
-    password: "80d42cfb-1cd2-462c-8f17-e3237d9027e9",
+    password: "YOUR_OWN_SECRET",
   });
 
   return session.data;
@@ -65,7 +65,7 @@ import { useSession } from "h3";
 
 app.use(async (event) => {
   const session = await useSession(event, {
-    password: "80d42cfb-1cd2-462c-8f17-e3237d9027e9",
+    password: "YOUR_OWN_SECRET",
   });
 
   const count = (session.data.count || 0) + 1;
@@ -95,7 +95,7 @@ import { useSession } from "h3";
 
 app.use("/clear", async (event) => {
   const session = await useSession(event, {
-    password: "80d42cfb-1cd2-462c-8f17-e3237d9027e9",
+    password: "YOUR_OWN_SECRET",
   });
 
   await session.clear();
@@ -116,7 +116,7 @@ import { useSession } from "h3";
 app.use(async (event) => {
   const session = await useSession(event, {
     name: "my-session",
-    password: "80d42cfb-1cd2-462c-8f17-e3237d9027e9",
+    password: "YOUR_OWN_SECRET",
     cookie: {
       httpOnly: true,
       secure: true,

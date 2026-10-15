@@ -42,7 +42,7 @@ def test_post_admin_mcp_servers_registers_tools_at_runtime():
     })
     body = r.json()
     assert r.status_code == 200
-    assert body["alive"] is True
+    assert body.get("alive") is True, body
     assert body["tools"] >= 2
 
     # The /admin/mcp/servers/{name}/tools endpoint shows the same set

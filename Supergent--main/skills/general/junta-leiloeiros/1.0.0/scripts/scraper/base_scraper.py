@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -17,7 +16,25 @@ logger = logging.getLogger(__name__)
 
 
 def should_verify_tls() -> bool:
-    return os.getenv("JUNTA_INSECURE_TLS", "").lower() not in {"1", "true", "yes", "on"}
+    """Compatibility helper: TLS authentication cannot be disabled by environment."""
+    return True
+
+
+async def reject_tls_downgrade(response) -> None:
+    """Keep HTTPS redirects functional while refusing plaintext downgrades."""
+    from urllib.parse import urljoin, urlsplit
+    import httpx
+
+    origin = str(response.request.url)
+    location = response.headers.get("location")
+    if response.is_redirect and location:
+        target = urljoin(origin, location)
+        if urlsplit(origin).scheme == "https" and urlsplit(target).scheme == "http":
+            raise httpx.RequestError("HTTPS redirect to HTTP refused", request=response.request)
+
+
+def tls_response_hooks() -> dict:
+    return {"response": [reject_tls_downgrade]}
 
 
 @dataclass
@@ -96,6 +113,7 @@ class AbstractJuntaScraper(ABC):
                     timeout=self.timeout,
                     follow_redirects=True,
                     verify=verify_tls,
+                    event_hooks=tls_response_hooks(),
                 ) as client:
                     if method.upper() == "POST":
                         resp = await client.post(target, data=data, params=params)
@@ -194,24 +212,26 @@ class AbstractJuntaScraper(ABC):
         try:
             async with async_playwright() as pw:
                 browser = await pw.chromium.launch(headless=True)
-                ctx = await browser.new_context(
-                    user_agent=self.HEADERS["User-Agent"],
-                    locale="pt-BR",
-                    ignore_https_errors=not verify_tls,
-                )
-                page = await ctx.new_page()
-                await page.goto(target, timeout=60000, wait_until="networkidle")
+                try:
+                    ctx = await browser.new_context(
+                        user_agent=self.HEADERS["User-Agent"],
+                        locale="pt-BR",
+                        ignore_https_errors=not verify_tls,
+                    )
+                    page = await ctx.new_page()
+                    await page.goto(target, timeout=60000, wait_until="networkidle")
 
-                if wait_selector:
-                    try:
-                        await page.wait_for_selector(wait_selector, timeout=15000)
-                    except Exception:
-                        pass  # Continua mesmo sem o seletor
-                else:
-                    await page.wait_for_timeout(wait_ms)
+                    if wait_selector:
+                        try:
+                            await page.wait_for_selector(wait_selector, timeout=15000)
+                        except Exception:
+                            pass  # Continua mesmo sem o seletor
+                    else:
+                        await page.wait_for_timeout(wait_ms)
 
-                html = await page.content()
-                await browser.close()
+                    html = await page.content()
+                finally:
+                    await browser.close()
                 return BeautifulSoup(html, "lxml")
         except Exception as exc:
             logger.error("[%s] Erro Playwright em %s: %s", self.estado, target, exc)

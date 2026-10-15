@@ -271,7 +271,12 @@ class SkillIndexer:
             )
             if stale:
                 self._load_or_rebuild()
-            return self._index.copy()
+            result = self._index.copy()
+            # Marketplace packages augment the internal browser; they are not
+            # copied into (or allowed to overwrite) WISE's base skill library.
+            from core.plugins.store import installed_workflows
+            result.update(installed_workflows())
+            return result
 
     def list_skills(self) -> List[str]:
         return list(self.get_index().keys())

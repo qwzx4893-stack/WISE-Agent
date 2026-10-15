@@ -4,7 +4,7 @@
 
 WISE is more than a chat interface around a model. Its Agent OS core coordinates task execution, discovers capabilities on demand, manages model and worker resources, persists conversations and recoverable task state, and connects a native desktop workspace to local and remote services. The wider workspace retains its Leon assistant integration and process supervisor.
 
-> **Development preview, not a certified production release.** Implemented capabilities are not a guarantee of error-free autonomous operation. Recent non-interactive regression passed 1,492 tests, but research-quality acceptance still has failures and native Windows, real-account OAuth and voice hardware acceptance remain incomplete. See [validation status](docs/VALIDATION.md).
+> **Development preview, not a certified production release.** Implemented capabilities are not a guarantee of error-free autonomous operation. Security contract regressions and broader product tests are separate evidence layers; native Windows, real-account authorization, dependency remediation and voice hardware acceptance remain incomplete. See [validation status](docs/VALIDATION.md).
 
 ## What WISE brings together
 
@@ -16,7 +16,7 @@ WISE is more than a chat interface around a model. Its Agent OS core coordinates
 | Models & efficiency | Explicit user-selected cloud/local models; context and request optimizations, caches, resource admission and isolated worker lifecycle. Provider failures do not silently change the user's chosen provider. |
 | Research & intelligence | Web search, source retrieval, document inspection, structured public-source adapters, evidence checks and on-demand security-tool recipes. Catalog membership is not proof that an executable or adapter is ready. |
 | State & recovery | Durable conversations, artifacts, task checkpoints, scheduling, recovery and diagnostic logs. Recovery is not universal rollback of arbitrary machine changes. |
-| Integrations | MCP configuration and OAuth flows, a Plugins catalog with Nango-backed connections, and messaging connectors with configuration-aware status. External accounts require separate setup. |
+| Integrations | MCP Market with published remote/local service metadata, direct per-server authorization, compatible package workflows and bundled MCP connections, plus messaging connectors. Catalog entries are not installed or audited services; host-specific components and service authentication have explicit compatibility limits. |
 | Windows & browser | Native pywebview host, file and desktop operations, opt-in background/system integration, managed browser sessions and explicitly requested device-browser access. |
 | Optional voice | Isolated IndexTTS synthesis and CPU Whisper transcription, interruption handling and VRAM admission guards. Custom voice assets are private runtime inputs. |
 
@@ -62,7 +62,7 @@ cd Supergent--main
 
 - **Leon:** source with manifests and lockfiles; Node.js 24+ and pnpm required. Follow [workspace setup](docs/INSTALLATION.md#leon-workspace-integration) before running the root supervisor. Core desktop chat does not require booting Leon.
 - **MCP:** import server configuration in Settings. Install stdio commands or configure remote endpoints and the server's supported authentication method.
-- **Plugins / messaging:** configure Nango and provider OAuth applications using [Plugins setup](Supergent--main/docs/PLUGINS_NANGO.md). A browsable catalog is not a connected account.
+- **Plugins / messaging:** use direct MCP connections with [Plugins setup](Supergent--main/docs/PLUGINS.md). A browsable catalog is not a connected account or a security audit.
 - **Voice:** provision the compatible pinned IndexTTS runtime, model weights and permitted custom assets separately. See [voice setup](docs/INSTALLATION.md#voice).
 - **Security / OSINT:** lightweight adapters and isolated on-demand recipes are distinct from sources and deferred platforms. MISP, OpenCTI and CAPE are not deployed automatically. See [optional security tooling](Supergent--main/docs/OPTIONAL_SECURITY_TOOLS.md).
 

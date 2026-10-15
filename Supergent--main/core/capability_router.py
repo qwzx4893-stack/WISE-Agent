@@ -27,6 +27,7 @@ from core.contracts import (
     ToolResult,
 )
 from core.security import get_security_gate, SecurityContext, ActionTier
+from core.mcp.policy import ConfirmationRequired
 
 LOG = logging.getLogger("wise.capability_router")
 
@@ -337,9 +338,6 @@ class CapabilityRouter:
         self.register(desc)
 
     def get_capability(self, id_or_name: str) -> Optional[CapabilityDescriptor]:
-        if id_or_name.startswith("extension.plugins."):
-            from core.integrations.bindings import refresh_integrations
-            refresh_integrations(self)
         # Direct ID match
         if id_or_name in self._capabilities:
             return self._capabilities[id_or_name]
@@ -362,8 +360,6 @@ class CapabilityRouter:
         runtime_status: Optional[str] = None,
     ) -> List[CapabilityDescriptor]:
         self.refresh_mcp_capabilities()
-        from core.integrations.bindings import refresh_integrations
-        refresh_integrations(self)
         out = []
         for desc in self._capabilities.values():
             if source is not None:
@@ -487,6 +483,11 @@ class CapabilityRouter:
                 duration_ms=duration_ms,
                 metadata={"source": cap.source.value if hasattr(cap.source, "value") else str(cap.source)},
             )
+        except ConfirmationRequired as exc:
+            return ToolResult(call_id=call_id, tool_id=cap.id, success=False, output=None,
+                error="MCP owner approval required; retry this exact operation after the owner decision",
+                metadata={"failure_kind": "APPROVAL_REQUIRED", "approval_required": True,
+                          "approval_call_id": exc.call_id, "session_id": ctx.session_id})
         except Exception as exc:
             duration_ms = (time.perf_counter() - t0) * 1000
             LOG.error("Execution failed for capability '%s': %s", cap.id, exc)

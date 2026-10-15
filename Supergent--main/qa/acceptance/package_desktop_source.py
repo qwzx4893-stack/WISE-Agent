@@ -18,7 +18,7 @@ from verify_desktop_source import (MANIFEST, SCHEMA, SCOPE, MAX_FILES, MAX_FILE_
 
 DIRECTORIES = ("api", "core", "modes", "policies", "skills", "tools/packs", "ui/wise_web", "qa/acceptance", "tests", "docs")
 STATIC_FILES = ("README.md", "CHANGELOG.md", "LICENSE", "NOTICE", "COPYING", "pytest.ini", "run.sh",
-                "config/server.json.example", "config/skills_config.json", "config/intelligence_resources.json",
+                "config/server.json.example", "config/skills_config.json", "config/intelligence_resources.json", "config/mcp_market_seed.json",
                 "sandbox/build_rootfs.sh", "sandbox/known_missing.json", "tools/bootstrap_voice.ps1",
                 "tools/voice_runtime_requirements.txt", "qa/tooling/python-requirements.txt",
                 "qa/tooling/package.json", "qa/tooling/package-lock.json", "qa/tooling/TOOLCHAIN.md")
@@ -27,7 +27,7 @@ REQUIRED = ("agent_core.py", "wise_desktop.py", "Start-WISE.ps1", "requirements.
             "core/paths.py", "core/models/local_model_manager.py", "policies/policies.rego",
             "config/server.json.example", "config/skills_config.json", "config/intelligence_resources.json",
             "sandbox/build_rootfs.sh", "sandbox/known_missing.json", "tools/bootstrap_voice.ps1",
-            "tools/voice_runtime_requirements.txt", "README.md", "docs/VOICE_RUNTIME.md", "docs/PLUGINS_NANGO.md",
+            "tools/voice_runtime_requirements.txt", "README.md", "docs/VOICE_RUNTIME.md", "docs/PLUGINS.md",
             "docs/OPTIONAL_SECURITY_TOOLS.md", "qa/acceptance/DESKTOP_SOURCE_BUNDLE.md",
             "qa/tooling/python-requirements.txt", "qa/tooling/package.json", "qa/tooling/TOOLCHAIN.md")
 # The generic upstream "models" exclusion incorrectly pruned core/models code.

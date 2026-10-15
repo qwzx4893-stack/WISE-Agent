@@ -15,6 +15,7 @@ Improvements over the previous draft:
 
 from __future__ import annotations
 
+from functools import wraps
 from typing import Any, Callable, Dict, Optional
 
 from core.observability import Tracer, new_trace_id
@@ -81,10 +82,9 @@ class Normal:
 
 
 def _throttle_wrap(name: str, fn, throttle):
+    @wraps(fn)
     def _wrapped(*args, **kwargs):
         return throttle.execute(fn, *args, tool_name=name, **kwargs)
-    _wrapped.__name__ = getattr(fn, "__name__", name)
-    _wrapped.__doc__ = getattr(fn, "__doc__", "")
     return _wrapped
 
 

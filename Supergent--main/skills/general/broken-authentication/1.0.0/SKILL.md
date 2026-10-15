@@ -455,7 +455,7 @@ POST /forgot-password
 email=test@example.com
 
 # Step 2: Capture reset link
-https://target.com/reset?token=a1b2c3d4e5f6
+https://target.com/reset?token=YOUR_OWN_SECRET
 
 # Step 3: Test token properties
 # Reuse: Try using same token twice

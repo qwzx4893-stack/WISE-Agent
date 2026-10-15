@@ -1,10 +1,18 @@
-# Validation status — 2026-10-05 publication preparation
+# Validation status — 2026-10-15 publication preparation
 
 **Development preview / NOT_READY for unconditional daily-use reliability.** Regression success, renderer scenarios, model execution, research correctness, real-account authorization and native/hardware acceptance are separate gates.
 
-Most recently reviewed Agent OS implementation stamp:
-`ea8c46b40d52d4c8041f309a1b0259162c70e88123c6f050aa1a62baada17d28`.
-Documentation/publication changes are not new runtime acceptance. Private reports are not copied to public source.
+The October security audit added source-bound, offline regression evidence for
+HTTP/WebSocket ingress, OAuth, operation consent, file/preview containment,
+secret persistence, official UAC catalogue contracts, native bridge exposure,
+untrusted file observations, TLS and voice worker resource/loading boundaries.
+The October 13 aggregate passed **544 tests without failures/errors/skips**;
+this is historical contract evidence, not certification of later edits.
+October 15 preparation additionally passed **561 offline security/publication
+tests across 22 suites**, with zero failures/errors/skips and no omitted suites,
+and verified exported Python 3.11 syntax and required files. These checks do not
+close the release gates below. Private raw reports, owner state and credential candidates are not public
+release artifacts. Documentation changes are not runtime acceptance.
 
 | Evidence | Outcome | Boundary |
 | --- | --- | --- |
@@ -14,6 +22,24 @@ Documentation/publication changes are not new runtime acceptance. Private report
 | Bounded live-model UI scenarios | 8/8 PASS | Execution behavior, not every answer's factual correctness. |
 | Latest focused project follow-up | 3 PASS, 1 FAIL | Research quality failed; no current-build long-duration soak acceptance. |
 | Latest aggregate quality gate | FAIL / NOT_READY | Remaining gates are not waived by regression counts. |
+
+The table above is historical product evidence from the earlier preparation;
+its counts are not added to the security aggregate or represented as a current
+all-feature acceptance run. Nango mocks do not represent the present direct-MCP
+authentication implementation.
+
+## Security-specific limits
+
+- Current dependency inventories still contain unresolved advisory observations,
+  especially in optional audio runtimes. Advisory records are not automatically
+  distinct exploitable findings; compatibility-tested remediation remains open.
+- Complete private-data export policy, production connector identity/consent and
+  reliable owner-approval UI resume still need end-to-end acceptance.
+- No isolated Windows environment was available. Real UAC, native sender/frame
+  behavior, clean installation/update/rollback and two/eight-hour native soak
+  are unverified, not inferred from mocks or test counts.
+- Tests deliberately use synthetic inputs, without owner accounts, paid models,
+  actual external messaging or untrusted model/checkpoint loading.
 
 ## Open acceptance gates
 

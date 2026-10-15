@@ -8,27 +8,27 @@ from urllib.parse import quote, urlsplit
 from .unified import _apprise_module, register_channel
 
 LOCAL_BRAND_ICONS = {"tgram":"telegram", "whatsapp":"whatsapp", "discord":"discord",
-    "signal":"signal", "signals":"signal", "matrix":"matrix", "matrixs":"matrix", "zulip":"zulip"}
+    "signal":"signal", "signals":"signal", "matrix":"matrix", "matrixs":"matrix", "zulip":"zulip", "rockets":"rocketchat"}
+
+# Desktop discovery is a messaging app list, not Apprise's notification registry.
+# Existing non-messaging registrations remain usable; never erase owner config.
+MESSAGING_APPS = {"tgram": "Telegram", "whatsapp": "WhatsApp", "discord": "Discord",
+    "slack": "Slack", "workflow": "Microsoft Teams", "gchat": "Google Chat",
+    "signals": "Signal", "matrixs": "Matrix", "mmosts": "Mattermost",
+    "rockets": "Rocket.Chat", "wxteams": "Webex"}
 
 
 @lru_cache(maxsize=1)
 def _catalog_brand_icons():
     """Use verified brand paths, not guessed app-site favicon locations."""
     root = Path(__file__).resolve().parents[2]
-    catalog = json.loads((root / "core/integrations/provider_catalog.json").read_text(encoding="utf-8"))
-    revision = catalog["revision"]
-    if not re.fullmatch(r"[a-f0-9]{40}", revision): return {}
     icons = {}
-    for provider, name, _categories, _mode, _docs, filename in catalog["providers"]:
-        if not re.fullmatch(r"[a-zA-Z0-9_-]+\.(svg|png|webp)", filename): continue
-        local = root / "ui/wise_web/assets/integrations" / filename
-        url = "/app/assets/integrations/" + filename if local.is_file() else f"https://raw.githubusercontent.com/NangoHQ/nango/{revision}/packages/webapp/public/images/template-logos/{filename}"
-        for key in (provider, name):
-            icons.setdefault(re.sub(r"[^a-z0-9]", "", key.casefold()), url)
+    for local in (root / "ui/wise_web/assets/integrations").glob("*.svg"):
+        icons[re.sub(r"[^a-z0-9]", "", local.stem.casefold())] = "/app/assets/integrations/"+local.name
     return icons
 
 
-def services():
+def _all_services():
     mod = _apprise_module()
     if mod is None:
         return []
@@ -64,7 +64,7 @@ def services():
         if protocols[0] in LOCAL_BRAND_ICONS:
             icon_url = "/app/assets/messaging/" + LOCAL_BRAND_ICONS[protocols[0]] + ".svg"
         else:
-            aliases = {"azure":"microsoft", "workflow":"microsoft-teams", "gchat":"google", "mmosts":"mattermost",
+            aliases = {"azure":"microsoft", "workflow":"microsoft-teams", "gchat":"google-chat", "mmosts":"mattermost",
                        "x":"twitter", "ringc":"ringcentral", "wxteams":"webex"}
             label = aliases.get(protocols[0], str(entry.get("service_name", protocols[0])))
             verified = _catalog_brand_icons().get(re.sub(r"[^a-z0-9]", "", label.casefold()))
@@ -77,10 +77,14 @@ def services():
     return sorted(result, key=lambda row: row["name"].casefold())
 
 
+def services():
+    return [{**row, "name": MESSAGING_APPS[row["id"]]} for row in _all_services() if row["id"] in MESSAGING_APPS]
+
+
 def configure(service_id, name, fields):
     if not isinstance(fields, dict):
         raise ValueError("Connection fields must be an object")
-    service = next((row for row in services() if row["id"] == service_id), None)
+    service = next((row for row in _all_services() if row["id"] == service_id), None)
     if service is None:
         raise ValueError("Service is not supported by the installed Apprise version")
     known = {field["id"] for field in service["fields"]}
@@ -105,4 +109,7 @@ def configure(service_id, name, fields):
             values[field["id"]] = quote(value, safe="")
     url = re.sub(r"\{(\w+)\}", lambda match: values[match[1]], service["template"])
     register_channel(name, url)  # Apprise validates its own URL; no message sent.
+    from .conversations import ensure_conversation
+    if service_id in MESSAGING_APPS:
+        ensure_conversation(name)
     return {"ok":True, "name":name, "service":service_id, "authentication_status":"configured_unverified", "message_sent":False}

@@ -21,6 +21,7 @@ class SkillSearch:
         self.cache = SkillsCache(SKILLS_DIR)
         self._encoder = None
         self._embeddings: Dict[str, np.ndarray] = {}
+        self._embedding_signature = None
         self._lock = threading.RLock()
 
     @property
@@ -48,10 +49,12 @@ class SkillSearch:
     # ------------------------------------------------------------------
     def _load_or_build_embeddings(self) -> None:
         with self._lock:
-            if self._embeddings:
-                return
-
             index = self.indexer.get_index()
+            signature = tuple(sorted((n,i["last_modified"]) for n,i in index.items()))
+            if self._embeddings and signature == self._embedding_signature:
+                return
+            self._embeddings = {}
+            self._embedding_signature = signature
             cached_mtimes = self.cache.load_embeddings_mtimes()
 
             if (

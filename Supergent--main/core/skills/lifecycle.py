@@ -193,9 +193,12 @@ class LifecycleManager:
                 folder = None
 
             if folder is not None:
-                if not (folder / "SKILL.md").exists():
+                from .indexer import SkillIndexer
+                info = SkillIndexer().get_skill_info(name) or {}
+                instructions = Path(info["file"]) if info.get("file") and skill_dir is None else folder / "SKILL.md"
+                if not instructions.is_file():
                     ok = False
-                    error = f"missing SKILL.md in {folder}"
+                    error = f"missing workflow instructions in {folder}" if info.get("file") else f"missing SKILL.md in {folder}"
                 else:
                     meta = folder / "metadata.json"
                     if meta.exists():

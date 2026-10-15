@@ -51,6 +51,6 @@ Only provision assets you have permission to use. Absence means unavailable voic
 
 ## Optional accounts, services and models
 
-See [Plugins / Nango](../Supergent--main/docs/PLUGINS_NANGO.md); supply `NANGO_SECRET_KEY` only to the backend. Environment examples do not imply all launchers automatically load dotenv files—export variables or use supported settings.
+See [MCP Market and direct service connections](../Supergent--main/docs/PLUGINS.md). Each service uses its supported authorization method: browser OAuth, an owner-supplied service credential, or an explicitly trusted local application. No Nango project/key is required. Environment examples do not imply all launchers automatically load dotenv files—export variables or use supported settings.
 
 Local LLM weights, app registration secrets, MCP commands and large intelligence platforms need separate provisioning. Included adapters/recipes are not external-service access grants. Failures must remain visible rather than fictitious successful connections.

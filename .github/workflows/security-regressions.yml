@@ -1,0 +1,59 @@
+name: Focused security regressions
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-regressions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  synthetic-contracts:
+    name: Synthetic contracts (${{ matrix.os }}, Python 3.11)
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      # Match the existing CI's supported Python and action release versions.
+      # Version tags are not immutable supply-chain pins; this workflow does
+      # not claim action/dependency provenance or production certification.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: Supergent--main/requirements.txt
+      - name: Install runtime and focused test dependencies
+        working-directory: Supergent--main
+        run: |
+          python -m pip install --upgrade pip
+          # Test-tool pins match the locally validated QA interpreter. Runtime
+          # requirements remain ranges, so this is not a dependency lockfile.
+          # pywebview is needed on Linux too, for library-only bridge fixtures;
+          # those tests never create a renderer or invoke Qt/GTK/native APIs.
+          python -m pip install -r requirements.txt pytest==9.1.1 packaging==26.3 hypothesis==6.168.3 pywebview==6.2.1
+      - name: Run offline synthetic security contracts
+        working-directory: Supergent--main
+        run: python -m qa.acceptance.security_regression --output qa-results/security-regressions-${{ github.run_id }}-${{ github.run_attempt }} --timeout 900
+      - name: Upload sanitized evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-regressions-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            Supergent--main/qa-results/security-regressions-${{ github.run_id }}-${{ github.run_attempt }}/report.json
+            Supergent--main/qa-results/security-regressions-${{ github.run_id }}-${{ github.run_attempt }}/pytest-sanitized.json
+            Supergent--main/qa-results/security-regressions-${{ github.run_id }}-${{ github.run_attempt }}/junit.xml
+            Supergent--main/qa-results/security-regressions-${{ github.run_id }}-${{ github.run_attempt }}/source-start.json
+            Supergent--main/qa-results/security-regressions-${{ github.run_id }}-${{ github.run_attempt }}/source-end.json
+          if-no-files-found: error
+          retention-days: 14

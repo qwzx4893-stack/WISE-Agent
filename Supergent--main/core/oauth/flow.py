@@ -48,6 +48,9 @@ from .store import OAuthAccount, save_account
 # ---------------------------------------------------------------------------
 # State table — flows in flight
 # ---------------------------------------------------------------------------
+_FLOW_TTL_SECONDS = 600
+
+
 @dataclass
 class LinkFlowState:
     state: str
@@ -63,6 +66,8 @@ class LinkFlowState:
     account: Optional[str] = None
     httpd: Optional[Any] = None       # the loopback HTTPServer
     server_port: int = 0
+    _started_monotonic: float = field(default_factory=time.monotonic, repr=False)
+    _claimed: bool = field(default=False, repr=False)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return {
@@ -100,6 +105,37 @@ def _peek(state_id: str) -> Optional[LinkFlowState]:
 def _list_pending() -> List[LinkFlowState]:
     with _LOCK:
         return list(_FLOWS.values())
+
+
+def _claim_flow(state_id: str) -> LinkFlowState:
+    """Atomically accept a pending response once, before any provider I/O."""
+    with _LOCK:
+        flow = _FLOWS.get(state_id)
+        if flow is None:
+            raise RuntimeError("unknown OAuth state")
+        if flow.status != "pending" or flow._claimed:
+            raise RuntimeError("OAuth flow is no longer pending")
+        if _expire_flow(flow):
+            raise RuntimeError(flow.error)
+        flow._claimed = True
+        return flow
+
+
+def _expire_flow(flow: LinkFlowState) -> bool:
+    """Called under _LOCK; an accepted exchange may finish after the deadline."""
+    if (flow.status == "pending" and not flow._claimed
+            and time.monotonic() - flow._started_monotonic >= _FLOW_TTL_SECONDS):
+        flow.status = "error"
+        flow.error = "OAuth flow expired"
+        return True
+    return False
+
+
+def _shutdown_loopback(httpd: Any) -> None:
+    try:
+        httpd.shutdown()
+    finally:
+        httpd.server_close()
 
 
 # ---------------------------------------------------------------------------
@@ -141,61 +177,76 @@ def _client_credentials(prov: OAuthProvider) -> Dict[str, str]:
 class _CallbackHandler(BaseHTTPRequestHandler):
     """Single-shot handler that records the OAuth callback."""
 
-    state_id: str = ""
-
     def do_GET(self) -> None:  # noqa: N802
+        consumed = False
+        bound = False
+        flow = None
         try:
             parsed = urllib.parse.urlparse(self.path)
-            qs = urllib.parse.parse_qs(parsed.query)
-            state_id = (qs.get("state") or [""])[0]
-            code = (qs.get("code") or [""])[0]
-            err = (qs.get("error") or [""])[0]
-            err_desc = (qs.get("error_description") or [""])[0]
-            target = state_id or self.state_id
-
+            qs = urllib.parse.parse_qs(parsed.query, keep_blank_values=True)
+            target = getattr(self.server, "oauth_state_id", "")
             flow = _peek(target)
-            if flow is None:
-                body = b"Unknown state."
-                self.send_response(400)
-            elif err:
-                flow.status = "error"
-                flow.error = err_desc or err
-                body = (f"Error: {flow.error}").encode("utf-8")
-                self.send_response(400)
-            elif not code:
-                flow.status = "error"
-                flow.error = "missing code"
-                body = b"Missing code."
+            if (flow is None or parsed.scheme or parsed.netloc
+                    or parsed.params or parsed.fragment):
+                raise RuntimeError("invalid OAuth callback")
+            if parsed.path != urllib.parse.urlparse(flow.redirect_uri).path:
+                raise RuntimeError("invalid OAuth callback path")
+            states = qs.get("state", [])
+            if (len(states) != 1 or not states[0]
+                    or not secrets.compare_digest(states[0].encode(), target.encode())):
+                raise RuntimeError("invalid OAuth callback state")
+            bound = True
+            for key in ("code", "error", "error_description"):
+                if key in qs and (len(qs[key]) != 1 or not qs[key][0]):
+                    raise RuntimeError("invalid OAuth callback parameters")
+            code = qs.get("code", [""])[0]
+            err = qs.get("error", [""])[0]
+            if bool(code) == bool(err):
+                raise RuntimeError("callback requires either code or error")
+            if err:
+                flow = _claim_flow(target)
+                consumed = True
+                with _LOCK:
+                    flow.status = "error"
+                    flow.error = qs.get("error_description", [err])[0]
+                body = b"Authorization was declined. You can close this tab."
                 self.send_response(400)
             else:
                 try:
                     complete_link_flow(target, code)
+                    consumed = True
                     body = b"You can close this tab."
                     self.send_response(200)
                 except Exception as exc:
-                    flow.status = "error"
-                    flow.error = str(exc)
+                    consumed = flow.status != "pending"
                     body = f"Error: {exc}".encode("utf-8")
                     self.send_response(400)
+        except RuntimeError as exc:
+            consumed = bound and flow is not None and flow.status != "pending"
+            body = f"Error: {exc}".encode("utf-8")
+            self.send_response(400)
         except Exception as exc:
             body = f"Server error: {exc}".encode("utf-8")
             self.send_response(500)
 
-        self.send_header("Content-Type", "text/plain; charset=utf-8")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
-
-        # Self-shutdown so the port is released right after capture.
-        threading.Thread(
-            target=self.server.shutdown, daemon=True).start()
+        try:
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        finally:
+            # Invalid requests leave the legitimate pending listener usable.
+            if consumed:
+                threading.Thread(target=lambda: _shutdown_loopback(self.server),
+                                 daemon=True).start()
 
     def log_message(self, fmt: str, *args: Any) -> None:  # noqa: N802
         return  # silence
 
 
-def _start_loopback() -> tuple[HTTPServer, int]:
+def _start_loopback(state_id: str) -> tuple[HTTPServer, int]:
     httpd = HTTPServer(("127.0.0.1", 0), _CallbackHandler)
+    httpd.oauth_state_id = state_id
     port = httpd.server_address[1]
     th = threading.Thread(target=httpd.serve_forever,
                            name=f"oauth-callback-{port}",
@@ -236,7 +287,7 @@ def start_link_flow(provider: str,
     httpd: Optional[HTTPServer] = None
     port = loopback_port or 0
     if start_loopback:
-        httpd, port = _start_loopback()
+        httpd, port = _start_loopback(state_id)
     redirect_uri = (redirect_uri_override
                      or f"http://127.0.0.1:{port}/oauth/callback")
 
@@ -269,18 +320,25 @@ def start_link_flow(provider: str,
     )
     _put(flow)
 
-    if httpd is not None:
-        # Set the class attr so handlers without ?state=... can recover.
-        _CallbackHandler.state_id = state_id
-
     return flow
 
 
 def complete_link_flow(state_id: str, code: str) -> OAuthAccount:
     """Exchange ``code`` for tokens, fetch userinfo, persist the account."""
-    flow = _peek(state_id)
-    if flow is None:
-        raise RuntimeError(f"unknown OAuth state '{state_id}'")
+    if not isinstance(code, str) or not code:
+        raise RuntimeError("missing OAuth authorization code")
+    flow = _claim_flow(state_id)
+    try:
+        return _exchange_link_flow(flow, code)
+    except Exception as exc:
+        with _LOCK:
+            if _FLOWS.get(state_id) is flow and flow.status == "pending":
+                flow.status = "error"
+                flow.error = str(exc)
+        raise
+
+
+def _exchange_link_flow(flow: LinkFlowState, code: str) -> OAuthAccount:
     prov = get_provider(flow.provider)
     if prov is None:
         raise RuntimeError(f"provider {flow.provider} no longer registered")
@@ -326,18 +384,26 @@ def complete_link_flow(state_id: str, code: str) -> OAuthAccount:
         scopes=flow.scopes,
         token_type=token_resp.get("token_type", "Bearer"),
     )
-    save_account(acct)
-
-    flow.status = "ok"
-    flow.account = account_email
+    with _LOCK:
+        # Cancellation during provider I/O must not persist an account later.
+        if _FLOWS.get(flow.state) is not flow:
+            raise RuntimeError("OAuth flow was cancelled")
+        save_account(acct)
+        flow.status = "ok"
+        flow.account = account_email
     return acct
 
 
 def get_link_status(state_id: str) -> Optional[Dict[str, Any]]:
-    flow = _peek(state_id)
-    if flow is None:
-        return None
-    return flow.to_public_dict()
+    with _LOCK:
+        flow = _FLOWS.get(state_id)
+        if flow is None:
+            return None
+        expired = _expire_flow(flow)
+        status = flow.to_public_dict()
+    if expired and flow.httpd is not None:
+        threading.Thread(target=lambda: _shutdown_loopback(flow.httpd), daemon=True).start()
+    return status
 
 
 def cancel_link_flow(state_id: str) -> bool:
@@ -346,7 +412,7 @@ def cancel_link_flow(state_id: str) -> bool:
         return False
     if flow.httpd is not None:
         try:
-            flow.httpd.shutdown()
+            _shutdown_loopback(flow.httpd)
         except Exception:
             pass
     return True

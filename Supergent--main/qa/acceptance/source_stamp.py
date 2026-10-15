@@ -22,6 +22,7 @@ def source_stamp():
     files.extend(ROOT.glob("*.py"))
     files.extend(ROOT.glob("Start-WISE*.ps1"))
     files += [ROOT/"config/intelligence_resources.json",ROOT/"requirements.txt",ROOT/"requirements-intelligence.txt"]
+    if (ROOT/'config/mcp_market_seed.json').is_file(): files.append(ROOT/'config/mcp_market_seed.json')
     for path in sorted(files):
         digest.update(path.relative_to(ROOT).as_posix().encode()); digest.update(path.read_bytes())
     return digest.hexdigest()

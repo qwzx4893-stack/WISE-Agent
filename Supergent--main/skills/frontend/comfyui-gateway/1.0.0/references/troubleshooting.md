@@ -1044,7 +1044,7 @@ grep API_KEYS .env
 # Example: sk-user-key:user,sk-admin-key:admin
 
 # 2. Use the admin key for workflow management
-curl -H "X-API-Key: sk-admin-key" -X POST http://localhost:3000/workflows ...
+curl -H "X-API-Key: YOUR_OWN_SECRET" -X POST http://localhost:3000/workflows ...
 
 # 3. User role can: create jobs, read own jobs, view health/capabilities
 # Admin role can: everything the user can + workflow CRUD + view all jobs

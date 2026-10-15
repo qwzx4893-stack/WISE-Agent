@@ -1579,7 +1579,7 @@ curl http://localhost:3000/health | jq .
 # Generate an image
 curl -X POST http://localhost:3000/jobs \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: sk-admin-key" \
+  -H "X-API-Key: YOUR_OWN_SECRET" \
   -d '{
     "workflowId": "sdxl_realism_v1",
     "inputs": { "prompt": "a sunset over the ocean" }

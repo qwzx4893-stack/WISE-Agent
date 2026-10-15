@@ -215,7 +215,7 @@ python3 scripts/zap_auth_scanner.py \
 
 ```bash
 # Option 1: Using environment variable
-export BASIC_AUTH="dGVzdHVzZXI6cGFzc3dvcmQ="  # base64(testuser:password)
+export BASIC_AUTH="YOUR_OWN_SECRET"  # Configure your own credentials.
 
 # Option 2: Using script
 python3 scripts/zap_auth_scanner.py \

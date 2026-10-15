@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import ctypes
 import logging
+import ntpath
 import sys
 import threading
 import time
@@ -32,6 +33,7 @@ _ERROR_CANCELLED = 1223
 _INFINITE = 0xFFFFFFFF
 _WAIT_FAILED = 0xFFFFFFFF
 _STILL_ACTIVE = 259
+_LOAD_LIBRARY_SEARCH_SYSTEM32 = 0x00000800
 
 
 @dataclass(frozen=True)
@@ -97,6 +99,33 @@ _OPERATIONS: Dict[str, UacOperation] = {
         arguments="/flushdns",
     ),
 }
+
+
+def _trusted_system_directory() -> str:
+    """Resolve System32 through Windows, never PATH/CWD or environment values."""
+    from ctypes import wintypes
+
+    try:
+        kernel32 = ctypes.WinDLL(
+            "kernel32", use_last_error=True, winmode=_LOAD_LIBRARY_SEARCH_SYSTEM32)
+        get_directory = kernel32.GetSystemDirectoryW
+        get_directory.argtypes = [wintypes.LPWSTR, wintypes.UINT]
+        get_directory.restype = wintypes.UINT
+        buffer = ctypes.create_unicode_buffer(32768)
+        length = int(get_directory(buffer, len(buffer)))
+    except (AttributeError, OSError) as exc:
+        raise OSError("Windows system directory lookup is unavailable.") from exc
+    directory = buffer.value
+    drive, tail = ntpath.splitdrive(directory)
+    if (length <= 0 or length >= len(buffer)
+            or length != len(directory.encode("utf-16-le")) // 2
+            or len(drive) != 2 or drive[1] != ":"
+            or not drive[0].isascii() or not drive[0].isalpha()
+            or not tail.startswith("\\")
+            or ntpath.normpath(directory) != directory
+            or ntpath.basename(directory).casefold() != "system32"):
+        raise OSError("Windows returned an invalid system directory.")
+    return directory
 
 
 class UacBroker:
@@ -201,6 +230,11 @@ class UacBroker:
         """Ask Windows to elevate a fixed operation and retain its process handle."""
         from ctypes import wintypes
 
+        if _OPERATIONS.get(operation.id) is not operation:
+            raise OSError("Only fixed catalogue UAC operations may be launched.")
+        system_directory = _trusted_system_directory()
+        executable = ntpath.join(system_directory, operation.executable)
+
         class _ShellExecuteInfoW(ctypes.Structure):
             _fields_ = [
                 ("cbSize", wintypes.DWORD),
@@ -220,7 +254,8 @@ class UacBroker:
                 ("hProcess", wintypes.HANDLE),
             ]
 
-        shell32 = ctypes.WinDLL("shell32", use_last_error=True)
+        shell32 = ctypes.WinDLL(
+            "shell32", use_last_error=True, winmode=_LOAD_LIBRARY_SEARCH_SYSTEM32)
         shell32.ShellExecuteExW.argtypes = [ctypes.POINTER(_ShellExecuteInfoW)]
         shell32.ShellExecuteExW.restype = wintypes.BOOL
 
@@ -228,8 +263,9 @@ class UacBroker:
         info.cbSize = ctypes.sizeof(info)
         info.fMask = _SEE_MASK_NOCLOSEPROCESS | _SEE_MASK_NOASYNC
         info.lpVerb = "runas"
-        info.lpFile = operation.executable
+        info.lpFile = executable
         info.lpParameters = operation.arguments
+        info.lpDirectory = system_directory
         info.nShow = _SW_SHOWNORMAL  # Elevated maintenance is never hidden.
 
         if not shell32.ShellExecuteExW(ctypes.byref(info)):
@@ -244,7 +280,8 @@ class UacBroker:
         if not handle:
             raise OSError(0, "Windows did not return an elevated process handle.")
 
-        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32 = ctypes.WinDLL(
+            "kernel32", use_last_error=True, winmode=_LOAD_LIBRARY_SEARCH_SYSTEM32)
         kernel32.GetProcessId.argtypes = [wintypes.HANDLE]
         kernel32.GetProcessId.restype = wintypes.DWORD
         process_id = int(kernel32.GetProcessId(wintypes.HANDLE(handle)))

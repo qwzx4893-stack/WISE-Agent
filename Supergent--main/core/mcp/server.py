@@ -28,8 +28,9 @@ filters every exposed tool against:
    process) minus the deny-list (``MCP_SERVER_DENY``, defaults below).
 2. The kernel's ``DANGEROUS_PATTERNS`` regex applied to the tool's
    ``run_shell``/``execute_command``-style command argument when present.
-3. The MCP confirmation gate: write/dangerous tools demand an explicit
-   ``confirm: true`` field in the call args.
+3. The MCP confirmation gate: write/dangerous tools demand a fresh,
+   single-use owner-resolved call ID in ``params._meta``. Tool arguments
+   cannot establish approval.
 
 Bridge note: ``api/server.py`` calls :func:`register_routes(app)` once
 at import time so the HTTP transport is always available alongside the
@@ -51,7 +52,7 @@ from typing import Any, Awaitable, Callable, Dict, Iterable, List, Optional
 
 from core.observability import Tracer
 
-from .policy import ToolClassifier, get_gate
+from .policy import ConfirmationRequired, ToolClassifier, get_gate
 
 logger = logging.getLogger("agent_os.mcp.server")
 
@@ -64,6 +65,9 @@ DEFAULT_DENY = {
     "execute_command", "run_shell", "shell", "exec",
     "self_modify_code", "rollback_self", "apt_install",
 }
+
+CONFIRMATION_META_KEY = "agent-os/confirmation_call_id"
+CONFIRMATION_TTL_SECONDS = 300.0
 
 
 # --------------------------------------------------------------------------
@@ -92,6 +96,9 @@ class MCPServer:
         self._deny = set(self.deny) if self.deny is not None else set(DEFAULT_DENY)
         self._tool_meta_cache: Dict[str, Dict[str, Any]] = {}
         self._lock = threading.Lock()
+        # Independent immutable snapshots prevent argument mutation and
+        # cross-instance reuse of the process-wide gate's identifiers.
+        self._confirmations: Dict[str, tuple] = {}
 
     # ------------------------------------------------------------------
     # Tool discovery
@@ -173,13 +180,65 @@ class MCPServer:
         kind = ((descriptor.get("x-agent-os") or {}).get("kind") or "read")
         if kind == "read":
             return False
-        if arguments.get("confirm") is True:
-            return False
         return True
 
-    def call_tool(self, name: str, arguments: Optional[Dict[str, Any]] = None
+    def _require_approval(self, name: str, arguments: Dict[str, Any],
+                          kind: str, metadata: Dict[str, Any]) -> None:
+        canonical = json.dumps(arguments, sort_keys=True,
+                               separators=(",", ":"), allow_nan=False)
+        call_id = metadata.get(CONFIRMATION_META_KEY)
+        gate = get_gate()
+        with self._lock:
+            now = time.monotonic()
+            for expired_id, binding in list(self._confirmations.items()):
+                if now - binding[4] > CONFIRMATION_TTL_SECONDS:
+                    self._confirmations.pop(expired_id, None)
+                    gate.consume(expired_id)
+            if call_id is not None:
+                if not isinstance(call_id, str) or not call_id:
+                    raise _MCPError(-32003, "invalid confirmation identifier")
+                binding = self._confirmations.get(call_id)
+                if binding is None or binding[:4] != (self.server_name, name, kind, canonical):
+                    raise _MCPError(-32003, "unknown, expired, or mismatched confirmation")
+                try:
+                    approved = gate.consume_bound_approval(
+                        call_id, server=self.server_name, tool=name,
+                        arguments_json=canonical, kind=kind)
+                except PermissionError as exc:
+                    self._confirmations.pop(call_id, None)
+                    raise _MCPError(-32003, str(exc)) from exc
+                if approved is not None:
+                    self._confirmations.pop(call_id, None)
+                    return
+            else:
+                try:
+                    # Gate and execution each own a separate JSON snapshot.
+                    gate.request(server=self.server_name, tool=name,
+                                 arguments=json.loads(canonical), kind=kind)
+                except ConfirmationRequired as exc:
+                    call_id = exc.call_id
+                    self._confirmations[call_id] = (
+                        self.server_name, name, kind, canonical, now)
+                else:
+                    raise _MCPError(-32000, "confirmation gate did not register a request")
+            raise _MCPError(
+                -32002, f"confirmation required for {kind} tool '{name}'",
+                data={"call_id": call_id, "kind": kind, "server": self.server_name,
+                      "retry_meta_key": CONFIRMATION_META_KEY})
+
+    def call_tool(self, name: str, arguments: Optional[Dict[str, Any]] = None,
+                  *, metadata: Optional[Dict[str, Any]] = None
                   ) -> Dict[str, Any]:
-        arguments = dict(arguments or {})
+        if arguments is not None and not isinstance(arguments, dict):
+            raise _MCPError(-32602, "arguments must be an object")
+        if metadata is not None and not isinstance(metadata, dict):
+            raise _MCPError(-32602, "_meta must be an object")
+        try:
+            arguments = json.loads(json.dumps(arguments or {}, allow_nan=False))
+        except (TypeError, ValueError) as exc:
+            raise _MCPError(-32602, "arguments must contain JSON values") from exc
+        # Legacy MCP control flag is not a business argument or authority.
+        arguments.pop("confirm", None)
         if not self._is_exposed(name):
             raise _MCPError(-32601,
                             f"tool '{name}' not exposed by this server")
@@ -195,8 +254,8 @@ class MCPServer:
         # the policy enforced inside the kernel's run_shell.
         try:
             from agent_core import DANGEROUS_PATTERNS as _DP  # noqa: WPS433
-        except Exception:  # noqa: BLE001
-            _DP = []
+        except Exception as exc:  # noqa: BLE001
+            raise _MCPError(-32001, "dangerous argument policy unavailable") from exc
         for v in arguments.values():
             if not isinstance(v, str):
                 continue
@@ -207,23 +266,7 @@ class MCPServer:
 
         # 2. Confirmation gate.
         if self._confirm_required(descriptor, arguments):
-            # Register a pending call so the UI / REST flow can resolve.
-            try:
-                get_gate().request(server=self.server_name, tool=name,
-                                    arguments=arguments, kind=kind)
-            except Exception as exc:
-                # `request` always raises ConfirmationRequired; surface
-                # its `call_id` to the MCP client so it can resolve via
-                # /admin/mcp/confirm/{call_id}.
-                call_id = getattr(exc, "call_id", "")
-                raise _MCPError(
-                    -32002,
-                    f"confirmation required for {kind} tool '{name}'",
-                    data={"call_id": call_id, "kind": kind,
-                          "server": self.server_name},
-                )
-
-        arguments.pop("confirm", None)
+            self._require_approval(name, arguments, kind, metadata or {})
         with Tracer.span("mcp.serve", server=self.server_name,
                           tool=name, tool_kind=kind):
             try:
@@ -257,7 +300,8 @@ class MCPServer:
         if method == "tools/call":
             try:
                 result = self.call_tool(params.get("name", ""),
-                                         params.get("arguments") or {})
+                                         params.get("arguments"),
+                                         metadata=params.get("_meta"))
                 return _ok(rid, result)
             except _MCPError as exc:
                 return _err(rid, exc.code, exc.message, exc.data)

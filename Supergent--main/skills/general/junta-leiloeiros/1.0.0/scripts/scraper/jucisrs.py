@@ -1,7 +1,7 @@
 """
 Scraper JUCISRS — Junta Comercial, Industrial e Servicos do Rio Grande do Sul
 URL: https://sistemas.jucisrs.rs.gov.br/leiloeiros/
-Metodo: httpx POST com verify=False (SSL invalido mas conteudo OK)
+Metodo: httpx POST com verificacao de certificado TLS
 Mecanismo real descoberto em 2026-02-25:
   - GET  https://sistemas.jucisrs.rs.gov.br/leiloeiros/
          -> retorna formulario de busca PHP/Bootstrap
@@ -18,7 +18,7 @@ import logging
 import re
 from typing import List
 
-from .base_scraper import AbstractJuntaScraper, Leiloeiro
+from .base_scraper import AbstractJuntaScraper, Leiloeiro, tls_response_hooks
 
 logger = logging.getLogger(__name__)
 
@@ -177,7 +177,8 @@ class JucisrsScraper(AbstractJuntaScraper):
         try:
             async with httpx.AsyncClient(
                 headers=self.HEADERS,
-                verify=False,  # Cert autoassinado/invalido
+                verify=True,
+                event_hooks=tls_response_hooks(),
                 follow_redirects=True,
                 timeout=60.0,
             ) as client:
@@ -214,7 +215,7 @@ class JucisrsScraper(AbstractJuntaScraper):
 
     async def _fetch_get_all(self) -> List[dict]:
         """
-        Fallback: GET simples na URL principal com verify=False.
+        Fallback: GET simples na URL principal com certificado TLS valido.
         Pode retornar formulario ou lista parcial.
         """
         import httpx
@@ -223,7 +224,8 @@ class JucisrsScraper(AbstractJuntaScraper):
         try:
             async with httpx.AsyncClient(
                 headers=self.HEADERS,
-                verify=False,
+                verify=True,
+                event_hooks=tls_response_hooks(),
                 follow_redirects=True,
                 timeout=30.0,
             ) as client:
@@ -237,26 +239,20 @@ class JucisrsScraper(AbstractJuntaScraper):
             return []
 
     async def _playwright_ssl_bypass(self, url: str):
-        """Playwright com SSL completamente desabilitado para cert autoassinado."""
+        """Legacy method name; browser TLS and web security remain enabled."""
         try:
             from playwright.async_api import async_playwright
             from bs4 import BeautifulSoup
             async with async_playwright() as pw:
                 browser = await pw.chromium.launch(
                     headless=True,
-                    args=[
-                        "--ignore-certificate-errors",
-                        "--ignore-ssl-errors",
-                        "--disable-web-security",
-                        "--allow-insecure-localhost",
-                    ],
                 )
-                ctx = await browser.new_context(
-                    user_agent=self.HEADERS["User-Agent"],
-                    ignore_https_errors=True,
-                )
-                page = await ctx.new_page()
                 try:
+                    ctx = await browser.new_context(
+                        user_agent=self.HEADERS["User-Agent"],
+                        ignore_https_errors=False,
+                    )
+                    page = await ctx.new_page()
                     await page.goto(url, timeout=60000, wait_until="networkidle")
                     # Submeter o formulario com "Todos"
                     try:
@@ -265,13 +261,12 @@ class JucisrsScraper(AbstractJuntaScraper):
                         await page.wait_for_load_state("networkidle", timeout=30000)
                     except Exception:
                         pass
-                except Exception:
-                    pass
-                html = await page.content()
-                await browser.close()
+                    html = await page.content()
+                finally:
+                    await browser.close()
                 return self._parse_plain_html(html)
         except Exception as exc:
-            logger.error("[RS] Playwright SSL bypass falhou: %s", exc)
+            logger.error("[RS] Playwright com verificacao TLS falhou: %s", exc)
             return []
 
     async def parse_leiloeiros(self) -> List[Leiloeiro]:
@@ -284,8 +279,8 @@ class JucisrsScraper(AbstractJuntaScraper):
             records = await self._fetch_get_all()
 
         if not records:
-            # Estrategia 3: Playwright com SSL bypass e submissao de formulario
-            logger.info("[RS] GET falhou, tentando Playwright com SSL bypass")
+            # Estrategia 3: Playwright com verificacao TLS e submissao de formulario
+            logger.info("[RS] GET falhou, tentando Playwright com verificacao TLS")
             records = await self._playwright_ssl_bypass(self.url)
 
         if not records:

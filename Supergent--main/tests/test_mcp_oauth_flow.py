@@ -88,6 +88,14 @@ def test_wrong_state_never_exchanges_tokens(flow):
     assert not flow["stored"]
 
 
+def test_cancelled_authorization_cannot_store_or_restart(flow):
+    started = oauth.start("docs", flow["registry"], client_id="client")
+    oauth.cancel(started["state"])
+    assert oauth.status(started["state"])["status"] == "cancelled"
+    assert callback(flow, started["state"], iss="https://auth.example") == 410
+    assert not flow["stored"]
+
+
 @pytest.mark.parametrize("issuer", ["", "https://other.example"])
 def test_missing_or_mismatched_callback_issuer_is_rejected(flow, issuer):
     started = oauth.start("docs", flow["registry"], client_id="client")
@@ -202,3 +210,42 @@ def test_managed_token_is_never_reused_on_another_origin(monkeypatch):
     cfg = SimpleNamespace(transport="http",url="https://another.example/mcp",headers={"Authorization":"${wise-secret:MCP_docs_oauth_access_token}"})
     with pytest.raises(ValueError,match="resource differs"):
         oauth.refresh_if_needed("docs",SimpleNamespace(_find=lambda name:cfg))
+
+
+def test_dcr_registers_a_native_desktop_client(flow,monkeypatch):
+    flow['authorization']['registration_endpoint']='https://auth.example/register'
+    original=oauth._json
+    registrations=[]
+    def request(url,**kwargs):
+        if url.endswith('/register'):
+            registrations.append(kwargs['data']);return {'client_id':'wise-native','token_endpoint_auth_method':'none'}
+        return original(url,**kwargs)
+    monkeypatch.setattr(oauth,'_json',request)
+    result=oauth.start('docs',flow['registry'])
+    assert result['registration_mode']=='dynamic-registration'
+    assert registrations[0]['application_type']=='native'
+    assert registrations[0]['redirect_uris'][0].startswith('http://127.0.0.1:')
+
+
+def test_cimd_uses_owned_published_document_without_dcr(flow,monkeypatch):
+    url='https://wise.example/oauth/client.json'
+    flow['authorization']['client_id_metadata_document_supported']=True
+    original=oauth._json
+    def request(target,**kwargs):
+        if target==url:return {'client_id':url,'token_endpoint_auth_method':'none','application_type':'native','redirect_uris':['http://127.0.0.1/oauth/callback']}
+        assert not target.endswith('/register')
+        return original(target,**kwargs)
+    monkeypatch.setattr(oauth,'_json',request)
+    result=oauth.start('docs',flow['registry'],client_metadata_url=url)
+    assert result['registration_mode']=='client-metadata'
+    assert parse_qs(urlsplit(result['auth_url']).query)['client_id']==[url]
+    assert callback(flow,result['state'],iss='https://auth.example')==200
+    assert '"issuer": "https://auth.example"' in flow['stored'][0][1]
+
+
+def test_cimd_invalid_identity_is_rejected_before_callback_listener(flow,monkeypatch):
+    original=oauth._json
+    url='https://wise.example/oauth/client.json'
+    monkeypatch.setattr(oauth,'_json',lambda target,**kw:{'client_id':'some-other-app'} if target==url else original(target,**kw))
+    with pytest.raises(ValueError,match='public native'):oauth.start('docs',flow['registry'],client_metadata_url=url)
+    assert 'handler' not in flow

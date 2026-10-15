@@ -81,7 +81,13 @@ def test_http_mcp_supports_sessions_sse_and_empty_notification(monkeypatch):
         return httpx.Response(200, headers={"Content-Type": "text/event-stream", "Mcp-Session-Id": "session-one"},
                               text='data: ' + json.dumps({"jsonrpc": "2.0", "id": frame["id"], "result": {"ok": True}}) + '\n\n')
     factory = httpx.Client
-    monkeypatch.setattr(module, "_httpx", SimpleNamespace(Client=lambda **kw: factory(transport=httpx.MockTransport(handle), **kw)))
+    def mock_client(**kwargs):
+        # This protocol fixture owns its transport. Production now supplies a
+        # DNS-pinned transport; its connection guarantees are tested separately.
+        # Replacing, not duplicating, that keyword keeps this test fully local.
+        kwargs["transport"] = httpx.MockTransport(handle)
+        return factory(**kwargs)
+    monkeypatch.setattr(module, "_httpx", SimpleNamespace(Client=mock_client))
     client = module.MCPClient(name="probe", transport="http", url="https://example.com/mcp", allowed_domains=["example.com"])
     assert client._http_post({"jsonrpc": "2.0", "id": 1, "method": "initialize"})["result"]["ok"]
     assert client._http_post({"jsonrpc": "2.0", "method": "notifications/initialized"}) == {}

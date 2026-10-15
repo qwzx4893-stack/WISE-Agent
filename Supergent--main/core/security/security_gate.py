@@ -396,6 +396,16 @@ class WindowsSecurityGate:
                         return evaluation
             except Exception as e:
                 LOG.error("FilesystemGovernor integration error: %s", e)
+                # No file action can be authorized without its policy check,
+                # including a confirmed or narrowly scoped workspace write.
+                evaluation = SecurityEvaluation(
+                    allowed=False,
+                    tier=tier,
+                    reason="Filesystem policy unavailable; action denied. Retry after policy recovery.",
+                    audit_id=audit_id,
+                )
+                self._write_audit_log(action_name, params, ctx, evaluation)
+                return evaluation
 
         # 2. Prompt Injection Firewall
         # Content marked as untrusted (from web search, emails, documents) can NEVER trigger

@@ -13,9 +13,14 @@ class SkillLoader:
         info = self.indexer.get_skill_info(skill_name)
         if not info:
             return None, False
-        skill_md = Path(info["path"]) / "SKILL.md"
+        skill_md = Path(info["file"]) if info.get("file") else Path(info["path"]) / "SKILL.md"
         try:
             content = skill_md.read_text(encoding='utf-8')
+            if info.get("plugin_root"):
+                for variable in ("CLAUDE_PLUGIN_ROOT", "CODEX_PLUGIN_ROOT", "PLUGIN_ROOT"):
+                    content = content.replace("${" + variable + "}", info["plugin_root"])
+                content = ("Plugin workflow: " + skill_name + "\nResource directory: " + info["plugin_root"]
+                           + "\nInstructions file: " + str(skill_md) + "\nUse WISE's existing tools and permission policy.\n\n" + content)
             if len(content) > self.max_length:
                 truncated = content[:self.max_length]
                 last_para = truncated.rfind('\n\n')

@@ -100,7 +100,7 @@ def _load_model() -> Any:
 
             torch.backends.cuda.matmul.allow_tf32 = True
             torch.backends.cudnn.allow_tf32 = True
-        _MODEL = IndexTTS2(
+        model = IndexTTS2(
             cfg_path=str(config_path),
             model_dir=str(model_dir),
             device=device,
@@ -111,6 +111,12 @@ def _load_model() -> Any:
             use_torch_compile=False,
             use_qwen_emo=False,
         )
+        if __package__:
+            from .reference_audio import install_reference_audio_guard
+        else:
+            from reference_audio import install_reference_audio_guard
+        install_reference_audio_guard(model)
+        _MODEL = model
         candidate = _candidate_gpt_checkpoint()
         if candidate is not None:
             # ``load_checkpoint`` accepts the same merged checkpoint format as
@@ -260,6 +266,11 @@ def _synthesize(job: Dict[str, Any]) -> Dict[str, Any]:
         raise ValueError("text is required")
     if not reference.is_file():
         raise ValueError("an existing reference_audio is required")
+    if __package__:
+        from .reference_audio import validate_reference_audio
+    else:
+        from reference_audio import validate_reference_audio
+    reference_info = validate_reference_audio(reference)
     if not output.name:
         raise ValueError("output is required")
 
@@ -276,6 +287,7 @@ def _synthesize(job: Dict[str, Any]) -> Dict[str, Any]:
     _CURRENT_REFERENCE = reference
     with contextlib.redirect_stdout(sys.stderr):
         model = _load_model()
+        model._wise_reference_audio = reference_info
         chunks = _sentence_chunks(model, spoken_text, language)
         if len(chunks) == 1:
             _synthesize_single(model, chunks[0], language, output)

@@ -52,7 +52,7 @@ from typing import List, Optional
 import httpx
 from bs4 import BeautifulSoup
 
-from .base_scraper import AbstractJuntaScraper, Leiloeiro
+from .base_scraper import AbstractJuntaScraper, Leiloeiro, tls_response_hooks
 
 
 class JucespScraper(AbstractJuntaScraper):
@@ -114,7 +114,8 @@ class JucespScraper(AbstractJuntaScraper):
 
         async with httpx.AsyncClient(
             headers=self.HEADERS,
-            verify=False,
+            verify=True,
+            event_hooks=tls_response_hooks(),
             http2=False,          # servidor rejeita HTTP/2
             follow_redirects=True,
             timeout=120.0,        # resposta do POST é ~2.3 MB

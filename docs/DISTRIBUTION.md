@@ -8,6 +8,6 @@ Excluded: credentials, conversations/memory/tasks/account state, cookies/profile
 
 Voice needs upstream source/weights and separately supplied permitted custom assets. Leon/services need documented setup. Catalog entries are not installed executables, deployed platforms or authenticated accounts.
 
-`PUBLICATION_MANIFEST.json` records source hashes, required-file checks, exclusions and scope. It is not full license clearance, a signed release or clean-machine acceptance. Targeted secret scanning cannot prove arbitrary bytes contain no sensitive information.
+`PUBLICATION_MANIFEST.json` records public payload hashes, required-file checks, exclusions, reviewed credential-example redactions and scope. Redactions affect only pinned documentation examples in the exported copy; local source and all runtime code remain unchanged. This does not rotate historical exposures. It is not full license clearance, a signed release or clean-machine acceptance. Targeted secret scanning cannot prove arbitrary bytes contain no sensitive information.
 
-The development checkout and existing uncommitted changes are not staged/reset. Publishing uses an isolated clone of existing `main`, with normal history and no force push.
+The development checkout and existing uncommitted changes are not staged/reset. Publication builds a separate reviewed payload, compares it with the existing remote `main`, and creates a normal descendant commit with an expected-head check and no force push. It may use an isolated clone or the authenticated GitHub connector; no plaintext credential is required in repository files or commands.

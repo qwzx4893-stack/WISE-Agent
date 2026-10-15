@@ -1,0 +1,40 @@
+rules:
+  - id: wise-unsafe-python-deserialization
+    languages: [python]
+    severity: ERROR
+    message: Untrusted deserialization needs independently verified provenance and a safe format.
+    pattern-either:
+      - pattern: pickle.loads(...)
+      - pattern: pickle.load(...)
+      - pattern: torch.load(..., weights_only=False, ...)
+      - pattern: yaml.load(...)
+  - id: wise-shell-execution-review
+    languages: [python]
+    severity: WARNING
+    message: Trace trusted authorization and parameter handling before classifying this host shell sink.
+    pattern-either:
+      - pattern: subprocess.run(..., shell=True, ...)
+      - pattern: subprocess.Popen(..., shell=True, ...)
+      - pattern: os.system(...)
+  - id: wise-tls-verification-disabled
+    languages: [python]
+    severity: ERROR
+    message: TLS verification must not be disabled for external transport.
+    pattern-either:
+      - pattern: requests.$METHOD(..., verify=False, ...)
+      - pattern: httpx.$CLIENT(..., verify=False, ...)
+      - pattern: ssl._create_unverified_context(...)
+  - id: wise-dynamic-code-review
+    languages: [python]
+    severity: WARNING
+    message: Dynamic host execution needs an actual authorization boundary, not a workspace cwd claim.
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+  - id: wise-dom-html-review
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: Trace sanitization and trust at this HTML sink, including fetched MCP metadata.
+    pattern-either:
+      - pattern: $ELEMENT.innerHTML = $VALUE
+      - pattern: $ELEMENT.insertAdjacentHTML($WHERE, $VALUE)

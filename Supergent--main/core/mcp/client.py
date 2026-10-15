@@ -57,6 +57,19 @@ PROTOCOL_VERSION = "2024-11-05"
 class MCPError(Exception):
     """Raised on any MCP transport / protocol failure."""
 
+    def __init__(self, message: str, *, code: Optional[int] = None,
+                 data: Any = None) -> None:
+        super().__init__(message)
+        self.code = code
+        self.data = data
+
+
+def _server_error(error: Any) -> MCPError:
+    if not isinstance(error, dict):
+        return MCPError("invalid server error")
+    return MCPError(f"server error: {error.get('message', 'unknown error')}",
+                    code=error.get("code"), data=error.get("data"))
+
 
 class MCPClient:
     """A single connection to an MCP server."""
@@ -69,7 +82,8 @@ class MCPClient:
                  init_timeout: float = 10.0,
                  call_timeout: float = 30.0,
                  sandbox: bool = True,
-                 allowed_domains: Optional[List[str]] = None) -> None:
+                 allowed_domains: Optional[List[str]] = None,
+                 cwd: str = "") -> None:
         self.name = name
         self.transport = transport
         self.command = command
@@ -81,6 +95,7 @@ class MCPClient:
         self.call_timeout = call_timeout
         self.sandbox = bool(sandbox)
         self.allowed_domains = list(allowed_domains or [])
+        self.cwd = cwd
 
         self._proc: Optional[subprocess.Popen] = None
         self._reader_thread: Optional[threading.Thread] = None
@@ -92,10 +107,13 @@ class MCPClient:
         self.tools: List[Dict[str, Any]] = []
         self.last_error: str = ""
         self._http_session_id: Optional[str] = None
+        self._protocol_version = PROTOCOL_VERSION
 
     # ------------------------------------------------------------------
     @property
     def alive(self) -> bool:
+        if self.transport == "stdio" and (not self._proc or self._proc.poll() is not None):
+            return False
         return self._alive
 
     # ------------------------------------------------------------------
@@ -123,13 +141,27 @@ class MCPClient:
         proc = self._proc
         if proc and proc.poll() is None:
             try:
+                import psutil
+                # Only descendants of this client's owned process are stopped.
+                children = psutil.Process(proc.pid).children(recursive=True)
+                for child in reversed(children):
+                    try: child.terminate()
+                    except psutil.NoSuchProcess: pass
                 proc.terminate()
                 try:
                     proc.wait(timeout=2.0)
                 except Exception:
                     proc.kill()
+                    proc.wait(timeout=2.0)
+                _, remaining = psutil.wait_procs(children, timeout=1)
+                for child in remaining:
+                    try: child.kill(); child.wait(timeout=1)
+                    except psutil.NoSuchProcess: pass
             except Exception:
-                pass
+                try: proc.terminate(); proc.wait(timeout=2)
+                except Exception:
+                    try: proc.kill(); proc.wait(timeout=2)
+                    except Exception: pass
         self._proc = None
         with self._pending_lock:
             for ev in self._pending.values():
@@ -153,6 +185,9 @@ class MCPClient:
         if self.name == "agent-os" and os.environ.get("WISE_RUNTIME_ROOT"):
             env["WISE_RUNTIME_ROOT"] = os.environ["WISE_RUNTIME_ROOT"]
         env.update(self.env)
+        # JSON-RPC pipes are UTF-8 even on Windows Arabic/English code pages.
+        env["PYTHONUTF8"] = "1"
+        env["PYTHONIOENCODING"] = "utf-8"
         import shutil
         import sys
         repo_root = str(Path(__file__).resolve().parent.parent.parent)
@@ -167,8 +202,18 @@ class MCPClient:
             if resolved:
                 resolved_cmd = resolved
 
-        cmdline = wrap_command(resolved_cmd, self.args) if self.sandbox \
-            else [resolved_cmd, *self.args]
+        launch_args = self.args
+        if os.name == "nt" and self.command in {"npx", "npm"}:
+            # Batch wrappers introduce cmd.exe parsing even with shell=False.
+            # Invoke npm's JS launcher directly so user paths stay array args.
+            node = shutil.which("node")
+            script = Path(resolved_cmd).parent / "node_modules/npm/bin" / ("npx-cli.js" if self.command == "npx" else "npm-cli.js")
+            if not node or not script.is_file(): raise MCPError("Install Node.js with npm; its direct JS launcher is unavailable")
+            resolved_cmd, launch_args = node, [str(script), *self.args]
+        elif os.name == "nt" and Path(resolved_cmd).suffix.lower() in {".bat", ".cmd"}:
+            raise MCPError("Batch MCP launchers are unsupported; configure the executable/interpreter directly")
+        cmdline = wrap_command(resolved_cmd, launch_args) if self.sandbox \
+            else [resolved_cmd, *launch_args]
         preexec = make_preexec() if (self.sandbox and os.name != "nt") else None
         try:
             self._proc = subprocess.Popen(
@@ -176,10 +221,11 @@ class MCPClient:
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                cwd=repo_root,
+                cwd=self.cwd or repo_root,
                 env=env,
                 bufsize=0,
                 preexec_fn=preexec,
+                **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}),
             )
         except FileNotFoundError as exc:
             raise MCPError(f"command not found: {cmdline[0]}") from exc
@@ -189,6 +235,14 @@ class MCPClient:
             name=f"mcp-reader-{self.name}",
         )
         self._reader_thread.start()
+        # Installers/servers may fill stderr; drain it without storing secrets.
+        def drain_errors():
+            proc = self._proc
+            if not proc or not proc.stderr: return
+            try:
+                while proc.stderr.read(4096): pass
+            except (OSError, ValueError): pass
+        threading.Thread(target=drain_errors,daemon=True,name=f"mcp-stderr-{self.name}").start()
 
     def _stdio_reader(self) -> None:
         proc = self._proc
@@ -229,35 +283,48 @@ class MCPClient:
             except SensitiveRemoteArgumentsError as exc:
                 raise MCPError(str(exc)) from exc
         try:
-            with _httpx.Client(timeout=self.call_timeout) as cli:
+            from core.public_http import PublicTransport
+            from urllib.parse import urlsplit
+            # Local HTTP servers require explicit existing host allowlisting;
+            # internet servers additionally pin checked public DNS to sockets.
+            public = urlsplit(self.url).hostname not in {"localhost", "127.0.0.1", "::1"}
+            with _httpx.Client(timeout=self.call_timeout, trust_env=False, follow_redirects=False,
+                               transport=PublicTransport() if public else None) as cli:
                 request_headers = {"Content-Type": "application/json",
                                    "Accept": "application/json, text/event-stream",
-                                   "MCP-Protocol-Version": PROTOCOL_VERSION, **self.headers}
+                                   "MCP-Protocol-Version": self._protocol_version, **self.headers}
                 if self._http_session_id:
                     request_headers["Mcp-Session-Id"] = self._http_session_id
-                resp = cli.post(self.url,
-                                headers=request_headers,
-                                json=frame)
-            if resp.status_code >= 400:
-                raise MCPError(f"http {resp.status_code}: {resp.text[:200]}")
-            if resp.headers.get("mcp-session-id"):
-                self._http_session_id = resp.headers["mcp-session-id"]
-            if not resp.content and "id" not in frame:
-                return {}
-            if "text/event-stream" in resp.headers.get("content-type", ""):
-                for event in resp.text.replace("\r\n", "\n").split("\n\n"):
-                    data = "\n".join(line[5:].lstrip() for line in event.splitlines() if line.startswith("data:"))
-                    if not data:
-                        continue
-                    decoded = json.loads(data)
-                    if decoded.get("id") == frame.get("id"):
-                        return decoded
-                raise MCPError("SSE response contained no matching JSON-RPC result")
-            return resp.json()
+                with cli.stream("POST", self.url, headers=request_headers, json=frame) as resp:
+                    if not 200 <= resp.status_code < 300:
+                        raise MCPError(f"http {resp.status_code}")  # Do not echo credentials from error bodies.
+                    if resp.headers.get("mcp-session-id"):
+                        self._http_session_id = resp.headers["mcp-session-id"]
+                    if "id" not in frame: return {}
+                    if "text/event-stream" in resp.headers.get("content-type", ""):
+                        buffer, budget, started = b"", 0, time.monotonic()
+                        for chunk in resp.iter_bytes():
+                            budget += len(chunk)
+                            if budget > 4_000_000: raise MCPError("MCP response exceeds size limit")
+                            if time.monotonic()-started > self.call_timeout: raise MCPError("MCP stream response timed out")
+                            buffer = (buffer+chunk).replace(b"\r\n",b"\n")
+                            while b"\n\n" in buffer:
+                                event,buffer = buffer.split(b"\n\n",1)
+                                data = b"\n".join(line[5:].lstrip() for line in event.splitlines() if line.startswith(b"data:"))
+                                if not data: continue
+                                decoded = json.loads(data)
+                                if decoded.get("id") == frame["id"]: return decoded
+                        raise MCPError("SSE response contained no matching JSON-RPC result")
+                    payload, started = bytearray(), time.monotonic()
+                    for chunk in resp.iter_bytes():
+                        payload.extend(chunk)
+                        if len(payload) > 4_000_000: raise MCPError("MCP response exceeds size limit")
+                        if time.monotonic()-started > self.call_timeout: raise MCPError("MCP response timed out")
+                    return json.loads(payload)
         except MCPError:
             raise
         except Exception as exc:  # noqa: BLE001
-            raise MCPError(f"http request failed: {exc}") from exc
+            raise MCPError(f"http request failed: {type(exc).__name__}") from exc
 
     # ------------------------------------------------------------------
     # JSON-RPC core
@@ -305,7 +372,7 @@ class MCPClient:
                 self._pending.pop(rid, None)
             raise MCPError(f"timed out after {timeout}s waiting for response")
         if ev["error"]:
-            raise MCPError(f"server error: {ev['error']}")
+            raise _server_error(ev["error"])
         return ev["result"] or {}
 
     def _send(self, method: str, params: Optional[Dict[str, Any]] = None,
@@ -336,7 +403,7 @@ class MCPClient:
                 return {}
             resp = self._http_post(frame)
             if "error" in resp:
-                raise MCPError(f"server error: {resp['error']}")
+                raise _server_error(resp["error"])
             return resp.get("result") or {}
         raise MCPError(f"unknown transport: {self.transport}")
 
@@ -344,34 +411,56 @@ class MCPClient:
     # Protocol handshake
     # ------------------------------------------------------------------
     def _initialize(self) -> None:
-        self._send("initialize", {
+        result = self._send("initialize", {
             "protocolVersion": PROTOCOL_VERSION,
             "capabilities": {"tools": {}},
             "clientInfo": {"name": CLIENT_NAME, "version": CLIENT_VERSION},
         }, timeout=self.init_timeout)
+        negotiated = result.get("protocolVersion", PROTOCOL_VERSION)
+        if negotiated not in {"2024-11-05", "2025-03-26", "2025-06-18", "2025-11-25", "2026-07-28"}:
+            raise MCPError("Unsupported MCP protocol version")
+        self._protocol_version = negotiated
         try:
             self._send("notifications/initialized", {}, notify=True)
         except Exception:
             pass
 
     def _fetch_tools(self) -> None:
-        result = self._send("tools/list", {}, timeout=self.init_timeout)
-        self.tools = list(result.get("tools") or [])
+        self.tools = []
+        cursor, seen = None, set()
+        for _ in range(20):
+            result = self._send("tools/list", {"cursor":cursor} if cursor else {}, timeout=self.init_timeout)
+            tools = result.get("tools") or []
+            if not isinstance(tools, list) or any(not isinstance(t, dict) or not isinstance(t.get("name"), str) for t in tools):
+                raise MCPError("Invalid tools/list response")
+            self.tools.extend(tools)
+            if len(self.tools)>2000: raise MCPError("MCP tool directory exceeds budget")
+            cursor = result.get("nextCursor")
+            if not cursor: return
+            if not isinstance(cursor, str) or cursor in seen: raise MCPError("Invalid MCP pagination")
+            seen.add(cursor)
+        raise MCPError("MCP tool pagination exceeds budget")
 
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
     def call_tool(self, tool: str, arguments: Optional[Dict[str, Any]] = None,
                   *, timeout: Optional[float] = None,
-                  kind: str = "") -> Dict[str, Any]:
+                  kind: str = "", metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Call explicitly; optional protocol metadata never auto-approves/retries."""
         if not self._alive:
             raise MCPError(f"client {self.name} not alive")
+        if metadata is not None and not isinstance(metadata, dict):
+            raise MCPError("tool metadata must be an object")
+        params = {"name": tool, "arguments": arguments or {}}
+        if metadata is not None:
+            params["_meta"] = dict(metadata)
         # The "mcp.call" event mirrors the bridge's classification for
         # easier filtering in the trace UI.
         with Tracer.span("mcp.call", server=self.name, tool=tool, tool_kind=kind):
             return self._send(
                 "tools/call",
-                {"name": tool, "arguments": arguments or {}},
+                params,
                 timeout=timeout,
             )
 

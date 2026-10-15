@@ -378,6 +378,10 @@ class IndexTTSProvider(BaseTTSProvider):
                 self._proc = None
             self._selected_device = selected
             environment = os.environ.copy()
+            # Keep checkpoint deserialization restricted across every upstream
+            # loader, regardless of inherited Torch environment overrides.
+            environment.pop("TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD", None)
+            environment["TORCH_FORCE_WEIGHTS_ONLY_LOAD"] = "1"
             environment["WISE_TTS_DEVICE"] = self._selected_device
             environment["WISE_INDEXTTS_MODEL_DIR"] = str(self._model_dir)
             environment["WISE_TTS_QUALITY_PROFILE"] = self.quality_profile

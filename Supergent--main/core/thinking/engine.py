@@ -40,6 +40,7 @@ from core.optimization import (
 )
 from core.optimization.token_counter import TokenCounter
 from core.tool_feedback import get_feedback
+from core.mcp.policy import ConfirmationRequired
 
 from .parser import ParsedCall, ToolCallParser
 from .planner import MicroPlan, MicroPlanner, PlanComplexity
@@ -84,12 +85,13 @@ _TOOL_SECURITY_ACTIONS = {
 }
 
 # Results from these adapters can contain instructions controlled by a web
-# page, document, search result, or remote MCP server.  Once one is observed,
+# page, local file, document, search result, or remote MCP server. Once observed,
 # the security gate prevents that content from authorising a later privileged
 # action in the same agent run.
 _UNTRUSTED_RESULT_TOOLS = {
     "search_knowledge", "web_search", "search_web", "fetch_url",
     "http_get", "read_email", "read_document", "mcp_call",
+    "read_file", "grep_file", "computer_read_file",
 }
 
 
@@ -607,6 +609,17 @@ class ThinkingEngine:
             )
 
         fn = self.tools[call.tool]
+        # Tool arguments are model proposals, not the registry's trusted
+        # programmatic approval channel.  Preserve the same reserved-control
+        # contract as CapabilityRouter, including legacy/throttled MCP tools.
+        # The namespace fallback covers wrappers that do not preserve metadata.
+        is_mcp = isinstance(getattr(fn, "__mcp_meta__", None), dict) or call.tool.startswith("mcp_")
+        if is_mcp and isinstance(call.args, dict) and any(
+            key in call.args for key in ("confirm", "_wait")
+        ):
+            Tracer.emit("tool.call.blocked", tool=call.tool,
+                        reason="model-supplied MCP approval control", session=session_id)
+            return "⛔ MCP approval must come from the user interface, not model arguments.", "security"
         action = _TOOL_SECURITY_ACTIONS.get(call.tool, call.tool)
         params = call.args if isinstance(call.args, dict) else {"value": call.args}
         # Normalize the desktop wrapper's historical src/dst spellings so the
@@ -621,16 +634,15 @@ class ThinkingEngine:
             from core.security.security_gate import SecurityContext, get_security_gate
 
             taint_sources = sorted(getattr(self, "_taint_sources", set()))
+            security_context = SecurityContext(
+                caller="thinking_engine", session_id=session_id,
+                is_untrusted_content=bool(getattr(self, "_untrusted_content_seen", False)),
+                taint_sources=taint_sources,
+            )
             evaluation = get_security_gate().evaluate_action(
                 action,
                 params,
-                SecurityContext(
-                    caller="thinking_engine",
-                    session_id=session_id,
-                    is_untrusted_content=bool(
-                        getattr(self, "_untrusted_content_seen", False)),
-                    taint_sources=taint_sources,
-                ),
+                security_context,
             )
             if not evaluation.allowed:
                 Tracer.emit(
@@ -650,10 +662,13 @@ class ThinkingEngine:
         try:
             Tracer.emit("tool.call.start", tool=call.tool,
                         session=session_id)
-            if isinstance(call.args, dict):
-                result = fn(**call.args)
-            else:
-                result = fn(call.args)
+            from core.tools_bridge import builtin_security_context
+            bound_action = (getattr(fn, "__mcp_meta__", {}) or {}).get("tool", action) if is_mcp else action
+            with builtin_security_context(security_context, bound_action, params):
+                if isinstance(call.args, dict):
+                    result = fn(**call.args)
+                else:
+                    result = fn(call.args)
             text = str(result) if result is not None else ""
             note = ""
             if call.fuzzy_from:
@@ -668,6 +683,11 @@ class ThinkingEngine:
                 self._untrusted_content_seen = True
                 self._taint_sources.add(call.tool)
             return f"{note}{text}", None
+        except ConfirmationRequired as e:
+            # Waiting for the owner is not a tool failure or a ban signal.
+            Tracer.emit("tool.call.approval_required", tool=call.tool,
+                        call_id=e.call_id, session=session_id)
+            return f"MCP owner approval required ({e.call_id}). Retry the same operation after approval in WISE.", "approval_required"
         except TypeError as e:
             # Do not retry a malformed keyword call positionally.  Argument
             # order is not a reliable contract for LLM-generated JSON and a
@@ -693,7 +713,7 @@ class ThinkingEngine:
 
     @staticmethod
     def _result_is_untrusted(tool: str) -> bool:
-        """Return whether a tool result is external content, not authority."""
+        """Return whether a tool result is file/external content, not authority."""
         normalized = (tool or "").strip().lower()
         return (
             normalized in _UNTRUSTED_RESULT_TOOLS

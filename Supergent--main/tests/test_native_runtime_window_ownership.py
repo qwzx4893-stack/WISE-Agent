@@ -28,7 +28,7 @@ def launcher(monkeypatch):
     module.os = SimpleNamespace(getpid=lambda: 2020, environ={})
     module._native_transparency_enabled = lambda: False
     module._apply_windows_backdrop = lambda window: True
-    module.DesktopAPI = lambda: object()
+    module.DesktopAPI = lambda: SimpleNamespace(open_external_url=lambda url: True)
     module.WINDOW_WIDTH, module.WINDOW_HEIGHT = 1440, 900
     module.MIN_WIDTH, module.MIN_HEIGHT = 1024, 640
     module.LOG = logging.getLogger("test.native.window.ownership")
@@ -209,13 +209,22 @@ def test_shown_registration_and_closed_or_exception_cleanup_are_connected(launch
                 callback()
 
     launcher.windows[:] = [(202, "synthetic-runtime-a")]
-    events = SimpleNamespace(shown=Event(), closing=Event(), closed=Event())
-    window = SimpleNamespace(native=SimpleNamespace(Handle=SimpleNamespace(ToInt64=lambda: 202)), events=events)
+    events = SimpleNamespace(shown=Event(), closing=Event(), closed=Event(),
+                             before_load=Event(), loaded=Event())
+    exposed = {}
+    window = SimpleNamespace(native=SimpleNamespace(Handle=SimpleNamespace(ToInt64=lambda: 202)),
+                             events=events,
+                             expose=lambda *functions: exposed.update({func.__name__: func for func in functions}),
+                             get_current_url=lambda: "http://127.0.0.1:1/app/index.html",
+                             destroy=lambda: None)
     webview = ModuleType("webview")
     webview.create_window = lambda **kwargs: window
 
     def start(**kwargs):
         assert launcher.properties == {}
+        assert set(exposed) == {"open_external_url"}
+        events.before_load.fire()
+        events.loaded.fire()
         events.shown.fire()
         assert launcher.properties[(202, launcher.module._native_window_property_name())] == 2020
         if fails_after_shown:

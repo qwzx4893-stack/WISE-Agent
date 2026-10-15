@@ -20,13 +20,16 @@ def messaging(monkeypatch):
         assert actual.Apprise().add(url), "Installed Apprise must validate the URL"
         saved.append((name,url))
     monkeypatch.setattr(catalog, "register_channel", register)
+    # This fixture verifies Apprise URL/schema validation only; durable channel
+    # threads are exercised with real persistence in test_ui_connection_contracts.
+    monkeypatch.setattr("core.channels.conversations.ensure_conversation", lambda name: None)
     return catalog,saved
 
 
 def test_real_messaging_schema_serializes_and_has_explicit_destinations(messaging):
     catalog,_ = messaging
     rows = catalog.services()
-    assert len(rows) > 100
+    assert {row["id"] for row in rows} == set(catalog.MESSAGING_APPS)
     json.dumps(rows)
     telegram = next(row for row in rows if row["id"] == "tgram")
     assert {field["id"] for field in telegram["fields"]} == {"bot_token","targets"}

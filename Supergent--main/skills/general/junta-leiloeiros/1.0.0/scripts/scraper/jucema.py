@@ -20,7 +20,7 @@ from typing import List
 import httpx
 from bs4 import BeautifulSoup
 
-from .base_scraper import AbstractJuntaScraper, Leiloeiro
+from .base_scraper import AbstractJuntaScraper, Leiloeiro, tls_response_hooks
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +46,7 @@ class JucemaScraper(AbstractJuntaScraper):
             async with httpx.AsyncClient(
                 headers={**self.HEADERS, "Accept": "application/json"},
                 verify=True,
+                event_hooks=tls_response_hooks(),
                 follow_redirects=True,
                 timeout=30.0,
             ) as client:
@@ -159,13 +160,14 @@ class JucemaScraper(AbstractJuntaScraper):
         return records
 
     async def fetch_insecure(self, url: str):
-        """Fetch com verify=False para sites com SSL problematico."""
+        """Legacy method name; requests now require valid TLS certificates."""
         try:
             async with httpx.AsyncClient(
                 headers=self.HEADERS,
                 timeout=30.0,
                 follow_redirects=True,
-                verify=False,
+                verify=True,
+                event_hooks=tls_response_hooks(),
             ) as client:
                 resp = await client.get(url)
                 if resp.status_code < 400:
@@ -195,9 +197,8 @@ class JucemaScraper(AbstractJuntaScraper):
             # Estrategia 3: URLs alternativas com httpx
             logger.info("[MA] Tentando URLs alternativas")
             for url in [
-                "http://www.jucema.ma.gov.br/leiloeiros",
                 "https://www.jucema.ma.gov.br/leiloeiros",
-                "http://portal.jucema.ma.gov.br/pagina/11",
+                "https://portal.jucema.ma.gov.br/pagina/11",
             ]:
                 soup = await self.fetch_insecure(url)
                 if soup:

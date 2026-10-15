@@ -591,7 +591,9 @@ def _launch_pywebview(url: str) -> bool:
         window = webview.create_window(
             title=WINDOW_TITLE,
             url=url,
-            js_api=DesktopAPI(),
+            # Object-based dispatch in pywebview also resolves private nested
+            # attributes. Register only the guarded function explicitly.
+            js_api=None,
             width=WINDOW_WIDTH,
             height=WINDOW_HEIGHT,
             min_size=(MIN_WIDTH, MIN_HEIGHT),
@@ -604,6 +606,9 @@ def _launch_pywebview(url: str) -> bool:
             transparent=transparent_host,
             background_color="#101014",
         )
+
+        from core.security.native_bridge import install_native_bridge
+        install_native_bridge(window, url, DesktopAPI().open_external_url)
 
         # ``create_window`` owns the first show lifecycle. Calling ``show``
         # and ``restore`` from the startup callback races the WinForms/

@@ -7,9 +7,10 @@ import httpx
 
 
 class PublicTransport(httpx.BaseTransport):
-    def __init__(self):
+    def __init__(self, *, address_offset=0):
         self.pools = {}
         self.lock = threading.Lock()
+        self.address_offset = address_offset
 
     def handle_request(self, request):
         url = request.url
@@ -19,7 +20,8 @@ class PublicTransport(httpx.BaseTransport):
         ips = {row[4][0] for row in addresses}
         if not ips or any(not ipaddress.ip_address(ip).is_global for ip in ips):
             raise ValueError("Private/local resource addresses are blocked")
-        ip = sorted(ips,key=lambda value:(":" in value,value))[0]
+        candidates = sorted(ips,key=lambda value:(":" in value,value))
+        ip = candidates[self.address_offset % len(candidates)]
         # A separate pool per original host preserves certificate checks even
         # when multiple virtual hosts share an IP. Never use proxy env vars.
         key = (url.scheme,url.host,url.port,ip)

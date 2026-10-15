@@ -17,7 +17,7 @@ const PROVIDER_LOGOS = Object.freeze({
 
 const copy = {
   ar: {
-    plugins: "Plugins",
+    plugins: "MCP Market",
     messaging: "المراسلة",
     newChat: "محادثة جديدة", tasks: "المهام", schedules: "المهام المجدولة", integrations: "التكاملات",
     media: "الوسائط والمخرجات", conversations: "المحادثات", settings: "الإعدادات", work: "العمل",
@@ -27,7 +27,7 @@ const copy = {
     connected: "متصل وجاهز", offline: "غير متصل", loading: "جارٍ الاتصال…",
   },
   en: {
-    plugins: "Plugins",
+    plugins: "MCP Market",
     messaging: "Messaging",
     newChat: "New chat", tasks: "Tasks", schedules: "Scheduled", integrations: "Integrations",
     media: "Media & outputs", conversations: "Conversations", settings: "Settings", work: "Work",
@@ -42,7 +42,8 @@ const t = (key) => copy[language()]?.[key] || copy.ar[key] || key;
 const L = (ar, en) => language() === "ar" ? ar : en;
 
 const state = {
-  sessions: [], currentSession: null, currentSessionTitle: "", sessionsQuery: "",
+  sessions: [], sessionsLoaded: false, currentSession: null, currentSessionTitle: "", sessionsQuery: "",
+  currentChannel: null,
   tasks: [], activeTask: null, schedules: [], channels: [], providers: [], localModels: [],
   pending: [], previews: [], voice: {}, telemetry: {}, healthDetails: {}, settings: {}, system: {}, resources: {},
   mcp: [], knowledge: [], attachments: [], selectedModel: null, currentView: "chat",
@@ -62,6 +63,7 @@ function applyLanguage(nextLanguage = language()) {
     [".nav-item[data-view='chat'] span", "newChat"], [".nav-item[data-view='tasks'] span", "tasks"],
     [".nav-item[data-view='schedules'] span", "schedules"],
     [".nav-item[data-view='messaging'] span", "messaging"],
+    [".nav-item[data-view='plugins'] span", "plugins"],
     [".nav-item[data-view='media'] span", "media"], [".section-heading > span", "conversations"],
     ["#settingsTitle", "settings"], ["#commandTitle", "commands"],
   ];
@@ -84,7 +86,13 @@ function isHiddenLegacyProvider(item) {
 
 async function api(path, options = {}) {
   const headers = { ...(options.body && !(options.body instanceof FormData) ? { "Content-Type": "application/json" } : {}), ...(options.headers || {}) };
-  const response = await fetch(path, { ...options, headers });
+  // A suspended network must not leave read-only startup/catalog work pending
+  // forever. Never timeout/retry mutations such as installation or chat here.
+  const controller=new AbortController();
+  const readOnly=['GET','HEAD'].includes((options.method||'GET').toUpperCase());
+  const timer=readOnly&&!options.signal?setTimeout(()=>controller.abort(),30000):null;
+  try {
+  const response = await fetch(path, { ...options, headers, signal:options.signal||(readOnly?controller.signal:undefined) });
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error(typeof body.detail === "string" ? body.detail : body.error || `فشل الطلب (${response.status})`);
@@ -92,6 +100,10 @@ async function api(path, options = {}) {
     throw error;
   }
   return body;
+  } catch(error) {
+    if(controller.signal.aborted)throw new Error(document.documentElement.lang==='ar'?'تأخر تحميل البيانات. تحقق من الاتصال وحاول مجددًا.':'Data loading timed out. Check the connection and try again.');
+    throw error;
+  } finally { if(timer!==null)clearTimeout(timer); }
 }
 
 function toast(message, kind = "") {
@@ -112,7 +124,7 @@ function formatTime(value) {
 function sessionId(row) { return row?.session_id || row?.id; }
 function sessionTitle(row) { return row?.title || row?.metadata?.title || row?.last_query || "محادثة جديدة"; }
 function statusOf(row) { return String(row?.status || row?.state || row?.task_status || "غير معروف").toLowerCase(); }
-function isActiveStatus(value) { return ["active", "running", "in_progress", "processing", "waiting_human", "paused"].includes(String(value).toLowerCase()); }
+function isActiveStatus(value) { return ["active", "running", "in_progress", "processing", "waiting_human", "paused", "paused_for_human", "waiting_for_user", "recovering", "pending"].includes(String(value).toLowerCase()); }
 
 function setCoreStatus(ok, detail = "") {
   const button = $("coreStatus");
@@ -124,6 +136,9 @@ function setCoreStatus(ok, detail = "") {
 function blankConversation({ focus = true } = {}) {
   saveDraft();
   state.currentSession = null;
+  state.currentChannel = null;
+  state.activeTask = null;
+  state.taskPlanExpanded = false;
   state.currentSessionTitle = "";
   $("pageTitle").textContent = t("newChat");
   $("pageSubtitle").textContent = t("draft");
@@ -149,6 +164,7 @@ async function loadSessions() {
   try {
     const suffix = state.sessionsQuery ? `&query=${encodeURIComponent(state.sessionsQuery)}` : "";
     state.sessions = await api(`/api/v2/sessions?limit=150${suffix}`);
+    state.sessionsLoaded = true;
     renderSessions();
   } catch (error) {
     $("sessionList").innerHTML = `<div class="empty-list">تعذر تحميل المحادثات.</div>`;
@@ -159,6 +175,7 @@ function renderSessions() {
   const host = $("sessionList");
   host.replaceChildren();
   if (!state.sessions.length) {
+    if(!state.sessionsLoaded) {host.innerHTML=`<div class="empty-list" role="status">${L("تحميل المحادثات…","Loading conversations…")}</div>`;return;}
     host.innerHTML = `<div class="empty-list">لا توجد محادثات محفوظة بعد.<br>تُحفظ أول محادثة عند إرسال رسالة.</div>`;
     return;
   }
@@ -168,7 +185,8 @@ function renderSessions() {
     button.className = `session-row${id === state.currentSession ? " active" : ""}`;
     button.dataset.sessionId = id;
     button.setAttribute("role", "listitem");
-    button.innerHTML = `<span class="session-copy"><b>${escapeHtml(sessionTitle(row))}</b><small>${escapeHtml(formatTime(row.updated_at || row.created_at))}</small></span><span class="session-more" role="button" tabindex="0" aria-label="خيارات المحادثة">•••</span>`;
+    const platform=row.metadata?.platform;
+    button.innerHTML = `<span class="session-copy">${platform ? `<span class="session-platform">${brandLogo(platform.name,platform.logo,"session-platform-logo")}${escapeHtml(platform.name)}</span>` : ""}<b>${escapeHtml(sessionTitle(row))}</b>${platform ? "" : `<small>${escapeHtml(formatTime(row.updated_at || row.created_at))}</small>`}</span><span class="session-more" role="button" tabindex="0" aria-label="خيارات المحادثة">•••</span>`;
     button.addEventListener("click", (event) => {
       if (event.target.closest(".session-more")) return openSessionMenu(event, row);
       openSession(id, sessionTitle(row));
@@ -176,12 +194,17 @@ function renderSessions() {
     button.querySelector(".session-more").addEventListener("keydown", (event) => { if (["Enter", " "].includes(event.key)) openSessionMenu(event, row); });
     host.append(button);
   });
+  bindBrandLogos(host);
 }
 
 async function openSession(id, title) {
   if (state.sending) return;
   saveDraft();
   state.currentSession = id;
+  state.currentChannel = state.sessions.find(row=>sessionId(row)===id)?.metadata?.channel || null;
+  state.activeTask = null;
+  state.taskPlanExpanded = false;
+  renderTaskPlan();
   state.currentSessionTitle = title;
   $("pageTitle").textContent = title;
   $("pageSubtitle").textContent = "محادثة محفوظة";
@@ -193,6 +216,7 @@ async function openSession(id, title) {
   syncComposerState();
   showView("chat");
   renderSessions();
+  loadTasks();
   try {
     const history = await api(`/api/v2/sessions/${encodeURIComponent(id)}/history?limit=500`);
     $("messageList").replaceChildren();
@@ -353,6 +377,7 @@ async function ensureSession() {
 async function sendMessage() {
   const text = $("prompt").value.trim();
   if (!text || state.sending) return;
+  if(state.currentChannel) return sendChannelMessage(text);
   const attachmentNames = state.attachments.map((item) => item.name);
   $("prompt").value = "";
   localStorage.removeItem(state.currentSession ? `wise:draft:${state.currentSession}` : "wise:draft:new");
@@ -403,9 +428,10 @@ function renderAttachments() {
 }
 
 async function loadTasks() {
-  const scope = state.currentSession ? `?session_id=${encodeURIComponent(state.currentSession)}` : "";
-  const [tasksResult, activeResult] = await Promise.allSettled([api("/api/v2/tasks?limit=100"), api(`/api/v2/tasks/active${scope}`)]);
+  const session = state.currentSession;
+  const [tasksResult, activeResult] = await Promise.allSettled([api("/api/v2/tasks?limit=100"), session ? api(`/api/v2/tasks/active?session_id=${encodeURIComponent(session)}`) : Promise.resolve(null)]);
   state.tasks = tasksResult.status === "fulfilled" ? list(tasksResult.value, "tasks") : [];
+  if (session !== state.currentSession) return; // A late reply must not leak another chat's plan.
   state.activeTask = activeResult.status === "fulfilled" ? activeResult.value : null;
   const activeCount = state.tasks.filter((task) => isActiveStatus(statusOf(task))).length || (state.activeTask ? 1 : 0);
   if ($("taskCount")) { $("taskCount").hidden = !activeCount; $("taskCount").textContent = activeCount; }
@@ -474,6 +500,9 @@ async function loadMedia() {
 
 async function loadApprovals() {
   try { state.pending = list(await api("/admin/mcp/pending"), "pending"); } catch { state.pending = []; }
+  // Older MCP calls have no conversation identity. Review those globally in
+  // MCP settings rather than assigning them to a random/new conversation.
+  if ($("mcpPendingReview")) $("mcpPendingReview").innerHTML = mcpApprovalsTemplate();
   renderTaskPlan();
 }
 
@@ -486,15 +515,17 @@ function renderTaskPlan() {
   if (!dock) return;
   const task = state.activeTask;
   const taskSession = task?.session_id || task?.sessionId || task?.context_variables?.session_id;
-  const visibleTask = task && (!taskSession || taskSession === state.currentSession) ? task : null;
-  const approvals = state.pending || [];
+  const visibleTask = state.currentSession && taskSession === state.currentSession && isActiveStatus(statusOf(task)) ? task : null;
+  const approvals = state.currentSession ? (state.pending || []).filter(item => (item.session_id || item.context?.session_id) === state.currentSession) : [];
   dock.hidden = !visibleTask && !approvals.length;
   if (dock.hidden) {
     document.documentElement.style.setProperty("--composer-clearance", "174px");
     return;
   }
 
-  const rawSteps = visibleTask?.milestones || visibleTask?.steps || visibleTask?.plan || [];
+  const candidates = [visibleTask?.milestones, visibleTask?.steps, visibleTask?.plan,
+    visibleTask?.subgoals?.flatMap(goal=>goal.steps || [])];
+  const rawSteps = candidates.find(rows=>Array.isArray(rows) && rows.length) || [];
   const steps = rawSteps.length ? rawSteps : visibleTask ? [{ title: visibleTask.title || visibleTask.semantic_goal || visibleTask.goal || visibleTask.query || L("مهمة WISE", "WISE task"), status: statusOf(visibleTask) }] : [];
   const completed = steps.filter((step) => /complete|completed|done|success/i.test(String(step?.status || ""))).length;
   $("taskPlanTitle").textContent = visibleTask?.title || visibleTask?.semantic_goal || visibleTask?.goal || visibleTask?.query || L("موافقة مطلوبة", "Approval required");
@@ -505,7 +536,7 @@ function renderTaskPlan() {
     const status = String(step?.status || "");
     const done = /complete|completed|done|success/i.test(status);
     const active = !done && /active|running|progress|processing|current/i.test(status);
-    return `<div class="task-plan-step ${done ? "done" : active ? "active" : ""}"><span class="task-step-index">${done ? icon("check") : index + 1}</span><span><b>${escapeHtml(step?.title || step?.name || step?.stage || L("خطوة", "Step"))}</b>${status ? `<small>${escapeHtml(status)}</small>` : ""}</span></div>`;
+    return `<div class="task-plan-step ${done ? "done" : active ? "active" : ""}"><span class="task-step-index">${done ? icon("check") : index + 1}</span><span><b>${escapeHtml(step?.title || step?.description || step?.name || step?.stage || L("خطوة", "Step"))}</b>${status ? `<small>${escapeHtml(status)}</small>` : ""}</span></div>`;
   }).join("");
   const approvalsHost = $("taskPlanApprovals");
   approvalsHost.hidden = !approvals.length;
@@ -516,7 +547,7 @@ function renderTaskPlan() {
   $("taskPlanToggle").setAttribute("aria-expanded", String(state.taskPlanExpanded));
   $("taskPlanBody").hidden = !state.taskPlanExpanded;
   dock.classList.toggle("expanded", state.taskPlanExpanded);
-  document.documentElement.style.setProperty("--composer-clearance", state.taskPlanExpanded ? "430px" : "218px");
+  document.documentElement.style.setProperty("--composer-clearance", "218px");
 }
 
 function emptyCard(iconName, title, detail) { return `<div class="empty-state"><div>${icon(iconName)}<h3>${escapeHtml(title)}</h3><p>${escapeHtml(detail)}</p></div></div>`; }
@@ -691,7 +722,7 @@ function showView(name) {
   state.currentView = name;
   qsa("[data-view-panel]").forEach((panel) => { const active = panel.dataset.viewPanel === name; panel.hidden = !active; panel.classList.toggle("active", active); });
   qsa(".nav-item[data-view]").forEach((button) => button.classList.toggle("active", button.dataset.view === name));
-  const titles = { chat: state.currentSessionTitle || t("newChat"), tasks: t("tasks"), schedules: t("schedules"), media: t("media"), messaging:t("messaging"), plugins:"Plugins" };
+  const titles = { chat: state.currentSessionTitle || t("newChat"), tasks: t("tasks"), schedules: t("schedules"), media: t("media"), messaging:t("messaging"), plugins:t("plugins") };
   $("pageTitle").textContent = titles[name];
   $("pageSubtitle").textContent = name === "chat" ? (state.currentSession ? t("saved") : t("draft")) : t("workspace");
   if (name === "tasks") loadTasks();
@@ -858,7 +889,7 @@ function settingsTemplate(tab) {
   if (tab === "integrations") return integrationsSettingsTemplate();
   if (tab === "knowledge") return `${capabilityBrowserTemplate()}<details class="settings-section knowledge-source-list"><summary>${L("حالة مصادر المعرفة", "Knowledge source status")} · ${state.knowledge.length}</summary>${state.knowledge.map((item) => `<div class="setting-row"><div><b>${escapeHtml(item.name || item.id)}</b><small>${escapeHtml(item.description || item.category || L("مصدر معرفة", "Knowledge source"))}</small></div><span>${!item.last_checked ? L("لم يُفحص", "Not checked") : item.available ? L("متاح عند آخر فحص", "Available at last check") : L("تعذر الاتصال عند آخر فحص", "Unavailable at last check")}</span></div>`).join("") || `<div class="notice">${L("لا توجد مصادر معرفة مسجلة.", "No registered knowledge sources.")}</div>`}</details>`;
   if (tab === "performance") return `<section class="settings-section"><header class="settings-section-title"><div><h3>${L("السياق والطلبات", "Context & requests")}</h3><p>${L("تقليل الاستهلاك مع إبقاء جودة الإجابة.", "Reduce resource use while preserving answer quality.")}</p></div></header><div class="settings-group">${settingToggle("compression", L("ضغط السياق", "Context compression"), L("يقلل التوكنز مع الحفاظ على المعلومات المهمة.", "Reduces tokens while preserving important information."), resource.compression_enabled)}${settingSelect("compressionMethod", L("طريقة الضغط", "Compression method"), L("يختار Auto أقوى محرك متاح.", "Auto selects the strongest available engine."), [["auto",L("تلقائي","Auto")],["llmlingua2","LLMLingua 2"],["longllmlingua","LongLLMLingua"],["none",L("بدون","None")]], resource.compression_method || "auto")}${settingNumber("compressionRatio", L("نسبة الضغط", "Compression ratio"), L("قيمة أقل تعني سياقاً أصغر. النطاق الآمن 0.35–0.8.", "A lower value means a smaller context. Safe range: 0.35–0.8."), resource.compression_ratio ?? 0.55, { min: 0.35, max: 0.8, step: 0.05 })}</div><header class="settings-section-title secondary"><div><h3>${L("تشغيل النموذج المحلي", "Local model runtime")}</h3><p>${L("تُحفظ هذه القيم لتشغيل النموذج المحلي التالي.", "These values are stored for the next local model runtime.")}</p></div></header><div class="settings-group">${settingNumber("contextWindow", L("نافذة السياق", "Context window"), L("عدد التوكنز التي يستطيع النموذج المحلي الاحتفاظ بها.", "Tokens retained by the local model."), cfg.context_window ?? 8192, { min: 512, max: 131072, step: 512 })}${settingNumber("gpuLayers", L("طبقات GPU", "GPU layers"), L("استخدم 0 للمعالج فقط، أو ارفعها حسب VRAM المتاحة.", "Use 0 for CPU-only, or increase based on available VRAM."), cfg.gpu_layers ?? 33, { min: 0, max: 200, step: 1 })}</div><div class="settings-savebar"><span>${L("تُطبّق إعدادات التشغيل عند تحميل النموذج المحلي.", "Runtime settings apply when the local model loads.")}</span><button class="primary-button" data-save-settings="performance">${L("حفظ التغييرات", "Save changes")}</button></div></section>`;
-  return `<section class="settings-section"><h3>${L("الحالة الحالية", "Current status")}</h3><div class="setting-row"><div><b>WISE Core</b><small>${state.telemetry.active_window || "Desktop"}</small></div><span class="status-text">${t("connected")}</span></div><div class="setting-row"><div><b>${L("النموذج", "Model")}</b><small>${escapeHtml(state.telemetry.active_model || state.selectedModel?.label || L("غير محمل", "Not loaded"))}</small></div></div><div class="setting-row"><div><b>${L("استخدام CPU والذاكرة", "CPU and memory usage")}</b><small>${escapeHtml(state.telemetry.cpu_percent ?? "—")}% · ${escapeHtml(state.telemetry.ram_used_gb ?? "—")} / ${escapeHtml(state.telemetry.ram_total_gb ?? "—")} GB</small></div><button class="secondary-button" data-run-health>${L("تحديث", "Refresh")}</button></div></section>`;
+  return `<section class="settings-section"><h3>${L("الحالة الحالية", "Current status")}</h3><div class="setting-row"><div><b>WISE Core</b><small>${escapeHtml(state.telemetry.active_window || "Desktop")}</small></div><span class="status-text">${t("connected")}</span></div><div class="setting-row"><div><b>${L("النموذج", "Model")}</b><small>${escapeHtml(state.telemetry.active_model || state.selectedModel?.label || L("غير محمل", "Not loaded"))}</small></div></div><div class="setting-row"><div><b>${L("استخدام CPU والذاكرة", "CPU and memory usage")}</b><small>${escapeHtml(state.telemetry.cpu_percent ?? "—")}% · ${escapeHtml(state.telemetry.ram_used_gb ?? "—")} / ${escapeHtml(state.telemetry.ram_total_gb ?? "—")} GB</small></div><button class="secondary-button" data-run-health>${L("تحديث", "Refresh")}</button></div></section>`;
 }
 
 function modelProvidersTemplate() {
@@ -1226,6 +1257,24 @@ function syncComposerState() {
   const ready = Boolean($("prompt")?.value.trim()) && !state.sending;
   $("composerForm")?.classList.toggle("has-content", ready);
   if ($("sendButton")) $("sendButton").disabled = !ready;
+  const platform=state.sessions.find(row=>sessionId(row)===state.currentSession)?.metadata?.platform;
+  $("prompt").placeholder=platform ? L(`رسالة إلى ${platform.name}…`, `Message ${platform.name}…`) : t("prompt");
+  $("modelButton").hidden=Boolean(state.currentChannel);
+  $("attachButton").hidden=Boolean(state.currentChannel);
+  $("voiceButton").hidden=Boolean(state.currentChannel);
+}
+
+async function sendChannelMessage(text) {
+  const name=state.currentChannel, sid=state.currentSession;
+  if(!confirm(L(`إرسال هذه الرسالة إلى اتصال «${name}» الخارجي؟`, `Send this message to the external connection “${name}”?`))) return;
+  state.sending=true; $("prompt").disabled=true; syncComposerState();
+  try {
+    const result=await api(`/api/v2/messaging/connections/${encodeURIComponent(name)}/send`,{method:"POST",headers:{"X-Wise-Action":"plugins"},body:JSON.stringify({message:text,request_id:requestKey()})});
+    if(!result.ok) throw Error(result.uncertain ? L("نتيجة الإرسال غير مؤكدة؛ تحقق من التطبيق قبل إعادة الإرسال.","Delivery is uncertain. Check the app before resending.") : result.detail || L("تعذر الإرسال.","Delivery failed."));
+    $("prompt").value=""; saveDraft();
+    await loadSessions();
+  } catch(error) {toast(error.message,"error");}
+  finally {state.sending=false; $("prompt").disabled=false; if(state.currentSession===sid) await openSession(sid,state.currentSessionTitle); syncComposerState();}
 }
 function scrollChat() { requestAnimationFrame(() => { $("chatScroll").scrollTop = $("chatScroll").scrollHeight; }); }
 function openSidebar() {
@@ -1317,7 +1366,7 @@ function renderSlashMenu() {
 
 function bindEvents() {
   // The compact header stays attached to the composer; the plan expands up.
-  $("taskPlanDock").append($("taskPlanToggle"));
+  $("composerForm").prepend($("taskPlanDock"));
   $("composerForm").addEventListener("submit", (event) => { event.preventDefault(); sendMessage(); });
   $("prompt").addEventListener("input", () => { autoGrow(); saveDraft(); syncComposerState(); renderSlashMenu(); });
   $("prompt").addEventListener("keydown", (event) => {
@@ -1413,13 +1462,19 @@ async function boot() {
   addEventListener("resize", updateWindowState, { passive: true });
   applyLanguage(document.documentElement.lang);
   blankConversation({ focus: false });
+  const bootRoute = location.hash, bootView = state.currentView;
+  // This screen has its own metadata request. Sessions, models, media and
+  // telemetry are not prerequisites for navigation or rendering its controls.
+  if(bootRoute.startsWith('#plugins'))showView('plugins');
   await Promise.allSettled([loadSessions(), loadModels(), loadRuntime(), loadTasks(), loadApprovals(), loadMedia(), loadSlashCommands()]);
-  if (location.hash.startsWith("#settings")) {
+  // Startup may finish after the user has already navigated. Do not replay
+  // that navigation and reset an app list, connection form or search draft.
+  if (location.hash === bootRoute && state.currentView === bootView && location.hash.startsWith("#settings")) {
     const tab = location.hash.split("/")[1] || "general";
     if (settingsTabs.some(([id]) => id === tab)) await openSettings(tab);
-  } else if (location.hash.startsWith("#plugins")) {
+  } else if (location.hash === bootRoute && state.currentView === bootView && location.hash.startsWith("#plugins")) {
     showView("plugins");
-  } else if (location.hash === "#commands") {
+  } else if (location.hash === bootRoute && state.currentView === bootView && location.hash === "#commands") {
     openCommandPalette();
   }
   setInterval(() => Promise.allSettled([loadRuntime(), loadTasks(), loadApprovals()]), 20_000);

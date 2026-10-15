@@ -36,13 +36,19 @@ Design notes — please read before changing this file
 from __future__ import annotations
 
 import http.server
+import datetime
+import email.utils
+import html
+import io
 import json
 import os
 import socket
 import socketserver
+import stat
 import threading
 import time
 import uuid
+import urllib.parse
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -111,6 +117,88 @@ def _allocate_port(preferred: Optional[int] = None) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Handle identity is checked BEFORE content or directory names are read. A
+# resolve-then-open check alone does not protect a replaceable junction.
+def _handle_path(handle: int) -> Path:
+    import ctypes
+    from ctypes import wintypes
+    function = ctypes.WinDLL("kernel32", use_last_error=True).GetFinalPathNameByHandleW
+    function.argtypes = [wintypes.HANDLE, wintypes.LPWSTR, wintypes.DWORD, wintypes.DWORD]
+    function.restype = wintypes.DWORD
+    buffer = ctypes.create_unicode_buffer(32768)
+    size = function(handle, buffer, len(buffer), 0)
+    if not size or size >= len(buffer):
+        raise OSError("Cannot verify preview handle identity")
+    value = buffer.value
+    if value.startswith("\\\\?\\UNC\\"):
+        value = "\\\\" + value[8:]
+    elif value.startswith("\\\\?\\"):
+        value = value[4:]
+    return Path(value)
+
+
+def _opened_file_path(file: Any) -> Path:
+    if os.name == "nt":
+        import msvcrt
+        return _handle_path(msvcrt.get_osfhandle(file.fileno()))
+    # WISE's other supported desktop/test platform is Linux. Do not silently
+    # fall back to file.name when the OS cannot establish descriptor identity.
+    return Path(f"/proc/self/fd/{file.fileno()}").resolve(strict=True)
+
+
+def _require_inside(path: Path, root: Path) -> None:
+    # The handle path is already resolved by the OS: resolving it again would
+    # perform a new path lookup and lose the identity we just verified.
+    if not path.is_absolute() or not path.is_relative_to(root):
+        raise PermissionError("Preview path is outside its served root")
+
+
+def _directory_entries(path: Path, root: Path) -> List[tuple[str, bool, bool]]:
+    entries = []
+    if os.name == "nt":
+        import win32file
+        import pywintypes
+        handle = win32file.CreateFile(str(path), win32file.GENERIC_READ,
+            win32file.FILE_SHARE_READ | win32file.FILE_SHARE_WRITE | win32file.FILE_SHARE_DELETE,
+            None, win32file.OPEN_EXISTING, win32file.FILE_FLAG_BACKUP_SEMANTICS, None)
+        try:
+            _require_inside(_handle_path(int(handle)), root)
+            while True:
+                try:
+                    batch = win32file.GetFileInformationByHandleEx(handle, win32file.FileIdBothDirectoryInfo)
+                except pywintypes.error as exc:
+                    if exc.winerror == 18:  # ERROR_NO_MORE_FILES
+                        break
+                    raise
+                if not batch:
+                    break
+                for item in batch:
+                    name = item["FileName"]
+                    if name not in {".", ".."}:
+                        attrs = item["FileAttributes"]
+                        entries.append((name, bool(attrs & 16), bool(attrs & 1024)))
+                if len(entries) > 10000:
+                    raise PermissionError("Preview directory exceeds listing limit")
+        finally:
+            handle.Close()
+    else:
+        descriptor = os.open(path, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        try:
+            _require_inside(Path(f"/proc/self/fd/{descriptor}").resolve(strict=True), root)
+            names = os.listdir(descriptor)
+            if len(names) > 10000:
+                raise PermissionError("Preview directory exceeds listing limit")
+            for name in names:
+                try:
+                    info = os.stat(name, dir_fd=descriptor, follow_symlinks=False)
+                except OSError:
+                    continue
+                entries.append((name, stat.S_ISDIR(info.st_mode), stat.S_ISLNK(info.st_mode)))
+        finally:
+            os.close(descriptor)
+    return entries
+
+
 # Server primitive
 # ---------------------------------------------------------------------------
 class _SilentHandler(http.server.SimpleHTTPRequestHandler):
@@ -119,6 +207,125 @@ class _SilentHandler(http.server.SimpleHTTPRequestHandler):
     """
 
     activity_callback: Any = None  # set per-instance by the manager
+    preview_root: Optional[Path] = None
+
+    def _request_authority_allowed(self) -> bool:
+        """A loopback bind does not stop DNS rebinding from a browser page.
+
+        Match the actual listener's port without resolving any supplied name.
+        Same-site embedding by WISE and origin-less native clients still work;
+        another browser origin cannot read workspace content through this host.
+        """
+        from core.security.http_origin import _origin
+
+        hosts = self.headers.get_all("Host", [])
+        origins = self.headers.get_all("Origin", [])
+        sites = self.headers.get_all("Sec-Fetch-Site", [])
+        if len(hosts) != 1 or len(origins) > 1 or len(sites) > 1:
+            return False
+        authority = _origin("http://" + hosts[0])
+        if (authority is None or authority[1] not in {"127.0.0.1", "localhost"}
+                or authority[2] != self.server.server_address[1]):
+            return False
+        if origins and _origin(origins[0]) != authority:
+            return False
+        return not sites or sites[0].lower() != "cross-site"
+
+    def _checked_path(self) -> Path:
+        root = self.preview_root
+        if root is None:
+            raise PermissionError("Preview root identity is missing")
+        parts = urllib.parse.unquote(urllib.parse.urlsplit(self.path).path).replace("\\", "/").split("/")
+        for part in parts:
+            base = part.split(".", 1)[0].rstrip(" .").upper()
+            if (":" in part or "\x00" in part or base in {"CON", "PRN", "AUX", "NUL"}
+                    or base in {f"{kind}{n}" for kind in ("COM", "LPT") for n in range(1, 10)}):
+                raise PermissionError("Unsafe preview path")
+        path = Path(self.translate_path(self.path)).resolve(strict=True)
+        _require_inside(path, root)
+        return path
+
+    def send_head(self) -> Any:
+        stream = None
+        try:
+            if not self._request_authority_allowed():
+                self.send_error(403, "Preview request authority denied")
+                return None
+            path = self._checked_path()
+            if path.is_dir():
+                url = urllib.parse.urlsplit(self.path)
+                if not url.path.endswith(("/", "%2f", "%2F")):
+                    self.send_response(301)
+                    # Only emit a relative location, never a user-controlled authority.
+                    self.send_header("Location", urllib.parse.urlunsplit(("", "", url.path + "/", url.query, "")))
+                    self.send_header("Content-Length", "0")
+                    self.end_headers()
+                    return None
+                for name in ("index.html", "index.htm"):
+                    index = path / name
+                    if index.is_file():
+                        path = index.resolve(strict=True)
+                        _require_inside(path, self.preview_root)
+                        break
+                else:
+                    return self.list_directory(str(path))
+            # Non-regular files must not be served (devices, sockets, FIFOs).
+            if not stat.S_ISREG(path.stat().st_mode):
+                raise PermissionError("Not a regular preview file")
+            stream = open(path, "rb")
+            _require_inside(_opened_file_path(stream), self.preview_root)
+            info = os.fstat(stream.fileno())
+            if not stat.S_ISREG(info.st_mode):
+                raise PermissionError("Not a regular preview file")
+            if "If-Modified-Since" in self.headers and "If-None-Match" not in self.headers:
+                try:
+                    since = email.utils.parsedate_to_datetime(self.headers["If-Modified-Since"])
+                    if since.tzinfo is None:
+                        since = since.replace(tzinfo=datetime.timezone.utc)
+                    modified = datetime.datetime.fromtimestamp(info.st_mtime, datetime.timezone.utc).replace(microsecond=0)
+                    if since.tzinfo is datetime.timezone.utc and modified <= since:
+                        self.send_response(304); self.end_headers()
+                        stream.close()
+                        return None
+                except (TypeError, ValueError, IndexError, OverflowError):
+                    pass
+            self.send_response(200)
+            self.send_header("Content-type", self.guess_type(str(path)))
+            self.send_header("Content-Length", str(info.st_size))
+            self.send_header("Last-Modified", self.date_time_string(info.st_mtime))
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            return stream
+        except FileNotFoundError:
+            if stream is not None:
+                stream.close()
+            self.send_error(404, "File not found")
+        except (OSError, RuntimeError, ValueError):
+            if stream is not None:
+                stream.close()
+            self.send_error(403, "Preview access denied")
+        return None
+
+    def list_directory(self, path: str) -> Any:
+        try:
+            entries = _directory_entries(Path(path), self.preview_root)
+        except (OSError, RuntimeError, ValueError, ImportError):
+            self.send_error(403, "Preview directory access denied")
+            return None
+        title = html.escape(urllib.parse.unquote(urllib.parse.urlsplit(self.path).path))
+        lines = [f'<!doctype html><html><head><meta charset="utf-8"><title>{title}</title></head><body><ul>']
+        for name, is_dir, is_link in sorted(entries, key=lambda item: item[0].casefold()):
+            link = name + ("/" if is_dir else "")
+            display = link + ("@" if is_link else "")
+            lines.append(f'<li><a href="{urllib.parse.quote(link, safe="/")}">{html.escape(display)}</a></li>')
+        lines.append("</ul></body></html>")
+        data = "\n".join(lines).encode("utf-8", errors="replace")
+        self.send_response(200)
+        self.send_header("Content-type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        return io.BytesIO(data)
 
     def log_message(self, fmt: str, *args: Any) -> None:  # noqa: N802
         return  # silence
@@ -226,7 +433,7 @@ class PreviewManager:
             # serves its own directory and has its own activity hook.
             handler_cls = type(
                 f"_PreviewHandler_{sid}", (_SilentHandler,),
-                {"activity_callback": None},
+                {"activity_callback": None, "preview_root": target},
             )
 
             httpd = _ThreadingTCPServer(

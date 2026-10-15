@@ -40,6 +40,7 @@ so unit tests can drive it without the rest of the stack.
 from __future__ import annotations
 
 import fnmatch
+import json
 import re
 import threading
 import time
@@ -239,6 +240,10 @@ class _PendingCall:
     decision_event: threading.Event = field(default_factory=threading.Event)
     approved: bool = False
     decision_reason: str = ""
+    arguments_json: str = ""
+    created_monotonic: float = field(default_factory=lambda: time.monotonic())
+    retry_scope: Optional[tuple] = field(default=None, repr=False)
+    session_id: Optional[str] = None
 
 
 class ConfirmationGate:
@@ -249,8 +254,8 @@ class ConfirmationGate:
     * **Non-blocking** (REST): :meth:`request` returns the ``call_id`` and
       raises :class:`ConfirmationRequired` immediately. The HTTP layer
       surfaces the prompt; later, an approval call invokes
-      :meth:`resolve` and the original caller can re-issue the request
-      with ``confirm=True``.
+      :meth:`resolve`. Outbound agent retries consume an exact, scoped,
+      single-use receipt without model-supplied confirmation controls.
     * **Blocking** (CLI / interactive): pass ``wait_seconds > 0`` to
       :meth:`request_and_wait`; the caller blocks until ``resolve`` is
       called or the timeout elapses.
@@ -260,31 +265,84 @@ class ConfirmationGate:
         self._pending: Dict[str, _PendingCall] = {}
         self._lock = threading.Lock()
 
+    def _expire_locked(self) -> None:
+        now = time.monotonic()
+        for call_id, pending in list(self._pending.items()):
+            if now - pending.created_monotonic >= 300.0:
+                self._pending.pop(call_id, None)
+
+    @staticmethod
+    def _snapshot(arguments: Dict[str, Any]) -> tuple:
+        if not isinstance(arguments, dict):
+            raise ValueError("MCP confirmation arguments must be a JSON object")
+        canonical = json.dumps(arguments, sort_keys=True, separators=(",", ":"), allow_nan=False)
+        if len(canonical.encode("utf-8")) > 1048576:
+            raise ValueError("MCP confirmation arguments exceed the size limit")
+        return canonical, json.loads(canonical)
+
+    def _insert_locked(self, *, server, tool, arguments, canonical, kind,
+                       retry_scope=None, session_id=None) -> _PendingCall:
+        self._expire_locked()
+        if len(self._pending) >= 1024:
+            raise PermissionError("MCP confirmation capacity reached")
+        pending = _PendingCall(call_id=uuid.uuid4().hex, server=server, tool=tool,
+                               arguments=arguments, arguments_json=canonical, kind=kind,
+                               retry_scope=retry_scope, session_id=session_id)
+        self._pending[pending.call_id] = pending
+        return pending
+
     # ------------------------------------------------------------------
     def list_pending(self) -> List[Dict[str, Any]]:
         with self._lock:
+            self._expire_locked()
             rows = list(self._pending.values())
         return [{
             "call_id": p.call_id,
             "server": p.server,
             "tool": p.tool,
             "kind": p.kind,
-            "arguments": p.arguments,
+            "arguments": json.loads(p.arguments_json),
+            "session_id": p.session_id,
             "created_at": p.created_at,
             "age_seconds": round(time.time() - p.created_at, 2),
-        } for p in rows]
+        } for p in rows if not p.decision_event.is_set()]
 
     # ------------------------------------------------------------------
     def request(self, *, server: str, tool: str,
                 arguments: Dict[str, Any], kind: str) -> str:
         """Register a pending call and raise ``ConfirmationRequired``."""
-        call_id = uuid.uuid4().hex[:16]
+        canonical, snapshot = self._snapshot(arguments)
         with self._lock:
-            self._pending[call_id] = _PendingCall(
-                call_id=call_id, server=server, tool=tool,
-                arguments=dict(arguments or {}), kind=kind,
-            )
-        raise ConfirmationRequired(call_id, server, tool, arguments, kind)
+            pending = self._insert_locked(server=server, tool=tool, arguments=snapshot,
+                                          canonical=canonical, kind=kind)
+        raise ConfirmationRequired(pending.call_id, server, tool, json.loads(canonical), kind)
+
+    def request_or_consume(self, *, server: str, tool: str, arguments: Dict[str, Any],
+                           kind: str, retry_scope: Optional[tuple],
+                           session_id: Optional[str]) -> Dict[str, Any]:
+        """Return an immutable owner-approved exact retry, or request consent.
+
+        Scope comes only from trusted runtime context and recipient identity.
+        Unscoped old/programmatic calls cannot consume an agent's receipt.
+        This is operation consent, not a general private-data export grant.
+        """
+        canonical, snapshot = self._snapshot(arguments)
+        with self._lock:
+            self._expire_locked()
+            if retry_scope is not None:
+                for call_id, pending in list(self._pending.items()):
+                    if (pending.retry_scope == retry_scope and pending.server == server
+                            and pending.tool == tool and pending.kind == kind
+                            and pending.arguments_json == canonical):
+                        if pending.decision_event.is_set():
+                            self._pending.pop(call_id)
+                            if pending.approved is not True:
+                                raise PermissionError("MCP confirmation denied")
+                            return json.loads(pending.arguments_json)
+                        raise ConfirmationRequired(call_id, server, tool, json.loads(canonical), kind)
+            pending = self._insert_locked(server=server, tool=tool, arguments=snapshot,
+                canonical=canonical, kind=kind, retry_scope=retry_scope, session_id=session_id)
+        raise ConfirmationRequired(pending.call_id, server, tool, json.loads(canonical), kind)
 
     def request_and_wait(self, *, server: str, tool: str,
                           arguments: Dict[str, Any], kind: str,
@@ -293,41 +351,60 @@ class ConfirmationGate:
 
         Returns ``True`` if approved, ``False`` if denied/timed out.
         """
-        call_id = uuid.uuid4().hex[:16]
-        pending = _PendingCall(
-            call_id=call_id, server=server, tool=tool,
-            arguments=dict(arguments or {}), kind=kind,
-        )
+        canonical, snapshot = self._snapshot(arguments)
         with self._lock:
-            self._pending[call_id] = pending
+            pending = self._insert_locked(server=server, tool=tool, arguments=snapshot,
+                                          canonical=canonical, kind=kind)
 
-        ok = pending.decision_event.wait(timeout=max(0.0, wait_seconds))
+        ok = pending.decision_event.wait(timeout=min(300.0, max(0.0, wait_seconds)))
         with self._lock:
-            self._pending.pop(call_id, None)
+            self._pending.pop(pending.call_id, None)
         if not ok:
             return False
-        return pending.approved
+        return pending.approved is True
 
     # ------------------------------------------------------------------
     def resolve(self, call_id: str, *, approved: bool,
                 reason: str = "") -> bool:
+        if type(approved) is not bool:
+            raise ValueError("MCP owner decision must be an explicit boolean")
         with self._lock:
+            self._expire_locked()
             pending = self._pending.get(call_id)
-            if not pending:
+            if not pending or pending.decision_event.is_set():
                 return False
             pending.approved = approved
             pending.decision_reason = reason or ("approved" if approved else "denied")
             pending.decision_event.set()
-            # Remove resolved entries that no caller is waiting on
-            # (request() variant). request_and_wait() pops after wake.
-            if not pending.decision_event.is_set():
-                self._pending.pop(call_id, None)
         return True
 
     def consume(self, call_id: str) -> Optional[_PendingCall]:
         """Atomically pop a pending call (used by a single REST round-trip)."""
         with self._lock:
             return self._pending.pop(call_id, None)
+
+    def consume_bound_approval(self, call_id: str, *, server: str, tool: str,
+                               arguments_json: str, kind: str) -> Optional[_PendingCall]:
+        """Consume one resolved, exact-call approval atomically.
+
+        Unresolved requests remain available to the owner approval API.
+        A caller-provided identifier alone never establishes approval.
+        """
+        with self._lock:
+            self._expire_locked()
+            pending = self._pending.get(call_id)
+            if pending is None:
+                raise PermissionError("unknown or consumed confirmation")
+            actual = pending.arguments_json
+            if (pending.server != server or pending.tool != tool
+                    or pending.kind != kind or actual != arguments_json):
+                raise PermissionError("confirmation does not match this call")
+            if not pending.decision_event.is_set():
+                return None
+            self._pending.pop(call_id)
+            if pending.approved is not True:
+                raise PermissionError("confirmation denied")
+            return pending
 
 
 # Process-wide singleton — REST handlers and the bridge share one gate.
